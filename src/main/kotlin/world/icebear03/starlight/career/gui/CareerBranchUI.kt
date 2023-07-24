@@ -56,24 +56,31 @@ object CareerBranchUI {
             fun setSlots(key: String, elements: List<Any?>, vararg args: Any?) {
                 var tot = 0
                 shape[key].forEach { slot ->
-                    if (tot >= elements.size) {
-                        return
-                    }
                     set(
-                        slot, templates(key, slot, 0, false, "Fallback",
-                            args.map {
+                        slot, templates(
+                            key, slot, 0, false, "Fallback",
+                            *args.map {
                                 val string = it.toString()
                                 if (string.startsWith("expression="))
-                                    string.replace("expression=", "").replace("tot", "$tot").compileToJexl().eval()
+                                    return@map string.replace("expression=", "").replace("tot", "$tot")
+                                        .compileToJexl().eval()
                                 if (string.startsWith("element=")) {
-                                    val index = string.replace("element=", "").replace("tot", "$tot").compileToJexl()
-                                        .eval() as Int
-                                    elements[index]
+                                    val index = string.replace("element=", "").replace("tot", "$tot")
+                                        .compileToJexl().eval() as Int
+                                    if (index >= elements.size && elements.isNotEmpty()) {
+                                        return
+                                    }
+                                    return@map elements[index]
                                 }
-                                if (string == "element")
-                                    elements[tot]
-                                it
-                            })
+                                if (string == "element") {
+                                    if (tot >= elements.size && elements.isNotEmpty()) {
+                                        return
+                                    }
+                                    return@map elements[tot]
+                                }
+                                return@map it
+                            }.toTypedArray()
+                        )
                     )
                     tot++
                 }
@@ -100,7 +107,7 @@ object CareerBranchUI {
 
             val skills = demonstrating.skills.toList().sortedBy { it.id }
             setSlots("CareerBranch\$skill", skills, player, "element")
-            setSlots("CareerBranch\$level", skills, player, "element=tot%3", "expression=tot/3+1")
+            setSlots("CareerBranch\$level", skills, player, "element=tot-tot/3*3", "expression=tot/3+1")
 
             val eurekas = demonstrating.eurekas.toList().sortedBy { it.id }
             setSlots("CareerBranch\$eureka_guide", listOf(), player, demonstrating)
@@ -109,7 +116,7 @@ object CareerBranchUI {
             onClick {
                 it.isCancelled = true
                 if (it.rawSlot in shape) {
-                    templates[it.rawSlot]?.handle(it, branchId)
+                    templates[it.rawSlot]?.handle(it, demonstrating)
                 }
             }
         }
@@ -175,7 +182,7 @@ object CareerBranchUI {
 
             icon.variables {
                 when (it) {
-                    "display" -> listOf(skill.id)
+                    "display" -> listOf(skill.display())
                     "level" -> listOf(state)
                     else -> listOf()
                 }

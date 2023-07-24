@@ -35,6 +35,14 @@ data class Branch(val careerClass: Class, val id: String) {
         return id
     }
 
+    override fun hashCode(): Int {
+        return id.hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return hashCode() == other.hashCode()
+    }
+
     fun display(): String {
         return color.colored() + id
     }

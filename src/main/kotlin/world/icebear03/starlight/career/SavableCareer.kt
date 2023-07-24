@@ -15,7 +15,6 @@ data class SavableCareer(
         val usableClasses = mutableMapOf<Class, MutableList<Branch>>()
         val usableBranches = mutableMapOf<Branch, Pair<MutableMap<Skill, Int>, Eureka?>>()
         val usableSkills = mutableMapOf<Skill, Int>()
-        val usableEurekas = mutableListOf<Eureka>()
         classes.forEach { (key, value) ->
             val careerClass = Class.fromId(key) ?: return@forEach
             usableClasses[careerClass] = value.map { Branch.fromId(it)!! }.toMutableList()

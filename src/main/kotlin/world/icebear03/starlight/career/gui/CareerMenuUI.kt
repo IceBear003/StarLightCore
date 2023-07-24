@@ -58,20 +58,33 @@ object CareerMenuUI {
             fun setSlots(key: String, elements: List<Any?>, vararg args: Any?) {
                 var tot = 0
                 shape[key].forEach { slot ->
-                    if (tot >= elements.size) {
-                        return
-                    }
                     set(
-                        slot, templates(key, slot, 0, false, "Fallback",
-                            args.map {
+                        slot, templates(
+                            key, slot, 0, false, "Fallback",
+                            *args.map {
                                 val string = it.toString()
-                                if (string.startsWith("expression:"))
-                                    string.replace("expression:", "").replace("tot", "$tot").compileToJexl().eval()
-                                if (string == "element")
-                                    elements[tot++]
-                                it
-                            })
+                                if (string.startsWith("expression="))
+                                    return@map string.replace("expression=", "").replace("tot", "$tot")
+                                        .compileToJexl().eval()
+                                if (string.startsWith("element=")) {
+                                    val index = string.replace("element=", "").replace("tot", "$tot")
+                                        .compileToJexl().eval() as Int
+                                    if (index >= elements.size && elements.isNotEmpty()) {
+                                        return
+                                    }
+                                    return@map elements[index]
+                                }
+                                if (string == "element") {
+                                    if (tot >= elements.size && elements.isNotEmpty()) {
+                                        return
+                                    }
+                                    return@map elements[tot]
+                                }
+                                return@map it
+                            }.toTypedArray()
+                        )
                     )
+                    tot++
                 }
             }
 
@@ -98,7 +111,7 @@ object CareerMenuUI {
             }
 
             setSlots("CareerMenu\$resonate_type", listOf(), player)
-            setSlots("CareerMenu\$resonate_type", listOf(), player)
+            setSlots("CareerMenu\$resonate_info", listOf(), player)
 
             onClick {
                 it.isCancelled = true

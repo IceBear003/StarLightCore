@@ -3,13 +3,13 @@ package world.icebear03.starlight.career
 import world.icebear03.starlight.career.internal.*
 
 data class UsableCareer(
-    val classes: MutableMap<Class, MutableList<Branch>>,
-    val branches: MutableMap<Branch, Pair<MutableMap<Skill, Int>, Eureka?>>,
-    val skills: MutableMap<Skill, Int>,
-    val eurekas: MutableList<Eureka>,
-    var points: Int,
-    var resonantBranch: Branch?,
-    var resonantType: ResonateType
+    val classes: MutableMap<Class, MutableList<Branch>> = mutableMapOf(),
+    val branches: MutableMap<Branch, Pair<MutableMap<Skill, Int>, Eureka?>> = mutableMapOf(),
+    val skills: MutableMap<Skill, Int> = mutableMapOf(),
+    val eurekas: MutableList<Eureka> = mutableListOf(),
+    var points: Int = 0,
+    var resonantBranch: Branch? = null,
+    var resonantType: ResonateType = ResonateType.FRIENDLY
 ) {
     fun toSavableCareer(): SavableCareer {
         val savableClasses = mutableMapOf<String, List<String>>()
@@ -45,6 +45,7 @@ data class UsableCareer(
     //新进入服务器时
     //TODO 死亡惩罚
     fun remake(): UsableCareer {
+        println("awaaaa")
         classes.clear()
         branches.clear()
         skills.clear()
