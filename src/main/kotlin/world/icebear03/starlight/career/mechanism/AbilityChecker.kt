@@ -1,24 +1,22 @@
 package world.icebear03.starlight.career.mechanism
 
 import org.bukkit.entity.Player
+import world.icebear03.starlight.career.hasBranch
+import world.icebear03.starlight.career.hasEureka
+import world.icebear03.starlight.career.hasSkill
 import world.icebear03.starlight.career.internal.Branch
 import world.icebear03.starlight.career.internal.Eureka
 import world.icebear03.starlight.career.internal.Skill
-import world.icebear03.starlight.loadCareerData
 import world.icebear03.starlight.utils.MathUtils
 
-fun Player.hasAbility(limit: Pair<String, Int>): Pair<Boolean, Int> {
-    val data = loadCareerData(this)
-    var level = data.getBranchLevel(limit.first)
-    if (Branch.fromId(limit.first) != null)
-        return (level >= limit.second) to level
-    level = data.getSkillLevel(limit.first)
-    if (Skill.fromId(limit.first) != null)
-        return (level >= limit.second) to level
-    if (Eureka.fromId(limit.first) != null)
-        return (data.hasEureka(limit.first)) to 0
-    return false to -1
+fun Player.hasAbility(limit: Pair<String, Int>): Boolean {
+    val string = limit.first
+    val level = limit.second
+    return this.hasBranch(string, level) ||
+            this.hasSkill(string, level) ||
+            this.hasEureka(string)
 }
+
 
 fun displayLimit(limit: Pair<String, Int>): String {
     val level = MathUtils.numToRoman(limit.second, false)
@@ -43,7 +41,7 @@ fun Player.checkAbility(limits: MutableList<Pair<String, Int>>?): Pair<Boolean, 
     var result = false
     val list = mutableListOf<String>()
     limits.forEach {
-        if (this.hasAbility(it).first)
+        if (this.hasAbility(it))
             result = true
         else {
             list += displayLimit(it)

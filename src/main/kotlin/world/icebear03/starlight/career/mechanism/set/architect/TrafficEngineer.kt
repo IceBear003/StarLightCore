@@ -8,7 +8,7 @@ import org.bukkit.event.vehicle.VehicleEnterEvent
 import org.bukkit.event.vehicle.VehicleExitEvent
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
-import world.icebear03.starlight.career.mechanism.hasAbility
+import world.icebear03.starlight.career.hasBranch
 import world.icebear03.starlight.career.mechanism.limit.LimitType
 
 object TrafficEngineerPassive {
@@ -19,7 +19,7 @@ object TrafficEngineerPassive {
         if (entity !is Player)
             return
 
-        if (!entity.hasAbility("交通工程师" to 0).first)
+        if (!entity.hasBranch("交通工程师"))
             return
 
         val vehicle = event.vehicle

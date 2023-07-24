@@ -1,6 +1,8 @@
 package world.icebear03.starlight.career
 
+import org.bukkit.entity.Player
 import world.icebear03.starlight.career.internal.*
+import world.icebear03.starlight.loadCareerData
 
 data class UsableCareer(
     val classes: MutableMap<Class, MutableList<Branch>> = mutableMapOf(),
@@ -242,4 +244,24 @@ data class UsableCareer(
         points = amount
     }
     //--------------------------------------------------------------------
+}
+
+fun Player.hasBranch(branchId: String, level: Int = 0): Boolean {
+    return loadCareerData(this).getBranchLevel(branchId) >= level
+}
+
+fun Player.hasSkill(skillId: String, level: Int = 0): Boolean {
+    return loadCareerData(this).getSkillLevel(skillId) >= level
+}
+
+fun Player.hasEureka(eurekaId: String): Boolean {
+    return loadCareerData(this).hasEureka(eurekaId)
+}
+
+fun Player.getBranchLevel(branchId: String): Int {
+    return loadCareerData(this).getBranchLevel(branchId)
+}
+
+fun Player.hasSkillLevel(skillId: String): Int {
+    return loadCareerData(this).getSkillLevel(skillId)
 }

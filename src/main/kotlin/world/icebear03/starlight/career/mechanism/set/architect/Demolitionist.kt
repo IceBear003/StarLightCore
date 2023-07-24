@@ -7,8 +7,8 @@ import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.player.PlayerInteractEntityEvent
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
+import world.icebear03.starlight.career.hasBranch
 import world.icebear03.starlight.career.mechanism.displayLimit
-import world.icebear03.starlight.career.mechanism.hasAbility
 import world.icebear03.starlight.career.mechanism.limit.LimitType
 
 object DemolitionistPassive {
@@ -20,7 +20,7 @@ object DemolitionistPassive {
             return
         if (player.inventory.itemInMainHand.type != Material.FLINT_AND_STEEL)
             return
-        if (!player.hasAbility("爆破师" to 0).first) {
+        if (!player.hasBranch("爆破师")) {
             event.isCancelled = true
 
             player.sendMessage("无法点燃苦力怕，需要解锁: ${displayLimit("爆破师" to 0)}")
@@ -39,7 +39,7 @@ object DemolitionistPassive {
         )
             return
 
-        if (entity.hasAbility("爆破师" to 0).first) {
+        if (entity.hasBranch("爆破师")) {
             event.damage = event.damage * 0.8
         }
     }
