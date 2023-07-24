@@ -262,6 +262,6 @@ fun Player.getBranchLevel(branchId: String): Int {
     return loadCareerData(this).getBranchLevel(branchId)
 }
 
-fun Player.hasSkillLevel(skillId: String): Int {
+fun Player.getSkillLevel(skillId: String): Int {
     return loadCareerData(this).getSkillLevel(skillId)
 }

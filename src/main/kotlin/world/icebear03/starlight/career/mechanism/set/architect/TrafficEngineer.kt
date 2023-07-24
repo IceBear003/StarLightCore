@@ -4,10 +4,14 @@ import org.bukkit.Material
 import org.bukkit.entity.Boat
 import org.bukkit.entity.Minecart
 import org.bukkit.entity.Player
+import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.vehicle.VehicleEnterEvent
 import org.bukkit.event.vehicle.VehicleExitEvent
+import org.bukkit.inventory.ItemStack
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
+import taboolib.platform.util.giveItem
+import world.icebear03.starlight.career.getSkillLevel
 import world.icebear03.starlight.career.hasBranch
 import world.icebear03.starlight.career.mechanism.limit.LimitType
 
@@ -30,7 +34,6 @@ object TrafficEngineerPassive {
             vehicle.maxSpeed = vehicle.maxSpeed * 1.2
     }
 
-
     @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun event(event: VehicleExitEvent) {
         val vehicle = event.vehicle
@@ -39,6 +42,34 @@ object TrafficEngineerPassive {
             vehicle.maxSpeed = 0.4
         if (vehicle is Minecart)
             vehicle.maxSpeed = 0.4
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
+    fun event(event: BlockPlaceEvent) {
+        val item = event.itemInHand
+        val type = item.type
+        val player = event.player
+
+        val level = player.getSkillLevel("路线规划")
+
+        if (TrafficEngineerSet.RAILS.types.contains(type)) {
+            val percent = when (level) {
+                0, -1 -> 0.0
+                1 -> 0.08
+                else -> 0.15
+            }
+            if (Math.random() <= percent) {
+                player.giveItem(ItemStack(type))
+                player.sendMessage("本次放置未消耗物品")
+            }
+        }
+
+        if (TrafficEngineerSet.ICE_BLOCKS.types.contains(type)) {
+            if (level >= 3 && Math.random() <= 0.1) {
+                player.giveItem(ItemStack(type))
+                player.sendMessage("本次放置未消耗物品")
+            }
+        }
     }
 }
 

@@ -23,8 +23,8 @@ import world.icebear03.starlight.career.internal.Branch
 import world.icebear03.starlight.career.internal.Eureka
 import world.icebear03.starlight.career.internal.Skill
 import world.icebear03.starlight.loadCareerData
-import world.icebear03.starlight.utils.MathUtils
 import world.icebear03.starlight.utils.YamlUpdater
+import world.icebear03.starlight.utils.toRoman
 
 @MenuComponent("CareerBranch")
 object CareerBranchUI {
@@ -222,7 +222,7 @@ object CareerBranchUI {
             icon.variables {
                 when (it) {
                     "display" -> listOf(skill.display())
-                    "roman" -> listOf(MathUtils.numToRoman(slotLevel, false))
+                    "roman" -> listOf(slotLevel.toRoman())
                     "state" -> listOf(state)
                     "description" -> skill.level(slotLevel).description
                     else -> listOf()

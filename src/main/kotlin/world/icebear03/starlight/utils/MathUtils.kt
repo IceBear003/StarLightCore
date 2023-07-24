@@ -26,3 +26,7 @@ object MathUtils {
         return if (hasPreviousBlank) " $rNumber" else rNumber.toString()
     }
 }
+
+fun Int.toRoman(ignoreI: Boolean = false): String {
+    return MathUtils.numToRoman(this, ignoreI)
+}

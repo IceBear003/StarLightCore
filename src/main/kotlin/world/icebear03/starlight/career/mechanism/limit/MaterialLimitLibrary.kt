@@ -14,7 +14,6 @@ object MaterialLimitLibrary {
     val breakLimits = mutableMapOf<Material, MutableList<Pair<String, Int>>>()
     val useLimits = mutableMapOf<Material, MutableList<Pair<String, Int>>>()
     val sinterLimits = mutableMapOf<Material, MutableList<Pair<String, Int>>>()
-    val igniteLimits = mutableMapOf<Material, MutableList<Pair<String, Int>>>()
     val dropIfBreakLimits = mutableMapOf<Material, MutableList<Pair<String, Int>>>()
 
     fun initialize() {
@@ -42,7 +41,6 @@ object MaterialLimitLibrary {
                     USE -> useLimits[type]!!
                     CRAFT -> craftLimits[type]!!
                     SINTER -> sinterLimits[type]!!
-                    IGNITE -> igniteLimits[type]!!
                     DROP_IF_BREAK -> dropIfBreakLimits[type]!!
                 } += limit
             }
@@ -57,7 +55,6 @@ object MaterialLimitLibrary {
         useLimits[type] = mutableListOf()
         craftLimits[type] = mutableListOf()
         sinterLimits[type] = mutableListOf()
-        igniteLimits[type] = mutableListOf()
         dropIfBreakLimits[type] = mutableListOf()
     }
 }
@@ -68,6 +65,5 @@ enum class LimitType {
     USE,
     CRAFT,
     SINTER,
-    IGNITE,
     DROP_IF_BREAK
 }

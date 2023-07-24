@@ -25,8 +25,8 @@ import world.icebear03.starlight.career.internal.ResonateType
 import world.icebear03.starlight.career.mechanism.data.Forget
 import world.icebear03.starlight.career.mechanism.data.Resonate
 import world.icebear03.starlight.loadCareerData
-import world.icebear03.starlight.utils.MathUtils
 import world.icebear03.starlight.utils.YamlUpdater
+import world.icebear03.starlight.utils.toRoman
 
 @MenuComponent("CareerMenu")
 object CareerMenuUI {
@@ -322,7 +322,7 @@ object CareerMenuUI {
             val data = loadCareerData(player)
 
             val list = Resonate.resonating[player.uniqueId]!!.map {
-                it.key.display() + " " + MathUtils.numToRoman(it.value.second, false) + "  &7来自 " + it.value.first
+                it.key.display() + " " + it.value.second.toRoman() + "  &7来自 " + it.value.first
             }
 
             val my = data.resonantBranch?.display() ?: "N/A"

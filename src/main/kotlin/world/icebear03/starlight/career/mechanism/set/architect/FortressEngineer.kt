@@ -5,9 +5,8 @@ import org.bukkit.entity.Player
 import org.bukkit.event.entity.EntityDamageEvent
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
-import world.icebear03.starlight.career.hasBranch
+import world.icebear03.starlight.career.getSkillLevel
 import world.icebear03.starlight.career.mechanism.limit.LimitType
-import world.icebear03.starlight.loadCareerData
 
 object FortressEngineerPassive {
     @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
@@ -20,11 +19,8 @@ object FortressEngineerPassive {
         if (event.cause != EntityDamageEvent.DamageCause.FALL)
             return
 
-        if (entity.hasBranch("堡垒工程师")) {
-            event.damage = event.damage * 0.8
-        }
-
-        val level = loadCareerData(entity).getSkillLevel("缓冲装置")
+        val level = entity.getSkillLevel("缓冲装置")
+        event.damage = event.damage * (0.8 - 0.2 * level)
     }
 }
 

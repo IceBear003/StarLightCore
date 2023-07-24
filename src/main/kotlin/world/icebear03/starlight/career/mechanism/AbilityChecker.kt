@@ -7,7 +7,7 @@ import world.icebear03.starlight.career.hasSkill
 import world.icebear03.starlight.career.internal.Branch
 import world.icebear03.starlight.career.internal.Eureka
 import world.icebear03.starlight.career.internal.Skill
-import world.icebear03.starlight.utils.MathUtils
+import world.icebear03.starlight.utils.toRoman
 
 fun Player.hasAbility(limit: Pair<String, Int>): Boolean {
     val string = limit.first
@@ -17,9 +17,25 @@ fun Player.hasAbility(limit: Pair<String, Int>): Boolean {
             this.hasEureka(string)
 }
 
+fun String.display(level: Int = 0): String {
+    val branch = Branch.fromId(this)
+    var displayed = this
+    if (branch != null)
+        displayed = branch.display()
+    val skill = Skill.fromId(this)
+    if (skill != null)
+        displayed = skill.display()
+    val eureka = Eureka.fromId(this)
+    if (eureka != null)
+        displayed = eureka.display()
+    if (level != 0)
+        return "$displayed ${level.toRoman(false)}"
+    else
+        return displayed
+}
 
 fun displayLimit(limit: Pair<String, Int>): String {
-    val level = MathUtils.numToRoman(limit.second, false)
+    val level = limit.second.toRoman()
 
     val branch = Branch.fromId(limit.first)
     if (branch != null)

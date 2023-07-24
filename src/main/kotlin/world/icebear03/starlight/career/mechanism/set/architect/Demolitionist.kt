@@ -4,11 +4,13 @@ import org.bukkit.Material
 import org.bukkit.entity.Creeper
 import org.bukkit.entity.Player
 import org.bukkit.event.entity.EntityDamageEvent
+import org.bukkit.event.inventory.CraftItemEvent
 import org.bukkit.event.player.PlayerInteractEntityEvent
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
+import world.icebear03.starlight.career.getSkillLevel
 import world.icebear03.starlight.career.hasBranch
-import world.icebear03.starlight.career.mechanism.displayLimit
+import world.icebear03.starlight.career.mechanism.display
 import world.icebear03.starlight.career.mechanism.limit.LimitType
 
 object DemolitionistPassive {
@@ -23,7 +25,7 @@ object DemolitionistPassive {
         if (!player.hasBranch("爆破师")) {
             event.isCancelled = true
 
-            player.sendMessage("无法点燃苦力怕，需要解锁: ${displayLimit("爆破师" to 0)}")
+            player.sendMessage("无法点燃苦力怕，需要解锁: ${"爆破师".display()}")
         }
     }
 
@@ -43,6 +45,40 @@ object DemolitionistPassive {
             event.damage = event.damage * 0.8
         }
     }
+
+    @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
+    fun craftItem(event: CraftItemEvent) {
+        val player = event.whoClicked as Player
+
+        val type = event.recipe.result.type
+
+        if (type == Material.TNT || type == Material.TNT_MINECART) {
+            val level = player.getSkillLevel("稳定三硝基甲苯")
+
+            val failPercent = when (level) {
+                0 -> 0.5
+                1 -> 0.25
+                2 -> 0.1
+                3 -> 1.0
+                else -> 0.0
+            }
+
+            if (Math.random() <= failPercent) {
+                event.isCancelled = true
+                event.inventory.clear()
+                player.closeInventory()
+
+                val trace = player.rayTraceBlocks(5.0) ?: return
+                val block = trace.hitBlock ?: return
+                val loc = block.location
+                val world = block.world
+                block.type = Material.AIR
+                world.createExplosion(loc, 3.0F)
+
+                player.sendMessage("合成炸药时不小心爆炸了，升级技能 ${"稳定三硝基甲苯".display()}\" &r以规避")
+            }
+        }
+    }
 }
 
 enum class DemolitionistSet(
@@ -58,8 +94,12 @@ enum class DemolitionistSet(
     ),
     TNT(
         listOf(
-            Material.TNT
-        ), listOf(LimitType.IGNITE to ("爆破师" to 0))
+            Material.TNT,
+            Material.TNT_MINECART
+        ), listOf(
+            LimitType.PLACE to ("爆破师" to 0),
+            LimitType.USE to ("爆破师" to 0)
+        )
     ),
     FIREBALL(
         listOf(
