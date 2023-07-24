@@ -13,8 +13,6 @@ object PlaceBlock {
 
         val player = event.player
 
-        println(type)
-
         val result = player.checkAbility(MaterialLimitLibrary.placeLimits[type])
         if (!result.first) {
             event.isCancelled = true

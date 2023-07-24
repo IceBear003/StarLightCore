@@ -47,7 +47,6 @@ data class UsableCareer(
     //新进入服务器时
     //TODO 死亡惩罚
     fun remake(): UsableCareer {
-        println("awaaaa")
         classes.clear()
         branches.clear()
         skills.clear()
