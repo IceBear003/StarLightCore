@@ -7,10 +7,10 @@ data class Skill(val id: String, val branch: Branch, private val section: Config
     val color: String = section.getString("color")!!
     val skull: String = section.getString("skull")!!
     val levels = mutableListOf<Level>()
+    val type = SkillType.valueOf(section.getString("type")!!)
 
     inner class Level(
         val description: List<String>,
-        val type: SkillType,
         val cooldown: Int
     )
 
@@ -18,7 +18,6 @@ data class Skill(val id: String, val branch: Branch, private val section: Config
         section.getKeys(false).filter { it != "color" && it != "skull" }.forEach {
             levels += Level(
                 section.getStringList("$it.description"),
-                SkillType.valueOf(section.getString("$it.type")!!),
                 section.getInt("$it.cooldown", 0)
             )
         }

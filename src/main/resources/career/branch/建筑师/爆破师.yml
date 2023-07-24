@@ -1,0 +1,110 @@
+skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjM5NWQzN2Y4ODg1MTEzZmI3ZmNiOGY1YzYxNzQ1MjAxYmVmZjk5MWZiZDUyYWM1ZmZkNzkxYTkwNTZkNiJ9fX0="
+color: "&{#00B0F0}"
+description:
+  - "&7点燃火药造物，畅享解构美学"
+  - " "
+  - "&7分支基础效果："
+  - "&7可以&b合成&7并&b放置&7TNT、TNT矿车"
+  - "&c! &7合成TNT、TNT矿车时有 &a50% &7概率&c失败"
+  - "&c! &c失败&7时不返还任何材料"
+  - "&c! &c失败&7时有 &a50% &7概率产生一次爆炸"
+  - "&7可以&b放置&7末地水晶"
+  - "&7可以&b点燃&7TNT、苦力怕"
+  - "&7可以&b合成&7并&b使用&7火焰弹"
+  - "&7减少 &a20% 爆炸伤害"
+  - " "
+  - "&7带*部分的详细解释请参见&b服务器Wiki"
+skills:
+  稳定三硝甲基苯:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzdjNDg4NGNkOTUyZmYwNzc3NThmZTc1MTYzMzA2MTE2N2NmMDU2N2VmMGYzYjI4MTZlZGI1YWEwMzBjNDc3ZiJ9fX0="
+    color: "&{#00B0F0}"
+    type: PASSIVE
+    1:
+      description:
+        - "&e被动技能"
+        - "&7合成TNT、TNT矿车的&c失败&7概率&b降低&7为 &a25%"
+        - "&c! &c失败&7时爆炸的概率&b降低&7为 &a25%"
+      cooldown: 0
+    2:
+      description:
+        - "&e被动技能"
+        - "&7合成TNT、TNT矿车的&c失败&7概率&b降低&7为 &a10%"
+        - "&c! &c失败&7时爆炸的概率&b降低&7为 &a10%"
+      cooldown: 0
+    3:
+      description:
+        - "&e被动技能"
+        - "&7合成TNT、TNT矿车时&b必定成功"
+      cooldown: 0
+  气浪行者:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmI1MDQ5MzVhYzRhNWQ5MzRhNzgyOGMxN2QzYWYyZDdiOTczMDY5NWU1YTVmYWMxODlhNzRhZDFlNzY5NDBhYyJ9fX0="
+    color: "&{#00B0F0}"
+    type: ACTIVE_ONLINE
+    1:
+      description:
+        - "&eCD：&a15s"
+        - "&7持续时间：&a3s"
+        - "&7减少 &a50% &7爆炸伤害"
+      cooldown: 15
+    2:
+      description:
+        - "&eCD：&a15s"
+        - "&7持续时间：&a4s"
+        - "&7减少 &a65% &7爆炸伤害"
+      cooldown: 15
+    3:
+      description:
+        - "&eCD：&a15s"
+        - "&7持续时间：&a5s"
+        - "&7减少 &a80% &7爆炸伤害"
+      cooldown: 15
+  前沿爆破线:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjFhZDg0ZWRjNjg5M2MxZTU3NGZhNDM4MWExNWRjNTczOTIwMzQ1NmU5YTEwODBmMmNhZTM2YWUxZWNhMGE2In19fQ=="
+    color: "&{#00B0F0}"
+    type: ACTIVE_ONLINE
+    1:
+      description:
+        - "&eCD：&a300s"
+        - "&7向前方投掷出 &a3个 &7已点燃的TNT"
+        - "&7这些TNT不会破坏方块，但会造成 &a2倍 &7爆炸伤害"
+      cooldown: 300
+    2:
+      description:
+        - "&eCD：&a300s"
+        - "&7向前方投掷出 &a4个 &7已点燃的TNT"
+        - "&7这些TNT不会破坏方块，但会造成 &a2.5倍 &7爆炸伤害"
+      cooldown: 300
+    3:
+      description:
+        - "&eCD：&a300s"
+        - "&7向前方投掷出 &a5个 &7已点燃的TNT"
+        - "&7这些TNT不会破坏方块，但会造成 &a3倍 &7爆炸伤害"
+      cooldown: 300
+  #继续添加
+eurekas:
+  精炼炸药:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzVmZmMxMzFkY2Q0ZjAzYjcyZjNkMDVkZjhmYWExOTA1ODhjMmRiZWVhMmJkNDhkNTUzMzgyMjVlZmRhZGVjOSJ9fX0="
+    color: "&{#00B0F0}"
+    description:
+      - "&e被动技能"
+      - "&7合成每个TNT或TNT矿车时有 &a20% &7概率获得 &a1个 &7额外的产物"
+    type: PASSIVE
+    cooldown: 0
+  末影硝酸甘油:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNThiM2ZmZDM3ZTZmMzJhNGU3YzFhYmEyY2I0ODQ5MjNjZjY5NWY0NDdjODc5ZTcxMmVjMjVhNjEzZTAxMCJ9fX0="
+    color: "&{#00B0F0}"
+    description:
+      - "&e被动技能"
+      - "&7解锁&b需要TNT&7的&b末地水晶&7的合成表*"
+    type: PASSIVE
+    cooldown: 0
+  手摇TNT火炮:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODQzODYzZjE3MDBlZTQwYzRlNTc0NzVmMjU1MGI2NTViODk5OGE2MThjMzg4NTBiZDY5YjZkZDUyZDhjODY0NCJ9fX0="
+    color: "&{#00B0F0}"
+    description:
+      - "&eCD：&a300s"
+      - "&7持续时间：&a30s"
+      - "&7使用弓射出的每一箭都将变为&b已点燃的TNT"
+      - "&7除非在&b敌对势力领地内&7射出箭，否则这些TNT&b不会破坏方块"
+    type: ACTIVE_ONLINE
+    cooldown: 300

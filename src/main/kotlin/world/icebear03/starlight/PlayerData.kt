@@ -1,7 +1,6 @@
 package world.icebear03.starlight
 
 import com.google.gson.Gson
-import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import org.bukkit.event.player.PlayerLoginEvent
 import org.bukkit.event.player.PlayerQuitEvent
@@ -47,10 +46,6 @@ object PlayerData {
     }
 
     val careerData = mutableMapOf<UUID, UsableCareer>()
-}
-
-fun loadCareerData(uuid: UUID): UsableCareer {
-    return loadCareerData(Bukkit.getPlayer(uuid)!!)
 }
 
 fun loadCareerData(player: Player): UsableCareer {

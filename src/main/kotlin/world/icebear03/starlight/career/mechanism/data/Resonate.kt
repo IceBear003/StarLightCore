@@ -6,6 +6,7 @@ import taboolib.platform.util.onlinePlayers
 import world.icebear03.starlight.career.internal.Branch
 import world.icebear03.starlight.career.internal.ResonateType
 import world.icebear03.starlight.career.internal.Skill
+import world.icebear03.starlight.career.internal.SkillType
 import world.icebear03.starlight.loadCareerData
 import java.util.*
 
@@ -31,7 +32,9 @@ object Resonate {
             val branch = otherData.resonantBranch ?: return@forEach
             val otherMap = otherData.getSkillsInBranch(branch).toMutableMap()
             val distance = other.location.distance(player.location)
-            otherMap.forEach { (skill, level) ->
+            for ((skill, level) in otherMap) {
+                if (skill.type != SkillType.PASSIVE)
+                    continue
                 val shareLevel = if (otherData.getBranchLevel(branch) == 10) level else level - 1
                 if (distance < level * 8) {
                     if (resonatedMap.containsKey(skill)) {
