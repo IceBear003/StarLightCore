@@ -7,6 +7,7 @@ import taboolib.expansion.setupPlayerDatabase
 import taboolib.platform.util.onlinePlayers
 import world.icebear03.starlight.career.internal.Class
 import world.icebear03.starlight.career.mechanism.data.Resonate
+import world.icebear03.starlight.career.mechanism.limit.MaterialLimitLibrary
 import java.io.File
 
 object StarLightCore : Plugin() {
@@ -21,6 +22,8 @@ object StarLightCore : Plugin() {
         info("Successfully running StarLightCore!")
 
         Resonate.initialize()
+
+        MaterialLimitLibrary.initialize()
     }
 
     override fun onDisable() {

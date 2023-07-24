@@ -1,29 +1,23 @@
 package world.icebear03.starlight.career.mechanism.listener
 
-import org.bukkit.entity.Player
-import org.bukkit.event.Event
-import org.bukkit.event.inventory.CraftItemEvent
+import org.bukkit.event.block.BlockIgniteEvent
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import world.icebear03.starlight.career.mechanism.limit.MaterialLimitLibrary
 import world.icebear03.starlight.career.mechanism.limit.checkAbility
 
-object CraftItem {
+object IgniteBlock {
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    fun event(event: CraftItemEvent) {
-        val item = event.recipe.result
-        val type = item.type
+    fun event(event: BlockIgniteEvent) {
+        val type = event.block.type
 
-        val player = event.whoClicked as Player
+        val player = event.player ?: return
 
-        val result = player.checkAbility(MaterialLimitLibrary.craftLimits[type])
-
+        val result = player.checkAbility(MaterialLimitLibrary.igniteLimits[type])
         if (!result.first) {
             event.isCancelled = true
-            event.result = Event.Result.DENY
 
-            player.closeInventory()
-            player.sendMessage("无法合成此物品，需要解锁以下条件其中之一: ")
+            player.sendMessage("无法点燃此方块，需要解锁以下条件其中之一: ")
             result.second.forEach {
                 player.sendMessage("                - $it")
             }

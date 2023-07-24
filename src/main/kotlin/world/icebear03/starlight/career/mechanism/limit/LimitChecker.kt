@@ -32,3 +32,20 @@ fun displayLimit(limit: Pair<String, Int>): String {
         return "${eureka.display()} $level"
     return "${limit.first} $level"
 }
+
+fun Player.checkAbility(limits: MutableList<Pair<String, Int>>?): Pair<Boolean, List<String>> {
+    if (limits == null)
+        return true to listOf()
+    if (limits.isEmpty())
+        return true to listOf()
+    var result = false
+    val list = mutableListOf<String>()
+    limits.forEach {
+        if (this.hasAbility(it))
+            result = true
+        else {
+            list += displayLimit(it)
+        }
+    }
+    return result to list
+}

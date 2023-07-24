@@ -37,7 +37,7 @@ enum class StructuralEngineerSet(
                     string.contains("_CONCRETE") ||
                     string.contains("_CONCRETE_POWDER") ||
                     (string.contains("_TERRACOTTA") && it != Material.TERRACOTTA)
-        }.toList(), listOf(
+        }, listOf(
             LimitType.CRAFT to ("结构工程师" to 0),
             LimitType.DROP_IF_BREAK to ("高效回收" to 2)
         )
@@ -47,8 +47,10 @@ enum class StructuralEngineerSet(
             val string = it.toString()
             string.contains("_GLASS") ||
                     string.contains("_GLASS_PANE") ||
-                    it == Material.TINTED_GLASS
-        }.toList(), listOf(
+                    it == Material.TINTED_GLASS ||
+                    it == Material.GLASS ||
+                    it == Material.GLASS_PANE
+        }, listOf(
             LimitType.CRAFT to ("结构工程师" to 0),
             LimitType.SINTER to ("结构工程师" to 0),
             LimitType.DROP_IF_BREAK to ("高效回收" to 3)
@@ -77,6 +79,6 @@ enum class StructuralEngineerSet(
     ),
     LOOM(
         listOf(Material.LOOM),
-        listOf(LimitType.PLACE to ("结构工程师" to 0))
+        listOf(LimitType.USE to ("结构工程师" to 0))
     )
 }

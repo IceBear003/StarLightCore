@@ -39,7 +39,7 @@ skills:
   气浪行者:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmI1MDQ5MzVhYzRhNWQ5MzRhNzgyOGMxN2QzYWYyZDdiOTczMDY5NWU1YTVmYWMxODlhNzRhZDFlNzY5NDBhYyJ9fX0="
     color: "&{#00B0F0}"
-    type: ACTIVE_ONLINE
+    type: ACTIVE
     1:
       description:
         - "&eCD：&a15s"
@@ -61,7 +61,7 @@ skills:
   前沿爆破线:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjFhZDg0ZWRjNjg5M2MxZTU3NGZhNDM4MWExNWRjNTczOTIwMzQ1NmU5YTEwODBmMmNhZTM2YWUxZWNhMGE2In19fQ=="
     color: "&{#00B0F0}"
-    type: ACTIVE_ONLINE
+    type: ACTIVE
     1:
       description:
         - "&eCD：&a300s"
@@ -106,5 +106,5 @@ eurekas:
       - "&7持续时间：&a30s"
       - "&7使用弓射出的每一箭都将变为&b已点燃的TNT"
       - "&7除非在&b敌对势力领地内&7射出箭，否则这些TNT&b不会破坏方块"
-    type: ACTIVE_ONLINE
+    type: ACTIVE
     cooldown: 300
