@@ -1,0 +1,7 @@
+database: # 数据库配置
+  host: localhost
+  port: 3306
+  user: minecraft
+  password: password
+  database: minecraft
+  table: starryskycore

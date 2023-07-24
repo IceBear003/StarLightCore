@@ -1,0 +1,112 @@
+title: "StarLight 生涯系统"
+shape:
+  - 'FFFFFFFFF'
+  - 'FCCCFBGRF'
+  - 'FCCCFBGRF'
+  - 'FFFFFBGRF'
+  - 'FHTIFBGRF'
+  - 'FFFFFFFFF'
+
+template:
+  'F':
+    material: BLACK_STAINED_GLASS_PANE
+    name: "&7"
+  'C':
+    material: PLAYER_HEAD
+    name: "{display}"
+    lore:
+      - "&8| &7该职业有以下分支:"
+      - "&7     {branches}"
+      - "&7"
+      - "&8| &7点击在右侧展示详细信息"
+    flags:
+      - HIDE_ENCHANTS
+    feature:
+      - ==: Functional
+        keyword: CareerMenu$career_class
+  'B':
+    material: PLAYER_HEAD
+    name: "&7分支 {display}"
+    lore:
+      - "&8| &7当前状态: {state}"
+      - "&7"
+      - "&8| &7基础能力:"
+      - "&7     {description}"
+      - "&7"
+      - "&8| &7左击进入分支菜单"
+      - "&8| &7右击消耗技能点解锁该分支"
+    flags:
+      - HIDE_ENCHANTS
+    feature:
+      - ==: Functional
+        keyword: CareerMenu$branch
+  'G':
+    material: PLAYER_HEAD
+    name: "&e设置为共鸣分支"
+    lore:
+      - "&8| &7当前状态: {state}"
+      - "&7"
+      - "&8| &7点击设置为共鸣分支"
+      - "&8| &7共鸣后，分支下的被动技能将会被共享"
+      - "&7     实际等级 共鸣等级 有效距离"
+      - "&7        基础       -         -"
+      - "&7          1       基础       8"
+      - "&7          2        1         16"
+      - "&7          3        2         24"
+      - "&7        顿悟       3         32"
+      - "&7"
+      - "&7   *  '基础' - 未解锁技能时的分支状态"
+      - "&7   *  '顿悟' - 激活顿悟后的分支状态"
+    flags:
+      - HIDE_ENCHANTS
+    feature:
+      - ==: Functional
+        keyword: CareerMenu$resonate
+  'R':
+    material: PLAYER_HEAD
+    name: "&e遗忘该分支"
+    lore:
+      - "&8| &7点击永久遗忘该分支"
+      - "&8| &c慎点: 此举动不可逆"
+      - "&7"
+      - "&8| &7消耗: &e{cost}技能点"
+    feature:
+      - ==: Functional
+        keyword: CareerMenu$forget
+  'H':
+    material: PLAYER_HEAD
+    name: "&e更多信息与指导"
+    lore:
+      - "&8| &7点击在聊天栏获取Wiki网址"
+      - "&8| &7在Wiki中有更详细的讲解"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzBjZjc0ZTI2MzhiYTVhZDMyMjM3YTM3YjFkNzZhYTEyM2QxODU0NmU3ZWI5YTZiOTk2MWU0YmYxYzNhOTE5In19fQ=="
+      - ==: Functional
+        keyword: CareerMenu$wiki
+  'T':
+    material: PLAYER_HEAD
+    name: "&e切换共鸣模式"
+    lore:
+      - "&8| &7点击切换共鸣模式"
+      - "&8| &7即你的共鸣能被谁接收"
+      - "&7"
+      - "&8| &7当前模式: "
+      - "&7      {types}"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjBmMTBlODU0MThlMzM0ZjgyNjczZWI0OTQwYjIwOGVjYWVlMGM5NWMyODc2ODVlOWVhZjI0NzUxYTMxNWJmYSJ9fX0="
+      - ==: Functional
+        keyword: CareerMenu$resonate_type
+  'I':
+    material: PLAYER_HEAD
+    name: "&b共鸣状态"
+    lore:
+      - "&8| &7你的共鸣: {my}"
+      - "&8| &7获得共鸣: "
+      - "&7      {resonated}"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGRlYmMzZjYwMGJiMjg3ODA4M2ZkM2NmYTQzOWI2YjM5Yzc0NWIyZmFmMWVlYTU5NjZlMzFiNDk2OTU5Y2UyOCJ9fX0="
+      - ==: Functional
+        keyword: CareerMenu$resonate_info
