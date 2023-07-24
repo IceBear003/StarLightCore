@@ -2,8 +2,9 @@ package world.icebear03.starlight.career.mechanism.limit
 
 import org.bukkit.Material
 import world.icebear03.starlight.career.mechanism.limit.LimitType.*
-import world.icebear03.starlight.career.mechanism.set.FortressEngineerSet
-import world.icebear03.starlight.career.mechanism.set.StructuralEngineerSet
+import world.icebear03.starlight.career.mechanism.set.architect.FortressEngineerSet
+import world.icebear03.starlight.career.mechanism.set.architect.StructuralEngineerSet
+import world.icebear03.starlight.career.mechanism.set.architect.TrafficEngineerSet
 
 object MaterialLimitLibrary {
 
@@ -21,6 +22,12 @@ object MaterialLimitLibrary {
             install(it.types, it.limits)
         }
         FortressEngineerSet.values().forEach {
+            install(it.types, it.limits)
+        }
+        StructuralEngineerSet.values().forEach {
+            install(it.types, it.limits)
+        }
+        TrafficEngineerSet.values().forEach {
             install(it.types, it.limits)
         }
     }
@@ -53,4 +60,14 @@ object MaterialLimitLibrary {
         igniteLimits[type] = mutableListOf()
         dropIfBreakLimits[type] = mutableListOf()
     }
+}
+
+enum class LimitType {
+    PLACE,
+    BREAK,
+    USE,
+    CRAFT,
+    SINTER,
+    IGNITE,
+    DROP_IF_BREAK
 }

@@ -1,12 +1,12 @@
-package world.icebear03.starlight.career.mechanism.listener
+package world.icebear03.starlight.career.mechanism.limit.listener
 
 import org.bukkit.entity.Player
 import org.bukkit.event.Event
 import org.bukkit.event.inventory.CraftItemEvent
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
+import world.icebear03.starlight.career.mechanism.checkAbility
 import world.icebear03.starlight.career.mechanism.limit.MaterialLimitLibrary
-import world.icebear03.starlight.career.mechanism.limit.checkAbility
 
 object CraftItem {
     @SubscribeEvent(priority = EventPriority.LOWEST)

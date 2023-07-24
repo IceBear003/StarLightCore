@@ -1,10 +1,10 @@
-package world.icebear03.starlight.career.mechanism.listener
+package world.icebear03.starlight.career.mechanism.limit.listener
 
 import org.bukkit.event.block.BlockBreakEvent
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
+import world.icebear03.starlight.career.mechanism.checkAbility
 import world.icebear03.starlight.career.mechanism.limit.MaterialLimitLibrary
-import world.icebear03.starlight.career.mechanism.limit.checkAbility
 
 object BreakBlock {
     @SubscribeEvent(priority = EventPriority.LOWEST)

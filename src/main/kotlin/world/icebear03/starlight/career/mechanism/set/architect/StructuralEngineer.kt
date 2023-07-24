@@ -1,10 +1,7 @@
-package world.icebear03.starlight.career.mechanism.set
+package world.icebear03.starlight.career.mechanism.set.architect
 
 import org.bukkit.Material
 import world.icebear03.starlight.career.mechanism.limit.LimitType
-
-object StructuralEngineer {
-}
 
 enum class StructuralEngineerSet(
     val types: List<Material>,

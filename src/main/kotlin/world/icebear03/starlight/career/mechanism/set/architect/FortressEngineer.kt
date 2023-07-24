@@ -1,14 +1,15 @@
-package world.icebear03.starlight.career.mechanism.set
+package world.icebear03.starlight.career.mechanism.set.architect
 
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.event.entity.EntityDamageEvent
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
+import world.icebear03.starlight.career.mechanism.hasAbility
 import world.icebear03.starlight.career.mechanism.limit.LimitType
-import world.icebear03.starlight.career.mechanism.limit.hasAbility
+import world.icebear03.starlight.loadCareerData
 
-object FortressEngineer {
+object FortressEngineerPassive {
     @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun event(event: EntityDamageEvent) {
         val entity = event.entity
@@ -19,9 +20,11 @@ object FortressEngineer {
         if (event.cause != EntityDamageEvent.DamageCause.FALL)
             return
 
-        if (entity.hasAbility("堡垒工程师" to 0)) {
+        if (entity.hasAbility("堡垒工程师" to 0).first) {
             event.damage = event.damage * 0.8
         }
+
+        val level = loadCareerData(entity).getSkillLevel("缓冲装置")
     }
 }
 
