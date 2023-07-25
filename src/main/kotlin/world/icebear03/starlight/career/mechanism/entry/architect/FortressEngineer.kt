@@ -1,4 +1,4 @@
-package world.icebear03.starlight.career.mechanism.set.architect
+package world.icebear03.starlight.career.mechanism.entry.architect
 
 import org.bukkit.Material
 import org.bukkit.entity.Player

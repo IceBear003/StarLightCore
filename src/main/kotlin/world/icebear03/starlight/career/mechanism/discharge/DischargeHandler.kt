@@ -6,9 +6,10 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.PlayerInventory
 import org.bukkit.inventory.meta.ItemMeta
+import org.serverct.parrot.parrotx.function.textured
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
-import taboolib.platform.util.modifyLore
+import taboolib.platform.util.hasName
 import taboolib.platform.util.modifyMeta
 import world.icebear03.starlight.career.internal.Eureka
 import world.icebear03.starlight.career.internal.Skill
@@ -16,29 +17,29 @@ import world.icebear03.starlight.loadCareerData
 
 
 object DischargeHandler {
-    val dischargeSkillMap = mutableMapOf<Skill, Player.(level: Int) -> Unit>()
-    val dischargeEurekaMap = mutableMapOf<Eureka, Player.() -> Unit>()
+    val dischargeMap = mutableMapOf<String, Player.(id: String, level: Int) -> String>()
 
     val item = ItemStack(Material.PLAYER_HEAD).modifyMeta<ItemMeta> {
         setDisplayName("§b职业信物")
-        modifyLore {
-            listOf(
-                "§8| §7将此物置于副手",
-                "§8| §7并按下交换键(默认F)",
-                "§8| §7即可施放主手格子",
-                "§8| §7编号对应的技能"
-            )
-        }
+        lore = listOf(
+            "§8| §7将此物置于副手",
+            "§8| §7并按下交换键(默认F)",
+            "§8| §7即可施放主手格子",
+            "§8| §7编号对应的技能"
+        )
     }
+        .textured("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2E5Y2IwNDU3ZDUwMTVkZmJkM2UyNTJkNzY3MDcxMjc1OTEwNjNhMGIyZmViYWY4YzY0NGFjYWRhOTBiZDRkMCJ9fX0=")
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     fun swapItem(event: PlayerSwapHandItemsEvent) {
         val player = event.player
         val inv: PlayerInventory = player.inventory
-        if (inv.itemInOffHand == item) {
-            event.isCancelled = true
-            val slot = inv.heldItemSlot
-            triggerShortCut(player, slot)
+        if (inv.itemInOffHand.hasName()) {
+            if (inv.itemInOffHand.itemMeta!!.displayName == "§b职业信物") {
+                event.isCancelled = true
+                val slot = inv.heldItemSlot + 1
+                player.sendMessage(triggerShortCut(player, slot))
+            }
         }
     }
 
@@ -52,14 +53,13 @@ object DischargeHandler {
             if (level <= 0)
                 return "请先升级技能 ${skill.display()}"
 
-            val cd = player.checkCooldownStamp(id, skill.level(level).cooldown.toDouble(), true)
+            val cd = player.checkCooldownStamp(id, skill.level(level).cooldown.toDouble())
             if (!cd.first) {
-                return null
+                return "无法释放 ${skill.display()}，还需等待 ${cd.second}秒"
             }
             player.addCooldownStamp(id)
 
-            dischargeSkillMap[skill]!!.invoke(player, level)
-            return "技能 ${skill.display()} &r释放成功"
+            return dischargeMap[id]!!.invoke(player, id, level)
         }
 
         val eureka = Eureka.fromId(id)
@@ -67,16 +67,47 @@ object DischargeHandler {
             if (!data.hasEureka(eureka))
                 return "请先激活顿悟 ${eureka.display()}"
 
-            val cd = player.checkCooldownStamp(id, eureka.cooldown.toDouble(), true)
+            val cd = player.checkCooldownStamp(id, eureka.cooldown.toDouble())
             if (!cd.first) {
-                return null
+                return "无法释放 ${eureka.display()}，还需等待 ${cd.second}秒"
             }
             player.addCooldownStamp(id)
 
-            dischargeEurekaMap[eureka]!!.invoke(player)
-            return "顿悟 ${eureka.display()} &r释放成功"
+            return dischargeMap[id]!!.invoke(player, id, 1)
         }
 
         return "该按键貌似未绑定任何技能/顿悟"
     }
+}
+
+fun Player.isDischarging(key: String, level: Int = 1, removeIfConsumable: Boolean = true): Boolean {
+    if (level <= 0)
+        return false
+
+    val stamp = (cooldownStamps[this.uniqueId] ?: return false)[key] ?: return false
+    val period = (System.currentTimeMillis() - stamp) / 1000.0
+
+    val skill = Skill.fromId(key)
+    if (skill != null) {
+        val duration = skill.level(level).duration
+        if (duration == -1) {
+            if (removeIfConsumable)
+                cooldownStamps[this.uniqueId]!!.remove(key)
+            return true
+        }
+        return duration >= period
+    }
+
+    val eureka = Eureka.fromId(key)
+    if (eureka != null) {
+        val duration = eureka.duration
+        if (duration == -1) {
+            if (removeIfConsumable)
+                cooldownStamps[this.uniqueId]!!.remove(key)
+            return true
+        }
+        return duration >= period
+    }
+
+    return false
 }

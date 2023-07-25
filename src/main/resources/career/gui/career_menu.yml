@@ -75,15 +75,19 @@ template:
         keyword: CareerMenu$forget
   'H':
     material: PLAYER_HEAD
-    name: "&e更多信息与指导"
+    name: "&e当前绑定技能/顿悟"
     lore:
-      - "&8| &7点击在聊天栏获取Wiki网址"
-      - "&8| &7在Wiki中有更详细的讲解"
+      - "&8| &7将技能/顿悟绑定到键盘1-9"
+      - "&8| &7并通过职业信物释放它们"
+      - "&8| &7点击获取&c职业信物"
+      - "&8| &7"
+      - "&8| &7当前绑定列表:"
+      - "&7       {binds}"
     feature:
       - ==: Head
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzBjZjc0ZTI2MzhiYTVhZDMyMjM3YTM3YjFkNzZhYTEyM2QxODU0NmU3ZWI5YTZiOTk2MWU0YmYxYzNhOTE5In19fQ=="
       - ==: Functional
-        keyword: CareerMenu$wiki
+        keyword: CareerMenu$bind
   'T':
     material: PLAYER_HEAD
     name: "&e切换共鸣模式"

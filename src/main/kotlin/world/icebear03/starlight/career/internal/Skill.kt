@@ -11,14 +11,16 @@ data class Skill(val id: String, val branch: Branch, private val section: Config
 
     inner class Level(
         val description: List<String>,
-        val cooldown: Int
+        val cooldown: Int,
+        val duration: Int
     )
 
     init {
         section.getKeys(false).filter { it != "color" && it != "skull" }.forEach {
             levels += Level(
                 section.getStringList("$it.description"),
-                section.getInt("$it.cooldown", 0)
+                section.getInt("$it.cooldown", 0),
+                section.getInt("$it.duration", -1)
             )
         }
 

@@ -10,6 +10,7 @@ data class Eureka(val id: String, val branch: Branch, private val section: Confi
     val description: List<String> = section.getStringList("description")
     val type: SkillType = SkillType.valueOf(section.getString("type")!!)
     val cooldown: Int = section.getInt("cooldown", 0)
+    val duration: Int = section.getInt("duration", -1)
 
     init {
         eurekas[id] = this

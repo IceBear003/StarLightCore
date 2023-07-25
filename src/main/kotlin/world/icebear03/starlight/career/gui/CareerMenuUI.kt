@@ -18,12 +18,15 @@ import taboolib.module.configuration.Configuration
 import taboolib.module.kether.compileToJexl
 import taboolib.module.ui.openMenu
 import taboolib.module.ui.type.Basic
+import taboolib.platform.util.giveItem
 import taboolib.platform.util.modifyMeta
 import world.icebear03.starlight.career.internal.Branch
 import world.icebear03.starlight.career.internal.Class
 import world.icebear03.starlight.career.internal.ResonateType
 import world.icebear03.starlight.career.mechanism.data.Forget
 import world.icebear03.starlight.career.mechanism.data.Resonate
+import world.icebear03.starlight.career.mechanism.discharge.DischargeHandler
+import world.icebear03.starlight.career.mechanism.display
 import world.icebear03.starlight.loadCareerData
 import world.icebear03.starlight.utils.YamlUpdater
 import world.icebear03.starlight.utils.toRoman
@@ -91,7 +94,7 @@ object CareerMenuUI {
             onBuild { _, inventory ->
                 shape.all(
                     "CareerMenu\$career_class", "CareerMenu\$branch",
-                    "CareerMenu\$resonate", "CareerMenu\$forget",
+                    "CareerMenu\$resonate", "CareerMenu\$forget", "CareerMenu\$bind",
                     "CareerMenu\$resonate_type", "CareerMenu\$resonate_info"
                 ) { slot, index, item, _ ->
                     inventory.setItem(slot, item(slot, index))
@@ -110,6 +113,7 @@ object CareerMenuUI {
                 setSlots("CareerMenu\$$it", branches, player, "element")
             }
 
+            setSlots("CareerMenu\$bind", listOf(), player)
             setSlots("CareerMenu\$resonate_type", listOf(), player)
             setSlots("CareerMenu\$resonate_info", listOf(), player)
 
@@ -282,11 +286,20 @@ object CareerMenuUI {
     }
 
     @MenuComponent
-    private val wiki = MenuFunctionBuilder {
+    private val bind = MenuFunctionBuilder {
+        onBuild { (_, _, _, _, icon, args) ->
+            val player = args[0] as Player
+            val data = loadCareerData(player)
+
+            val list = data.shortCuts.map {
+                it.value.display() + " &7- " + it.key
+            }
+
+            icon.variable("binds", list)
+        }
         onClick { (_, _, event, _) ->
             val player = event.clicker
-            player.closeInventory()
-            player.sendMessage("WIKI网址，点击打开: https://starlight.icebear03.world")
+            player.giveItem(DischargeHandler.item)
         }
     }
 

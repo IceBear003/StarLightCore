@@ -16,9 +16,11 @@ import taboolib.module.chat.colored
 import taboolib.module.configuration.Config
 import taboolib.module.configuration.Configuration
 import taboolib.module.kether.compileToJexl
+import taboolib.module.kether.isInt
 import taboolib.module.ui.openMenu
 import taboolib.module.ui.type.Basic
 import taboolib.platform.util.modifyMeta
+import taboolib.platform.util.nextChat
 import world.icebear03.starlight.career.internal.Branch
 import world.icebear03.starlight.career.internal.Eureka
 import world.icebear03.starlight.career.internal.Skill
@@ -178,6 +180,10 @@ object CareerBranchUI {
                     "&a已解锁 &e${data.getSkillLevel(skill)}级"
                 }
 
+            icon.modifyMeta<ItemMeta> {
+                this.persistentDataContainer.set(mark, PersistentDataType.STRING, skill.id)
+            }
+
             icon.textured(skill.skull)
 
             icon.variables {
@@ -186,6 +192,24 @@ object CareerBranchUI {
                     "level" -> listOf(state)
                     else -> listOf()
                 }
+            }
+        }
+        onClick { (_, _, event, _) ->
+            val item = event.virtualEvent().clickItem
+            val player = event.clicker
+            val data = loadCareerData(player)
+            val id = item.itemMeta!!.persistentDataContainer.get(CareerMenuUI.mark, PersistentDataType.STRING)!!
+
+            player.closeInventory()
+            player.sendMessage("请输入1-9中的一个数字，将这个技能绑定到对应的按键")
+            player.nextChat {
+                if (!it.isInt()) {
+                    player.sendMessage("你输入的不是数字")
+                }
+                if (it.toInt() !in 1..9) {
+                    player.sendMessage("你输入的不是1-9中的数字")
+                }
+                player.sendMessage(data.attemptToAddSkillToShortCut(id, it.toInt()).second)
             }
         }
     }
@@ -318,10 +342,24 @@ object CareerBranchUI {
             val data = loadCareerData(player)
             val id = item.itemMeta!!.persistentDataContainer.get(CareerMenuUI.mark, PersistentDataType.STRING)!!
 
-            val result = data.attemptToEureka(id)
-            player.sendMessage(result.second)
-            if (result.first)
-                open(player, args[0].toString())
+            if (data.hasEureka(id)) {
+                player.closeInventory()
+                player.sendMessage("请输入1-9中的一个数字，将这个顿悟绑定到对应的按键")
+                player.nextChat {
+                    if (!it.isInt()) {
+                        player.sendMessage("你输入的不是数字")
+                    }
+                    if (it.toInt() !in 1..9) {
+                        player.sendMessage("你输入的不是1-9中的数字")
+                    }
+                    player.sendMessage(data.attemptToAddEurekaToShortCut(id, it.toInt()).second)
+                }
+            } else {
+                val result = data.attemptToEureka(id)
+                player.sendMessage(result.second)
+                if (result.first)
+                    open(player, args[0].toString())
+            }
         }
     }
 

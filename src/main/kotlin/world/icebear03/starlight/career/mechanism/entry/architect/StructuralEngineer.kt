@@ -1,7 +1,45 @@
-package world.icebear03.starlight.career.mechanism.set.architect
+package world.icebear03.starlight.career.mechanism.entry.architect
 
 import org.bukkit.Material
+import org.bukkit.entity.Player
+import org.bukkit.event.inventory.CraftItemEvent
+import org.bukkit.inventory.ItemStack
+import taboolib.common.platform.event.EventPriority
+import taboolib.common.platform.event.SubscribeEvent
+import taboolib.platform.util.giveItem
+import world.icebear03.starlight.career.getSkillLevel
+import world.icebear03.starlight.career.mechanism.discharge.DischargeHandler
+import world.icebear03.starlight.career.mechanism.discharge.isDischarging
+import world.icebear03.starlight.career.mechanism.display
 import world.icebear03.starlight.career.mechanism.limit.LimitType
+
+object StructuralEngineerActive {
+    init {
+        DischargeHandler.dischargeMap["识色敏锐"] = { id, _ ->
+            "技能 ${id.display()} &r释放成功，下一次合成染色方块时会获得额外同种方块"
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
+    fun event(event: CraftItemEvent) {
+        val item = event.recipe.result
+        val type = item.type
+
+        if (!StructuralEngineerSet.DYED_BLOCK.types.contains(type))
+            return
+
+        val player = event.whoClicked as Player
+        val level = player.getSkillLevel("识色敏锐")
+
+        if (player.isDischarging("识色敏锐", level)) {
+            val amount = when (level) {
+                1, 2 -> 1
+                else -> 2
+            }
+            player.giveItem(ItemStack(type, amount))
+        }
+    }
+}
 
 enum class StructuralEngineerSet(
     val types: List<Material>,

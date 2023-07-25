@@ -62,6 +62,7 @@ skills:
         - "&7获得&b速度I"
         - "&7在脚手架上行动时持续获得 &a3秒 &7的&b速度II、跳跃提升I、抗性提升I"
       cooldown: 600
+      duration: 180
     2:
       description:
         - "&eCD：&a600s"
@@ -69,6 +70,7 @@ skills:
         - "&7获得&b速度I"
         - "&7在脚手架上行动时持续获得 &a3秒 &7的&b速度II、跳跃提升II、抗性提升II"
       cooldown: 600
+      duration: 240
     3:
       description:
         - "&eCD：&a600s"
@@ -76,6 +78,7 @@ skills:
         - "&7获得&b速度II、抗性提升I"
         - "&7在脚手架上行动时持续获得 &a3秒 &7的&b速度III、跳跃提升III、抗性提升III"
       cooldown: 600
+      duration: 300
   #继续添加
 eurekas:
   奇珍颜料:
