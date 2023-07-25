@@ -201,15 +201,15 @@ object CareerBranchUI {
             val id = item.itemMeta!!.persistentDataContainer.get(CareerMenuUI.mark, PersistentDataType.STRING)!!
 
             player.closeInventory()
-            player.sendMessage("请输入1-9中的一个数字，将这个技能绑定到对应的按键")
+            player.sendMessage("§a生涯系统 §7>> 请输入§a1-9§7中的一个数字，将这个技能绑定到§e对应的按键")
             player.nextChat {
                 if (!it.isInt()) {
-                    player.sendMessage("你输入的不是数字")
+                    player.sendMessage("§a生涯系统 §7>> 你输入的不是数字")
                 }
                 if (it.toInt() !in 1..9) {
-                    player.sendMessage("你输入的不是1-9中的数字")
+                    player.sendMessage("§a生涯系统 §7>> 你输入的不是§a1-9§7中的数字")
                 }
-                player.sendMessage(data.attemptToAddSkillToShortCut(id, it.toInt()).second)
+                player.sendMessage("§a生涯系统 §7>> " + data.attemptToAddSkillToShortCut(id, it.toInt()).second)
             }
         }
     }
@@ -344,13 +344,13 @@ object CareerBranchUI {
 
             if (data.hasEureka(id)) {
                 player.closeInventory()
-                player.sendMessage("请输入1-9中的一个数字，将这个顿悟绑定到对应的按键")
+                player.sendMessage("§a生涯系统 §7>> 请输入§a1-9§7中的一个数字，将这个顿悟绑定到§e对应的按键")
                 player.nextChat {
                     if (!it.isInt()) {
-                        player.sendMessage("你输入的不是数字")
+                        player.sendMessage("§a生涯系统 §7>> 你输入的不是数字")
                     }
                     if (it.toInt() !in 1..9) {
-                        player.sendMessage("你输入的不是1-9中的数字")
+                        player.sendMessage("§a生涯系统 §7>> 你输入的不是§a1-9§7中的数字")
                     }
                     player.sendMessage(data.attemptToAddEurekaToShortCut(id, it.toInt()).second)
                 }

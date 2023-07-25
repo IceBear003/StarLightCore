@@ -132,25 +132,25 @@ data class UsableCareer(
     }
 
     fun attemptToUnlockBranch(branchId: String): Pair<Boolean, String> {
-        return attemptToUnlockBranch(Branch.fromId(branchId) ?: return false to "分支不存在")
+        return attemptToUnlockBranch(Branch.fromId(branchId) ?: return false to "§e分支§7不存在")
     }
 
     fun attemptToUnlockBranch(branch: Branch): Pair<Boolean, String> {
         if (branches.size >= 6)
-            return false to "解锁的职业分支数量已达到上限"
+            return false to "解锁的§e职业分支§7数量已达到上限"
         if (branches.containsKey(branch))
-            return false to "该职业分支已解锁"
+            return false to "已解锁该§e职业分支"
         if (points <= 0)
             return false to "技能点不足"
         val classNeeded = branch.careerClass
         if (!hasClass(classNeeded))
-            return false to "该分支对应的职业未解锁"
+            return false to "该§e分支§7对应的职业未解锁"
 
         takePoint(1)
         classes[classNeeded]!! += branch
         branches[branch] = branch.initSkillMap() to Eureka.fromId("null")
         skills += branch.initSkillMap()
-        return true to "成功解锁职业分支 ${branch.display()}"
+        return true to "成功解锁§e职业分支§7 ${branch.display()}"
     }
     //--------------------------------------------------------------------
 
@@ -180,23 +180,23 @@ data class UsableCareer(
     }
 
     fun attemptToUpgradeSkill(skillId: String): Pair<Boolean, String> {
-        return attemptToUpgradeSkill(Skill.fromId(skillId) ?: return false to "技能不存在")
+        return attemptToUpgradeSkill(Skill.fromId(skillId) ?: return false to "§a技能§7不存在")
     }
 
     fun attemptToUpgradeSkill(skill: Skill): Pair<Boolean, String> {
         val level = getSkillLevel(skill)
         val branch = skill.branch
         if (level >= 3)
-            return false to "该技能等级已达到上限"
+            return false to "§a技能§7等级已达到上限"
         if (getBranchLevel(branch) < 0)
-            return false to "该技能对应的职业分支未解锁"
+            return false to "§a技能§7对应的§e职业分支§7未解锁"
         if (points <= 0)
             return false to "技能点不足"
 
         points -= 1
         branches[branch]!!.first[skill] = level + 1
         skills[skill] = level + 1
-        return true to "成功升级技能 ${skill.display()}"
+        return true to "成功升级§a技能§7 ${skill.display()}"
     }
     //--------------------------------------------------------------------
 
@@ -211,25 +211,25 @@ data class UsableCareer(
 
 
     fun attemptToEureka(eurekaId: String): Pair<Boolean, String> {
-        return attemptToEureka(Eureka.fromId(eurekaId) ?: return false to "顿悟不存在")
+        return attemptToEureka(Eureka.fromId(eurekaId) ?: return false to "§d顿悟§7不存在")
     }
 
     fun attemptToEureka(eureka: Eureka): Pair<Boolean, String> {
         val branch = eureka.branch
         if (getBranchLevel(branch) < 9) {
-            return false to "该职业分支的三个技能未满级"
+            return false to "需要§e职业分支§7的三个§a技能§7达到满级"
         }
         if (points <= 0)
             return false to "技能点不足"
         if (branches[branch]!!.second != null)
-            return false to "该职业分支已经激活顿悟"
+            return false to "该§e职业分支§7已激活§d顿悟"
 
         points -= 1
         val pair = branches[branch]!!
         val newPair = pair.first to eureka
         branches[branch] = newPair
         eurekas += eureka
-        return true to "成功激活顿悟 ${eureka.display()}"
+        return true to "成功激活§d顿悟§7 ${eureka.display()}"
     }
     //--------------------------------------------------------------------
 
@@ -249,33 +249,33 @@ data class UsableCareer(
 
     //-----------------------------快捷键相关-------------------------------
     fun attemptToAddSkillToShortCut(skillId: String, key: Int): Pair<Boolean, String> {
-        return attemptToAddSkillToShortCut(Skill.fromId(skillId) ?: return false to "技能不存在", key)
+        return attemptToAddSkillToShortCut(Skill.fromId(skillId) ?: return false to "§a技能§7不存在", key)
     }
 
     fun attemptToAddSkillToShortCut(skill: Skill, key: Int): Pair<Boolean, String> {
         if (skill.type == SkillType.PASSIVE)
-            return false to "被动技能无法绑定至键盘"
+            return false to "§a被动技能§7无法绑定至键盘"
         if (getSkillLevel(skill) < 1)
-            return false to "请先升级该技能"
+            return false to "请先升级该§a技能"
 
         shortCuts[key] = skill.id
 
-        return true to "成功绑定技能 ${skill.display()} &r至键盘按键 $key"
+        return true to "成功绑定§a技能§7 ${skill.display()} §7至键盘§e按键$key"
     }
 
     fun attemptToAddEurekaToShortCut(eurekaId: String, key: Int): Pair<Boolean, String> {
-        return attemptToAddEurekaToShortCut(Eureka.fromId(eurekaId) ?: return false to "技能不存在", key)
+        return attemptToAddEurekaToShortCut(Eureka.fromId(eurekaId) ?: return false to "§a技能§7不存在", key)
     }
 
     fun attemptToAddEurekaToShortCut(eureka: Eureka, key: Int): Pair<Boolean, String> {
         if (eureka.type == SkillType.PASSIVE)
-            return false to "被动顿悟无法绑定至键盘"
+            return false to "§d被动顿悟§7无法绑定至键盘"
         if (!hasEureka(eureka))
-            return false to "请先激活该顿悟"
+            return false to "请先激活该§d顿悟"
 
         shortCuts[key] = eureka.id
 
-        return true to "成功绑定顿悟 ${eureka.display()} &r至键盘按键 $key"
+        return true to "成功绑定§d顿悟§7 ${eureka.display()} §7至键盘§e按键$key"
     }
     //--------------------------------------------------------------------
 }

@@ -29,15 +29,15 @@ val commandCareerPoint = subCommand {
 
 fun handle(player: Player?, mode: String, amount: Int): String {
     if (player == null)
-        return "玩家不存在"
+        return "§a生涯系统 §7>> 玩家不存在"
     val data = loadCareerData(player)
     when (mode) {
         "add" -> data.addPoint(amount)
         "set" -> data.setPoint(amount)
         "take" -> data.takePoint(amount)
         else -> {
-            return "模式不正确"
+            return "§a生涯系统 §7>> 模式不正确, 只能填写 add/set/take"
         }
     }
-    return "操作成功"
+    return "§a生涯系统 §7>> 操作成功"
 }

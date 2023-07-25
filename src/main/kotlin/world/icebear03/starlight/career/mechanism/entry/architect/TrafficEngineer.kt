@@ -60,14 +60,14 @@ object TrafficEngineerPassive {
             }
             if (Math.random() <= percent) {
                 player.giveItem(ItemStack(type))
-                player.sendMessage("本次放置未消耗物品")
+                player.sendMessage("§a生涯系统 §7>> 本次放置未消耗物品")
             }
         }
 
         if (TrafficEngineerSet.ICE_BLOCKS.types.contains(type)) {
             if (level >= 3 && Math.random() <= 0.1) {
                 player.giveItem(ItemStack(type))
-                player.sendMessage("本次放置未消耗物品")
+                player.sendMessage("§a生涯系统 §7>> 本次放置未消耗物品")
             }
         }
     }

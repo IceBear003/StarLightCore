@@ -61,7 +61,6 @@ fun loadCareerData(player: Player): UsableCareer {
                 UsableCareer().remake()
             }
         PlayerData.careerData[uuid] = data
-        player.sendMessage("qwq")
         data
     }
 }

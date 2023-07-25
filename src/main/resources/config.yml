@@ -4,4 +4,4 @@ database: # 数据库配置
   user: minecraft
   password: password
   database: minecraft
-  table: starryskycore
+  table: starlightcore

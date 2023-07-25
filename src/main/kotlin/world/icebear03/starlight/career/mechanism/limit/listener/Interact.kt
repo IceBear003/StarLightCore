@@ -19,9 +19,9 @@ object Interact {
         if (!result.first) {
             event.isCancelled = true
 
-            player.sendMessage("无法使用此方块，需要解锁以下条件其中之一: ")
+            player.sendMessage("§a生涯系统 §7>> 无法使用此方块，需要解锁以下其中之一: ")
             result.second.forEach {
-                player.sendMessage("                - $it")
+                player.sendMessage("               §7|—— $it")
             }
         }
     }
@@ -38,9 +38,9 @@ object Interact {
         if (!result.first) {
             event.isCancelled = true
 
-            player.sendMessage("无法使用此物品，需要解锁以下条件其中之一: ")
+            player.sendMessage("§a生涯系统 §7>> 无法使用此物品，需要解锁以下其中之一: ")
             result.second.forEach {
-                player.sendMessage("                - $it")
+                player.sendMessage("               §7|—— $it")
             }
         }
     }

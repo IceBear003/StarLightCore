@@ -23,9 +23,9 @@ object CraftItem {
             event.result = Event.Result.DENY
 
             player.closeInventory()
-            player.sendMessage("无法合成此物品，需要解锁以下条件其中之一: ")
+            player.sendMessage("§a生涯系统 §7>> 无法合成此物品，需要解锁以下其中之一: ")
             result.second.forEach {
-                player.sendMessage("                - $it")
+                player.sendMessage("               §7|—— $it")
             }
         }
     }

@@ -14,7 +14,7 @@ object Forget {
         val data = loadCareerData(player)
         val level = data.getBranchLevel(branch)
         if (level < 0)
-            return false to "该技能分支未解锁，无法遗忘"
+            return false to "该§e职业分支§7未解锁"
         val point = data.points
         if (point < level * 2 + 2) {
             return false to "技能点不足"
@@ -30,6 +30,6 @@ object Forget {
         }
         if (data.resonantBranch == branch)
             data.resonantBranch = null
-        return true to "成功遗忘技能分支 ${branch.display()}"
+        return true to "成功遗忘§e职业分支§7 ${branch.display()}"
     }
 }

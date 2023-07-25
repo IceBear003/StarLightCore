@@ -51,16 +51,16 @@ object Resonate {
     }
 
     fun chooseResonate(player: Player, branchId: String): Pair<Boolean, String> {
-        return chooseResonate(player, Branch.fromId(branchId) ?: return false to "分支不存在")
+        return chooseResonate(player, Branch.fromId(branchId) ?: return false to "§e分支§7不存在")
     }
 
     fun chooseResonate(player: Player, branch: Branch): Pair<Boolean, String> {
         val data = loadCareerData(player)
         if (data.getBranchLevel(branch) == -1) {
-            return false to "该职业分支未解锁"
+            return false to "该§e职业分支§7未解锁"
         }
         data.resonantBranch = branch
-        return true to "已经选择该职业分支作为共鸣分支"
+        return true to "已经选择该§e职业分支§7作为§e共鸣分支"
     }
 
     fun clearResonate(player: Player) {

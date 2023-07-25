@@ -31,9 +31,9 @@ object SinterItem {
             event.isCancelled = true
 
             player.closeInventory()
-            player.sendMessage("无法烧炼获得此方块，需要解锁以下条件其中之一: ")
+            player.sendMessage("§a生涯系统 §7>> 无法烧炼获得此方块，需要解锁以下其中之一:")
             result.second.forEach {
-                player.sendMessage("                - $it")
+                player.sendMessage("               §7|—— $it")
             }
         }
     }

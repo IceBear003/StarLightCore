@@ -28,7 +28,7 @@ object DemolitionistPassive {
         if (!player.hasBranch("爆破师")) {
             event.isCancelled = true
 
-            player.sendMessage("无法点燃苦力怕，需要解锁: ${"爆破师".display()}")
+            player.sendMessage("§a生涯系统 §7>> 无法点燃苦力怕，需要解锁 ${"爆破师".display()}")
         }
     }
 
@@ -78,7 +78,7 @@ object DemolitionistPassive {
                 block.type = Material.AIR
                 world.createExplosion(loc, 3.0F)
 
-                player.sendMessage("合成炸药时不小心爆炸了，升级技能 ${"稳定三硝基甲苯".display()}\" &r以规避")
+                player.sendMessage("§a生涯系统 §7>> 炸药合成时爆炸了，升级技能 ${"稳定三硝基甲苯".display()}\" §7以规避")
             }
         }
     }

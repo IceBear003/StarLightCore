@@ -43,19 +43,19 @@ object DischargeHandler {
         }
     }
 
-    fun triggerShortCut(player: Player, key: Int): String? {
+    fun triggerShortCut(player: Player, key: Int): String {
         val data = loadCareerData(player)
-        val id = data.shortCuts[key] ?: return "该按键未绑定任何可释放的技能/顿悟"
+        val id = data.shortCuts[key] ?: return "该按键未绑定任何可释放的§a技能§7/§d顿悟"
 
         val skill = Skill.fromId(id)
         if (skill != null) {
             val level = data.getSkillLevel(skill)
             if (level <= 0)
-                return "请先升级技能 ${skill.display()}"
+                return "请先升级§a技能§7 ${skill.display()}"
 
             val cd = player.checkCooldownStamp(id, skill.level(level).cooldown.toDouble())
             if (!cd.first) {
-                return "无法释放 ${skill.display()}，还需等待 ${cd.second}秒"
+                return "无法释放 ${skill.display()} §7还需等待 §e${cd.second}秒"
             }
             player.addCooldownStamp(id)
 
@@ -65,18 +65,18 @@ object DischargeHandler {
         val eureka = Eureka.fromId(id)
         if (eureka != null) {
             if (!data.hasEureka(eureka))
-                return "请先激活顿悟 ${eureka.display()}"
+                return "请先激活§d顿悟§7 ${eureka.display()}"
 
             val cd = player.checkCooldownStamp(id, eureka.cooldown.toDouble())
             if (!cd.first) {
-                return "无法释放 ${eureka.display()}，还需等待 ${cd.second}秒"
+                return "无法释放 ${eureka.display()} §7还需等待 §e${cd.second}秒"
             }
             player.addCooldownStamp(id)
 
             return dischargeMap[id]!!.invoke(player, id, 1)
         }
 
-        return "该按键貌似未绑定任何技能/顿悟"
+        return "该按键未绑定任何可释放的§a技能§7/§d顿悟"
     }
 }
 
