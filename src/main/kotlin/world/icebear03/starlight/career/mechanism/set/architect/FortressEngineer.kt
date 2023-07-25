@@ -20,7 +20,10 @@ object FortressEngineerPassive {
             return
 
         val level = entity.getSkillLevel("缓冲装置")
-        event.damage = event.damage * (0.8 - 0.2 * level)
+        if (level in 0..3)
+            event.damage = event.damage * (maxOf(0.4, 0.8 - 0.2 * level))
+        if (level == 3 && Math.random() <= 0.2)
+            event.isCancelled = true
     }
 }
 

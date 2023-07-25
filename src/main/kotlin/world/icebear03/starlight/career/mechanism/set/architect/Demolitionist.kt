@@ -10,6 +10,7 @@ import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import world.icebear03.starlight.career.getSkillLevel
 import world.icebear03.starlight.career.hasBranch
+import world.icebear03.starlight.career.internal.Skill
 import world.icebear03.starlight.career.mechanism.display
 import world.icebear03.starlight.career.mechanism.limit.LimitType
 
@@ -20,7 +21,10 @@ object DemolitionistPassive {
         val entity = event.rightClicked
         if (entity !is Creeper)
             return
-        if (player.inventory.itemInMainHand.type != Material.FLINT_AND_STEEL)
+        val type = player.inventory.itemInMainHand.type
+        if (type != Material.FLINT_AND_STEEL &&
+            type != Material.FIRE_CHARGE
+        )
             return
         if (!player.hasBranch("爆破师")) {
             event.isCancelled = true
@@ -52,9 +56,15 @@ object DemolitionistPassive {
 
         val type = event.recipe.result.type
 
+        player.sendMessage("这是调试信息")
+
+        player.sendMessage(type.toString())
+        player.sendMessage("" + Skill.fromId("稳定三硝基甲苯"))
+
         if (type == Material.TNT || type == Material.TNT_MINECART) {
             val level = player.getSkillLevel("稳定三硝基甲苯")
 
+            player.sendMessage("level: $level")
             val failPercent = when (level) {
                 0 -> 0.5
                 1 -> 0.25
@@ -62,6 +72,8 @@ object DemolitionistPassive {
                 3 -> 1.0
                 else -> 0.0
             }
+
+            player.sendMessage("fail percent: $failPercent")
 
             if (Math.random() <= failPercent) {
                 event.isCancelled = true
@@ -97,12 +109,14 @@ enum class DemolitionistSet(
             Material.TNT,
             Material.TNT_MINECART
         ), listOf(
+            LimitType.CRAFT to ("爆破师" to 0),
             LimitType.PLACE to ("爆破师" to 0),
             LimitType.USE to ("爆破师" to 0)
         )
     ),
-    FIREBALL(
+    FIRE(
         listOf(
+            Material.FLINT_AND_STEEL,
             Material.FIRE_CHARGE
         ),
         listOf(

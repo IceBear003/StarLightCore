@@ -2,6 +2,7 @@ package world.icebear03.starlight.career
 
 import org.bukkit.entity.Player
 import world.icebear03.starlight.career.internal.*
+import world.icebear03.starlight.career.mechanism.data.Resonate
 import world.icebear03.starlight.loadCareerData
 
 data class UsableCareer(
@@ -11,7 +12,8 @@ data class UsableCareer(
     val eurekas: MutableList<Eureka> = mutableListOf(),
     var points: Int = 0,
     var resonantBranch: Branch? = null,
-    var resonantType: ResonateType = ResonateType.FRIENDLY
+    var resonantType: ResonateType = ResonateType.FRIENDLY,
+    val shortCuts: MutableMap<Int, String> = mutableMapOf()
 ) {
     fun toSavableCareer(): SavableCareer {
         val savableClasses = mutableMapOf<String, List<String>>()
@@ -39,7 +41,8 @@ data class UsableCareer(
             eurekas.map { it.id },
             points,
             resonantBranch?.id,
-            resonantType.toString()
+            resonantType.toString(),
+            shortCuts
         )
     }
 
@@ -243,6 +246,38 @@ data class UsableCareer(
         points = amount
     }
     //--------------------------------------------------------------------
+
+    //-----------------------------快捷键相关-------------------------------
+    fun attemptToAddSkillToShortCut(skillId: String, key: Int): Pair<Boolean, String> {
+        return attemptToAddSkillToShortCut(Skill.fromId(skillId) ?: return false to "技能不存在", key)
+    }
+
+    fun attemptToAddSkillToShortCut(skill: Skill, key: Int): Pair<Boolean, String> {
+        if (skill.type == SkillType.PASSIVE)
+            return false to "被动技能无法绑定至键盘"
+        if (getSkillLevel(skill) < 1)
+            return false to "请先升级该技能"
+
+        shortCuts[key] = skill.id
+
+        return true to "成功绑定技能 ${skill.display()} &r至键盘按键 $key"
+    }
+
+    fun attemptToAddEurekaToShortCut(eurekaId: String, key: Int): Pair<Boolean, String> {
+        return attemptToAddEurekaToShortCut(Eureka.fromId(eurekaId) ?: return false to "技能不存在", key)
+    }
+
+    fun attemptToAddEurekaToShortCut(eureka: Eureka, key: Int): Pair<Boolean, String> {
+        if (eureka.type == SkillType.PASSIVE)
+            return false to "被动顿悟无法绑定至键盘"
+        if (!hasEureka(eureka))
+            return false to "请先激活该顿悟"
+
+        shortCuts[key] = eureka.id
+
+        return true to "成功绑定顿悟 ${eureka.display()} &r至键盘按键 $key"
+    }
+    //--------------------------------------------------------------------
 }
 
 fun Player.hasBranch(branchId: String, level: Int = 0): Boolean {
@@ -250,7 +285,8 @@ fun Player.hasBranch(branchId: String, level: Int = 0): Boolean {
 }
 
 fun Player.hasSkill(skillId: String, level: Int = 0): Boolean {
-    return loadCareerData(this).getSkillLevel(skillId) >= level
+    return loadCareerData(this).getSkillLevel(skillId) >= level ||
+            Resonate.getSkillResonatedLevel(this, skillId) >= level
 }
 
 fun Player.hasEureka(eurekaId: String): Boolean {
@@ -262,5 +298,8 @@ fun Player.getBranchLevel(branchId: String): Int {
 }
 
 fun Player.getSkillLevel(skillId: String): Int {
-    return loadCareerData(this).getSkillLevel(skillId)
+    return maxOf(
+        loadCareerData(this).getSkillLevel(skillId),
+        Resonate.getSkillResonatedLevel(this, skillId)
+    )
 }

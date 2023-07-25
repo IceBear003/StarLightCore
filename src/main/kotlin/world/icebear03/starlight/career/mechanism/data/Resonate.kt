@@ -72,4 +72,13 @@ object Resonate {
         val data = loadCareerData(player)
         data.resonantType = type
     }
+
+    fun getSkillResonatedLevel(player: Player, skillId: String): Int {
+        return getSkillResonatedLevel(player, Skill.fromId(skillId) ?: return -1)
+    }
+
+    fun getSkillResonatedLevel(player: Player, skill: Skill): Int {
+        val map = resonating[player.uniqueId] ?: return -1
+        return (map[skill] ?: return -1).second
+    }
 }

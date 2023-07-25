@@ -9,7 +9,8 @@ data class SavableCareer(
     val eurekas: List<String>,
     var points: Int,
     var resonantBranch: String?,
-    var resonantType: String
+    var resonantType: String,
+    val shortCuts: MutableMap<Int, String>
 ) {
     fun toUsableCareer(): UsableCareer {
         val usableClasses = mutableMapOf<Class, MutableList<Branch>>()
@@ -40,7 +41,8 @@ data class SavableCareer(
             eurekas.map { Eureka.fromId(it)!! }.toMutableList(),
             points,
             Branch.fromId(resonantBranch),
-            ResonateType.valueOf(resonantType)
+            ResonateType.valueOf(resonantType),
+            shortCuts
         )
     }
 }

@@ -2,6 +2,7 @@ package world.icebear03.starlight.career.mechanism.limit
 
 import org.bukkit.Material
 import world.icebear03.starlight.career.mechanism.limit.LimitType.*
+import world.icebear03.starlight.career.mechanism.set.architect.DemolitionistSet
 import world.icebear03.starlight.career.mechanism.set.architect.FortressEngineerSet
 import world.icebear03.starlight.career.mechanism.set.architect.StructuralEngineerSet
 import world.icebear03.starlight.career.mechanism.set.architect.TrafficEngineerSet
@@ -23,7 +24,7 @@ object MaterialLimitLibrary {
         FortressEngineerSet.values().forEach {
             install(it.types, it.limits)
         }
-        StructuralEngineerSet.values().forEach {
+        DemolitionistSet.values().forEach {
             install(it.types, it.limits)
         }
         TrafficEngineerSet.values().forEach {

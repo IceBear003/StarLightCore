@@ -14,6 +14,9 @@ object PlaceBlock {
         val player = event.player
 
         val result = player.checkAbility(MaterialLimitLibrary.placeLimits[type])
+
+        player.sendMessage(result.toString())
+
         if (!result.first) {
             event.isCancelled = true
 
