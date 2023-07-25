@@ -69,19 +69,19 @@ skills:
       description:
         - "&eCD：&a300s"
         - "&7向前方投掷出 &a3个 &7已点燃的TNT"
-        - "&7这些TNT不会破坏方块，但会造成 &a2倍 &7爆炸伤害"
+        - "&7这些TNT不会破坏方块"
       cooldown: 300
     2:
       description:
         - "&eCD：&a300s"
         - "&7向前方投掷出 &a4个 &7已点燃的TNT"
-        - "&7这些TNT不会破坏方块，但会造成 &a2.5倍 &7爆炸伤害"
+        - "&7这些TNT不会破坏方块"
       cooldown: 300
     3:
       description:
         - "&eCD：&a300s"
         - "&7向前方投掷出 &a5个 &7已点燃的TNT"
-        - "&7这些TNT不会破坏方块，但会造成 &a3倍 &7爆炸伤害"
+        - "&7这些TNT不会破坏方块"
       cooldown: 300
   #继续添加
 eurekas:

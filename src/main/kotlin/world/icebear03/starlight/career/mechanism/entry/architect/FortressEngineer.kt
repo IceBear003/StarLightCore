@@ -31,7 +31,7 @@ object FortressEngineerActive {
 
     val obsidianWalls = mutableMapOf<UUID, List<Location>>()
 
-    init {
+    fun initialize() {
         "庇护寻求".defineDischarge { id, level ->
             val player = this
             val amount = getAbsorptionAmount(this, level)
@@ -68,12 +68,19 @@ object FortressEngineerActive {
             val loc = block.location
             val tmp = listOf(-1 to 0, 1 to 0, 0 to 1, 0 to -1)
             val blocks = mutableListOf<Location>()
-            tmp.forEach {
-                val thisTime = loc.clone()
-                for (i in 1..8) {
-                    for (y in 0..2) {
+            val thisTime = loc.clone()
+
+            var tot = 0
+            submit(period = 10L) {
+                tot += 1
+                if (tot > 8) {
+                    cancel()
+                    return@submit
+                }
+                tmp.forEach {
+                    for (y in 1..3) {
                         val current = thisTime.clone()
-                        current.add(it.first, y, it.second)
+                        current.add(it.first * tot, y, it.second * tot)
                         val currentBlock = current.block
                         if (currentBlock.type == Material.AIR) {
                             currentBlock.type = Material.OBSIDIAN
@@ -81,6 +88,7 @@ object FortressEngineerActive {
                         }
                     }
                 }
+
             }
             obsidianWalls[this.uniqueId] = blocks
             "§d顿悟 ${id.display()} §7释放成功，黑曜石墙将会在§e15秒§7后消失"
@@ -88,6 +96,7 @@ object FortressEngineerActive {
 
         "淬炼固化".defineFinish { _, _ ->
             obsidianWalls[this.uniqueId]?.forEach {
+                it.world!!.spawnParticle(Particle.BLOCK_CRACK, it.block.location, 1, it.block.blockData)
                 it.block.type = Material.AIR
             }
             obsidianWalls.remove(this.uniqueId)
@@ -136,7 +145,7 @@ object FortressEngineerActive {
 
 object FortressEngineerPassive {
 
-    init {
+    fun initialize() {
         submit(period = 100L) {
             onlinePlayers.forEach {
                 if (it.world.environment == World.Environment.NETHER) {
@@ -173,7 +182,7 @@ object FortressEngineerPassive {
                 flag = true
             }
             if (flag)
-                entity.sendMessage("§a生涯系统 §7>> ${"重力轰击".display()} 对周围玩家造成了§e${event.damage}点伤害")
+                entity.sendMessage("§a生涯系统 §7>> ${"重力轰击".display()} §7对周围玩家造成了§e${event.damage}点伤害")
         }
     }
 }

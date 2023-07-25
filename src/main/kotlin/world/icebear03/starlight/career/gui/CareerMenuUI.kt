@@ -2,7 +2,6 @@ package world.icebear03.starlight.career.gui
 
 import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
-import org.bukkit.event.inventory.ClickType
 import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataType
 import org.serverct.parrot.parrotx.function.textured
@@ -53,7 +52,6 @@ object CareerMenuUI {
             config = MenuConfiguration(source)
         }
         player.openMenu<Basic>(config.title().colored()) {
-            virtualize()
             val (shape, templates) = config
             rows(shape.rows)
             map(*shape.array)
@@ -154,7 +152,7 @@ object CareerMenuUI {
             }
         }
         onClick { (_, _, event, _) ->
-            val item = event.virtualEvent().clickItem
+            val item = event.clickEvent().currentItem ?: return@onClick
             val player = event.clicker
             val classId = item.itemMeta!!.persistentDataContainer.get(mark, PersistentDataType.STRING)
 
@@ -198,23 +196,19 @@ object CareerMenuUI {
             }
         }
         onClick { (_, _, event, args) ->
-            val item = event.virtualEvent().clickItem
+            val item = event.clickEvent().currentItem ?: return@onClick
             val player = event.clicker
             val data = loadCareerData(player)
             val branchId = item.itemMeta!!.persistentDataContainer.get(mark, PersistentDataType.STRING)!!
 
-            when (event.virtualEvent().clickType) {
-                ClickType.LEFT ->
-                    CareerBranchUI.open(player, branchId)
+            if (event.clickEvent().isLeftClick)
+                CareerBranchUI.open(player, branchId)
 
-                ClickType.RIGHT -> {
-                    val result = data.attemptToUnlockBranch(branchId)
-                    player.sendMessage("§a生涯系统 §7>> " + result.second)
-                    if (result.first)
-                        open(player, args[0].toString())
-                }
-
-                else -> {}
+            if (event.clickEvent().isRightClick) {
+                val result = data.attemptToUnlockBranch(branchId)
+                player.sendMessage("§a生涯系统 §7>> " + result.second)
+                if (result.first)
+                    open(player, args[0].toString())
             }
         }
     }
@@ -244,7 +238,7 @@ object CareerMenuUI {
             icon.variable("state", listOf(state))
         }
         onClick { (_, _, event, args) ->
-            val item = event.virtualEvent().clickItem
+            val item = event.clickEvent().currentItem ?: return@onClick
             val player = event.clicker
             val branchId = item.itemMeta!!.persistentDataContainer.get(mark, PersistentDataType.STRING)!!
 
@@ -274,7 +268,7 @@ object CareerMenuUI {
             icon.variable("cost", listOf("${data.getBranchLevel(branch.id) * 2 + 2}"))
         }
         onClick { (_, _, event, args) ->
-            val item = event.virtualEvent().clickItem
+            val item = event.clickEvent().currentItem ?: return@onClick
             val player = event.clicker
             val branchId = item.itemMeta!!.persistentDataContainer.get(mark, PersistentDataType.STRING)!!
 

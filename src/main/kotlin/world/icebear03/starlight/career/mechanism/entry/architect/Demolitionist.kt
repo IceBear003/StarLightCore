@@ -5,6 +5,7 @@ import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.entity.*
+import org.bukkit.event.block.BlockIgniteEvent
 import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.EntityExplodeEvent
 import org.bukkit.event.entity.EntitySpawnEvent
@@ -28,7 +29,7 @@ import java.util.*
 
 object DemolitionistActive {
 
-    init {
+    fun initialize() {
         "气浪行者".defineDischarge { id, level ->
             val duration = 2 + level
             val percent = 35 + 15 * level
@@ -92,12 +93,10 @@ object DemolitionistPassive {
 
     val specialRecipes = mutableListOf<NamespacedKey>()
 
-    init {
+    fun initialize() {
         val key = NamespacedKey.minecraft("crystal_special")
         val recipe = ShapedRecipe(key, ItemStack(Material.END_CRYSTAL))
-        recipe.shape[0] = "aba"
-        recipe.shape[1] = "aba"
-        recipe.shape[2] = "aba"
+        recipe.shape("aba", "aba", "aba")
         recipe.setIngredient('a', Material.GLASS)
         recipe.setIngredient('b', Material.TNT)
         Bukkit.removeRecipe(key)
@@ -132,6 +131,18 @@ object DemolitionistPassive {
                     player.sendMessage("§a生涯系统 §7>> 合成爆炸物品时获得了额外的产物")
                 }
             }
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    fun igniteBlock(event: BlockIgniteEvent) {
+        val player = event.player ?: return
+        if (!player.hasBranch("爆破师")) {
+            if (Math.random() >= 0.2)
+                submit {
+                    event.block.type = Material.AIR
+                    player.sendMessage("§a生涯系统 §7>> 使用打火石失败，请解锁§e职业分支 ${"爆破师".display()} §7以提高成功率")
+                }
         }
     }
 
@@ -180,11 +191,10 @@ object DemolitionistPassive {
             val level = player.getSkillLevel("稳定三硝基甲苯")
 
             val failPercent = when (level) {
-                0 -> 0.5
                 1 -> 0.25
                 2 -> 0.1
-                3 -> 1.0
-                else -> 0.0
+                3 -> 0.0
+                else -> 0.5
             }
 
             if (Math.random() <= failPercent) {
@@ -199,7 +209,7 @@ object DemolitionistPassive {
                 block.type = Material.AIR
                 world.createExplosion(loc, 3.0F)
 
-                player.sendMessage("§a生涯系统 §7>> 炸药合成时爆炸了，升级技能 ${"稳定三硝基甲苯".display()}\" §7以规避")
+                player.sendMessage("§a生涯系统 §7>> 炸药合成时爆炸了，升级技能 ${"稳定三硝基甲苯".display()} §7以规避")
             }
         }
     }
@@ -228,7 +238,6 @@ enum class DemolitionistSet(
     ),
     FIRE(
         listOf(
-            Material.FLINT_AND_STEEL,
             Material.FIRE_CHARGE
         ),
         listOf(

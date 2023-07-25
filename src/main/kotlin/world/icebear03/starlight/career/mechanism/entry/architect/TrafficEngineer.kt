@@ -3,6 +3,7 @@ package world.icebear03.starlight.career.mechanism.entry.architect
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.World
 import org.bukkit.block.Biome
 import org.bukkit.entity.Boat
 import org.bukkit.entity.EntityType
@@ -34,7 +35,7 @@ object TrafficEngineerActive {
         it.toString().endsWith("OCEAN")
     }
 
-    init {
+    fun initialize() {
         "追加动力".defineDischarge { id, level ->
             val percent = 20 + 10 * level
 
@@ -48,7 +49,7 @@ object TrafficEngineerActive {
 
             "§a技能 ${id.display()} §7释放成功，载具在§a5秒§7内速度加快§e${percent}%"
         }
-        "追加动力".defineFinish { id, level ->
+        "追加动力".defineFinish { _, level ->
             val percent = 20 + 10 * level
 
             if (this.isInsideVehicle) {
@@ -59,7 +60,7 @@ object TrafficEngineerActive {
                     vehicle.maxSpeed = vehicle.maxSpeed / (percent / 100.0)
             }
         }
-        "备用载具".defineDischarge skill@{ id, level ->
+        "备用载具".defineDischarge skill@{ id, _ ->
             if (this.isInWater) {
                 this.world.spawnEntity(this.location, EntityType.BOAT)
                 return@skill "§a技能 ${id.display()} §7释放成功，船只已经召唤"
@@ -85,12 +86,10 @@ object TrafficEngineerPassive {
 
     val specialRecipes = mutableListOf<NamespacedKey>()
 
-    init {
+    fun initialize() {
         val keyA = NamespacedKey.minecraft("rail_special_a")
         val recipeA = ShapedRecipe(keyA, ItemStack(Material.RAIL, 16))
-        recipeA.shape[0] = "a a"
-        recipeA.shape[1] = " s "
-        recipeA.shape[2] = "a a"
+        recipeA.shape("a a", " s ", "a a")
         recipeA.setIngredient('a', Material.IRON_INGOT)
         recipeA.setIngredient('s', Material.STICK)
         Bukkit.removeRecipe(keyA)
@@ -98,9 +97,7 @@ object TrafficEngineerPassive {
 
         val keyB = NamespacedKey.minecraft("rail_special_b")
         val recipeB = ShapedRecipe(keyB, ItemStack(Material.RAIL, 16))
-        recipeB.shape[0] = "a a"
-        recipeB.shape[1] = "asa"
-        recipeB.shape[2] = "a a"
+        recipeB.shape("a a", "asa", "a a")
         recipeB.setIngredient('a', Material.COPPER_INGOT)
         recipeB.setIngredient('s', Material.STICK)
         Bukkit.removeRecipe(keyB)
@@ -178,7 +175,7 @@ object TrafficEngineerPassive {
 
         if (TrafficEngineerSet.ICE_BLOCKS.types.contains(type)) {
             if ((level >= 3 && Math.random() <= 0.1) ||
-                (player.hasEureka("下界开路者") && Math.random() <= 0.15)
+                (player.world.environment == World.Environment.NETHER && player.hasEureka("下界开路者") && Math.random() <= 0.15)
             ) {
                 player.giveItem(ItemStack(type))
                 player.sendMessage("§a生涯系统 §7>> 本次放置未消耗物品")
@@ -198,9 +195,9 @@ enum class TrafficEngineerSet(
             Material.DETECTOR_RAIL,
             Material.POWERED_RAIL
         ), listOf(
-            LimitType.CRAFT to ("堡垒工程师" to 0),
-            LimitType.PLACE to ("堡垒工程师" to 0),
-            LimitType.DROP_IF_BREAK to ("堡垒工程师" to 0)
+            LimitType.CRAFT to ("交通工程师" to 0),
+            LimitType.PLACE to ("交通工程师" to 0),
+            LimitType.DROP_IF_BREAK to ("交通工程师" to 0)
         )
     ),
     MINECARTS(
@@ -211,7 +208,7 @@ enum class TrafficEngineerSet(
             Material.HOPPER_MINECART,
             Material.TNT_MINECART
         ), listOf(
-            LimitType.CRAFT to ("堡垒工程师" to 0)
+            LimitType.CRAFT to ("交通工程师" to 0)
         )
     ),
     ICE_BLOCKS(
@@ -219,6 +216,6 @@ enum class TrafficEngineerSet(
             Material.PACKED_ICE,
             Material.BLUE_ICE
         ),
-        listOf(LimitType.PLACE to ("堡垒工程师" to 0))
+        listOf(LimitType.PLACE to ("交通工程师" to 0))
     )
 }

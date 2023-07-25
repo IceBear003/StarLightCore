@@ -22,7 +22,7 @@ import world.icebear03.starlight.career.mechanism.limit.LimitType
 import world.icebear03.starlight.utils.effect
 
 object StructuralEngineerActive {
-    init {
+    fun initialize() {
         "识色敏锐".defineDischarge { id, _ ->
             "§a技能 ${id.display()} §7释放成功，下一次合成染色方块时会获得额外同种方块"
         }
@@ -48,9 +48,9 @@ object StructuralEngineerActive {
                 }
 
                 val tmp = when (skillLevel) {
-                    2 -> listOf(2, 1, 1)
-                    3 -> listOf(2, 2, 2)
-                    else -> listOf(3, 3, 3)
+                    2 -> listOf(2, 2, 2)
+                    3 -> listOf(3, 3, 3)
+                    else -> listOf(2, 1, 1)
                 }
 
                 if (player.location.block.type == Material.SCAFFOLDING) {
@@ -90,7 +90,7 @@ object StructuralEngineerPassive {
 
     val specialRecipes = mutableListOf<NamespacedKey>()
 
-    init {
+    fun initialize() {
         DyeColor.values().forEach {
             val concreteType = Material.valueOf(it.toString() + "_CONCRETE")
             val powderType = Material.valueOf(it.toString() + "_CONCRETE_POWDER")

@@ -66,10 +66,10 @@ object DischargeHandler {
             if (duration != -1) {
                 submit(delay = 20L * duration) {
                     finishMap[id]?.invoke(player, id, level)
-                    player.sendMessage("§a生涯系统 §7>> §7刚刚释放的§a技能 §7${skill.display()} §7已经结束")
+                    player.sendMessage("§a生涯系统 §7>> §a技能 §7${skill.display()} §7已经结束")
                 }
             }
-            return dischargeMap[id]!!.invoke(player, id, level)
+            return dischargeMap[id]?.invoke(player, id, level)
         }
 
         val eureka = Eureka.fromId(id)
@@ -87,10 +87,10 @@ object DischargeHandler {
             if (duration != -1) {
                 submit(delay = 20L * duration) {
                     finishMap[id]?.invoke(player, id, 1)
-                    player.sendMessage("§a生涯系统 §7>> §7刚刚释放的§d顿悟 §7${eureka.display()} §7已经结束")
+                    player.sendMessage("§a生涯系统 §7>> §d顿悟 §7${eureka.display()} §7已经结束")
                 }
             }
-            return dischargeMap[id]!!.invoke(player, id, 1)
+            return dischargeMap[id]?.invoke(player, id, 1)
         }
 
         return "该按键未绑定任何可释放的§a技能§7/§d顿悟"

@@ -50,7 +50,6 @@ object CareerBranchUI {
             config = MenuConfiguration(source)
         }
         player.openMenu<Basic>(config.title().colored()) {
-            virtualize()
             val (shape, templates) = config
             rows(shape.rows)
             map(*shape.array)
@@ -189,13 +188,13 @@ object CareerBranchUI {
             icon.variables {
                 when (it) {
                     "display" -> listOf(skill.display())
-                    "level" -> listOf(state)
+                    "state" -> listOf(state)
                     else -> listOf()
                 }
             }
         }
         onClick { (_, _, event, _) ->
-            val item = event.virtualEvent().clickItem
+            val item = event.clickEvent().currentItem ?: return@onClick
             val player = event.clicker
             val data = loadCareerData(player)
             val id = item.itemMeta!!.persistentDataContainer.get(CareerMenuUI.mark, PersistentDataType.STRING)!!
@@ -255,7 +254,7 @@ object CareerBranchUI {
         }
 
         onClick { (_, _, event, args) ->
-            val item = event.virtualEvent().clickItem
+            val item = event.clickEvent().currentItem ?: return@onClick
             val player = event.clicker
             val data = loadCareerData(player)
             val string = item.itemMeta!!.persistentDataContainer.get(CareerMenuUI.mark, PersistentDataType.STRING)!!
@@ -337,7 +336,7 @@ object CareerBranchUI {
         }
 
         onClick { (_, _, event, args) ->
-            val item = event.virtualEvent().clickItem
+            val item = event.clickEvent().currentItem ?: return@onClick
             val player = event.clicker
             val data = loadCareerData(player)
             val id = item.itemMeta!!.persistentDataContainer.get(CareerMenuUI.mark, PersistentDataType.STRING)!!

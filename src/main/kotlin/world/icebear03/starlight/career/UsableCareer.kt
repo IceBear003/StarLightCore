@@ -231,7 +231,7 @@ data class UsableCareer(
         eurekas += eureka
 
         //请注意这里是角色技能
-        if (eureka.id == "主世界的创造者") {
+        if (eureka.id == "主世界的建造者") {
             var flag = false
             eureka.branch.careerClass.branches.forEach {
                 if (hasBranch(it) && it != eureka.branch)
@@ -239,7 +239,7 @@ data class UsableCareer(
             }
             if (flag) {
                 addPoint(3)
-                return true to "成功激活§d顿悟§7 ${eureka.display()} 并获得§e3技能点"
+                return true to "成功激活§d顿悟§7 ${eureka.display()} §7并获得§e3技能点"
             }
         }
 
