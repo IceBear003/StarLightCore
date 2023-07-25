@@ -54,6 +54,7 @@ data class UsableCareer(
         branches.clear()
         skills.clear()
         eurekas.clear()
+        shortCuts.clear()
 
         points = 0
         resonantBranch = null

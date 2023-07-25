@@ -20,6 +20,7 @@ import world.icebear03.starlight.career.mechanism.discharge.isDischarging
 import world.icebear03.starlight.career.mechanism.display
 import world.icebear03.starlight.career.mechanism.limit.LimitType
 import world.icebear03.starlight.utils.effect
+import world.icebear03.starlight.utils.hasBlockAside
 
 object StructuralEngineerActive {
     fun initialize() {
@@ -40,6 +41,12 @@ object StructuralEngineerActive {
             var tot = 0
             submit(period = 20L) {
                 tot += 1
+
+                if (!player.isDischarging("凌空创想")) {
+                    cancel()
+                    return@submit
+                }
+
                 if (!player.hasPotionEffect(PotionEffectType.SPEED)) {
                     player.effect(PotionEffectType.SPEED, seconds - tot, level)
                 }
@@ -53,7 +60,7 @@ object StructuralEngineerActive {
                     else -> listOf(2, 1, 1)
                 }
 
-                if (player.location.block.type == Material.SCAFFOLDING) {
+                if (player.hasBlockAside(Material.SCAFFOLDING, 1)) {
                     player.effect(PotionEffectType.SPEED, 3, tmp[0])
                     player.effect(PotionEffectType.JUMP, 3, tmp[1])
                     player.effect(PotionEffectType.DAMAGE_RESISTANCE, 3, tmp[2])

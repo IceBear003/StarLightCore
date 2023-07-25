@@ -23,10 +23,10 @@ object DischargeHandler {
     val item = ItemStack(Material.PLAYER_HEAD).modifyMeta<ItemMeta> {
         setDisplayName("§b职业信物")
         lore = listOf(
-            "§8| §7将此物置于副手",
-            "§8| §7并按下交换键(默认F)",
-            "§8| §7即可施放主手格子",
-            "§8| §7编号对应的技能"
+            "§8| §7将此物置于副手，按下交换键(默认F)时",
+            "§8| §7即可施放快捷栏格子编号对应的技能",
+            "§8| §c蹲下时不触发此判定",
+            ""
         )
     }
         .textured("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2E5Y2IwNDU3ZDUwMTVkZmJkM2UyNTJkNzY3MDcxMjc1OTEwNjNhMGIyZmViYWY4YzY0NGFjYWRhOTBiZDRkMCJ9fX0=")
@@ -34,6 +34,8 @@ object DischargeHandler {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     fun swapItem(event: PlayerSwapHandItemsEvent) {
         val player = event.player
+        if (player.isSneaking)
+            return
         val inv: PlayerInventory = player.inventory
         if (inv.itemInOffHand.hasName()) {
             if (inv.itemInOffHand.itemMeta!!.displayName == "§b职业信物") {
@@ -97,7 +99,7 @@ object DischargeHandler {
     }
 }
 
-fun Player.isDischarging(key: String, level: Int = 1, removeIfConsumable: Boolean = true): Boolean {
+fun Player.isDischarging(key: String, level: Int = 1, removeIfConsumable: Boolean = false): Boolean {
     if (level <= 0)
         return false
 

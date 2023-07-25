@@ -10,6 +10,10 @@ fun Player.addCooldownStamp(key: String) {
     cooldownStamps.getOrPut(this.uniqueId) { mutableMapOf() }[key] = System.currentTimeMillis()
 }
 
+fun Player.clearCooldownStamp() {
+    cooldownStamps.remove(this.uniqueId)
+}
+
 //pair#first 冷却是否结束，冷却中为false
 //pair#second 冷却若未结束，离结束还剩下的时间（秒）
 fun Player.checkCooldownStamp(key: String, cdInSec: Double): Pair<Boolean, Double> {
