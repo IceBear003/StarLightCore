@@ -62,7 +62,7 @@ object TrafficEngineerActive {
         }
         "备用载具".defineDischarge skill@{ id, _ ->
             if (this.hasBlockAside(Material.WATER, 1)) {
-                this.world.spawnEntity(this.location, EntityType.BOAT)
+                this.world.spawnEntity(this.location.add(0.0, 1.0, 0.0), EntityType.BOAT)
                 return@skill "§a技能 ${id.display()} §7释放成功，船只已经召唤"
             }
             if (this.hasBlockAside(TrafficEngineerSet.RAILS.types, 1)) {

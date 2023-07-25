@@ -202,14 +202,18 @@ object DemolitionistPassive {
                 event.inventory.clear()
                 player.closeInventory()
 
-                val trace = player.rayTraceBlocks(5.0) ?: return
-                val block = trace.hitBlock ?: return
-                val loc = block.location
-                val world = block.world
-                block.type = Material.AIR
-                world.createExplosion(loc, 3.0F)
+                if (Math.random() <= failPercent) {
+                    val trace = player.rayTraceBlocks(5.0) ?: return
+                    val block = trace.hitBlock ?: return
+                    val loc = block.location
+                    val world = block.world
+                    block.type = Material.AIR
+                    world.createExplosion(loc, 3.0F)
 
-                player.sendMessage("§a生涯系统 §7>> 炸药合成时爆炸了，升级技能 ${"稳定三硝基甲苯".display()} §7以规避")
+                    player.sendMessage("§a生涯系统 §7>> 炸药合成时爆炸了，升级技能 ${"稳定三硝基甲苯".display()} §7以规避")
+                } else {
+                    player.sendMessage("§a生涯系统 §7>> 炸药合成失败，升级技能 ${"稳定三硝基甲苯".display()} §7以提升成功率")
+                }
             }
         }
     }
