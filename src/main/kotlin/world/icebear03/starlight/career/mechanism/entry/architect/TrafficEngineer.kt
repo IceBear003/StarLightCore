@@ -1,21 +1,133 @@
 package world.icebear03.starlight.career.mechanism.entry.architect
 
+import org.bukkit.Bukkit
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
+import org.bukkit.block.Biome
 import org.bukkit.entity.Boat
+import org.bukkit.entity.EntityType
 import org.bukkit.entity.Minecart
 import org.bukkit.entity.Player
 import org.bukkit.event.block.BlockPlaceEvent
+import org.bukkit.event.inventory.CraftItemEvent
 import org.bukkit.event.vehicle.VehicleEnterEvent
 import org.bukkit.event.vehicle.VehicleExitEvent
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.ShapedRecipe
+import org.bukkit.potion.PotionEffectType
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.platform.util.giveItem
 import world.icebear03.starlight.career.getSkillLevel
 import world.icebear03.starlight.career.hasBranch
+import world.icebear03.starlight.career.hasEureka
+import world.icebear03.starlight.career.mechanism.discharge.defineDischarge
+import world.icebear03.starlight.career.mechanism.discharge.defineFinish
+import world.icebear03.starlight.career.mechanism.display
 import world.icebear03.starlight.career.mechanism.limit.LimitType
+import world.icebear03.starlight.utils.effect
+import world.icebear03.starlight.utils.hasBlockAside
+
+object TrafficEngineerActive {
+
+    val seaBiomes = Biome.values().filter {
+        it.toString().endsWith("OCEAN")
+    }
+
+    init {
+        "追加动力".defineDischarge { id, level ->
+            val percent = 20 + 10 * level
+
+            if (this.isInsideVehicle) {
+                val vehicle = this.vehicle!!
+                if (vehicle is Boat)
+                    vehicle.maxSpeed = vehicle.maxSpeed * (percent / 100.0)
+                if (vehicle is Minecart)
+                    vehicle.maxSpeed = vehicle.maxSpeed * (percent / 100.0)
+            }
+
+            "§a技能 ${id.display()} §7释放成功，载具在§a5秒§7内速度加快§e${percent}%"
+        }
+        "追加动力".defineFinish { id, level ->
+            val percent = 20 + 10 * level
+
+            if (this.isInsideVehicle) {
+                val vehicle = this.vehicle!!
+                if (vehicle is Boat)
+                    vehicle.maxSpeed = vehicle.maxSpeed / (percent / 100.0)
+                if (vehicle is Minecart)
+                    vehicle.maxSpeed = vehicle.maxSpeed / (percent / 100.0)
+            }
+        }
+        "备用载具".defineDischarge skill@{ id, level ->
+            if (this.isInWater) {
+                this.world.spawnEntity(this.location, EntityType.BOAT)
+                return@skill "§a技能 ${id.display()} §7释放成功，船只已经召唤"
+            }
+            if (this.hasBlockAside(TrafficEngineerSet.RAILS.types, 1)) {
+                this.world.spawnEntity(this.location, EntityType.MINECART)
+                return@skill "§a技能 ${id.display()} §7释放成功，矿车已经召唤"
+            }
+            "§a技能 ${id.display()} §7释放成功，但是没有载具匹配当前位置"
+        }
+        "游弋信风".defineDischarge { id, _ ->
+            if (seaBiomes.contains(this.location.block.biome)) {
+                this.effect(PotionEffectType.DOLPHINS_GRACE, 45, 3)
+            } else {
+                this.effect(PotionEffectType.DOLPHINS_GRACE, 30, 2)
+            }
+            "§d顿悟 ${id.display()} §7释放成功，获得效果 §b海豚的恩惠"
+        }
+    }
+}
 
 object TrafficEngineerPassive {
+
+    val specialRecipes = mutableListOf<NamespacedKey>()
+
+    init {
+        val keyA = NamespacedKey.minecraft("rail_special_a")
+        val recipeA = ShapedRecipe(keyA, ItemStack(Material.RAIL, 16))
+        recipeA.shape[0] = "a a"
+        recipeA.shape[1] = " s "
+        recipeA.shape[2] = "a a"
+        recipeA.setIngredient('a', Material.IRON_INGOT)
+        recipeA.setIngredient('s', Material.STICK)
+        Bukkit.removeRecipe(keyA)
+        Bukkit.addRecipe(recipeA)
+
+        val keyB = NamespacedKey.minecraft("rail_special_b")
+        val recipeB = ShapedRecipe(keyB, ItemStack(Material.RAIL, 16))
+        recipeB.shape[0] = "a a"
+        recipeB.shape[1] = "asa"
+        recipeB.shape[2] = "a a"
+        recipeB.setIngredient('a', Material.COPPER_INGOT)
+        recipeB.setIngredient('s', Material.STICK)
+        Bukkit.removeRecipe(keyB)
+        Bukkit.addRecipe(recipeB)
+
+        specialRecipes += keyA
+        specialRecipes += keyB
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    fun event(event: CraftItemEvent) {
+        val player = event.whoClicked as Player
+
+        val recipe = event.recipe
+        if (recipe !is ShapedRecipe)
+            return
+
+        val key = recipe.key
+        if (specialRecipes.contains(key)) {
+            if (!player.hasEureka("精炼钢轨")) {
+                event.isCancelled = true
+                player.closeInventory()
+                player.sendMessage("§a生涯系统 §7>> 必须激活§d顿悟 " + "精炼钢轨".display() + " §7才可以使用此特殊合成")
+            }
+        }
+    }
+
     @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun event(event: VehicleEnterEvent) {
         val entity = event.entered
@@ -65,7 +177,9 @@ object TrafficEngineerPassive {
         }
 
         if (TrafficEngineerSet.ICE_BLOCKS.types.contains(type)) {
-            if (level >= 3 && Math.random() <= 0.1) {
+            if ((level >= 3 && Math.random() <= 0.1) ||
+                (player.hasEureka("下界开路者") && Math.random() <= 0.15)
+            ) {
                 player.giveItem(ItemStack(type))
                 player.sendMessage("§a生涯系统 §7>> 本次放置未消耗物品")
             }

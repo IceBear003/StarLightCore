@@ -1,19 +1,140 @@
 package world.icebear03.starlight.career.mechanism.entry.architect
 
+import org.bukkit.Bukkit
+import org.bukkit.Location
 import org.bukkit.Material
-import org.bukkit.entity.Creeper
-import org.bukkit.entity.Player
+import org.bukkit.NamespacedKey
+import org.bukkit.entity.*
 import org.bukkit.event.entity.EntityDamageEvent
+import org.bukkit.event.entity.EntityExplodeEvent
+import org.bukkit.event.entity.EntitySpawnEvent
 import org.bukkit.event.inventory.CraftItemEvent
 import org.bukkit.event.player.PlayerInteractEntityEvent
+import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.ShapedRecipe
+import org.bukkit.util.Vector
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
+import taboolib.common.platform.function.submit
+import taboolib.platform.util.giveItem
 import world.icebear03.starlight.career.getSkillLevel
 import world.icebear03.starlight.career.hasBranch
+import world.icebear03.starlight.career.hasEureka
+import world.icebear03.starlight.career.mechanism.discharge.defineDischarge
+import world.icebear03.starlight.career.mechanism.discharge.isDischarging
 import world.icebear03.starlight.career.mechanism.display
 import world.icebear03.starlight.career.mechanism.limit.LimitType
+import java.util.*
+
+object DemolitionistActive {
+
+    init {
+        "气浪行者".defineDischarge { id, level ->
+            val duration = 2 + level
+            val percent = 35 + 15 * level
+            "§a技能 ${id.display()} §7释放成功，接下来§e${duration}秒§7内受到爆炸伤害减少§e${percent}%"
+        }
+        "手摇TNT火炮".defineDischarge { id, level ->
+            "§d顿悟 ${id.display()} §7释放成功，接下来§e30秒§7内箭矢变为TNT"
+        }
+        "前沿爆破线".defineDischarge { id, level ->
+            val amount = 2 + level
+            val percent = 1.5 + 0.5 * level
+            val eye = this.eyeLocation.direction.multiply(3)
+            for (i in 1..amount) {
+                val velocity = eye.clone().add(Vector(Math.random() * 0.5, Math.random() * 0.5, Math.random() * 0.5))
+                this.location.shootPrimedTNT(velocity)
+            }
+            "§a技能 ${id.display()} §7释放成功，发射出§e${amount}个§7点燃的TNT"
+        }
+    }
+
+    val tnts = mutableListOf<UUID>()
+
+    @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
+    fun arrowSpawn(event: EntitySpawnEvent) {
+        val arrow = event.entity
+        if (arrow !is Arrow)
+            return
+        val shooter = arrow.shooter
+        if (shooter !is Player)
+            return
+
+        if (shooter.isDischarging("手摇TNT火炮"))
+            submit {
+                arrow.location.shootPrimedTNT(arrow.velocity)
+                arrow.remove()
+            }
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
+    fun tntExplode(event: EntityExplodeEvent) {
+        val uuid = event.entity.uniqueId
+        if (tnts.contains(uuid)) {
+            event.blockList().clear()
+            tnts.remove(uuid)
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
+    fun damaged(event: EntityDamageEvent) {
+        val entity = event.entity
+        if (entity !is Player)
+            return
+        if (entity.isDischarging("气浪行者")) {
+            val percent = 35 + 15 * entity.getSkillLevel("气浪行者")
+            event.damage = event.damage * (1 - percent / 100.0)
+        }
+    }
+}
 
 object DemolitionistPassive {
+
+    val specialRecipes = mutableListOf<NamespacedKey>()
+
+    init {
+        val key = NamespacedKey.minecraft("crystal_special")
+        val recipe = ShapedRecipe(key, ItemStack(Material.END_CRYSTAL))
+        recipe.shape[0] = "aba"
+        recipe.shape[1] = "aba"
+        recipe.shape[2] = "aba"
+        recipe.setIngredient('a', Material.GLASS)
+        recipe.setIngredient('b', Material.TNT)
+        Bukkit.removeRecipe(key)
+        Bukkit.addRecipe(recipe)
+        specialRecipes += key
+    }
+
+    //TODO 考虑同化
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    fun event(event: CraftItemEvent) {
+        val player = event.whoClicked as Player
+
+        val recipe = event.recipe
+        if (recipe !is ShapedRecipe)
+            return
+
+        val key = recipe.key
+        if (specialRecipes.contains(key)) {
+            if (!player.hasEureka("末影硝酸甘油")) {
+                event.isCancelled = true
+                player.closeInventory()
+                player.sendMessage("§a生涯系统 §7>> 必须激活§d顿悟 " + "末影硝酸甘油".display() + " §7才可以使用此特殊合成")
+            }
+        }
+
+        val type = recipe.result.type
+
+        if (DemolitionistSet.TNT.types.contains(type)) {
+            if (player.hasEureka("精炼炸药")) {
+                if (Math.random() <= 0.2) {
+                    player.giveItem(ItemStack(type))
+                    player.sendMessage("§a生涯系统 §7>> 合成爆炸物品时获得了额外的产物")
+                }
+            }
+        }
+    }
+
     @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun igniteCreeper(event: PlayerInteractEntityEvent) {
         val player = event.player
@@ -115,4 +236,16 @@ enum class DemolitionistSet(
             LimitType.USE to ("爆破师" to 0)
         )
     )
+}
+
+fun Location.shootPrimedTNT(velocity: Vector, fuseTicks: Int = 100, breakBlocks: Boolean = false) {
+    val tnt = this.world!!.spawnEntity(this, EntityType.PRIMED_TNT) as TNTPrimed
+    submit {
+        tnt.velocity = velocity
+        tnt.fuseTicks = fuseTicks
+        tnt.isGlowing = true
+        if (!breakBlocks) {
+            DemolitionistActive.tnts += tnt.uniqueId
+        }
+    }
 }

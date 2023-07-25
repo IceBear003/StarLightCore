@@ -99,7 +99,7 @@ eurekas:
     color: "&{#8EAADB}"
     description:
       - "&eCD：&a60s"
-      - "&7在自身前方 &a5格 &7召唤一堵 &a8*1*3 &7的黑曜石墙*"
+      - "&7在指针处 &a50格 &7内的位置召唤两堵 &a8*1*3 &7的十字黑曜石墙*"
       - "&a15秒 &7后黑曜石墙自动摧毁"
     type: ACTIVE
     cooldown: 60
@@ -110,4 +110,4 @@ eurekas:
       - "&e被动技能"
       - "&7可随时打开&b切石机&7面板"
     type: PASSIVE
-    cooldown: 0
+    cooldown: 1

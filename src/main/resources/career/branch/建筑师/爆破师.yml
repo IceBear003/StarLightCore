@@ -108,7 +108,7 @@ eurekas:
       - "&eCD：&a300s"
       - "&7持续时间：&a30s"
       - "&7使用弓射出的每一箭都将变为&b已点燃的TNT"
-      - "&7除非在&b敌对势力领地内&7射出箭，否则这些TNT&b不会破坏方块"
+      - "&7这些TNT&b不会破坏方块"
     type: ACTIVE
     cooldown: 300
     duration: 30

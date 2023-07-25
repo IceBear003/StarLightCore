@@ -9,15 +9,16 @@ import org.bukkit.inventory.meta.ItemMeta
 import org.serverct.parrot.parrotx.function.textured
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
+import taboolib.common.platform.function.submit
 import taboolib.platform.util.hasName
 import taboolib.platform.util.modifyMeta
 import world.icebear03.starlight.career.internal.Eureka
 import world.icebear03.starlight.career.internal.Skill
 import world.icebear03.starlight.loadCareerData
 
-
 object DischargeHandler {
-    val dischargeMap = mutableMapOf<String, Player.(id: String, level: Int) -> String>()
+    val dischargeMap = mutableMapOf<String, Player.(id: String, level: Int) -> String?>()
+    val finishMap = mutableMapOf<String, Player.(id: String, level: Int) -> Unit>()
 
     val item = ItemStack(Material.PLAYER_HEAD).modifyMeta<ItemMeta> {
         setDisplayName("§b职业信物")
@@ -38,12 +39,13 @@ object DischargeHandler {
             if (inv.itemInOffHand.itemMeta!!.displayName == "§b职业信物") {
                 event.isCancelled = true
                 val slot = inv.heldItemSlot + 1
-                player.sendMessage(triggerShortCut(player, slot))
+                val msg = triggerShortCut(player, slot) ?: return
+                player.sendMessage("§a生涯系统 §7>> $msg")
             }
         }
     }
 
-    fun triggerShortCut(player: Player, key: Int): String {
+    fun triggerShortCut(player: Player, key: Int): String? {
         val data = loadCareerData(player)
         val id = data.shortCuts[key] ?: return "该按键未绑定任何可释放的§a技能§7/§d顿悟"
 
@@ -53,12 +55,20 @@ object DischargeHandler {
             if (level <= 0)
                 return "请先升级§a技能§7 ${skill.display()}"
 
-            val cd = player.checkCooldownStamp(id, skill.level(level).cooldown.toDouble())
+            val leveledSkill = skill.level(level)
+            val cd = player.checkCooldownStamp(id, leveledSkill.cooldown.toDouble())
+            val duration = leveledSkill.duration
             if (!cd.first) {
                 return "无法释放 ${skill.display()} §7还需等待 §e${cd.second}秒"
             }
             player.addCooldownStamp(id)
 
+            if (duration != -1) {
+                submit(delay = 20L * duration) {
+                    finishMap[id]?.invoke(player, id, level)
+                    player.sendMessage("§a生涯系统 §7>> §7刚刚释放的§a技能 §7${skill.display()} §7已经结束")
+                }
+            }
             return dischargeMap[id]!!.invoke(player, id, level)
         }
 
@@ -68,11 +78,18 @@ object DischargeHandler {
                 return "请先激活§d顿悟§7 ${eureka.display()}"
 
             val cd = player.checkCooldownStamp(id, eureka.cooldown.toDouble())
+            val duration = eureka.duration
             if (!cd.first) {
                 return "无法释放 ${eureka.display()} §7还需等待 §e${cd.second}秒"
             }
             player.addCooldownStamp(id)
 
+            if (duration != -1) {
+                submit(delay = 20L * duration) {
+                    finishMap[id]?.invoke(player, id, 1)
+                    player.sendMessage("§a生涯系统 §7>> §7刚刚释放的§d顿悟 §7${eureka.display()} §7已经结束")
+                }
+            }
             return dischargeMap[id]!!.invoke(player, id, 1)
         }
 
@@ -110,4 +127,12 @@ fun Player.isDischarging(key: String, level: Int = 1, removeIfConsumable: Boolea
     }
 
     return false
+}
+
+fun String.defineDischarge(function: Player.(id: String, level: Int) -> String?) {
+    DischargeHandler.dischargeMap[this] = function
+}
+
+fun String.defineFinish(function: Player.(id: String, level: Int) -> Unit) {
+    DischargeHandler.finishMap[this] = function
 }

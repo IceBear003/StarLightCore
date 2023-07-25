@@ -9,5 +9,6 @@ import world.icebear03.starlight.career.mechanism.discharge.DischargeHandler
 val commandCareerSignalItem = subCommand {
     execute<Player> { sender, _, _ ->
         sender.giveItem(DischargeHandler.item.clone())
+        sender.sendMessage("§a生涯系统 §7>> §b职业信物§7已经发送至背包")
     }
 }

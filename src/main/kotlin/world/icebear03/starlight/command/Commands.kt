@@ -6,6 +6,7 @@ import taboolib.common.platform.command.mainCommand
 import taboolib.expansion.createHelper
 import world.icebear03.starlight.command.sub.commandCareerMenu
 import world.icebear03.starlight.command.sub.commandCareerPoint
+import world.icebear03.starlight.command.sub.commandCareerReset
 import world.icebear03.starlight.command.sub.commandCareerSignalItem
 
 @CommandHeader(name = "starlightcore", aliases = ["sl", "slc"])
@@ -24,4 +25,7 @@ object Commands {
 
     @CommandBody
     val careerSignalItem = commandCareerSignalItem
+
+    @CommandBody
+    val careerReset = commandCareerReset
 }

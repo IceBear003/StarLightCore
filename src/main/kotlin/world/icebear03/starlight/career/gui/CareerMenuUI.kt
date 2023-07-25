@@ -209,7 +209,7 @@ object CareerMenuUI {
 
                 ClickType.RIGHT -> {
                     val result = data.attemptToUnlockBranch(branchId)
-                    player.sendMessage(result.second)
+                    player.sendMessage("§a生涯系统 §7>> " + result.second)
                     if (result.first)
                         open(player, args[0].toString())
                 }
@@ -249,7 +249,7 @@ object CareerMenuUI {
             val branchId = item.itemMeta!!.persistentDataContainer.get(mark, PersistentDataType.STRING)!!
 
             val result = Resonate.chooseResonate(player, branchId)
-            player.sendMessage(result.second)
+            player.sendMessage("§a生涯系统 §7>> " + result.second)
             if (result.first)
                 open(player, args[0].toString())
         }
@@ -279,7 +279,7 @@ object CareerMenuUI {
             val branchId = item.itemMeta!!.persistentDataContainer.get(mark, PersistentDataType.STRING)!!
 
             val result = Forget.attemptToForget(player, branchId)
-            player.sendMessage(result.second)
+            player.sendMessage("§a生涯系统 §7>> " + result.second)
             if (result.first)
                 open(player, args[0].toString())
         }

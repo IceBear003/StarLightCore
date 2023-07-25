@@ -267,7 +267,7 @@ object CareerBranchUI {
             }
 
             val result = data.attemptToUpgradeSkill(id)
-            player.sendMessage(result.second)
+            player.sendMessage("§a生涯系统 §7>> " + result.second)
             if (result.first)
                 open(player, args[0].toString())
         }
@@ -352,11 +352,11 @@ object CareerBranchUI {
                     if (it.toInt() !in 1..9) {
                         player.sendMessage("§a生涯系统 §7>> 你输入的不是§a1-9§7中的数字")
                     }
-                    player.sendMessage(data.attemptToAddEurekaToShortCut(id, it.toInt()).second)
+                    player.sendMessage("§a生涯系统 §7>> " + data.attemptToAddEurekaToShortCut(id, it.toInt()).second)
                 }
             } else {
                 val result = data.attemptToEureka(id)
-                player.sendMessage(result.second)
+                player.sendMessage("§a生涯系统 §7>> " + result.second)
                 if (result.first)
                     open(player, args[0].toString())
             }
