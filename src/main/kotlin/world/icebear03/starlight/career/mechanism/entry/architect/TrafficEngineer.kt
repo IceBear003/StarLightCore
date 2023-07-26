@@ -25,7 +25,9 @@ import world.icebear03.starlight.career.hasEureka
 import world.icebear03.starlight.career.mechanism.discharge.defineDischarge
 import world.icebear03.starlight.career.mechanism.discharge.defineFinish
 import world.icebear03.starlight.career.mechanism.display
-import world.icebear03.starlight.career.mechanism.limit.LimitType
+import world.icebear03.starlight.career.mechanism.passive.limit.LimitType
+import world.icebear03.starlight.career.mechanism.passive.recipe.addSpecialRecipe
+import world.icebear03.starlight.career.mechanism.passive.recipe.registerShapedRecipe
 import world.icebear03.starlight.utils.effect
 import world.icebear03.starlight.utils.hasBlockAside
 
@@ -84,45 +86,22 @@ object TrafficEngineerActive {
 
 object TrafficEngineerPassive {
 
-    val specialRecipes = mutableListOf<NamespacedKey>()
-
     fun initialize() {
-        val keyA = NamespacedKey.minecraft("rail_special_a")
-        val recipeA = ShapedRecipe(keyA, ItemStack(Material.RAIL, 16))
-        recipeA.shape("a a", " s ", "a a")
-        recipeA.setIngredient('a', Material.IRON_INGOT)
-        recipeA.setIngredient('s', Material.STICK)
-        Bukkit.removeRecipe(keyA)
-        Bukkit.addRecipe(recipeA)
+        registerShapedRecipe(
+            NamespacedKey.minecraft("rail_special_a"),
+            ItemStack(Material.RAIL, 16),
+            listOf("a a", " s ", "a a"),
+            'a' to Material.IRON_INGOT,
+            'b' to Material.STICK
+        ).addSpecialRecipe("精炼铁轨")
 
-        val keyB = NamespacedKey.minecraft("rail_special_b")
-        val recipeB = ShapedRecipe(keyB, ItemStack(Material.RAIL, 16))
-        recipeB.shape("a a", "asa", "a a")
-        recipeB.setIngredient('a', Material.COPPER_INGOT)
-        recipeB.setIngredient('s', Material.STICK)
-        Bukkit.removeRecipe(keyB)
-        Bukkit.addRecipe(recipeB)
-
-        specialRecipes += keyA
-        specialRecipes += keyB
-    }
-
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    fun event(event: CraftItemEvent) {
-        val player = event.whoClicked as Player
-
-        val recipe = event.recipe
-        if (recipe !is ShapedRecipe)
-            return
-
-        val key = recipe.key
-        if (specialRecipes.contains(key)) {
-            if (!player.hasEureka("精炼钢轨")) {
-                event.isCancelled = true
-                player.closeInventory()
-                player.sendMessage("§a生涯系统 §7>> 必须激活§d顿悟 " + "精炼钢轨".display() + " §7才可以使用此特殊合成")
-            }
-        }
+        registerShapedRecipe(
+            NamespacedKey.minecraft("rail_special_b"),
+            ItemStack(Material.RAIL, 16),
+            listOf("a a", "asa", "a a"),
+            'a' to Material.COPPER_INGOT,
+            'b' to Material.STICK
+        ).addSpecialRecipe("精炼铁轨")
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)

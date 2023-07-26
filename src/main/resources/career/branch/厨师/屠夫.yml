@@ -1,0 +1,109 @@
+skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2YwZTUzYWQxZDU4NzY0YmVmNmU1NWQ5MjhiZjg3N2Y2Yjg3YjNiNjYxNTRkNjYxMjJkMDQ4MzY1OGY4ODA5YyJ9fX0="
+color: "&{#BF9000}"
+description:
+  - "&7透视技经肯綮，执刀游刃有余"
+  - " "
+  - "&7分支基础效果："
+  - "&7使用&b斧&7可以造成&b全额伤害"
+  - "&7击杀陆生动物*时必定可以&b获得掉落物"
+  - "&7食用熟肉食品*后额外获得 &a4饥饿值"
+  - "&7使用&b斧&7击杀动物时&b额外掉落 &a1个 &7骨头"
+  - " "
+  - "&7带*部分的详细解释请参见&b服务器Wiki"
+skills:
+  庖丁遗风:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTBkMTA4NDkyZGM2ZGE4NTVhYzY0NzEzZTY0NzJhZjgzOTM5OGU2NjAwMDljMDBlNzQwZDdhOWExMDQ0NDE0MiJ9fX0="
+    color: "&{#BF9000}"
+    type: PASSIVE
+    1:
+      description:
+        - "&e被动技能"
+        - "&7击杀产肉动物*时&b必定掉落 &a1个 &7对应的生肉"
+        - "&c动物被烧死时不触发"
+      cooldown: 0
+    2:
+      description:
+        - "&e被动技能"
+        - "&7击杀产肉动物*时有 &a25% &7概率&b额外掉落 &a1个 &7对应的生肉"
+        - "&c动物被烧死时不触发"
+      cooldown: 0
+    3:
+      description:
+        - "&e被动技能"
+        - "&7击杀产肉动物*时有 &a50% &7概率&b额外掉落 &a1个 &7对应的生肉"
+        - "&7击杀燃烧的产肉动物*时有 &a25% &7概率&b额外掉落 &a1个 &7对应的熟肉"
+      cooldown: 0
+  烤肉专家:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTA0NDdkYjViMGRhODRjYzc3Mzc2MDRlMTRkMzhlNTBiZDM5MWY5OTdhOTNkZjJiODQ3YjQ1YjUxYmE5ZDc1ZiJ9fX0="
+    color: "&{#BF9000}"
+    type: ACTIVE
+    1:
+      description:
+        - "&eCD：&a25s"
+        - "&7使周围 &a3格 &7内随机 &a1个 &7营火立即完成烹饪"
+      cooldown: 25
+    2:
+      description:
+        - "&eCD：&a15s"
+        - "&7此技能 &aCD -10s"
+      cooldown: 15
+    3:
+      description:
+        - "&eCD：&a15s"
+        - "&7使周围 &a3格 &7内随机 &a2个 &7营火立即完成烹饪"
+      cooldown: 15
+  困兽天敌:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMWEyNjk1ODU2Mjg5YzMxMGJlY2FjN2Y4ZTVlNWEzYzE0MDMyYjVjZTg2YzRmNzVkMzdhZTQ0NTQzYTAzNzAwMyJ9fX0="
+    color: "&{#BF9000}"
+    type: ACTIVE
+    1:
+      description:
+        - "&eCD：&a120s"
+        - "&7使周围 &a8格 &7内所有陆生动物*"
+        - "&7获得 &a10秒 &7的&b缓慢I&7、&b发光"
+      cooldown: 120
+    2:
+      description:
+        - "&eCD：&a120s"
+        - "&7使周围 &a12格 &7内所有陆生动物*"
+        - "&7获得 &a20秒 &7的&b缓慢II&7、&b发光"
+      cooldown: 120
+    3:
+      description:
+        - "&eCD：&a120s"
+        - "&7使周围 &a16格 &7内所有陆生动物*"
+        - "&7获得 &a30秒 &7的&b缓慢III&7、&b发光"
+      cooldown: 120
+  #继续添加
+eurekas:
+  血腥屠宰者:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTJmNTBlMjhhNzFhM2E3NDllYzcwNWFhMGVhNjI0YmQ2M2M5M2Y4YjM0MjI4NDE0ZDA3YWZlNzU2Y2M2OTkzYyJ9fX0="
+    color: "&{#BF9000}"
+    description:
+      - "&e被动技能"
+      - "&7使用&b斧&7造成的伤害 &a+25%"
+      - "&7当目标没有护甲时，伤害额外 &a+6♥"
+    type: PASSIVE
+    cooldown: 0
+  放血:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzZiZTI2NmRiMmJiMWYwYzNlNDczMjg3MTc4ODYyNDk4NTEwYjBmYjcyN2Q3M2NhZjA2NDkxNzY3N2I0ZjRmNiJ9fX0="
+    color: "&{#BF9000}"
+    description:
+      - "&e被动技能"
+      - "&7使用&b斧&7对产肉动物*造成暴击时，赋予其 &a5秒 &7的&b中毒I"
+      - "&7周围 &a4格 &7内的中毒的产肉动物*生命值为 &a1♥ &7时即死"
+      - "&7即死时&b额外掉落 &a1个 &7对应的生肉"
+    type: PASSIVE
+    cooldown: 0
+  追猎:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmIyYWJkNjY5MzlmNGNiNzI1N2E4OGNmNTJmYmM2ZmRjZWVjMTQzM2VjMmE2ZWYxNmQ2MmUzNGY2MjM4NzgxIn19fQ=="
+    color: "&{#BF9000}"
+    description:
+      - "&eCD：&a180s"
+      - "&7持续时间：&a60s"
+      - "&c需对准某一生物使用，对玩家无效"
+      - "&7使该生物获得 &a60秒 &7的&b发光&7和&b虚弱II"
+      - "&7若在技能期间内击杀该生物，则获得 &a25经验值"
+    type: ACTIVE
+    cooldown: 180
+    duration: 60

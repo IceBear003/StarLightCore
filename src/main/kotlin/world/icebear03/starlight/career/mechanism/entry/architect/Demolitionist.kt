@@ -1,6 +1,5 @@
 package world.icebear03.starlight.career.mechanism.entry.architect
 
-import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
@@ -12,7 +11,6 @@ import org.bukkit.event.entity.EntitySpawnEvent
 import org.bukkit.event.inventory.CraftItemEvent
 import org.bukkit.event.player.PlayerInteractEntityEvent
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.ShapedRecipe
 import org.bukkit.util.Vector
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
@@ -24,7 +22,9 @@ import world.icebear03.starlight.career.hasEureka
 import world.icebear03.starlight.career.mechanism.discharge.defineDischarge
 import world.icebear03.starlight.career.mechanism.discharge.isDischarging
 import world.icebear03.starlight.career.mechanism.display
-import world.icebear03.starlight.career.mechanism.limit.LimitType
+import world.icebear03.starlight.career.mechanism.passive.limit.LimitType
+import world.icebear03.starlight.career.mechanism.passive.recipe.addSpecialRecipe
+import world.icebear03.starlight.career.mechanism.passive.recipe.registerShapedRecipe
 import java.util.*
 
 object DemolitionistActive {
@@ -91,17 +91,14 @@ object DemolitionistActive {
 
 object DemolitionistPassive {
 
-    val specialRecipes = mutableListOf<NamespacedKey>()
-
     fun initialize() {
-        val key = NamespacedKey.minecraft("crystal_special")
-        val recipe = ShapedRecipe(key, ItemStack(Material.END_CRYSTAL))
-        recipe.shape("aba", "aba", "aba")
-        recipe.setIngredient('a', Material.GLASS)
-        recipe.setIngredient('b', Material.TNT)
-        Bukkit.removeRecipe(key)
-        Bukkit.addRecipe(recipe)
-        specialRecipes += key
+        registerShapedRecipe(
+            NamespacedKey.minecraft("crystal_special"),
+            ItemStack(Material.END_CRYSTAL),
+            listOf("aba", "aba", "aba"),
+            'a' to Material.GLASS,
+            'b' to Material.TNT
+        ).addSpecialRecipe("末影硝酸甘油")
     }
 
     //TODO 考虑同化
@@ -110,18 +107,6 @@ object DemolitionistPassive {
         val player = event.whoClicked as Player
 
         val recipe = event.recipe
-        if (recipe !is ShapedRecipe)
-            return
-
-        val key = recipe.key
-        if (specialRecipes.contains(key)) {
-            if (!player.hasEureka("末影硝酸甘油")) {
-                event.isCancelled = true
-                player.closeInventory()
-                player.sendMessage("§a生涯系统 §7>> 必须激活§d顿悟 " + "末影硝酸甘油".display() + " §7才可以使用此特殊合成")
-            }
-        }
-
         val type = recipe.result.type
 
         if (DemolitionistSet.TNT.types.contains(type)) {

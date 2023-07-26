@@ -1,0 +1,118 @@
+skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjExNzdkMmNjODNiYmVjYWJmYjMxMzRiYjMzOGZkMWY1OGE1NjI1Nzk3YjRkODBjMmZhNzViNjljM2JmYmEyIn19fQ=="
+color: "&{#FFFF00}"
+description:
+  - "&7掌握顶级厨艺，造就极品珍馐"
+  - " "
+  - "&7分支基础效果："
+  - "&7可以&b使用&7烟熏炉"
+  - "&7可以在烟熏炉周围&b放置&7漏斗、发射器"
+  - "&7可以&b合成&7金苹果、金胡萝卜、闪烁的西瓜"
+  - "&7食用任意食物后额外获得 &a1饥饿值"
+  - "&7食用金苹果或附魔金苹果后&b立即恢复所有饥饿值"
+  - " "
+  - "&7带*部分的详细解释请参见&b服务器Wiki"
+skills:
+  精准火候:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDIwY2I3M2YyMDdiMDdkMjU5Y2ExZWVmN2NhZGUzMDJjN2VhMTA0YjhhMGMyNDBiODk3YTU3Nzk3MTEyMmU1NiJ9fX0="
+    color: "&{#FFFF00}"
+    type: PASSIVE
+    1:
+      description:
+        - "&e被动技能"
+        - "&7周围 &a1格 &7内所有烟熏炉烧炼每个食物的时间 &a-1s"
+      cooldown: 0
+    2:
+      description:
+        - "&e被动技能"
+        - "&7周围 &a1格 &7内所有烟熏炉烧炼每个食物的时间 &a-2s"
+      cooldown: 0
+    3:
+      description:
+        - "&e被动技能"
+        - "&7周围 &a1格 &7内所有烟熏炉烧炼每个食物的时间 &a-3s"
+      cooldown: 0
+  奇味异珍:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDRlMTQzYThjNTdjNTUwYjg0MDAzNTI3MzA4N2QxZDliMjM2Yjk1NDEwZDg3MTMxZmQ1ZDJmN2YwNzY4ZDEyNiJ9fX0="
+    color: "&{#FFFF00}"
+    type: ACTIVE
+    1:
+      description:
+        - "&eCD：&a30s"
+        - "&c下次食用以下任一食物时，触发相应效果"
+        - "&b紫颂果："
+        - "&7额外获得 &a4饥饿值"
+        - "&7使周围 &a8格 &7内另一名玩家同样享受传送效果"
+      cooldown: 30
+    2:
+      description:
+        - "&eCD：&a30s"
+        - "&c追加食物"
+        - "&b发光浆果："
+        - "&7额外获得 &a2饥饿值"
+        - "&7获得 &a10秒 &b发光&7和&b速度II"
+      cooldown: 30
+    3:
+      description:
+        - "&eCD：&a30s"
+        - "&c追加食物"
+        - "&b毒马铃薯："
+        - "&7额外获得 &a2饥饿值"
+        - "&7不会中毒，获得 &a3个 &7马铃薯"
+      cooldown: 30
+  镀金美馔:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzNmYjZhYjNmMTY1MjgzMjg1YzUxMzA1ZDUwNmUyNDE2ZjQ4MzFmZmZjY2RiYzRlZTMzNmE4MDQzYTQ4N2EwMSJ9fX0="
+    color: "&{#FFFF00}"
+    type: ACTIVE
+    1:
+      description:
+        - "&eCD：&a180s"
+        - "&c下次食用以下任一食物时，触发相应效果"
+        - "&b金胡萝卜："
+        - "&7使自己和周围 &a4格 &7内所有非敌对玩家获得 &a2饥饿值"
+      cooldown: 180
+    2:
+      description:
+        - "&eCD：&a180s"
+        - "&c追加食物"
+        - "&b金苹果："
+        - "&7使自己和周围 &a4格 &7内所有非敌对玩家获得 &a4饥饿值"
+        - "&7立即恢复生命值 &a2♥"
+      cooldown: 180
+    3:
+      description:
+        - "&eCD：&a180s"
+        - "&c追加食物"
+        - "&b附魔金苹果："
+        - "&7使自己和周围 &a8格 &7内所有非敌对玩家获得 &a6饥饿值"
+        - "&7立即恢复生命值 &a8♥"
+        - "&7获得 &a30秒 &b抗火&7和&b抗性提升I"
+      cooldown: 180
+  #继续添加
+eurekas:
+  地狱厨房:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjAwYzE2NzM4YzM3MjQ4NDYyOGNhMTVjZjdiMDczMWI4MTBiZDMxNDJlMDdjMTA1M2I1ZTNkYTZiNmU1MjNjYSJ9fX0="
+    color: "&{#FFFF00}"
+    description:
+      - "&eCD：&a20s"
+      - "&7立即使周围 &a8格 &7内所有&b【厨师】&c职业&7玩家的所有技能 &aCD -20s"
+      - "&c对&d顿悟&c不生效"
+    type: ACTIVE
+    cooldown: 20
+  配方传承:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTRmZjFmODMzNzMxZGZkMzA0MWYyM2U4ZmUyYTkwZGE2YzExMmJmYWVkN2E2YzVkMmNlODA2ZGY2NDFmNDM0YiJ9fX0="
+    color: "&{#FFFF00}"
+    description:
+      - "&e被动技能"
+      - "&7解锁&b附魔金苹果&7的合成表*"
+    type: PASSIVE
+    cooldown: 0
+  以厨为师:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmIyYWJkNjY5MzlmNGNiNzI1N2E4OGNmNTJmYmM2ZmRjZWVjMTQzM2VjMmE2ZWYxNmQ2MmUzNGY2MjM4NzgxIn19fQ=="
+    color: "&{#FFFF00}"
+    description:
+      - "&e被动技能"
+      - "&c仅当自身拥有&b【厨师】&c职业下的另一个&e分支&c时可触发"
+      - "&c立即触发且仅触发一次："
+      - "&7获得 &a3 &7技能点"
+    type: PASSIVE
+    cooldown: 0

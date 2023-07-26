@@ -1,11 +1,11 @@
-package world.icebear03.starlight.career.mechanism.limit
+package world.icebear03.starlight.career.mechanism.passive.limit
 
 import org.bukkit.Material
 import world.icebear03.starlight.career.mechanism.entry.architect.DemolitionistSet
 import world.icebear03.starlight.career.mechanism.entry.architect.FortressEngineerSet
 import world.icebear03.starlight.career.mechanism.entry.architect.StructuralEngineerSet
 import world.icebear03.starlight.career.mechanism.entry.architect.TrafficEngineerSet
-import world.icebear03.starlight.career.mechanism.limit.LimitType.*
+import world.icebear03.starlight.career.mechanism.passive.limit.LimitType.*
 
 object MaterialLimitLibrary {
 

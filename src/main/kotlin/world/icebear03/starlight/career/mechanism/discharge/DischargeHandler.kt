@@ -99,7 +99,7 @@ object DischargeHandler {
     }
 }
 
-fun Player.isDischarging(key: String, level: Int = 1, removeIfConsumable: Boolean = false): Boolean {
+fun Player.isDischarging(key: String, level: Int = 1, removeIfConsumable: Boolean = true): Boolean {
     if (level <= 0)
         return false
 

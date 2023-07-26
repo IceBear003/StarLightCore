@@ -1,4 +1,4 @@
-package world.icebear03.starlight.career.mechanism.limit.listener
+package world.icebear03.starlight.career.mechanism.passive.limit.listener
 
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
@@ -6,7 +6,7 @@ import org.bukkit.event.inventory.InventoryType
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import world.icebear03.starlight.career.mechanism.checkAbility
-import world.icebear03.starlight.career.mechanism.limit.MaterialLimitLibrary
+import world.icebear03.starlight.career.mechanism.passive.limit.MaterialLimitLibrary
 
 object SinterItem {
     @SubscribeEvent(priority = EventPriority.LOWEST)

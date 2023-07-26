@@ -16,7 +16,7 @@ import world.icebear03.starlight.career.mechanism.discharge.defineDischarge
 import world.icebear03.starlight.career.mechanism.discharge.defineFinish
 import world.icebear03.starlight.career.mechanism.discharge.isDischarging
 import world.icebear03.starlight.career.mechanism.display
-import world.icebear03.starlight.career.mechanism.limit.LimitType
+import world.icebear03.starlight.career.mechanism.passive.limit.LimitType
 import world.icebear03.starlight.utils.add
 import world.icebear03.starlight.utils.effect
 import world.icebear03.starlight.utils.hasBlockAside
