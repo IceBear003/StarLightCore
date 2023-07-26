@@ -10,11 +10,14 @@ fun Player.effect(type: PotionEffectType, duration: Int, level: Int = 1) {
 }
 
 fun Player.hasBlockAside(type: Material, range: Int = 3): Boolean {
-    val loc = this.location
+    return this.location.hasBlockAside(type, range)
+}
+
+fun Location.hasBlockAside(type: Material, range: Int = 3): Boolean {
     for (x in -range..range)
         for (y in -range..range)
             for (z in -range..range) {
-                val newLoc = loc.clone()
+                val newLoc = this.clone()
                 newLoc.add(x, y, z)
                 if (newLoc.block.type == type)
                     return true
@@ -23,11 +26,14 @@ fun Player.hasBlockAside(type: Material, range: Int = 3): Boolean {
 }
 
 fun Player.hasBlockAside(types: Collection<Material>, range: Int = 3): Boolean {
-    val loc = this.location
+    return this.location.hasBlockAside(types, range)
+}
+
+fun Location.hasBlockAside(types: Collection<Material>, range: Int = 3): Boolean {
     for (x in -range..range)
         for (y in -range..range)
             for (z in -range..range) {
-                val newLoc = loc.clone()
+                val newLoc = this.clone()
                 newLoc.add(x, y, z)
                 if (types.contains(newLoc.block.type))
                     return true

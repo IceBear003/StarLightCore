@@ -1,6 +1,5 @@
 package world.icebear03.starlight.career.mechanism.entry.architect
 
-import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.World
@@ -10,11 +9,9 @@ import org.bukkit.entity.EntityType
 import org.bukkit.entity.Minecart
 import org.bukkit.entity.Player
 import org.bukkit.event.block.BlockPlaceEvent
-import org.bukkit.event.inventory.CraftItemEvent
 import org.bukkit.event.vehicle.VehicleEnterEvent
 import org.bukkit.event.vehicle.VehicleExitEvent
 import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.ShapedRecipe
 import org.bukkit.potion.PotionEffectType
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
@@ -92,7 +89,7 @@ object TrafficEngineerPassive {
             ItemStack(Material.RAIL, 16),
             listOf("a a", " s ", "a a"),
             'a' to Material.IRON_INGOT,
-            'b' to Material.STICK
+            's' to Material.STICK
         ).addSpecialRecipe("精炼铁轨")
 
         registerShapedRecipe(
@@ -100,7 +97,7 @@ object TrafficEngineerPassive {
             ItemStack(Material.RAIL, 16),
             listOf("a a", "asa", "a a"),
             'a' to Material.COPPER_INGOT,
-            'b' to Material.STICK
+            's' to Material.STICK
         ).addSpecialRecipe("精炼铁轨")
     }
 

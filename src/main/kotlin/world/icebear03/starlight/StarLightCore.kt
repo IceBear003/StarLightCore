@@ -8,7 +8,9 @@ import taboolib.platform.util.onlinePlayers
 import world.icebear03.starlight.career.internal.Class
 import world.icebear03.starlight.career.mechanism.data.Resonate
 import world.icebear03.starlight.career.mechanism.entry.architect.*
+import world.icebear03.starlight.career.mechanism.entry.cook.BrewerPassive
 import world.icebear03.starlight.career.mechanism.passive.limit.MaterialLimitLibrary
+import world.icebear03.starlight.other.CustomTab
 import java.io.File
 
 object StarLightCore : Plugin() {
@@ -34,6 +36,9 @@ object StarLightCore : Plugin() {
         DemolitionistPassive.initialize()
         TrafficEngineerActive.initialize()
         TrafficEngineerPassive.initialize()
+        BrewerPassive.initialize()
+
+        CustomTab.initialize()
     }
 
     override fun onDisable() {

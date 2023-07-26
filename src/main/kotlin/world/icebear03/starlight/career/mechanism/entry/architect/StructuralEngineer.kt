@@ -3,8 +3,7 @@ package world.icebear03.starlight.career.mechanism.entry.architect
 import org.bukkit.DyeColor
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
-import org.bukkit.entity.Player
-import org.bukkit.event.inventory.CraftItemEvent
+import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.potion.PotionEffectType
 import taboolib.common.platform.event.EventPriority
@@ -17,6 +16,7 @@ import world.icebear03.starlight.career.mechanism.discharge.defineDischarge
 import world.icebear03.starlight.career.mechanism.discharge.isDischarging
 import world.icebear03.starlight.career.mechanism.display
 import world.icebear03.starlight.career.mechanism.passive.limit.LimitType
+import world.icebear03.starlight.career.mechanism.passive.recipe.CraftHandler
 import world.icebear03.starlight.career.mechanism.passive.recipe.addSpecialRecipe
 import world.icebear03.starlight.career.mechanism.passive.recipe.registerShapelessRecipe
 import world.icebear03.starlight.utils.effect
@@ -69,26 +69,14 @@ object StructuralEngineerActive {
 
             "§a技能 ${id.display()} §7释放成功，即刻获得§f速度I§7，可利用脚手架获得更多增益"
         }
-    }
 
-    @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
-    fun event(event: CraftItemEvent) {
-        val item = event.recipe.result
-        val type = item.type
-
-        if (!StructuralEngineerSet.DYED_BLOCK.types.contains(type))
-            return
-
-        val player = event.whoClicked as Player
-        val level = player.getSkillLevel("识色敏锐")
-
-        if (player.isDischarging("识色敏锐", level)) {
-            val amount = when (level) {
-                1, 2 -> 1
-                else -> 2
-            }
-            player.giveItem(ItemStack(type, amount))
-            player.sendMessage("§a生涯系统 §7>> 合成染色方块时获得了额外产物")
+        CraftHandler.registerHigh(StructuralEngineerSet.DYED_BLOCK.types) { player, type ->
+            val level = player.getSkillLevel("识色敏锐")
+            if (player.isDischarging("识色敏锐")) {
+                val amount = if (level == 3) 2 else 1
+                player.giveItem(ItemStack(type, amount))
+                "§a生涯系统 §7>> 合成染色方块时获得了额外产物"
+            } else null
         }
     }
 }
@@ -106,11 +94,9 @@ object StructuralEngineerPassive {
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
-    fun craftItem(event: CraftItemEvent) {
-        val player = event.whoClicked as Player
-
-        val recipe = event.recipe
-        val type = recipe.result.type
+    fun breakBlock(event: BlockBreakEvent) {
+        val player = event.player
+        val type = event.block.type
 
         if (StructuralEngineerSet.DYED_BLOCK.types.contains(type)) {
             if (player.hasEureka("奇珍颜料")) {

@@ -12,8 +12,10 @@ import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.hasName
 import taboolib.platform.util.modifyMeta
+import world.icebear03.starlight.career.getSkillLevel
 import world.icebear03.starlight.career.internal.Eureka
 import world.icebear03.starlight.career.internal.Skill
+import world.icebear03.starlight.career.mechanism.hasAbility
 import world.icebear03.starlight.loadCareerData
 
 object DischargeHandler {
@@ -99,8 +101,8 @@ object DischargeHandler {
     }
 }
 
-fun Player.isDischarging(key: String, level: Int = 1, removeIfConsumable: Boolean = true): Boolean {
-    if (level <= 0)
+fun Player.isDischarging(key: String, removeIfConsumable: Boolean = true): Boolean {
+    if (this.hasAbility(key to 0))
         return false
 
     val stamp = (cooldownStamps[this.uniqueId] ?: return false)[key] ?: return false
@@ -108,6 +110,7 @@ fun Player.isDischarging(key: String, level: Int = 1, removeIfConsumable: Boolea
 
     val skill = Skill.fromId(key)
     if (skill != null) {
+        val level = this.getSkillLevel(key)
         val duration = skill.level(level).duration
         if (duration == -1) {
             if (removeIfConsumable)

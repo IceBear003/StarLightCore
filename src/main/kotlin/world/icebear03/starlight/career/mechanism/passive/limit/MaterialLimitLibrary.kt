@@ -5,6 +5,7 @@ import world.icebear03.starlight.career.mechanism.entry.architect.DemolitionistS
 import world.icebear03.starlight.career.mechanism.entry.architect.FortressEngineerSet
 import world.icebear03.starlight.career.mechanism.entry.architect.StructuralEngineerSet
 import world.icebear03.starlight.career.mechanism.entry.architect.TrafficEngineerSet
+import world.icebear03.starlight.career.mechanism.entry.cook.BrewerSet
 import world.icebear03.starlight.career.mechanism.passive.limit.LimitType.*
 
 object MaterialLimitLibrary {
@@ -28,6 +29,9 @@ object MaterialLimitLibrary {
             install(it.types, it.limits)
         }
         TrafficEngineerSet.values().forEach {
+            install(it.types, it.limits)
+        }
+        BrewerSet.values().forEach {
             install(it.types, it.limits)
         }
     }
