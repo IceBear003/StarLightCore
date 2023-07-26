@@ -80,7 +80,7 @@ fun loadStaminaData(player: Player): Stamina {
                     val string = player.getDataContainer()["stamina"]
                     Gson().fromJson(string, Stamina::class.java)
                 } else {
-                    Stamina(player.uniqueId)
+                    Stamina(uuid)
                 }
             PlayerData.staminaData[uuid] = data
             data

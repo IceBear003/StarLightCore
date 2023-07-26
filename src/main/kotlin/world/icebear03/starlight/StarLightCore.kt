@@ -11,6 +11,7 @@ import world.icebear03.starlight.career.mechanism.entry.architect.*
 import world.icebear03.starlight.career.mechanism.entry.cook.BrewerPassive
 import world.icebear03.starlight.career.mechanism.passive.limit.MaterialLimitLibrary
 import world.icebear03.starlight.other.*
+import world.icebear03.starlight.stamina.BeaconMechanism
 import java.io.File
 
 object StarLightCore : Plugin() {
@@ -43,6 +44,8 @@ object StarLightCore : Plugin() {
         RespawnProtection.initialize()
         WorldRule.initialize()
         DarkMare.initialize()
+
+        BeaconMechanism.initialize()
     }
 
     override fun onDisable() {

@@ -31,14 +31,14 @@ object BeaconMechanism {
     val beaconKey = NamespacedKey.minecraft("beacon")
 
     fun initialize() {
-        val directory = File(getDataFolder().absolutePath + "/stamina/beacons")
+        val directory = File(getDataFolder().absolutePath + "/stamina/beacons/")
         if (!directory.exists())
             directory.mkdir()
         directory.listFiles()?.forEach { file ->
             val config = Configuration.loadFromFile(file)
             val ownerId = UUID.fromString(file.name.replace(".yml", ""))
             val location = config.getLocation("location")?.toBukkitLocation()
-            val lastRecycle = config.getLong("last_recycle")
+            val lastRecycle = if (config.contains("last_recycle")) config.getLong("last_recycle") else null
             val level = config.getInt("level")
             val beacon = Beacon(ownerId, location, lastRecycle, level)
             beacons[ownerId] = beacon
@@ -65,6 +65,7 @@ object BeaconMechanism {
                         else -> 6.0
                     }
                     loc.world!!.players.forEach { player ->
+
                         val playerLoc = player.location
                         val distance = playerLoc.distance(loc)
                         if (distance <= range) {

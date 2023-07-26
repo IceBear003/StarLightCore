@@ -19,7 +19,7 @@ data class Stamina(
         stamina = minOf(stamina + amount, 1800.0)
     }
 
-    fun setStamina(amount: Double) {
+    fun seTStamina(amount: Double) {
         stamina = minOf(1800.0, maxOf(0.0, amount))
     }
 
@@ -37,5 +37,5 @@ fun Player.takeStamina(amount: Double) {
 }
 
 fun Player.setStamina(amount: Double) {
-    loadStaminaData(this).setStamina(amount)
+    loadStaminaData(this).seTStamina(amount)
 }
