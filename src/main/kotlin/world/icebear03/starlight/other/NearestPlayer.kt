@@ -21,7 +21,7 @@ object NearestPlayer {
                             return@other
                         val otherLoc = other.location
                         val tmp = loc.distance(otherLoc)
-                        if (tmp <= distance) {
+                        if (tmp <= distance && tmp >= 100) {
                             distance = tmp.roundToInt()
                             target = other.name
                         }
