@@ -42,6 +42,7 @@ object StarLightCore : Plugin() {
         NearestPlayer.initialize()
         RespawnProtection.initialize()
         WorldRule.initialize()
+        DarkMare.initialize()
     }
 
     override fun onDisable() {

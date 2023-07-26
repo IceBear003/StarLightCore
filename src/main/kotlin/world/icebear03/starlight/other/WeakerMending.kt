@@ -5,7 +5,7 @@ import taboolib.common.platform.event.SubscribeEvent
 
 object WeakerMending {
     @SubscribeEvent
-    fun join(event: PlayerItemMendEvent) {
+    fun mend(event: PlayerItemMendEvent) {
         event.repairAmount = maxOf(1, event.repairAmount / 5)
     }
 }

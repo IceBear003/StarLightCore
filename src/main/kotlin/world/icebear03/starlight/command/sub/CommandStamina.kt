@@ -5,14 +5,14 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import taboolib.common.platform.command.subCommand
 import taboolib.platform.util.onlinePlayers
-import world.icebear03.starlight.loadCareerData
+import world.icebear03.starlight.loadStaminaData
 
 
-val commandCareerPoint = subCommand {
+val commandStamina = subCommand {
     dynamic("mode") {
         suggestionUncheck<Player> { _, _ -> listOf("add", "set", "take") }
         dynamic("amount") {
-            suggestionUncheck<Player> { _, _ -> listOf("数量(整数)") }
+            suggestionUncheck<Player> { _, _ -> listOf("数量(0-1800的整数)") }
             execute<Player> { sender, ctx, _ ->
                 sender.sendMessage(handleCareerPointCommand(sender, ctx["mode"], ctx["amount"].toInt()))
             }
@@ -33,14 +33,14 @@ val commandCareerPoint = subCommand {
     }
 }
 
-fun handleCareerPointCommand(player: Player?, mode: String, amount: Int): String {
+fun handleStaminaCommand(player: Player?, mode: String, amount: Int): String {
     if (player == null)
         return "§a生涯系统 §7>> 玩家不存在"
-    val data = loadCareerData(player)
+    val data = loadStaminaData(player)
     when (mode) {
-        "add" -> data.addPoint(amount)
-        "set" -> data.setPoint(amount)
-        "take" -> data.takePoint(amount)
+        "add" -> data.addStamina(amount.toDouble())
+        "set" -> data.setStamina(amount.toDouble())
+        "take" -> data.takeStamina(amount.toDouble())
         else -> {
             return "§a生涯系统 §7>> 模式不正确, 只能填写 add/set/take"
         }

@@ -14,6 +14,7 @@ import taboolib.platform.util.onlinePlayers
 import world.icebear03.starlight.career.SavableCareer
 import world.icebear03.starlight.career.UsableCareer
 import world.icebear03.starlight.career.mechanism.data.Resonate
+import world.icebear03.starlight.stamina.Stamina
 import java.util.*
 
 object PlayerData {
@@ -46,26 +47,47 @@ object PlayerData {
     }
 
     val careerData = mutableMapOf<UUID, UsableCareer>()
+    var staminaData = mutableMapOf<UUID, Stamina>()
 }
 
 fun loadCareerData(player: Player): UsableCareer {
     val uuid = player.uniqueId
-    return if (PlayerData.careerData.containsKey(uuid)) {
-        PlayerData.careerData[uuid]!!
-    } else {
-        val data =
-            if (player.getDataContainer()["career"] != null) {
-                val string = player.getDataContainer()["career"]
-                Gson().fromJson(string, SavableCareer::class.java).toUsableCareer()
-            } else {
-                UsableCareer().remake()
-            }
-        PlayerData.careerData[uuid] = data
-        data
-    }
+    return PlayerData.careerData.getOrDefault(uuid,
+        run {
+            val data =
+                if (player.getDataContainer()["career"] != null) {
+                    val string = player.getDataContainer()["career"]
+                    Gson().fromJson(string, SavableCareer::class.java).toUsableCareer()
+                } else {
+                    UsableCareer().remake()
+                }
+            PlayerData.careerData[uuid] = data
+            data
+        })
 }
 
 fun saveCareerData(player: Player) {
     val string = Gson().toJson(loadCareerData(player).toSavableCareer())
     player.getDataContainer()["career"] = string
+}
+
+fun loadStaminaData(player: Player): Stamina {
+    val uuid = player.uniqueId
+    return PlayerData.staminaData.getOrDefault(uuid,
+        run {
+            val data =
+                if (player.getDataContainer()["stamina"] != null) {
+                    val string = player.getDataContainer()["stamina"]
+                    Gson().fromJson(string, Stamina::class.java)
+                } else {
+                    Stamina(player.uniqueId)
+                }
+            PlayerData.staminaData[uuid] = data
+            data
+        })
+}
+
+fun saveStaminaData(player: Player) {
+    val string = Gson().toJson(loadStaminaData(player))
+    player.getDataContainer()["stamina"] = string
 }

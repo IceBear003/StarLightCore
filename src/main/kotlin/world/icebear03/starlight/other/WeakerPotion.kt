@@ -107,7 +107,7 @@ object WeakerPotion {
                 }
 
                 addItemFlags(ItemFlag.HIDE_POTION_EFFECTS)
-                lore = listOf("&8| &7效果列表:") + customEffects.map {
+                lore = listOf("&8| &7效果列表:".colored()) + customEffects.map {
                     "    &7|—— &b${it.type.name} ${(it.amplifier + 1).toRoman()} &a${it.duration / 20}s".colored()
                 }
             }

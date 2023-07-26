@@ -130,8 +130,7 @@ enum class StructuralEngineerSet(
             Material.OCHRE_FROGLIGHT,
             Material.VERDANT_FROGLIGHT,
             Material.PEARLESCENT_FROGLIGHT,
-            Material.LOOM,
-            Material.BEACON
+            Material.LOOM
         ), listOf(
             LimitType.CRAFT to ("结构工程师" to 0),
             LimitType.PLACE to ("结构工程师" to 0),
