@@ -60,7 +60,7 @@ object DischargeHandler {
                 return "请先升级§a技能§7 ${skill.display()}"
 
             val leveledSkill = skill.level(level)
-            val cd = player.checkCooldownStamp(id, leveledSkill.cooldown.toDouble())
+            val cd = player.checkCooldownStamp(id, leveledSkill.cooldown)
             val duration = leveledSkill.duration
             if (!cd.first) {
                 return "无法释放 ${skill.display()} §7还需等待 §e${cd.second}秒"
@@ -69,8 +69,10 @@ object DischargeHandler {
 
             if (duration != -1) {
                 submit(delay = 20L * duration) {
-                    finishMap[id]?.invoke(player, id, level)
-                    player.sendMessage("§a生涯系统 §7>> §a技能 §7${skill.display()} §7已经结束")
+                    if (player.hasAbility(id to level)) {
+                        finishMap[id]?.invoke(player, id, level)
+                        player.sendMessage("§a生涯系统 §7>> §a技能 §7${skill.display()} §7已经结束")
+                    }
                 }
             }
             return dischargeMap[id]?.invoke(player, id, level)
@@ -81,7 +83,7 @@ object DischargeHandler {
             if (!data.hasEureka(eureka))
                 return "请先激活§d顿悟§7 ${eureka.display()}"
 
-            val cd = player.checkCooldownStamp(id, eureka.cooldown.toDouble())
+            val cd = player.checkCooldownStamp(id, eureka.cooldown)
             val duration = eureka.duration
             if (!cd.first) {
                 return "无法释放 ${eureka.display()} §7还需等待 §e${cd.second}秒"
@@ -90,8 +92,10 @@ object DischargeHandler {
 
             if (duration != -1) {
                 submit(delay = 20L * duration) {
-                    finishMap[id]?.invoke(player, id, 1)
-                    player.sendMessage("§a生涯系统 §7>> §d顿悟 §7${eureka.display()} §7已经结束")
+                    if (player.hasAbility(id to 0)) {
+                        finishMap[id]?.invoke(player, id, 1)
+                        player.sendMessage("§a生涯系统 §7>> §d顿悟 §7${eureka.display()} §7已经结束")
+                    }
                 }
             }
             return dischargeMap[id]?.invoke(player, id, 1)
@@ -102,7 +106,7 @@ object DischargeHandler {
 }
 
 fun Player.isDischarging(key: String, removeIfConsumable: Boolean = true): Boolean {
-    if (this.hasAbility(key to 0))
+    if (!this.hasAbility(key to 0))
         return false
 
     val stamp = (cooldownStamps[this.uniqueId] ?: return false)[key] ?: return false

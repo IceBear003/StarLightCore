@@ -16,7 +16,7 @@ fun Player.clearCooldownStamp() {
 
 //pair#first 冷却是否结束，冷却中为false
 //pair#second 冷却若未结束，离结束还剩下的时间（秒）
-fun Player.checkCooldownStamp(key: String, cdInSec: Double): Pair<Boolean, Double> {
+fun Player.checkCooldownStamp(key: String, cdInSec: Int): Pair<Boolean, Double> {
     val stamp = (cooldownStamps[this.uniqueId] ?: return true to 0.0)[key] ?: return true to 0.0
     val period = (System.currentTimeMillis() - stamp) / 1000.0
     val left = (cdInSec - period).format(1)

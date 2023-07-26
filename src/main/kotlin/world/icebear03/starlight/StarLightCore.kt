@@ -10,13 +10,12 @@ import world.icebear03.starlight.career.mechanism.data.Resonate
 import world.icebear03.starlight.career.mechanism.entry.architect.*
 import world.icebear03.starlight.career.mechanism.entry.cook.BrewerPassive
 import world.icebear03.starlight.career.mechanism.passive.limit.MaterialLimitLibrary
-import world.icebear03.starlight.other.CustomTab
+import world.icebear03.starlight.other.*
 import java.io.File
 
 object StarLightCore : Plugin() {
 
     override fun onEnable() {
-
         Class.initialize()
 
 //        setupPlayerDatabase(Config.config.getConfigurationSection("database")!!)
@@ -39,6 +38,10 @@ object StarLightCore : Plugin() {
         BrewerPassive.initialize()
 
         CustomTab.initialize()
+        WorldBorder.initialize()
+        NearestPlayer.initialize()
+        RespawnProtection.initialize()
+        WorldRule.initialize()
     }
 
     override fun onDisable() {

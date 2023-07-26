@@ -73,6 +73,7 @@ object StructuralEngineerActive {
         CraftHandler.registerHigh(StructuralEngineerSet.DYED_BLOCK.types) { player, type ->
             val level = player.getSkillLevel("识色敏锐")
             if (player.isDischarging("识色敏锐")) {
+                player.sendMessage("awa")
                 val amount = if (level == 3) 2 else 1
                 player.giveItem(ItemStack(type, amount))
                 "§a生涯系统 §7>> 合成染色方块时获得了额外产物"

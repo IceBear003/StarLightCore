@@ -62,6 +62,9 @@ object DemolitionistActive {
         if (shooter !is Player)
             return
 
+        if (arrow.customEffects.isNotEmpty())
+            return
+
         if (shooter.isDischarging("手摇TNT火炮"))
             submit {
                 arrow.location.shootPrimedTNT(arrow.velocity)

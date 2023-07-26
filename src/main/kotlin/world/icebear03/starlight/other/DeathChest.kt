@@ -9,46 +9,15 @@ import org.bukkit.event.inventory.InventoryCloseEvent
 import org.bukkit.event.inventory.InventoryOpenEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
-import org.bukkit.potion.PotionEffectType
-import org.bukkit.util.Vector
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
-import taboolib.platform.util.onlinePlayers
-import world.icebear03.starlight.utils.effect
 import java.util.*
 
 object DeathChest {
 
     val ownerKey = NamespacedKey.minecraft("death_chest_owner")
     val expKey = NamespacedKey.minecraft("death_chest_exp")
-    val lastDeathKey = NamespacedKey.minecraft("last_death_stamp")
-
-    init {
-        submit(period = 100L) {
-            onlinePlayers.forEach {
-                val pdc = it.persistentDataContainer
-                val lastDeathStamp = pdc.get(lastDeathKey, PersistentDataType.LONG) ?: return@forEach
-                if (System.currentTimeMillis() - lastDeathStamp >= 360 * 1000)
-                    return@forEach
-
-                val deathLoc = it.lastDeathLocation ?: return@forEach
-                val loc = it.location
-                val vector = Vector(
-                    deathLoc.x - loc.x,
-                    0.0,
-                    deathLoc.z - loc.z
-                )
-
-                val direction = it.eyeLocation.direction
-                direction.y = 0.0
-
-                if (vector.angle(direction) <= 0.8) {
-                    it.effect(PotionEffectType.SPEED, 8, 1)
-                }
-            }
-        }
-    }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
     fun death(event: PlayerDeathEvent) {
@@ -74,19 +43,22 @@ object DeathChest {
             minecart.persistentDataContainer.set(ownerKey, PersistentDataType.STRING, player.name)
             minecart.persistentDataContainer.set(expKey, PersistentDataType.INTEGER, getTotalExp(player.level))
             minecart.isInvulnerable = true
+            minecart.setGravity(false)
         }
 
-        event.keepInventory = false
-        event.keepLevel = false
-        player.totalExperience = 0
+        event.keepInventory = true
+        event.keepLevel = true
 
-        player.persistentDataContainer.set(lastDeathKey, PersistentDataType.LONG, System.currentTimeMillis())
-
-        player.sendMessage("§b繁星工坊 §7>> 死亡掉落物品已被收集在原地的容器中 坐标 x:${loc.blockX} y:${loc.blockY} z:${loc.blockZ}")
+        player.sendMessage("§b繁星工坊 §7>> 死亡掉落物品已被收集在原地的容器中 坐标 x:§e${loc.blockX} §7y:§e${loc.blockY} §7z:§e${loc.blockZ}")
 
         submit(delay = 3L) {
-            if (player.isDead)
+            if (player.isDead) {
                 player.spigot().respawn()
+
+                player.level = 0
+                player.exp = 0f
+                player.inventory.clear()
+            }
         }
     }
 
