@@ -17,6 +17,7 @@ import world.icebear03.starlight.career.internal.Eureka
 import world.icebear03.starlight.career.internal.Skill
 import world.icebear03.starlight.career.mechanism.hasAbility
 import world.icebear03.starlight.loadCareerData
+import java.util.*
 
 object DischargeHandler {
     val dischargeMap = mutableMapOf<String, Player.(id: String, level: Int) -> String?>()
@@ -66,6 +67,7 @@ object DischargeHandler {
                 return "无法释放 ${skill.display()} §7还需等待 §e${cd.second}秒"
             }
             player.addCooldownStamp(id)
+            player.addDischargeStamp(id)
 
             if (duration != -1) {
                 submit(delay = 20L * duration) {
@@ -89,6 +91,7 @@ object DischargeHandler {
                 return "无法释放 ${eureka.display()} §7还需等待 §e${cd.second}秒"
             }
             player.addCooldownStamp(id)
+            player.addDischargeStamp(id)
 
             if (duration != -1) {
                 submit(delay = 20L * duration) {
@@ -105,11 +108,21 @@ object DischargeHandler {
     }
 }
 
+val dischargeStamp = mutableMapOf<UUID, MutableMap<String, Long>>()
+
+fun Player.addDischargeStamp(id: String) {
+    dischargeStamp.getOrPut(this.uniqueId) { mutableMapOf() }[id] = System.currentTimeMillis()
+}
+
+fun Player.removeDischargeStamp(id: String) {
+    dischargeStamp.getOrPut(this.uniqueId) { mutableMapOf() }.remove(id)
+}
+
 fun Player.isDischarging(key: String, removeIfConsumable: Boolean = true): Boolean {
     if (!this.hasAbility(key to 0))
         return false
 
-    val stamp = (cooldownStamps[this.uniqueId] ?: return false)[key] ?: return false
+    val stamp = (dischargeStamp[this.uniqueId] ?: return false)[key] ?: return false
     val period = (System.currentTimeMillis() - stamp) / 1000.0
 
     val skill = Skill.fromId(key)
@@ -118,7 +131,7 @@ fun Player.isDischarging(key: String, removeIfConsumable: Boolean = true): Boole
         val duration = skill.level(level).duration
         if (duration == -1) {
             if (removeIfConsumable)
-                cooldownStamps[this.uniqueId]!!.remove(key)
+                this.removeDischargeStamp(key)
             return true
         }
         return duration >= period
@@ -129,7 +142,7 @@ fun Player.isDischarging(key: String, removeIfConsumable: Boolean = true): Boole
         val duration = eureka.duration
         if (duration == -1) {
             if (removeIfConsumable)
-                cooldownStamps[this.uniqueId]!!.remove(key)
+                this.removeDischargeStamp(key)
             return true
         }
         return duration >= period

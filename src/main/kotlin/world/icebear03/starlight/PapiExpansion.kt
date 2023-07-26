@@ -45,7 +45,11 @@ object PapiExpansion : PlaceholderExpansion {
                 true -> "&a✔"
                 false -> {
                     if (player.isDischarging(string, false)) {
-                        "&e✷ &7(&b${(duration - (cd - cdPair.second)).format(1)}秒&7)"
+                        if (duration != -1) {
+                            "&e✷ &7(&b${(duration - (cd - cdPair.second)).format(1)}秒&7)"
+                        } else {
+                            "&e✷"
+                        }
                     } else {
                         "&c✘ &7(&e${cdPair.second}s&7)"
                     }
