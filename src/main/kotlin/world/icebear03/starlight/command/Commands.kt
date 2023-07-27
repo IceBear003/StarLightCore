@@ -24,7 +24,7 @@ object Commands {
     }
 
     @CommandBody
-    val careerMenu = commandCareerMenu
+    val career = commandCareer
 
     @CommandBody
     val careerPoint = commandCareerPoint

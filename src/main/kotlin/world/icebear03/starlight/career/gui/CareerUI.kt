@@ -1,6 +1,5 @@
 package world.icebear03.starlight.career.gui
 
-import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
 import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataType
@@ -19,24 +18,28 @@ import taboolib.module.ui.openMenu
 import taboolib.module.ui.type.Basic
 import taboolib.platform.util.giveItem
 import taboolib.platform.util.modifyMeta
+import world.icebear03.starlight.career
+import world.icebear03.starlight.career.core.Resonate
+import world.icebear03.starlight.career.core.branch.Branch
 import world.icebear03.starlight.career.core.`class`.Class
-import world.icebear03.starlight.career.mechanism.data.Forget
-import world.icebear03.starlight.career.mechanism.data.Resonate
+import world.icebear03.starlight.career.core.`class`.ClassLoader
+import world.icebear03.starlight.career.getClass
 import world.icebear03.starlight.career.mechanism.data.ResonateType
 import world.icebear03.starlight.career.mechanism.discharge.DischargeHandler
 import world.icebear03.starlight.career.mechanism.display
-import world.icebear03.starlight.loadCareerData
 import world.icebear03.starlight.utils.YamlUpdater
+import world.icebear03.starlight.utils.get
+import world.icebear03.starlight.utils.set
 import world.icebear03.starlight.utils.toRoman
 
-@MenuComponent("CareerMenu")
-object CareerMenuUI {
+@MenuComponent("Career")
+object CareerUI {
 
     init {
-        YamlUpdater.loadAndUpdate("career/gui/career_menu.yml")
+        YamlUpdater.loadAndUpdate("career/gui/career.yml")
     }
 
-    @Config("career/gui/career_menu.yml")
+    @Config("career/gui/career.yml")
     private lateinit var source: Configuration
     private lateinit var config: MenuConfiguration
 
@@ -46,7 +49,7 @@ object CareerMenuUI {
         config = MenuConfiguration(source)
     }
 
-    fun open(player: Player, classId: String? = null) {
+    fun open(player: Player, name: String? = null) {
         if (!::config.isInitialized) {
             config = MenuConfiguration(source)
         }
@@ -98,15 +101,14 @@ object CareerMenuUI {
                 }
             }
 
-            val data = loadCareerData(player)
-            val demonstrating = Class.fromId(classId) ?: data.getClasses()[0]
+            val data = player.career()
+            val clazz = getClass(name) ?: data.getClasses()[0]
 
-            val classes = Class.classes.values.toList().sortedBy { it.id }
+            val classes = ClassLoader.classes.values.toList().sortedBy { it.name }
             setSlots("CareerMenu\$career_class", classes, player, "element")
 
-            val branches = demonstrating.branches.toList().sortedBy { it.id }
-            val tmp = listOf("branch", "resonate", "forget")
-            tmp.forEach {
+            val branches = clazz.branches.values.toList().sortedBy { it.name }
+            listOf("branch", "resonate", "forget").forEach {
                 setSlots("CareerMenu\$$it", branches, player, "element")
             }
 
@@ -117,45 +119,40 @@ object CareerMenuUI {
             onClick {
                 it.isCancelled = true
                 if (it.rawSlot in shape) {
-                    templates[it.rawSlot]?.handle(it, demonstrating)
+                    templates[it.rawSlot]?.handle(it, clazz)
                 }
             }
         }
     }
 
-    val mark = NamespacedKey.minecraft("mark")
+    val unlock =
+        "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTZjOTExZGE2M2JlOTdlNjg5ODM1ZmFlNDM5OWI4ZDRiMjJjNGE2YzA5NjAxYTA0NzBjMjJmOTI5YWQ5NDVjZSJ9fX0="
 
     @MenuComponent
     private val career_class = MenuFunctionBuilder {
         onBuild { (_, _, _, _, icon, args) ->
             val player = args[0] as Player
-            val careerClass = args[1] as Class
-            val data = loadCareerData(player)
+            val clazz = args[1] as Class
+            val career = player.career()
 
-            if (data.hasClass(careerClass.id)) {
-                icon.textured(careerClass.skull)
-            } else {
-                icon.textured("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTZjOTExZGE2M2JlOTdlNjg5ODM1ZmFlNDM5OWI4ZDRiMjJjNGE2YzA5NjAxYTA0NzBjMjJmOTI5YWQ5NDVjZSJ9fX0=")
-            }
+            icon.textured(if (career.hasClass(clazz)) clazz.skull else unlock)
 
             icon.modifyMeta<ItemMeta> {
-                this.persistentDataContainer.set(mark, PersistentDataType.STRING, careerClass.id)
+                set("mark", PersistentDataType.STRING, clazz.name)
             }
 
             icon.variables {
                 when (it) {
-                    "display" -> listOf(careerClass.display())
-                    "branches" -> careerClass.branchIds()
+                    "display" -> listOf(clazz.display())
+                    "branches" -> clazz.branchNames()
                     else -> listOf()
                 }
             }
         }
         onClick { (_, _, event, _) ->
             val item = event.clickEvent().currentItem ?: return@onClick
-            val player = event.clicker
-            val classId = item.itemMeta!!.persistentDataContainer.get(mark, PersistentDataType.STRING)
-
-            open(player, classId)
+            val name = item.itemMeta!!.get("mark", PersistentDataType.STRING)
+            open(event.clicker, name)
         }
     }
 
@@ -164,25 +161,21 @@ object CareerMenuUI {
         onBuild { (_, _, _, _, icon, args) ->
             val player = args[0] as Player
             val branch = args[1] as Branch
-            val data = loadCareerData(player)
+            val data = player.career()
 
-            if (data.getBranchLevel(branch) >= 0) {
-                icon.textured(branch.skull)
-            } else {
-                icon.textured("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTZjOTExZGE2M2JlOTdlNjg5ODM1ZmFlNDM5OWI4ZDRiMjJjNGE2YzA5NjAxYTA0NzBjMjJmOTI5YWQ5NDVjZSJ9fX0=")
-            }
+            icon.textured(if (data.getBranchLevel(branch) >= 0) branch.skull else unlock)
 
             var state = "&e可解锁"
-            if (!data.hasClass(branch.careerClass.id)) {
+            if (!data.hasClass(branch.clazz)) {
                 state = "&c不可解锁(不是对应的职业)"
             }
-            val level = data.getBranchLevel(branch.id)
+            val level = data.getBranchLevel(branch)
             if (level >= 0) {
                 state = "&a已解锁 &e${level}级"
             }
 
             icon.modifyMeta<ItemMeta> {
-                this.persistentDataContainer.set(mark, PersistentDataType.STRING, branch.id)
+                set("mark", PersistentDataType.STRING, branch.name)
             }
 
             icon.variables {
@@ -197,17 +190,16 @@ object CareerMenuUI {
         onClick { (_, _, event, args) ->
             val item = event.clickEvent().currentItem ?: return@onClick
             val player = event.clicker
-            val data = loadCareerData(player)
-            val branchId = item.itemMeta!!.persistentDataContainer.get(mark, PersistentDataType.STRING)!!
+            val data = player.career()
+            val click = event.clickEvent()
+            val name = item.itemMeta!!.get("mark", PersistentDataType.STRING)!!
 
-            if (event.clickEvent().isLeftClick)
-                CareerBranchUI.open(player, branchId)
+            if (click.isLeftClick)
+                BranchUI.open(player, name)
 
-            if (event.clickEvent().isRightClick) {
-                val result = data.unlockBranch(branchId)
-                player.sendMessage("§a生涯系统 §7>> " + result.second)
-                if (result.first)
-                    open(player, args[0].toString())
+            if (click.isRightClick) {
+                player.sendMessage("§a生涯系统 §7>> " + data.unlockBranch(name).second)
+                open(player, args[0].toString())
             }
         }
     }
@@ -217,7 +209,7 @@ object CareerMenuUI {
         onBuild { (_, _, _, _, icon, args) ->
             val player = args[0] as Player
             val branch = args[1] as Branch
-            val data = loadCareerData(player)
+            val data = player.career()
 
             var state = "&e可共鸣"
             icon.textured("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjM0N2EzOTQ5OWRlNDllMjRjODkyYjA5MjU2OTQzMjkyN2RlY2JiNzM5OWUxMTg0N2YzMTA0ZmRiMTY1YjZkYyJ9fX0=")
@@ -231,7 +223,7 @@ object CareerMenuUI {
             }
 
             icon.modifyMeta<ItemMeta> {
-                this.persistentDataContainer.set(mark, PersistentDataType.STRING, branch.id)
+                set("mark", PersistentDataType.STRING, branch.name)
             }
 
             icon.variable("state", listOf(state))
@@ -239,12 +231,10 @@ object CareerMenuUI {
         onClick { (_, _, event, args) ->
             val item = event.clickEvent().currentItem ?: return@onClick
             val player = event.clicker
-            val branchId = item.itemMeta!!.persistentDataContainer.get(mark, PersistentDataType.STRING)!!
+            val name = item.itemMeta!!.get("mark", PersistentDataType.STRING)!!
 
-            val result = Resonate.chooseResonate(player, branchId)
-            player.sendMessage("§a生涯系统 §7>> " + result.second)
-            if (result.first)
-                open(player, args[0].toString())
+            player.sendMessage("§a生涯系统 §7>> " + Resonate.resonate(player, name).second)
+            open(player, args[0].toString())
         }
     }
 
@@ -253,28 +243,26 @@ object CareerMenuUI {
         onBuild { (_, _, _, _, icon, args) ->
             val player = args[0] as Player
             val branch = args[1] as Branch
-            val data = loadCareerData(player)
+            val data = player.career()
 
-            icon.textured("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzEwNTkxZTY5MDllNmEyODFiMzcxODM2ZTQ2MmQ2N2EyYzc4ZmEwOTUyZTkxMGYzMmI0MWEyNmM0OGMxNzU3YyJ9fX0=")
-            if (data.getBranchLevel(branch.id) < 0) {
-                icon.textured("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTY5NTkwNThjMGMwNWE0MTdmZDc1N2NiODViNDQxNWQ5NjZmMjczM2QyZTdjYTU0ZjdiYTg2OGUzMjQ5MDllMiJ9fX0=")
-            }
+            icon.textured(
+                if (data.getBranchLevel(branch) < 0) "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzEwNTkxZTY5MDllNmEyODFiMzcxODM2ZTQ2MmQ2N2EyYzc4ZmEwOTUyZTkxMGYzMmI0MWEyNmM0OGMxNzU3YyJ9fX0="
+                else "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTY5NTkwNThjMGMwNWE0MTdmZDc1N2NiODViNDQxNWQ5NjZmMjczM2QyZTdjYTU0ZjdiYTg2OGUzMjQ5MDllMiJ9fX0="
+            )
 
             icon.modifyMeta<ItemMeta> {
-                this.persistentDataContainer.set(mark, PersistentDataType.STRING, branch.id)
+                set("mark", PersistentDataType.STRING, branch.name)
             }
 
-            icon.variable("cost", listOf("${data.getBranchLevel(branch.id) * 2 + 2}"))
+            icon.variable("cost", listOf("${data.getBranchLevel(branch) * 2 + 2}"))
         }
         onClick { (_, _, event, args) ->
             val item = event.clickEvent().currentItem ?: return@onClick
             val player = event.clicker
-            val branchId = item.itemMeta!!.persistentDataContainer.get(mark, PersistentDataType.STRING)!!
+            val name = item.itemMeta!!.get("mark", PersistentDataType.STRING)!!
 
-            val result = Forget.attemptToForget(player, branchId)
-            player.sendMessage("§a生涯系统 §7>> " + result.second)
-            if (result.first)
-                open(player, args[0].toString())
+            player.sendMessage("§a生涯系统 §7>> " + Forget.attemptToForget(player, name).second)
+            open(player, args[0].toString())
         }
     }
 
@@ -282,17 +270,16 @@ object CareerMenuUI {
     private val bind = MenuFunctionBuilder {
         onBuild { (_, _, _, _, icon, args) ->
             val player = args[0] as Player
-            val data = loadCareerData(player)
+            val data = player.career()
 
-            val list = data.shortCuts.map {
-                it.value.display() + " &7- " + it.key
+            val list = data.shortCuts.map { (level, name) ->
+                name.display() + " &7- " + level
             }
 
             icon.variable("binds", list)
         }
         onClick { (_, _, event, _) ->
-            val player = event.clicker
-            player.giveItem(DischargeHandler.item)
+            event.clicker.giveItem(DischargeHandler.item)
         }
     }
 
@@ -300,7 +287,7 @@ object CareerMenuUI {
     private val resonate_type = MenuFunctionBuilder {
         onBuild { (_, _, _, _, icon, args) ->
             val player = args[0] as Player
-            val data = loadCareerData(player)
+            val data = player.career()
             val current = data.resonantType
 
             val list = ResonateType.values().map {
@@ -311,7 +298,7 @@ object CareerMenuUI {
         }
         onClick { (_, _, event, args) ->
             val player = event.clicker
-            val data = loadCareerData(player)
+            val data = player.career()
             val values = ResonateType.values().toList()
             var index = values.indexOf(data.resonantType) + 1
             if (index >= values.size)
@@ -325,10 +312,10 @@ object CareerMenuUI {
     private val resonate_info = MenuFunctionBuilder {
         onBuild { (_, _, _, _, icon, args) ->
             val player = args[0] as Player
-            val data = loadCareerData(player)
+            val data = player.career()
 
-            val list = Resonate.resonating[player.uniqueId]!!.map {
-                it.key.display() + " " + it.value.second.toRoman() + "  &7来自 " + it.value.first
+            val list = Resonate.resonateMap[player.uniqueId]!!.map { (name, pair) ->
+                name.display() + " " + pair.second.toRoman() + "  &7来自 " + pair.first
             }
 
             val my = data.resonantBranch?.display() ?: "N/A"

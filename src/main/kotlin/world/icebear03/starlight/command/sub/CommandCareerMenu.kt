@@ -2,11 +2,11 @@ package world.icebear03.starlight.command.sub
 
 import org.bukkit.entity.Player
 import taboolib.common.platform.command.subCommand
-import world.icebear03.starlight.career.gui.CareerMenuUI
+import world.icebear03.starlight.career.gui.CareerUI
 
 
-val commandCareerMenu = subCommand {
+val commandCareer = subCommand {
     execute<Player> { sender, _, _ ->
-        CareerMenuUI.open(sender, null)
+        CareerUI.open(sender, null)
     }
 }

@@ -23,7 +23,7 @@ template:
       - HIDE_ENCHANTS
     feature:
       - ==: Functional
-        keyword: CareerMenu$career_class
+        keyword: Career$career_class
   'B':
     material: PLAYER_HEAD
     name: "&7分支 {display}"
@@ -39,7 +39,7 @@ template:
       - HIDE_ENCHANTS
     feature:
       - ==: Functional
-        keyword: CareerMenu$branch
+        keyword: Career$branch
   'G':
     material: PLAYER_HEAD
     name: "&e共鸣"
@@ -62,7 +62,7 @@ template:
       - HIDE_ENCHANTS
     feature:
       - ==: Functional
-        keyword: CareerMenu$resonate
+        keyword: Career$resonate
   'R':
     material: PLAYER_HEAD
     name: "&6遗忘"
@@ -73,7 +73,7 @@ template:
       - "&8| &7消耗: &e{cost}技能点"
     feature:
       - ==: Functional
-        keyword: CareerMenu$forget
+        keyword: Career$forget
   'H':
     material: PLAYER_HEAD
     name: "&b快捷释放"
@@ -89,7 +89,7 @@ template:
       - ==: Head
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzBjZjc0ZTI2MzhiYTVhZDMyMjM3YTM3YjFkNzZhYTEyM2QxODU0NmU3ZWI5YTZiOTk2MWU0YmYxYzNhOTE5In19fQ=="
       - ==: Functional
-        keyword: CareerMenu$bind
+        keyword: Career$bind
   'T':
     material: PLAYER_HEAD
     name: "&e共鸣模式"
@@ -103,7 +103,7 @@ template:
       - ==: Head
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjBmMTBlODU0MThlMzM0ZjgyNjczZWI0OTQwYjIwOGVjYWVlMGM5NWMyODc2ODVlOWVhZjI0NzUxYTMxNWJmYSJ9fX0="
       - ==: Functional
-        keyword: CareerMenu$resonate_type
+        keyword: Career$resonate_type
   'I':
     material: PLAYER_HEAD
     name: "&e共鸣信息"
@@ -115,4 +115,4 @@ template:
       - ==: Head
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGRlYmMzZjYwMGJiMjg3ODA4M2ZkM2NmYTQzOWI2YjM5Yzc0NWIyZmFmMWVlYTU5NjZlMzFiNDk2OTU5Y2UyOCJ9fX0="
       - ==: Functional
-        keyword: CareerMenu$resonate_info
+        keyword: Career$resonate_info

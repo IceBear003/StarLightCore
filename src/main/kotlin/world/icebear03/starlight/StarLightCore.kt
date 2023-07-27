@@ -5,8 +5,8 @@ import taboolib.common.platform.function.getDataFolder
 import taboolib.common.platform.function.info
 import taboolib.expansion.setupPlayerDatabase
 import taboolib.platform.util.onlinePlayers
-import world.icebear03.starlight.career.core.`class`.Class
-import world.icebear03.starlight.career.mechanism.data.Resonate
+import world.icebear03.starlight.career.core.Resonate
+import world.icebear03.starlight.career.core.`class`.ClassLoader
 import world.icebear03.starlight.career.mechanism.entry.architect.*
 import world.icebear03.starlight.career.mechanism.entry.cook.BrewerPassive
 import world.icebear03.starlight.career.mechanism.passive.limit.MaterialLimitLibrary
@@ -17,7 +17,11 @@ import java.io.File
 object StarLightCore : Plugin() {
 
     override fun onEnable() {
-        Class.initialize()
+        ClassLoader.initialize()
+
+        onlinePlayers.forEach {
+            it.loadStarLightData()
+        }
 
 //        setupPlayerDatabase(Config.config.getConfigurationSection("database")!!)
         setupPlayerDatabase(File(getDataFolder(), "data.db"))
@@ -49,6 +53,9 @@ object StarLightCore : Plugin() {
     }
 
     override fun onDisable() {
-        onlinePlayers.forEach { it.kickPlayer("核心插件重载") }
+        onlinePlayers.forEach {
+//            it.kickPlayer("核心插件重载")
+            it.saveStarLightData()
+        }
     }
 }

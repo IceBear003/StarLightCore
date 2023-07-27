@@ -11,9 +11,9 @@ import taboolib.expansion.getDataContainer
 import taboolib.expansion.releaseDataContainer
 import taboolib.expansion.setupDataContainer
 import taboolib.platform.util.onlinePlayers
+import world.icebear03.starlight.career.core.Resonate
 import world.icebear03.starlight.career.data.Career
 import world.icebear03.starlight.career.data.Savable
-import world.icebear03.starlight.career.mechanism.data.Resonate
 import world.icebear03.starlight.stamina.Stamina
 import java.util.*
 
@@ -21,13 +21,13 @@ object PlayerData {
 
     init {
         submit(delay = 100L, period = 100L) {
-            onlinePlayers.forEach { saveCareerData(it) }
+            onlinePlayers.forEach { save(it) }
         }
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     fun event(event: PlayerLoginEvent) {
-        load(event.player)
+        event.player.loadStarLightData()
     }
 
     @SubscribeEvent(priority = EventPriority.MONITOR)
@@ -35,59 +35,29 @@ object PlayerData {
         save(event.player)
     }
 
-    fun load(player: Player) {
-        player.setupDataContainer()
-        loadCareerData(player)
-        Resonate.resonating[player.uniqueId] = mutableMapOf()
-    }
-
     fun save(player: Player) {
-        saveCareerData(player)
+        player.saveStarLightData()
+        //仅在退出时release
         player.releaseDataContainer()
     }
 
-    val careerData = mutableMapOf<UUID, Career>()
-    var staminaData = mutableMapOf<UUID, Stamina>()
 }
 
-fun loadCareerData(player: Player): Career {
-    val uuid = player.uniqueId
-    return PlayerData.careerData.getOrDefault(uuid,
-        run {
-            val data =
-                if (player.getDataContainer()["career"] != null) {
-                    val string = player.getDataContainer()["career"]
-                    Gson().fromJson(string, Savable::class.java).toUsableCareer()
-                } else {
-                    Career().remake()
-                }
-            PlayerData.careerData[uuid] = data
-            data
-        })
+val careerMap = mutableMapOf<UUID, Career>()
+var staminaMap = mutableMapOf<UUID, Stamina>()
+
+fun Player.career(): Career {
+    return careerMap[uniqueId]!!
 }
 
-fun saveCareerData(player: Player) {
-    val string = Gson().toJson(loadCareerData(player).toSavableCareer())
-    player.getDataContainer()["career"] = string
+fun Player.saveStarLightData() {
+    getDataContainer()["career"] = Gson().toJson(career())
 }
 
-fun loadStaminaData(player: Player): Stamina {
-    val uuid = player.uniqueId
-    return PlayerData.staminaData.getOrDefault(uuid,
-        run {
-            val data =
-                if (player.getDataContainer()["stamina"] != null) {
-                    val string = player.getDataContainer()["stamina"]
-                    Gson().fromJson(string, Stamina::class.java)
-                } else {
-                    Stamina(uuid)
-                }
-            PlayerData.staminaData[uuid] = data
-            data
-        })
-}
-
-fun saveStaminaData(player: Player) {
-    val string = Gson().toJson(loadStaminaData(player))
-    player.getDataContainer()["stamina"] = string
+//仅在进入服务器或者热重载后调用
+fun Player.loadStarLightData() {
+    setupDataContainer()
+    val data = getDataContainer()
+    careerMap[uniqueId] = data["career"]?.let { Gson().fromJson(it, Savable::class.java).toCareer() } ?: Career().remake()
+    Resonate.resonateMap[player.uniqueId] = mutableMapOf()
 }

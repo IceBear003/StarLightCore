@@ -19,7 +19,7 @@ data class Career(
     var resonantType: ResonateType = ResonateType.FRIENDLY,
     val shortCuts: MutableMap<Int, String> = mutableMapOf()
 ) {
-    fun toSavableCareer(): Savable {
+    fun toSavable(): Savable {
         val savableClasses = mutableMapOf<String, List<String>>()
         val savableBranches = mutableMapOf<String, Map<String, Int>>()
         val savableSpells = mutableMapOf<String, Int>()
@@ -68,7 +68,7 @@ data class Career(
         return classes.keys.toList()
     }
 
-    fun hasClass(name: String): Boolean {
+    fun hasClass(name: String?): Boolean {
         return hasClass(getClass(name))
     }
 
@@ -222,6 +222,34 @@ data class Career(
 
         shortCuts[key] = spell.name
         return true to "成功绑定${spell.prefix()} ${spell.display()} §7至键盘§e按键$key"
+    }
+    //--------------------------------------------------------------------
+
+    //-------------------------------遗忘相关-------------------------------
+    fun forget(name: String?): Pair<Boolean, String> {
+        return forget(getBranch(name))
+    }
+
+    fun forget(branch: Branch?): Pair<Boolean, String> {
+        branch ?: return false to "§e职业分支§7不存在"
+        val level = getBranchLevel(branch)
+        if (level < 0)
+            return false to "该§e职业分支§7未解锁"
+        if (points < level * 2 + 2) {
+            return false to "技能点不足"
+        }
+        takePoint(level * 2 + 2)
+        classes[branch.clazz]!!.remove(branch)
+        branches.remove(branch)
+        branch.spells.forEach { (_, spell) ->
+            spells.remove(spell)
+            shortCuts.filterValues { spell.name == it }.forEach { (level, _) ->
+                shortCuts.remove(level)
+            }
+        }
+        if (resonantBranch == branch)
+            resonantBranch = null
+        return true to "成功遗忘§e职业分支§7 ${branch.display()}"
     }
     //--------------------------------------------------------------------
 }

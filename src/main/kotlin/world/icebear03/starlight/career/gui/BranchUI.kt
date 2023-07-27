@@ -26,7 +26,7 @@ import world.icebear03.starlight.utils.YamlUpdater
 import world.icebear03.starlight.utils.toRoman
 
 @MenuComponent("CareerBranch")
-object CareerBranchUI {
+object BranchUI {
 
     init {
         YamlUpdater.loadAndUpdate("career/gui/career_branch.yml")
@@ -194,7 +194,7 @@ object CareerBranchUI {
             val item = event.clickEvent().currentItem ?: return@onClick
             val player = event.clicker
             val data = loadCareerData(player)
-            val id = item.itemMeta!!.persistentDataContainer.get(CareerMenuUI.mark, PersistentDataType.STRING)!!
+            val id = item.itemMeta!!.persistentDataContainer.get(CareerUI.mark, PersistentDataType.STRING)!!
 
             player.closeInventory()
             player.sendMessage("§a生涯系统 §7>> 请输入§a1-9§7中的一个数字，将这个技能绑定到§e对应的按键")
@@ -254,7 +254,7 @@ object CareerBranchUI {
             val item = event.clickEvent().currentItem ?: return@onClick
             val player = event.clicker
             val data = loadCareerData(player)
-            val string = item.itemMeta!!.persistentDataContainer.get(CareerMenuUI.mark, PersistentDataType.STRING)!!
+            val string = item.itemMeta!!.persistentDataContainer.get(CareerUI.mark, PersistentDataType.STRING)!!
             val id = string.split("=")[0]
             val level = string.split("=")[1].toInt()
 
@@ -336,7 +336,7 @@ object CareerBranchUI {
             val item = event.clickEvent().currentItem ?: return@onClick
             val player = event.clicker
             val data = loadCareerData(player)
-            val id = item.itemMeta!!.persistentDataContainer.get(CareerMenuUI.mark, PersistentDataType.STRING)!!
+            val id = item.itemMeta!!.persistentDataContainer.get(CareerUI.mark, PersistentDataType.STRING)!!
 
             if (data.hasEureka(id)) {
                 player.closeInventory()
@@ -364,7 +364,7 @@ object CareerBranchUI {
     private val back = MenuFunctionBuilder {
         onClick { (_, _, event, args) ->
             val branch = args[0] as Branch
-            CareerMenuUI.open(event.clicker, branch.careerClass.id)
+            CareerUI.open(event.clicker, branch.careerClass.id)
         }
     }
 }
