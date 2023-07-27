@@ -10,8 +10,10 @@ import org.serverct.parrot.parrotx.function.textured
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
+import taboolib.platform.util.actionBar
 import taboolib.platform.util.hasName
 import taboolib.platform.util.modifyMeta
+import taboolib.platform.util.onlinePlayers
 import world.icebear03.starlight.career
 import world.icebear03.starlight.career.getSpell
 import world.icebear03.starlight.career.meetRequirement
@@ -30,6 +32,43 @@ object DischargeHandler {
         )
     }
         .textured("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2E5Y2IwNDU3ZDUwMTVkZmJkM2UyNTJkNzY3MDcxMjc1OTEwNjNhMGIyZmViYWY4YzY0NGFjYWRhOTBiZDRkMCJ9fX0=")
+
+    fun initialize() {
+        submit(period = 20L) {
+            onlinePlayers.forEach { player ->
+                val career = player.career()
+                career.autoDischarges.forEach spells@{ name ->
+                    if (player.isDischarging(name, false))
+                        return@spells
+
+                    val spell = getSpell(name)!!
+                    val level = career.getSpellLevel(spell)
+                    if (level <= 0)
+                        return@spells
+
+                    val cd = spell.cd(career.getSpellLevel(spell))
+                    if (!player.checkCooldownStamp(name, cd).first)
+                        return@spells
+
+                    val duration = spell.duration(level)
+
+                    player.addCooldownStamp(name)
+                    player.addDischargeStamp(name)
+
+                    if (duration != -1) {
+                        submit(delay = 20L * duration) {
+                            if (player.meetRequirement(name, level)) {
+                                finishMap[name]?.invoke(player, name, level)
+                                player.actionBar("§7自动释放 > ${spell.prefix()} §7${spell.display()} §7已经结束")
+                            }
+                        }
+                    }
+                    val msg = dischargeMap[name]?.invoke(player, name, level) ?: return@spells
+                    player.actionBar("§7自动释放 > $msg")
+                }
+            }
+        }
+    }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     fun swapItem(event: PlayerSwapHandItemsEvent) {

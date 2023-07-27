@@ -17,7 +17,8 @@ data class Career(
     var points: Int = 0,
     var resonantBranch: Branch? = null,
     var resonantType: Resonate.ResonateType = Resonate.ResonateType.FRIENDLY,
-    val shortCuts: MutableMap<Int, String> = mutableMapOf()
+    val shortCuts: MutableMap<Int, String> = mutableMapOf(),
+    val autoDischarges: MutableSet<String> = mutableSetOf()
 ) {
     fun toSavable(): Savable {
         val savableClasses = mutableMapOf<String, List<String>>()
@@ -39,7 +40,8 @@ data class Career(
             points,
             resonantBranch?.name,
             resonantType.toString(),
-            shortCuts
+            shortCuts,
+            autoDischarges
         )
     }
 
@@ -222,6 +224,30 @@ data class Career(
 
         shortCuts[key] = spell.name
         return true to "成功绑定${spell.prefix()} ${spell.display()} §7至键盘§e按键$key"
+    }
+    //--------------------------------------------------------------------
+
+    //-----------------------------自动释放相关------------------------------
+    fun switchAutoDischarge(name: String): Pair<Boolean, String> {
+        return switchAutoDischarge(getSpell(name))
+    }
+
+    fun switchAutoDischarge(spell: Spell?): Pair<Boolean, String> {
+        spell ?: return false to "§a技能§7/§d顿悟§7不存在"
+        if (spell.type == SpellType.PASSIVE)
+            return false to "被动${spell.prefix()}§7无法设置为自动释放"
+        if (getSpellLevel(spell) < 1)
+            return false to "请先${spell.prefix(true)}"
+        if (spell.isEureka)
+            return false to "§d顿悟§7不可以设置为自动释放"
+
+        return if (autoDischarges.contains(spell.name)) {
+            autoDischarges.remove(spell.name)
+            true to "${spell.prefix()} ${spell.display()} §7被设置为不再自动释放"
+        } else {
+            autoDischarges.add(spell.name)
+            true to "${spell.prefix()} ${spell.display()} §7被设置为自动释放"
+        }
     }
     //--------------------------------------------------------------------
 

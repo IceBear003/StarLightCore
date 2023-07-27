@@ -47,8 +47,8 @@ data class Spell(
                 duration = "&e${duration(level - 1)}s &7→ &a${duration(level)}s"
             }
         }
-        if (cooldown.contains("-1"))
-            duration = "&a无冷却"
+        if (cd.contains("-1"))
+            cd = "&a无冷却"
         if (duration.contains("-1"))
             duration = "&a瞬间"
         val description = descriptions[level - 1]
@@ -74,5 +74,9 @@ data class Spell(
         } else {
             if (isEureka) "§7激活§d顿悟" else "§7升级§a技能"
         }
+    }
+
+    fun canAutoDischarge(): Boolean {
+        return type == SpellType.ACTIVE && !isEureka
     }
 }

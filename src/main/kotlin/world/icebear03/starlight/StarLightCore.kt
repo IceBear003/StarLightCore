@@ -7,6 +7,7 @@ import taboolib.expansion.setupPlayerDatabase
 import taboolib.platform.util.onlinePlayers
 import world.icebear03.starlight.career.core.Resonate
 import world.icebear03.starlight.career.core.`class`.ClassLoader
+import world.icebear03.starlight.career.spell.DischargeHandler
 import world.icebear03.starlight.career.spell.entry.architect.*
 import world.icebear03.starlight.career.spell.entry.cook.BrewerPassive
 import world.icebear03.starlight.career.spell.passive.limit.MaterialLimitLibrary
@@ -47,6 +48,8 @@ object StarLightCore : Plugin() {
         RespawnProtection.initialize()
         WorldRule.initialize()
         DarkMare.initialize()
+
+        DischargeHandler.initialize()
     }
 
     override fun onDisable() {

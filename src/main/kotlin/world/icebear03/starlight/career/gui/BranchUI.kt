@@ -19,6 +19,7 @@ import taboolib.module.kether.compileToJexl
 import taboolib.module.kether.isInt
 import taboolib.module.ui.openMenu
 import taboolib.module.ui.type.Basic
+import taboolib.platform.util.modifyLore
 import taboolib.platform.util.modifyMeta
 import taboolib.platform.util.nextChat
 import world.icebear03.starlight.career
@@ -181,26 +182,48 @@ object BranchUI {
                     else -> listOf()
                 }
             }
+
+            if (career.shortCuts.values.contains(spell.name)) {
+                val shortcut = career.shortCuts.filterValues { it == spell.name }.toList()[0].first
+                icon.modifyLore {
+                    this.add(1, "§8| §7快捷键: §a$shortcut")
+                }
+            }
+
+            if (spell.canAutoDischarge()) {
+                icon.modifyLore {
+                    val auto = if (career.autoDischarges.contains(spell.name)) "§a✔" else "§c✘"
+                    this.add(1, "§8| §7自动释放: $auto")
+                    this.add("§8| §6右击本按钮§7切换其自动释放模式")
+                }
+            } else icon
         }
         onClick { (_, _, event, args) ->
             val item = event.clickEvent().currentItem ?: return@onClick
             val player = event.clicker
             val career = player.career()
-            val id = item.itemMeta!!.get("mark", PersistentDataType.STRING)!!
+            val name = item.itemMeta!!.get("mark", PersistentDataType.STRING)!!
 
-            player.closeInventory()
-            player.sendMessage("§a生涯系统 §7>> 请输入§a1-9§7中的一个数字，将这个技能绑定到§e对应的按键")
-            player.nextChat {
-                if (!it.isInt()) {
-                    player.sendMessage("§a生涯系统 §7>> 你输入的不是数字")
+            val click = event.clickEvent().click
+            if (click.isLeftClick) {
+                player.closeInventory()
+                player.sendMessage("§a生涯系统 §7>> 请输入§a1-9§7中的一个数字，将这个技能绑定到§e对应的按键")
+                player.nextChat {
+                    if (!it.isInt()) {
+                        player.sendMessage("§a生涯系统 §7>> 你输入的不是数字")
+                    }
+                    if (it.toInt() !in 1..9) {
+                        player.sendMessage("§a生涯系统 §7>> 你输入的不是§a1-9§7中的数字")
+                    }
+                    player.sendMessage("§a生涯系统 §7>> " + career.addShortCut(name, it.toInt()).second)
+                    submit {
+                        open(player, args[0].toString())
+                    }
                 }
-                if (it.toInt() !in 1..9) {
-                    player.sendMessage("§a生涯系统 §7>> 你输入的不是§a1-9§7中的数字")
-                }
-                player.sendMessage("§a生涯系统 §7>> " + career.addShortCut(id, it.toInt()).second)
-                submit {
-                    open(player, args[0].toString())
-                }
+            }
+            if (click.isRightClick) {
+                player.sendMessage("§a生涯系统 §7>> " + career.switchAutoDischarge(name))
+                open(player, args[0].toString())
             }
         }
     }

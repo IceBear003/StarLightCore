@@ -15,7 +15,8 @@ data class Savable(
     var points: Int,
     var resonantBranch: String?,
     var resonantType: String,
-    val shortCuts: MutableMap<Int, String>
+    val shortCuts: Map<Int, String>,
+    val autoDischarges: Set<String>
 ) {
     fun toCareer(): Career {
         val usableClasses = mutableMapOf<Class, MutableList<Branch>>()
@@ -37,7 +38,8 @@ data class Savable(
             points,
             getBranch(resonantBranch),
             Resonate.ResonateType.valueOf(resonantType),
-            shortCuts
+            shortCuts.toMutableMap(),
+            autoDischarges.toMutableSet()
         )
     }
 }
