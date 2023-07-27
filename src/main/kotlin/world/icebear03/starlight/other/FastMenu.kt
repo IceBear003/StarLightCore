@@ -4,7 +4,6 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 
-
 object FastMenu {
     @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun swap(event: PlayerSwapHandItemsEvent) {

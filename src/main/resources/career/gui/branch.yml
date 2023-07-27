@@ -1,0 +1,94 @@
+title: "职业分支详情"
+shape:
+  - 'FFFFFFFFF'
+  - 'FIFSSSFPF'
+  - 'FMFXXXFEF'
+  - 'FFFXXXFEF'
+  - 'FBFXXXFEF'
+  - 'FFFFFFFFF'
+
+template:
+  'F':
+    material: BLACK_STAINED_GLASS_PANE
+    name: "&7"
+  'I':
+    material: PLAYER_HEAD
+    name: "{display}"
+    lore:
+      - "&8| &7当前状态: {state}"
+      - "&7"
+      - "&8| &7可升级的&a技能:"
+      - "&7     |—— {skills}"
+      - "&7"
+      - "&8| &7可激活的&d顿悟:"
+      - "&7     |—— {eurekas}"
+    feature:
+      - ==: Functional
+        keyword: Branch$branch
+  'M':
+    material: PLAYER_HEAD
+    name: "&b我的技能点"
+    lore:
+      - "&8| &7数量: &a{amount}点"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzI0M2NiNWQzZjQ2NWMwZjA5MjNlMDRiMWEwZDg1NDRkZGJkZThiNWQ4MjI3OGI0NTU2OTU3YjY4ZGRmODU2MCJ9fX0="
+      - ==: Functional
+        keyword: Branch$mine
+  'B':
+    material: PLAYER_HEAD
+    name: "&e返回职业菜单"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzk3OGYzNWM2Mzg2MGQ2OTRmZWU0YWIzYzM2OTRmZGU0MDQ2Yzk2NmU0YzFiZjA2NjVmODg3NDhmOWY4MDI1In19fQ=="
+      - ==: Functional
+        keyword: Branch$back
+  'S':
+    material: PLAYER_HEAD
+    name: "&7技能 {display}"
+    lore:
+      - "&8| &7当前状态: {state}"
+      - "&7"
+      - "&8| &7在下方可预览各等级的效果"
+      - "&8| &7点击&e黄色块&7消耗技能点升级"
+      - "&8| &7点击&6本按钮&7将其绑定到键盘"
+    feature:
+      - ==: Functional
+        keyword: Branch$skill
+  'X':
+    material: RED_STAINED_GLASS_PANE
+    name: "&7技能 {display} {roman}"
+    lore:
+      - "&8| &7当前状态: {state}"
+      - "&7"
+      - "&8| &7技能效果:"
+      - "&7     {description}"
+    feature:
+      - ==: Functional
+        keyword: Branch$level
+  'P':
+    material: PINK_STAINED_GLASS_PANE
+    name: "&d顿悟"
+    lore:
+      - "&8| &7当前状态: {state}"
+      - "&7"
+      - "&8| &7在下方查询或解锁本分支的&d顿悟"
+    feature:
+      - ==: Functional
+        keyword: Branch$eureka_guide
+  'E':
+    material: PLAYER_HEAD
+    name: "&7顿悟 {display}"
+    lore:
+      - "&8| &7当前状态: {state}"
+      - "&7"
+      - "&8| &7能力:"
+      - "&7     {description}"
+      - "&7"
+      - "&8| &7点击消耗技能点解锁&d顿悟"
+      - "&8| &7    或将其绑定到键盘"
+      - "&8| &7这需要本分支的所有技能&c均达满级"
+      - "&8| &7每个分支只能解锁&c仅一个顿悟"
+    feature:
+      - ==: Functional
+        keyword: Branch$eureka

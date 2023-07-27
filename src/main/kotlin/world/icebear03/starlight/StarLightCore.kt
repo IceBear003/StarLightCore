@@ -7,11 +7,10 @@ import taboolib.expansion.setupPlayerDatabase
 import taboolib.platform.util.onlinePlayers
 import world.icebear03.starlight.career.core.Resonate
 import world.icebear03.starlight.career.core.`class`.ClassLoader
-import world.icebear03.starlight.career.mechanism.entry.architect.*
-import world.icebear03.starlight.career.mechanism.entry.cook.BrewerPassive
-import world.icebear03.starlight.career.mechanism.passive.limit.MaterialLimitLibrary
+import world.icebear03.starlight.career.spell.entry.architect.*
+import world.icebear03.starlight.career.spell.entry.cook.BrewerPassive
+import world.icebear03.starlight.career.spell.passive.limit.MaterialLimitLibrary
 import world.icebear03.starlight.other.*
-import world.icebear03.starlight.stamina.BeaconMechanism
 import java.io.File
 
 object StarLightCore : Plugin() {
@@ -19,16 +18,15 @@ object StarLightCore : Plugin() {
     override fun onEnable() {
         ClassLoader.initialize()
 
+        setupPlayerDatabase(File(getDataFolder(), "data.db"))
+//        setupPlayerDatabase(Config.config.getConfigurationSection("database")!!)
         onlinePlayers.forEach {
             it.loadStarLightData()
         }
 
-//        setupPlayerDatabase(Config.config.getConfigurationSection("database")!!)
-        setupPlayerDatabase(File(getDataFolder(), "data.db"))
+        Resonate.initialize()
 
         info("Successfully running StarLightCore!")
-
-        Resonate.initialize()
 
         MaterialLimitLibrary.initialize()
 
@@ -48,8 +46,6 @@ object StarLightCore : Plugin() {
         RespawnProtection.initialize()
         WorldRule.initialize()
         DarkMare.initialize()
-
-        BeaconMechanism.initialize()
     }
 
     override fun onDisable() {

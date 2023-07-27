@@ -1,12 +1,12 @@
 package world.icebear03.starlight.career.data
 
+import world.icebear03.starlight.career.core.Resonate
 import world.icebear03.starlight.career.core.branch.Branch
 import world.icebear03.starlight.career.core.`class`.Class
 import world.icebear03.starlight.career.core.spell.Spell
 import world.icebear03.starlight.career.getBranch
 import world.icebear03.starlight.career.getClass
 import world.icebear03.starlight.career.getSpell
-import world.icebear03.starlight.career.mechanism.data.ResonateType
 
 data class Savable(
     val classes: Map<String, List<String>>,
@@ -36,7 +36,7 @@ data class Savable(
             usableSpells,
             points,
             getBranch(resonantBranch),
-            ResonateType.valueOf(resonantType),
+            Resonate.ResonateType.valueOf(resonantType),
             shortCuts
         )
     }

@@ -52,19 +52,14 @@ object Resonate {
 
     fun resonate(player: Player, branch: Branch?): Pair<Boolean, String> {
         branch ?: return false to "§e职业分支§7不存在"
-        val data = player.career()
-        if (data.getBranchLevel(branch) == -1) {
+        val career = player.career()
+        if (career.getBranchLevel(branch) == -1) {
             return false to "该§e职业分支§7未解锁"
         }
-        data.resonantBranch = branch
+        career.resonantBranch = branch
         return true to "已经选择该§e职业分支§7作为§e共鸣分支"
     }
-
-    fun setResonateType(player: Player, type: ResonateType) {
-        val data = player.career()
-        data.resonantType = type
-    }
-
+    
     fun getSpellResonatedLevel(player: Player, name: String?): Int {
         return getSpellResonatedLevel(player, getSpell(name))
     }

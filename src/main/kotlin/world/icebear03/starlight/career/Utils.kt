@@ -22,34 +22,45 @@ fun getSpell(name: String?): Spell? {
     return SpellLoader.fromName(name)
 }
 
-fun display(name: String): String {
+fun display(name: String, level: Int? = null): String {
     val basic = getClass(name) ?: getBranch(name) ?: getSpell(name) ?: return name
-    return basic.display()
+    return basic.display(level)
 }
 
-fun Player.hasClass(name: String?): Boolean {
-    return career().hasClass(name)
-}
-
-fun Player.hasBranch(name: String?): Boolean {
-    return career().hasBranch(name)
+//包含共鸣，技能必须调用这个！
+fun Player.spellLevel(name: String?, includeResonate: Boolean = true): Int {
+    return maxOf(
+        career().getSpellLevel(name),
+        if (includeResonate) Resonate.getSpellResonatedLevel(this, name) else -1
+    )
 }
 
 fun Player.branchLevel(name: String?): Int {
     return career().getBranchLevel(name)
 }
 
-fun Player.spellLevel(name: String?, includeResonate: Boolean = true): Int {
-    return maxOf(
-        career().getSpellLevel(name),
-        if (includeResonate) Resonate.getSkillResonatedLevel(this, name) else -1
-    )
-}
-
-fun Player.reachSpell(name: String?, level: Int, includeResonate: Boolean = true): Boolean {
-    return spellLevel(name, includeResonate) >= level
+fun Player.meetRequirement(name: String?, level: Int = 1, includeResonate: Boolean = true): Boolean {
+    return spellLevel(name, includeResonate) >= level ||
+            branchLevel(name) >= level
 }
 
 fun Player.forget(name: String): Pair<Boolean, String> {
     return career().forget(name)
+}
+
+fun Player.meetRequirements(limits: List<Pair<String, Int>>?): Boolean {
+    if (limits == null)
+        return true
+    if (limits.isEmpty())
+        return true
+    var result = false
+    val list = mutableListOf<String>()
+    limits.forEach { (name, level) ->
+        if (this.meetRequirement(name, level))
+            result = true
+        else {
+            list += display(name, level)
+        }
+    }
+    return result
 }

@@ -25,14 +25,21 @@ data class Spell(
     }
 
     fun description(level: Int = 1): List<String> {
-        return description[level - 1]
+        return (if (type == SpellType.ACTIVE)
+            listOf(
+                "&7类型: ${type.typeName}",
+                "&7冷却时间: ${cd(level)}",
+                "&7持续时间: ${duration(level)}",
+                "&7",
+            )
+        else listOf("&7类型: ${type.typeName}", "&7")).also { description[level - 1] }
     }
 
     fun prefix(withVerb: Boolean = false): String {
-        if (withVerb) {
-            return if (isEureka) "§d顿悟" else "§a技能"
+        return if (withVerb) {
+            if (isEureka) "§d顿悟" else "§a技能"
         } else {
-            return if (isEureka) "§7激活§d顿悟" else "§7升级§a技能"
+            if (isEureka) "§7激活§d顿悟" else "§7升级§a技能"
         }
     }
 }

@@ -1,5 +1,6 @@
 package world.icebear03.starlight.career.data
 
+import world.icebear03.starlight.career.core.Resonate
 import world.icebear03.starlight.career.core.branch.Branch
 import world.icebear03.starlight.career.core.`class`.Class
 import world.icebear03.starlight.career.core.`class`.ClassLoader
@@ -8,7 +9,6 @@ import world.icebear03.starlight.career.core.spell.SpellType
 import world.icebear03.starlight.career.getBranch
 import world.icebear03.starlight.career.getClass
 import world.icebear03.starlight.career.getSpell
-import world.icebear03.starlight.career.mechanism.data.ResonateType
 
 data class Career(
     val classes: MutableMap<Class, MutableList<Branch>> = mutableMapOf(),
@@ -16,7 +16,7 @@ data class Career(
     val spells: MutableMap<Spell, Int> = mutableMapOf(),
     var points: Int = 0,
     var resonantBranch: Branch? = null,
-    var resonantType: ResonateType = ResonateType.FRIENDLY,
+    var resonantType: Resonate.ResonateType = Resonate.ResonateType.FRIENDLY,
     val shortCuts: MutableMap<Int, String> = mutableMapOf()
 ) {
     fun toSavable(): Savable {
@@ -50,7 +50,7 @@ data class Career(
         shortCuts.clear()
         points = 0
         resonantBranch = null
-        resonantType = ResonateType.FRIENDLY
+        resonantType = Resonate.ResonateType.FRIENDLY
 
         val talentA = ClassLoader.classes.values.random()
         var talentB = talentA

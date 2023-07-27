@@ -1,6 +1,7 @@
 package world.icebear03.starlight.career.core
 
 import taboolib.module.chat.colored
+import world.icebear03.starlight.utils.toRoman
 
 abstract class Basic {
     abstract val name: String //名字，即ID
@@ -19,7 +20,7 @@ abstract class Basic {
         return hashCode() == other.hashCode()
     }
 
-    fun display(): String {
-        return (color + name).colored()
+    fun display(level: Int? = null): String {
+        return (color + name).colored() + if (level != null) " ${level.toRoman()}" else ""
     }
 }

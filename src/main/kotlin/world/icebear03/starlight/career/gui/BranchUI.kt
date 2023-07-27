@@ -1,7 +1,6 @@
 package world.icebear03.starlight.career.gui
 
 import org.bukkit.Material
-import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
 import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataType
@@ -21,18 +20,23 @@ import taboolib.module.ui.openMenu
 import taboolib.module.ui.type.Basic
 import taboolib.platform.util.modifyMeta
 import taboolib.platform.util.nextChat
-import world.icebear03.starlight.loadCareerData
+import world.icebear03.starlight.career
+import world.icebear03.starlight.career.core.branch.Branch
+import world.icebear03.starlight.career.core.spell.Spell
+import world.icebear03.starlight.career.getBranch
 import world.icebear03.starlight.utils.YamlUpdater
+import world.icebear03.starlight.utils.get
+import world.icebear03.starlight.utils.set
 import world.icebear03.starlight.utils.toRoman
 
-@MenuComponent("CareerBranch")
+@MenuComponent("Branch")
 object BranchUI {
 
     init {
-        YamlUpdater.loadAndUpdate("career/gui/career_branch.yml")
+        YamlUpdater.loadAndUpdate("career/gui/branch.yml")
     }
 
-    @Config("career/gui/career_branch.yml")
+    @Config("career/gui/branch.yml")
     private lateinit var source: Configuration
     private lateinit var config: MenuConfiguration
 
@@ -42,7 +46,7 @@ object BranchUI {
         config = MenuConfiguration(source)
     }
 
-    fun open(player: Player, branchId: String) {
+    fun open(player: Player, name: String) {
         if (!::config.isInitialized) {
             config = MenuConfiguration(source)
         }
@@ -97,45 +101,39 @@ object BranchUI {
                 }
             }
 
-            val data = loadCareerData(player)
-            val demonstrating = Branch.fromId(branchId)!!
+            val branch = getBranch(name)!!
 
-            setSlots("CareerBranch\$branch", listOf(), player, demonstrating)
+            setSlots("CareerBranch\$branch", listOf(), player, branch)
             setSlots("CareerBranch\$mine", listOf(), player)
 
-            val skills = demonstrating.skills.toList().sortedBy { it.id }
-            setSlots("CareerBranch\$skill", skills, player, "element")
-            setSlots("CareerBranch\$level", skills, player, "element=tot-tot/3*3", "expression=tot/3+1")
+            branch.spells.filter { (_, spell) -> !spell.isEureka }.values.sortedBy { it.name }.let {
+                setSlots("CareerBranch\$skill", it, player, "element")
+                setSlots("CareerBranch\$level", it, player, "element=tot-tot/3*3", "expression=tot/3+1")
+            }
 
-            val eurekas = demonstrating.eurekas.toList().sortedBy { it.id }
-            setSlots("CareerBranch\$eureka_guide", listOf(), player, demonstrating)
-            setSlots("CareerBranch\$eureka", eurekas, player, demonstrating, "element")
+            setSlots("CareerBranch\$eureka_guide", listOf(), player, branch)
+            branch.spells.filter { (_, spell) -> spell.isEureka }.values.sortedBy { it.name }.let {
+                setSlots("CareerBranch\$eureka", it, player, branch, "element")
+            }
 
             onClick {
                 it.isCancelled = true
                 if (it.rawSlot in shape) {
-                    templates[it.rawSlot]?.handle(it, demonstrating)
+                    templates[it.rawSlot]?.handle(it, branch)
                 }
             }
         }
     }
-
-    val mark = NamespacedKey.minecraft("mark")
 
     @MenuComponent
     private val branch = MenuFunctionBuilder {
         onBuild { (_, _, _, _, icon, args) ->
             val player = args[0] as Player
             val branch = args[1] as Branch
-            val data = loadCareerData(player)
+            val career = player.career()
 
-            val level = data.getBranchLevel(branch)
-            val state =
-                if (level < 0) {
-                    "&c未解锁"
-                } else {
-                    "&a已解锁 &e${level}级"
-                }
+            val level = career.getBranchLevel(branch)
+            val state = if (level < 0) "&c未解锁" else "&a已解锁 &e${level}级"
 
             icon.textured(branch.skull)
 
@@ -143,9 +141,8 @@ object BranchUI {
                 when (it) {
                     "display" -> listOf(branch.display())
                     "state" -> listOf(state)
-                    "description" -> branch.description
-                    "skills" -> branch.skillIds()
-                    "eurekas" -> branch.eurekaIds()
+                    "skills" -> branch.spellNames(skillOrEureka = true, displayed = true)
+                    "eurekas" -> branch.spellNames(skillOrEureka = false, displayed = true)
                     else -> listOf()
                 }
             }
@@ -156,8 +153,8 @@ object BranchUI {
     private val mine = MenuFunctionBuilder {
         onBuild { (_, _, _, _, icon, args) ->
             val player = args[0] as Player
-            val data = loadCareerData(player)
-            icon.variable("amount", listOf("${data.points}"))
+            val career = player.career()
+            icon.variable("amount", listOf("${career.points}"))
         }
     }
 
@@ -165,36 +162,30 @@ object BranchUI {
     private val skill = MenuFunctionBuilder {
         onBuild { (_, _, _, _, icon, args) ->
             val player = args[0] as Player
-            val skill = args[1] as Skill
-            val data = loadCareerData(player)
+            val spell = args[1] as Spell
+            val career = player.career()
 
-            val level = data.getSpellLevel(skill)
-            val state =
-                if (level < 0) {
-                    "&c未解锁分支"
-                } else {
-                    "&a已解锁 &e${data.getSpellLevel(skill)}级"
-                }
+            val state = if (!career.hasBranch(spell.branch)) "&c未解锁分支" else "&a已解锁 &e${career.getSpellLevel(spell)}级"
 
             icon.modifyMeta<ItemMeta> {
-                this.persistentDataContainer.set(mark, PersistentDataType.STRING, skill.id)
+                set("mark", PersistentDataType.STRING, spell.name)
             }
 
-            icon.textured(skill.skull)
+            icon.textured(spell.skull)
 
             icon.variables {
                 when (it) {
-                    "display" -> listOf(skill.display())
+                    "display" -> listOf(spell.display())
                     "state" -> listOf(state)
                     else -> listOf()
                 }
             }
         }
-        onClick { (_, _, event, _) ->
+        onClick { (_, _, event, args) ->
             val item = event.clickEvent().currentItem ?: return@onClick
             val player = event.clicker
-            val data = loadCareerData(player)
-            val id = item.itemMeta!!.persistentDataContainer.get(CareerUI.mark, PersistentDataType.STRING)!!
+            val career = player.career()
+            val id = item.itemMeta!!.get("mark", PersistentDataType.STRING)!!
 
             player.closeInventory()
             player.sendMessage("§a生涯系统 §7>> 请输入§a1-9§7中的一个数字，将这个技能绑定到§e对应的按键")
@@ -205,7 +196,8 @@ object BranchUI {
                 if (it.toInt() !in 1..9) {
                     player.sendMessage("§a生涯系统 §7>> 你输入的不是§a1-9§7中的数字")
                 }
-                player.sendMessage("§a生涯系统 §7>> " + data.addShortCut(id, it.toInt()).second)
+                player.sendMessage("§a生涯系统 §7>> " + career.addShortCut(id, it.toInt()).second)
+                open(player, args[0].toString())
             }
         }
     }
@@ -214,11 +206,11 @@ object BranchUI {
     private val level = MenuFunctionBuilder {
         onBuild { (_, _, _, _, icon, args) ->
             val player = args[0] as Player
-            val skill = args[1] as Skill
+            val spell = args[1] as Spell
             val slotLevel = args[2] as Int
-            val data = loadCareerData(player)
+            val career = player.career()
 
-            val level = data.getSpellLevel(skill)
+            val level = career.getSpellLevel(spell)
             var state = "&c请先解锁上一等级"
 
             if (level == slotLevel - 1) {
@@ -234,17 +226,17 @@ object BranchUI {
             }
 
             icon.modifyMeta<ItemMeta> {
-                this.persistentDataContainer.set(mark, PersistentDataType.STRING, "${skill.id}=$slotLevel")
+                set("mark", PersistentDataType.STRING, "${spell.name}=$slotLevel")
             }
 
             icon.amount = slotLevel
 
             icon.variables {
                 when (it) {
-                    "display" -> listOf(skill.display())
+                    "display" -> listOf(spell.display())
                     "roman" -> listOf(slotLevel.toRoman())
                     "state" -> listOf(state)
-                    "description" -> skill.level(slotLevel).description
+                    "description" -> spell.description(slotLevel)
                     else -> listOf()
                 }
             }
@@ -253,19 +245,17 @@ object BranchUI {
         onClick { (_, _, event, args) ->
             val item = event.clickEvent().currentItem ?: return@onClick
             val player = event.clicker
-            val data = loadCareerData(player)
-            val string = item.itemMeta!!.persistentDataContainer.get(CareerUI.mark, PersistentDataType.STRING)!!
-            val id = string.split("=")[0]
+            val career = player.career()
+            val string = item.itemMeta!!.get("mark", PersistentDataType.STRING)!!
+            val name = string.split("=")[0]
             val level = string.split("=")[1].toInt()
 
-            if (data.getSpellLevel(id) >= level || data.getSpellLevel(id) < level - 1) {
+            if (career.getSpellLevel(name) >= level || career.getSpellLevel(name) < level - 1) {
                 return@onClick
             }
 
-            val result = data.upgradeSpell(id)
-            player.sendMessage("§a生涯系统 §7>> " + result.second)
-            if (result.first)
-                open(player, args[0].toString())
+            player.sendMessage("§a生涯系统 §7>> " + career.upgradeSpell(name).second)
+            open(player, args[0].toString())
         }
     }
 
@@ -274,18 +264,14 @@ object BranchUI {
         onBuild { (_, _, _, _, icon, args) ->
             val player = args[0] as Player
             val branch = args[1] as Branch
-            val data = loadCareerData(player)
+            val career = player.career()
 
             val state =
-                if (data.getBranchLevel(branch) < 10) {
-                    if (data.getBranchLevel(branch) == 9) {
-                        "&e可激活"
-                    } else {
-                        "&c未激活"
-                    }
+                if (career.getBranchLevel(branch) < 10) {
+                    if (career.getBranchLevel(branch) == 9) "&e可激活" else "&c未激活"
                 } else {
-                    val eureka = data.eurekas.filter { branch.eurekas.contains(it) }[0]
-                    "&a已激活 &e${eureka.display()}"
+                    val spell = branch.spells.values.filter { career.getSpellLevel(it) == 1 }.toList()[0]
+                    "&a已激活 &e${spell.display()}"
                 }
 
             icon.variables {
@@ -302,31 +288,23 @@ object BranchUI {
         onBuild { (_, _, _, _, icon, args) ->
             val player = args[0] as Player
             val branch = args[1] as Branch
-            val eureka = args[2] as Eureka
-            val data = loadCareerData(player)
+            val spell = args[2] as Spell
+            val career = player.career()
 
-            val state =
-                if (data.hasEureka(eureka)) {
-                    "&a已激活"
-                } else {
-                    if (data.getBranchLevel(branch.id) == 9) {
-                        "&e可激活"
-                    } else {
-                        "&c不可激活"
-                    }
-                }
+            val state = if (career.getSpellLevel(spell) == 1) "&a已激活"
+            else if (career.getBranchLevel(branch) == 9) "&e可激活" else "&c不可激活"
 
-            icon.textured(eureka.skull)
+            icon.textured(spell.skull)
 
             icon.modifyMeta<ItemMeta> {
-                this.persistentDataContainer.set(mark, PersistentDataType.STRING, eureka.id)
+                set("mark", PersistentDataType.STRING, spell.name)
             }
 
             icon.variables {
                 when (it) {
-                    "display" -> listOf(eureka.display())
+                    "display" -> listOf(spell.display())
                     "state" -> listOf(state)
-                    "description" -> eureka.description
+                    "description" -> spell.description()
                     else -> listOf()
                 }
             }
@@ -335,10 +313,10 @@ object BranchUI {
         onClick { (_, _, event, args) ->
             val item = event.clickEvent().currentItem ?: return@onClick
             val player = event.clicker
-            val data = loadCareerData(player)
-            val id = item.itemMeta!!.persistentDataContainer.get(CareerUI.mark, PersistentDataType.STRING)!!
+            val career = player.career()
+            val name = item.itemMeta!!.get("mark", PersistentDataType.STRING)!!
 
-            if (data.hasEureka(id)) {
+            if (career.getSpellLevel(name) == 1) {
                 player.closeInventory()
                 player.sendMessage("§a生涯系统 §7>> 请输入§a1-9§7中的一个数字，将这个顿悟绑定到§e对应的按键")
                 player.nextChat {
@@ -348,13 +326,12 @@ object BranchUI {
                     if (it.toInt() !in 1..9) {
                         player.sendMessage("§a生涯系统 §7>> 你输入的不是§a1-9§7中的数字")
                     }
-                    player.sendMessage("§a生涯系统 §7>> " + data.attemptToAddEurekaToShortCut(id, it.toInt()).second)
+                    player.sendMessage("§a生涯系统 §7>> " + career.addShortCut(name, it.toInt()).second)
+                    open(player, args[0].toString())
                 }
             } else {
-                val result = data.attemptToEureka(id)
-                player.sendMessage("§a生涯系统 §7>> " + result.second)
-                if (result.first)
-                    open(player, args[0].toString())
+                player.sendMessage("§a生涯系统 §7>> " + career.upgradeSpell(name).second)
+                open(player, args[0].toString())
             }
         }
     }
@@ -364,7 +341,7 @@ object BranchUI {
     private val back = MenuFunctionBuilder {
         onClick { (_, _, event, args) ->
             val branch = args[0] as Branch
-            CareerUI.open(event.clicker, branch.careerClass.id)
+            CareerUI.open(event.clicker, branch.clazz.name)
         }
     }
 }

@@ -14,106 +14,73 @@ skills:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOWRhNGU3OWVlZDEzODY1NjcwOGJjMzI1YzQ0MjE5Mjc1MTdjMWMwOGNjOTM5YTc2MDNiOGQxNWE5ZjI0ODU0ZCJ9fX0="
     color: "&{#FEE599}"
     type: PASSIVE
-    1:
-      description:
-        - "&e被动技能"
+    description:
+      1:
         - "&7所酿造的药水持续时间 &a+20s"
         - "&7加入红石粉的药水持续时间 &a+20s"
-      cooldown: 0
-    2:
-      description:
-        - "&e被动技能"
+      2:
         - "&7所酿造的药水持续时间 &a+40s"
         - "&7加入红石粉的药水持续时间 &a+60s"
-      cooldown: 0
-    3:
-      description:
-        - "&e被动技能"
+      3:
         - "&7所酿造的药水持续时间 &a+60s"
         - "&7加入红石粉的药水持续时间 &a+100s"
-      cooldown: 0
   蒸发控件:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTE4YWExMzFjZmI1NWE5MjY4YzhhNWI0MGJiOTc3MjU5MWQ5YzYyYjA4ZjA0Y2QxNDFiYjJlZDY2MjUxNTZkZiJ9fX0="
     color: "&{#FEE599}"
     type: ACTIVE
-    1:
-      description:
-        - "&eCD：&a90s"
-        - "&7持续时间：&a60s"
+    cooldown: 90
+    duration: 60
+    description:
+      1:
         - "&7周围 &a2格 &7内酿造台完成每次酿造时"
         - "&7有 &a10% &7概率掉落 &a1个 &7烈焰粉"
-      cooldown: 90
-      duration: 60
-    2:
-      description:
-        - "&eCD：&a90s"
-        - "&7持续时间：&a60s"
+      2:
         - "&7周围 &a2格 &7内酿造台完成每次酿造时"
         - "&7有 &a20% &7概率掉落 &a1个 &7烈焰粉"
-      cooldown: 90
-      duration: 60
-    3:
-      description:
-        - "&eCD：&a90s"
-        - "&7持续时间：&a60s"
+      3:
         - "&7周围 &a2格 &7内酿造台完成每次酿造时"
         - "&7有 &a30% &7概率掉落 &a1个 &7烈焰粉"
-      cooldown: 90
-      duration: 60
   肾上腺素注射:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjNjM2NhZGMxMTQzN2QwYmJmNzJkZjNiNDE1NWIxMDRlNDIzZWRiMWZmZWI2ZjU0ODU4MjZkMjQ5NDAwNDU0NCJ9fX0="
     color: "&{#FEE599}"
     type: ACTIVE
-    1:
-      description:
-        - "&eCD：&a600s"
+    cooldown: 600
+    description:
+      1:
         - "&c仅当不携带不死图腾时触发"
         - "&7下次使用&b治疗药水II&7或&b喷溅型治疗药水II&7时"
         - "&7为受影响的每个玩家赋予"
         - "&a8秒 &7抗火、&a20秒 &7生命恢复I、&a3秒 &7伤害吸收I"
-      cooldown: 600
-    2:
-      description:
-        - "&eCD：&a600s"
+      2:
         - "&c仅当不携带不死图腾时触发"
         - "&7下次使用&b治疗药水II&7或&b喷溅型治疗药水II&7时"
         - "&7为受影响的每个玩家赋予"
         - "&a12秒 &7抗火、&a25秒 &7生命恢复II、&a4秒 &7伤害吸收II"
-      cooldown: 600
-    3:
-      description:
-        - "&eCD：&a600s"
+      3:
         - "&c仅当不携带不死图腾时触发"
         - "&7下次使用&b治疗药水II&7或&b喷溅型治疗药水II&7时"
         - "&7为受影响的每个玩家赋予"
         - "&a20秒 &7抗火、&a30秒 &7生命恢复II、&a5秒 &7伤害吸收III"
-      cooldown: 600
   #继续添加
 eurekas:
   下界原住民:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTQ0MTNjOTRkOWFjZjMxNGZlMzU4MjhlNDgwNTg2ODVjNzUyOWYxZTE3OTM1YzU5MWNiYjcwMGEwYmU2ZmRlMyJ9fX0="
     color: "&{#FEE599}"
     description:
-      - "&e被动技能"
       - "&7解锁&b粗制的药水&7的合成表*"
     type: PASSIVE
-    cooldown: 0
   过量服用:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWFkZDMwOWVjZWZkYjFkZjE4ZWVmNmY4ZDQwODNiNDdiM2VlMjI3Mjg2YzBmMzc1ZjQ1MzY5ZDgzZmIzMGJkIn19fQ=="
     color: "&{#FEE599}"
+    cooldown: 180
+    duration: 60
     description:
-      - "&eCD：&a180s"
-      - "&7持续时间：&a60s"
       - "&7立即使自身目前所有的状态效果 &a+1级"
       - "&c技能结束后获得 &a8秒 &c中毒II"
     type: ACTIVE
-    cooldown: 180
-    duration: 60
   战地药剂师:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTc4YjNhZWI0NDYyMDk1OWM2YzZkOTE1YWU5ZGU5MWRhZjgxMjZkNzIxNWJmMjRjZDUwODk5MjFlMmRiNzBmMCJ9fX0="
     color: "&{#FEE599}"
     description:
-      - "&e被动技能"
       - "&7解锁&b各类喷溅型药水&7的合成表*"
     type: PASSIVE
-    cooldown: 0

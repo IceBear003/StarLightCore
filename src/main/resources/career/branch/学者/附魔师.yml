@@ -1,0 +1,80 @@
+skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODk0MjgyN2Q0MzRmYWE4MWU4NGZkMDY4ODJmOWExNTUzY2I3YzIwYTExM2Q1NzM0ZjM3ZWY0ODBlMGMyYTU5YSJ9fX0="
+color: "&{#7030A0}"
+description:
+  - "&7沉吟古老魔咒，赋予崭新奥秘"
+  - " "
+  - "&7分支基础效果："
+  - "&7可以进行 &a≥16级 &7的附魔"
+  - "&7可以&b放置&7附魔台"
+  - "&7可以&b使用&7砂轮对&b任意物品&7进行&b祛魔、修复"
+  - "&7可以&b使用&7铁砧对&b附魔物品&7进行&b结合"
+  - "&7经验等级提升时获得 &a10点 &7经验"
+  - " "
+  - "&7带*部分的详细解释请参见&b服务器Wiki"
+skills:
+  注魔宝典:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGVkNjc5OTE0OTc4OGI5ZTkwMTY4MTFkM2EzZDBlZDFmNTUyNTMwZDY3Zjk4Njk0NTAzMmQ2ZTQzOWZhODk5ZCJ9fX0="
+    color: "&{#7030A0}"
+    type: PASSIVE
+    description:
+      1:
+        - "&7使用附魔台进行附魔时有 &a20%概率 &7使消耗的经验等级 &a-3级"
+      2:
+        - "&7使用附魔台进行附魔时有 &a40%概率 &7使消耗的经验等级 &a-3级"
+      3:
+        - "&7使用附魔台进行附魔时有 &a60%概率 &7使消耗的经验等级 &a-3级"
+  魔力虹吸:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzg2YjgwMjZhNjU5NmQ5MjJiM2I5ZTI0NWM2YjNmYWYzMTdhY2Q0ZjNjOTU3YTU4ZmE4NTNhZjY2MzJhOWViMiJ9fX0="
+    color: "&{#7030A0}"
+    type: ACTIVE
+    cooldown: 20
+    description:
+      1:
+        - "&7下次使用砂轮祛魔时，额外获得经验 &a5点"
+        - "&7且有 &a10% &7概率回复该物品 &a20% &7的耐久"
+      2:
+        - "&7下次使用砂轮祛魔时，额外获得经验 &a10点"
+        - "&7且有 &a20% &7概率回复该物品 &a20% &7的耐久"
+      3:
+        - "&7下次使用砂轮祛魔时，额外获得经验 &a15点"
+        - "&7且有 &a30% &7概率回复该物品 &a20% &7的耐久"
+  咒术工程:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzUzYzg5YTJhZGM0ZWU1YmExZjA1ZTVkNjRlOWI0YmI2YjMyMzJjNzIwMjhlMGNiZTM1ZTFiNzNkMGM1N2RjMSJ9fX0="
+    color: "&{#7030A0}"
+    type: ACTIVE
+    cooldown: 1800-(level-1)*150
+    description:
+      1:
+        - "&7下次使用铁砧附魔时，若&b过于昂贵"
+        - "&7则可以通过花费 &a30经验等级 &7和 &a64个 &7青金石完成此附魔"
+        - "&c附魔完成后，铁砧被破坏"
+      2:
+        - "&7此技能 &aCD -150s"
+      3:
+        - "&7此技能 &aCD &7额外 &a-150s"
+  #继续添加
+eurekas:
+  青金术师:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjhiMjc2NGExMTRiODg3NDk1NzdjMDEyZTE3YjcxYzliZmQ1OGIxZTlhMTgzYTdiMWFjYzY2MWIyNDAxYWU1In19fQ=="
+    color: "&{#7030A0}"
+    description:
+      - "&7解锁&b附魔之瓶&7的合成表*"
+    type: PASSIVE
+  附魔领域展开:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjU2ZWM2NzI5NjlhZmU1N2Y2YTRlYjM1ZDg3MTQ1MGMzZTcxOWFiMjA1MGE5YTQwZDMzNjEyY2FkNTc2N2UifX19"
+    color: "&{#7030A0}"
+    cooldown: 1
+    description:
+      - "&7可随时打开&b30级附魔台&7面板"
+    type: ACTIVE
+  禁术褫夺:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjU2MDc2MzI4N2E3Zjk4NzE1MmMxYTM3NDA4Y2JmMzRlYmNlMDg0YzM3MTM2NmFmMmE3M2Y3ZjY5Mzc3ZDk3OSJ9fX0="
+    color: "&{#7030A0}"
+    cooldown: 360
+    duration: 20
+    description:
+      - "&c需对准某一玩家使用"
+      - "&7使其获得 &a20秒 &b虚弱I"
+      - "&c技能期间仅可触发一次："
+      - "&7若其被&b点燃&7且&b不具有抗火&7，则随机去除其任意一件盔甲的&b所有附魔"
+    type: ACTIVE

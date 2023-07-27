@@ -23,10 +23,10 @@ import world.icebear03.starlight.career.core.Resonate
 import world.icebear03.starlight.career.core.branch.Branch
 import world.icebear03.starlight.career.core.`class`.Class
 import world.icebear03.starlight.career.core.`class`.ClassLoader
+import world.icebear03.starlight.career.display
+import world.icebear03.starlight.career.forget
 import world.icebear03.starlight.career.getClass
-import world.icebear03.starlight.career.mechanism.data.ResonateType
-import world.icebear03.starlight.career.mechanism.discharge.DischargeHandler
-import world.icebear03.starlight.career.mechanism.display
+import world.icebear03.starlight.career.spell.DischargeHandler
 import world.icebear03.starlight.utils.YamlUpdater
 import world.icebear03.starlight.utils.get
 import world.icebear03.starlight.utils.set
@@ -101,8 +101,8 @@ object CareerUI {
                 }
             }
 
-            val data = player.career()
-            val clazz = getClass(name) ?: data.getClasses()[0]
+            val career = player.career()
+            val clazz = getClass(name) ?: career.getClasses()[0]
 
             val classes = ClassLoader.classes.values.toList().sortedBy { it.name }
             setSlots("CareerMenu\$career_class", classes, player, "element")
@@ -161,15 +161,15 @@ object CareerUI {
         onBuild { (_, _, _, _, icon, args) ->
             val player = args[0] as Player
             val branch = args[1] as Branch
-            val data = player.career()
+            val career = player.career()
 
-            icon.textured(if (data.getBranchLevel(branch) >= 0) branch.skull else unlock)
+            icon.textured(if (career.getBranchLevel(branch) >= 0) branch.skull else unlock)
 
             var state = "&e可解锁"
-            if (!data.hasClass(branch.clazz)) {
+            if (!career.hasClass(branch.clazz)) {
                 state = "&c不可解锁(不是对应的职业)"
             }
-            val level = data.getBranchLevel(branch)
+            val level = career.getBranchLevel(branch)
             if (level >= 0) {
                 state = "&a已解锁 &e${level}级"
             }
@@ -190,7 +190,7 @@ object CareerUI {
         onClick { (_, _, event, args) ->
             val item = event.clickEvent().currentItem ?: return@onClick
             val player = event.clicker
-            val data = player.career()
+            val career = player.career()
             val click = event.clickEvent()
             val name = item.itemMeta!!.get("mark", PersistentDataType.STRING)!!
 
@@ -198,7 +198,7 @@ object CareerUI {
                 BranchUI.open(player, name)
 
             if (click.isRightClick) {
-                player.sendMessage("§a生涯系统 §7>> " + data.unlockBranch(name).second)
+                player.sendMessage("§a生涯系统 §7>> " + career.unlockBranch(name).second)
                 open(player, args[0].toString())
             }
         }
@@ -209,15 +209,15 @@ object CareerUI {
         onBuild { (_, _, _, _, icon, args) ->
             val player = args[0] as Player
             val branch = args[1] as Branch
-            val data = player.career()
+            val career = player.career()
 
             var state = "&e可共鸣"
             icon.textured("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjM0N2EzOTQ5OWRlNDllMjRjODkyYjA5MjU2OTQzMjkyN2RlY2JiNzM5OWUxMTg0N2YzMTA0ZmRiMTY1YjZkYyJ9fX0=")
-            if (data.getBranchLevel(branch) < 0) {
+            if (career.getBranchLevel(branch) < 0) {
                 state = "&c不可共鸣"
                 icon.textured("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTljZGI5YWYzOGNmNDFkYWE1M2JjOGNkYTc2NjVjNTA5NjMyZDE0ZTY3OGYwZjE5ZjI2M2Y0NmU1NDFkOGEzMCJ9fX0=")
             }
-            if (data.resonantBranch == branch) {
+            if (career.resonantBranch == branch) {
                 state = "&a正在共鸣"
                 icon.textured("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2UyYTUzMGY0MjcyNmZhN2EzMWVmYWI4ZTQzZGFkZWUxODg5MzdjZjgyNGFmODhlYThlNGM5M2E0OWM1NzI5NCJ9fX0=")
             }
@@ -243,10 +243,10 @@ object CareerUI {
         onBuild { (_, _, _, _, icon, args) ->
             val player = args[0] as Player
             val branch = args[1] as Branch
-            val data = player.career()
+            val career = player.career()
 
             icon.textured(
-                if (data.getBranchLevel(branch) < 0) "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzEwNTkxZTY5MDllNmEyODFiMzcxODM2ZTQ2MmQ2N2EyYzc4ZmEwOTUyZTkxMGYzMmI0MWEyNmM0OGMxNzU3YyJ9fX0="
+                if (career.getBranchLevel(branch) < 0) "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzEwNTkxZTY5MDllNmEyODFiMzcxODM2ZTQ2MmQ2N2EyYzc4ZmEwOTUyZTkxMGYzMmI0MWEyNmM0OGMxNzU3YyJ9fX0="
                 else "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTY5NTkwNThjMGMwNWE0MTdmZDc1N2NiODViNDQxNWQ5NjZmMjczM2QyZTdjYTU0ZjdiYTg2OGUzMjQ5MDllMiJ9fX0="
             )
 
@@ -254,14 +254,14 @@ object CareerUI {
                 set("mark", PersistentDataType.STRING, branch.name)
             }
 
-            icon.variable("cost", listOf("${data.getBranchLevel(branch) * 2 + 2}"))
+            icon.variable("cost", listOf("${career.getBranchLevel(branch) * 2 + 2}"))
         }
         onClick { (_, _, event, args) ->
             val item = event.clickEvent().currentItem ?: return@onClick
             val player = event.clicker
             val name = item.itemMeta!!.get("mark", PersistentDataType.STRING)!!
 
-            player.sendMessage("§a生涯系统 §7>> " + Forget.attemptToForget(player, name).second)
+            player.sendMessage("§a生涯系统 §7>> " + player.forget(name).second)
             open(player, args[0].toString())
         }
     }
@@ -270,10 +270,10 @@ object CareerUI {
     private val bind = MenuFunctionBuilder {
         onBuild { (_, _, _, _, icon, args) ->
             val player = args[0] as Player
-            val data = player.career()
+            val career = player.career()
 
-            val list = data.shortCuts.map { (level, name) ->
-                name.display() + " &7- " + level
+            val list = career.shortCuts.map { (level, name) ->
+                display(name) + " &7- " + level
             }
 
             icon.variable("binds", list)
@@ -287,10 +287,10 @@ object CareerUI {
     private val resonate_type = MenuFunctionBuilder {
         onBuild { (_, _, _, _, icon, args) ->
             val player = args[0] as Player
-            val data = player.career()
-            val current = data.resonantType
+            val career = player.career()
+            val current = career.resonantType
 
-            val list = ResonateType.values().map {
+            val list = Resonate.ResonateType.values().map {
                 (if (it == current) "&a" else "") + it.displayName
             }
 
@@ -298,12 +298,12 @@ object CareerUI {
         }
         onClick { (_, _, event, args) ->
             val player = event.clicker
-            val data = player.career()
-            val values = ResonateType.values().toList()
-            var index = values.indexOf(data.resonantType) + 1
+            val career = player.career()
+            val values = Resonate.ResonateType.values().toList()
+            var index = values.indexOf(career.resonantType) + 1
             if (index >= values.size)
                 index = 0
-            data.resonantType = values[index]
+            career.resonantType = values[index]
             open(player, args[0].toString())
         }
     }
@@ -312,13 +312,13 @@ object CareerUI {
     private val resonate_info = MenuFunctionBuilder {
         onBuild { (_, _, _, _, icon, args) ->
             val player = args[0] as Player
-            val data = player.career()
+            val career = player.career()
 
             val list = Resonate.resonateMap[player.uniqueId]!!.map { (name, pair) ->
                 name.display() + " " + pair.second.toRoman() + "  &7来自 " + pair.first
             }
 
-            val my = data.resonantBranch?.display() ?: "N/A"
+            val my = career.resonantBranch?.display() ?: "N/A"
 
             icon.variables {
                 when (it) {

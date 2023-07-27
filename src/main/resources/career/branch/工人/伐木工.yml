@@ -1,0 +1,75 @@
+skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODk0MjgyN2Q0MzRmYWE4MWU4NGZkMDY4ODJmOWExNTUzY2I3YzIwYTExM2Q1NzM0ZjM3ZWY0ODBlMGMyYTU5YSJ9fX0="
+color: "&{#1E4E79}"
+description:
+  - "&7明察建筑骨体，设计庞然巨构"
+  - " "
+  - "&7分支基础效果："
+  - "&7可以&b合成&7并&b放置&7装饰性方块*"
+  - "&7可以&b合成&7染色方块*"
+  - "&7可以&b合成&7或&b烧制&7各类玻璃*"
+  - "&7可以&b合成&7其余一系列方块*"
+  - "&7可以&b放置&7脚手架"
+  - "&7可以&b使用&7织布机"
+  - " "
+  - "&7带*部分的详细解释请参见&b服务器Wiki"
+skills:
+  高效回收:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGVkNjc5OTE0OTc4OGI5ZTkwMTY4MTFkM2EzZDBlZDFmNTUyNTMwZDY3Zjk4Njk0NTAzMmQ2ZTQzOWZhODk5ZCJ9fX0="
+    color: "&{#1E4E79}"
+    type: PASSIVE
+    description:
+      1:
+        - "&7破坏装饰性方块*时可以&b获得掉落物"
+      2:
+        - "&7破坏染色方块*时可以&b获得掉落物"
+      3:
+        - "&7破坏各类玻璃*时可以&b获得掉落物"
+  识色敏锐:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzg2YjgwMjZhNjU5NmQ5MjJiM2I5ZTI0NWM2YjNmYWYzMTdhY2Q0ZjNjOTU3YTU4ZmE4NTNhZjY2MzJhOWViMiJ9fX0="
+    color: "&{#1E4E79}"
+    type: ACTIVE
+    cooldown: 25-5*level
+    description:
+      1:
+        - "&7下次合成染色方块时，&b额外获得 &a1个 &7同种染色方块"
+      2:
+        - "&7下次合成染色方块时，&b额外获得 &a1个 &7同种染色方块"
+      3:
+        - "&7下次合成染色方块时，&b额外获得 &a2个 &7同种染色方块"
+  凌空创想:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzUzYzg5YTJhZGM0ZWU1YmExZjA1ZTVkNjRlOWI0YmI2YjMyMzJjNzIwMjhlMGNiZTM1ZTFiNzNkMGM1N2RjMSJ9fX0="
+    color: "&{#1E4E79}"
+    type: ACTIVE
+    cooldown: 600-level*100
+    duration: 120
+    description:
+      1:
+        - "&7获得&b速度I"
+        - "&7在脚手架上行动时持续获得 &a3秒 &7的&b速度II、跳跃提升I、抗性提升I"
+      2:
+        - "&7获得&b速度I"
+        - "&7在脚手架上行动时持续获得 &a3秒 &7的&b速度II、跳跃提升II、抗性提升II"
+      3:
+        - "&7获得&b速度I"
+        - "&7在脚手架上行动时持续获得 &a3秒 &7的&b速度III、跳跃提升III、抗性提升III"
+  #继续添加
+eurekas:
+  奇珍颜料:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjhiMjc2NGExMTRiODg3NDk1NzdjMDEyZTE3YjcxYzliZmQ1OGIxZTlhMTgzYTdiMWFjYzY2MWIyNDAxYWU1In19fQ=="
+    color: "&{#1E4E79}"
+    description:
+      - "&7破坏染色方块时，有 &a20% &7概率获得 &a1个 &7相应的染料"
+    type: PASSIVE
+  凝固剂:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjU2ZWM2NzI5NjlhZmU1N2Y2YTRlYjM1ZDg3MTQ1MGMzZTcxOWFiMjA1MGE5YTQwZDMzNjEyY2FkNTc2N2UifX19"
+    color: "&{#1E4E79}"
+    description:
+      - "&7解锁&b混凝土&7的合成表*"
+    type: PASSIVE
+  主世界的建造者:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjU2MDc2MzI4N2E3Zjk4NzE1MmMxYTM3NDA4Y2JmMzRlYmNlMDg0YzM3MTM2NmFmMmE3M2Y3ZjY5Mzc3ZDk3OSJ9fX0="
+    color: "&{#1E4E79}"
+    description:
+      - "&c立即触发且仅触发一次："
+      - "&7随机升级 &a3个 &b【建筑师】&7职业下的分支中可以升级的技能"
+    type: PASSIVE

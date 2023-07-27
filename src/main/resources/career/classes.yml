@@ -3,14 +3,28 @@
   color: "&{#0070C0}"
   branches:
     - "结构工程师"
-    - "堡垒工程师"
-    - "交通工程师"
-    - "爆破师"
 厨师:
   skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTM4YzQwNzY0NTM0MDU0NTI0MmM2ZGFlZGRmNzAwMjY4NzZhYTI0ZjdmODQxNTAzNmFlNWE1N2ZmYmVjNDczOSJ9fX0="
   color: "&{#FFC000}"
   branches:
     - "药剂师"
-    - "烘焙师"
-    - "屠夫"
-    - "主厨"
+学者:
+  skull:
+  color: "&{#9933FF}"
+  branches:
+    - "附魔师"
+农夫:
+  skull:
+  color: "&{#70AD47}"
+  branches:
+    - "渔夫"
+工人:
+  skull:
+  color: "&{#ED7D31}"
+  branches:
+    - "伐木工"
+战士:
+  skull:
+  color: "&{#FF0000}"
+  branches:
+    - "武器专家"

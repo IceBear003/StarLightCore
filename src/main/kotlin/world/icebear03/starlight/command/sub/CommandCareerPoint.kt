@@ -5,7 +5,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import taboolib.common.platform.command.subCommand
 import taboolib.platform.util.onlinePlayers
-import world.icebear03.starlight.loadCareerData
+import world.icebear03.starlight.career
 
 
 val commandCareerPoint = subCommand {
@@ -36,7 +36,7 @@ val commandCareerPoint = subCommand {
 fun handleCareerPointCommand(player: Player?, mode: String, amount: Int): String {
     if (player == null)
         return "§a生涯系统 §7>> 玩家不存在"
-    val data = loadCareerData(player)
+    val data = player.career()
     when (mode) {
         "add" -> data.addPoint(amount)
         "set" -> data.setPoint(amount)
