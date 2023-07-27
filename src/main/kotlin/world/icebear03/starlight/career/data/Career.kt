@@ -1,7 +1,5 @@
 package world.icebear03.starlight.career.data
 
-import org.bukkit.entity.Player
-import world.icebear03.starlight.career.core.*
 import world.icebear03.starlight.career.core.branch.Branch
 import world.icebear03.starlight.career.core.`class`.Class
 import world.icebear03.starlight.career.core.`class`.ClassLoader
@@ -10,9 +8,7 @@ import world.icebear03.starlight.career.core.spell.SpellType
 import world.icebear03.starlight.career.getBranch
 import world.icebear03.starlight.career.getClass
 import world.icebear03.starlight.career.getSpell
-import world.icebear03.starlight.career.mechanism.data.Resonate
 import world.icebear03.starlight.career.mechanism.data.ResonateType
-import world.icebear03.starlight.loadCareerData
 
 data class UsableCareer(
     val classes: MutableMap<Class, MutableList<Branch>> = mutableMapOf(),
@@ -105,19 +101,20 @@ data class UsableCareer(
         return branches.keys.toList()
     }
 
-    fun hasBranch(name: String): Boolean {
-        return hasBranch(getBranch(name) ?: return false)
+    fun hasBranch(name: String?): Boolean {
+        return hasBranch(getBranch(name))
     }
 
-    fun hasBranch(branch: Branch): Boolean {
-        return branches.containsKey(branch)
+    fun hasBranch(branch: Branch?): Boolean {
+        return branches.containsKey(branch ?: return false)
     }
 
-    fun getBranchLevel(name: String): Int {
-        return getBranchLevel(getBranch(name) ?: return -1)
+    fun getBranchLevel(name: String?): Int {
+        return getBranchLevel(getBranch(name))
     }
 
-    fun getBranchLevel(branch: Branch): Int {
+    fun getBranchLevel(branch: Branch?): Int {
+        branch ?: return -1
         if (!hasBranch(branch))
             return -1
         var total = 0
@@ -152,7 +149,7 @@ data class UsableCareer(
     //--------------------------------------------------------------------
 
     //--------------------------------技能相关------------------------------
-    fun getSpellLevel(name: String): Int {
+    fun getSpellLevel(name: String?): Int {
         return this.getSpellLevel(getSpell(name))
     }
 
@@ -227,28 +224,4 @@ data class UsableCareer(
         return true to "成功绑定${spell.prefix()} ${spell.display()} §7至键盘§e按键$key"
     }
     //--------------------------------------------------------------------
-}
-
-fun Player.hasBranch(branchId: String, level: Int = 0): Boolean {
-    return loadCareerData(this).getBranchLevel(branchId) >= level
-}
-
-fun Player.hasSkill(skillId: String, level: Int = 0): Boolean {
-    return loadCareerData(this).getSpellLevel(skillId) >= level ||
-            Resonate.getSkillResonatedLevel(this, skillId) >= level
-}
-
-fun Player.hasEureka(eurekaId: String): Boolean {
-    return loadCareerData(this).hasEureka(eurekaId)
-}
-
-fun Player.getBranchLevel(branchId: String): Int {
-    return loadCareerData(this).getBranchLevel(branchId)
-}
-
-fun Player.getSpellLevel(skillId: String): Int {
-    return maxOf(
-        loadCareerData(this).getSpellLevel(skillId),
-        Resonate.getSkillResonatedLevel(this, skillId)
-    )
 }
