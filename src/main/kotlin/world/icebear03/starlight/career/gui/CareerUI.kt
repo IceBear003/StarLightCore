@@ -102,6 +102,11 @@ object CareerUI {
             }
 
             val career = player.career()
+            if (career.canChoose()) {
+                ChooseUI.open(player)
+                return
+            }
+
             val clazz = getClass(name) ?: career.getClasses()[0]
 
             val classes = ClassLoader.classes.values.toList().sortedBy { it.name }

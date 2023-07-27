@@ -1,0 +1,20 @@
+title: "职业选择"
+shape:
+  - '         '
+  - ' A  A  A '
+  - '         '
+
+template:
+  'A':
+    material: PLAYER_HEAD
+    name: "{display}"
+    lore:
+      - "&8| &7分支列表:"
+      - "&7     {branches}"
+      - "&7"
+      - "&8| &7点击&e选择&7这个职业"
+      - "&8| &7同时再&e随机抽取两个&7其他职业"
+      - "&8| &7注意: 死亡前职业&c无法更改"
+    feature:
+      - ==: Functional
+        keyword: Choose$choice

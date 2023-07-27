@@ -50,5 +50,9 @@ object StarLightCore : Plugin() {
     }
 
     override fun onDisable() {
+        onlinePlayers.forEach {
+            it.closeInventory()
+            it.sendMessage("§b繁星工坊 §7>> 服务器正在重载...")
+        }
     }
 }
