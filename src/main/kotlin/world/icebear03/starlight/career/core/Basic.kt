@@ -8,18 +8,6 @@ abstract class Basic {
     abstract val skull: String //展示头颅
     abstract val color: String //HEX颜色
 
-    override fun toString(): String {
-        return name
-    }
-
-    override fun hashCode(): Int {
-        return toString().hashCode()
-    }
-
-    override fun equals(other: Any?): Boolean {
-        return hashCode() == other.hashCode()
-    }
-
     fun display(level: Int? = null): String {
         return (color + name).colored() + if (level != null) " ${level.toRoman()}" else ""
     }

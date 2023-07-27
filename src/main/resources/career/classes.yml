@@ -3,28 +3,34 @@
   color: "&{#0070C0}"
   branches:
     - "结构工程师"
+    - "堡垒工程师"
+    - "交通工程师"
+    - "爆破师"
 厨师:
   skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTM4YzQwNzY0NTM0MDU0NTI0MmM2ZGFlZGRmNzAwMjY4NzZhYTI0ZjdmODQxNTAzNmFlNWE1N2ZmYmVjNDczOSJ9fX0="
   color: "&{#FFC000}"
   branches:
     - "药剂师"
+    - "烘焙师"
+    - "屠夫"
+    - "主厨"
 学者:
-  skull:
+  skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjU3Y2RhOGE1OTU2N2YyY2M4YWE4MjExN2UyODZmOTc1OWFlZGFhNWZhOTY0ZTY2NDhkYTA2MTNjZjRlNjkyIn19fQ=="
   color: "&{#9933FF}"
   branches:
     - "附魔师"
 农夫:
-  skull:
+  skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDJlMGRjOTJkNzg2MmYwNDQzY2M3NzU3Mzc3NzRmNDA3YWFlZmJlMDVlOWM0MzIzMmJiNjkzZDM5YzE4ZmI4OSJ9fX0="
   color: "&{#70AD47}"
   branches:
     - "渔夫"
 工人:
-  skull:
+  skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjlhNjAwYWIwYTgzMDk3MDY1Yjk1YWUyODRmODA1OTk2MTc3NDYwOWFkYjNkYmQzYTRjYTI2OWQ0NDQwOTU1MSJ9fX0="
   color: "&{#ED7D31}"
   branches:
     - "伐木工"
 战士:
-  skull:
+  skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTYyZDg1ZDY1N2NhZjU4M2RhODRhMTZiMmRiYjU3Yjc5MGNlZTBjNjBmYjIwYTA4ZjRjYzY3Y2ZhMmZjMzNlZSJ9fX0="
   color: "&{#FF0000}"
   branches:
     - "武器专家"

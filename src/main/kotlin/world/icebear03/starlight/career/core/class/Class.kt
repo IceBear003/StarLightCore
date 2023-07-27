@@ -10,6 +10,18 @@ data class Class(
     val branches: MutableMap<String, Branch>
 ) : Basic() {
 
+    override fun toString(): String {
+        return name
+    }
+
+    override fun hashCode(): Int {
+        return toString().hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return hashCode() == other.hashCode()
+    }
+
     fun branchNames(displayed: Boolean = true): List<String> {
         return branches.values.sortedBy { it.name }.map { if (displayed) it.display() else it.name }
     }

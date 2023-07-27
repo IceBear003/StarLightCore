@@ -13,10 +13,22 @@ data class Branch(
     val description: List<String>
 ) : Basic() {
 
+    override fun toString(): String {
+        return name
+    }
+
+    override fun hashCode(): Int {
+        return toString().hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        return hashCode() == other.hashCode()
+    }
+
     val skills = mutableMapOf<String, Spell>()
     val eurekas = mutableMapOf<String, Spell>()
 
-    init {
+    fun refreshSpells() {
         spells.forEach { (name, spell) ->
             if (spell.isEureka)
                 eurekas[name] = spell

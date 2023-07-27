@@ -2,7 +2,7 @@ package world.icebear03.starlight
 
 import com.google.gson.Gson
 import org.bukkit.entity.Player
-import org.bukkit.event.player.PlayerLoginEvent
+import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
@@ -18,25 +18,21 @@ import java.util.*
 
 object AutoIO {
 
-    init {
+    fun initialize() {
         submit(delay = 100L, period = 100L) {
-            onlinePlayers.forEach { save(it) }
+            onlinePlayers.forEach { it.saveStarLightData() }
         }
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    fun event(event: PlayerLoginEvent) {
+    fun join(event: PlayerJoinEvent) {
         event.player.loadStarLightData()
     }
 
     @SubscribeEvent(priority = EventPriority.MONITOR)
-    fun event(event: PlayerQuitEvent) {
-        save(event.player)
-    }
-
-    fun save(player: Player) {
+    fun quit(event: PlayerQuitEvent) {
+        val player = event.player
         player.saveStarLightData()
-        //仅在退出时release
         player.releaseDataContainer()
     }
 }
@@ -48,7 +44,7 @@ fun Player.career(): Career {
 }
 
 fun Player.saveStarLightData() {
-    getDataContainer()["career"] = Gson().toJson(career())
+    getDataContainer()["career"] = Gson().toJson(career().toSavable())
 }
 
 //仅在进入服务器或者热重载后调用

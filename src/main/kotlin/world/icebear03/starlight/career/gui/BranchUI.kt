@@ -11,6 +11,7 @@ import org.serverct.parrot.parrotx.mechanism.Reloadable
 import org.serverct.parrot.parrotx.ui.MenuComponent
 import org.serverct.parrot.parrotx.ui.config.MenuConfiguration
 import org.serverct.parrot.parrotx.ui.feature.util.MenuFunctionBuilder
+import taboolib.common.platform.function.submit
 import taboolib.module.chat.colored
 import taboolib.module.configuration.Config
 import taboolib.module.configuration.Configuration
@@ -90,12 +91,12 @@ object BranchUI {
 
             onBuild { _, inventory ->
                 shape.all(
-                    "CareerBranch\$branch",
-                    "CareerBranch\$mine",
-                    "CareerBranch\$skill",
-                    "CareerBranch\$level",
-                    "CareerBranch\$eureka_guide",
-                    "CareerBranch\$eureka",
+                    "Branch\$branch",
+                    "Branch\$mine",
+                    "Branch\$skill",
+                    "Branch\$level",
+                    "Branch\$eureka_guide",
+                    "Branch\$eureka",
                 ) { slot, index, item, _ ->
                     inventory.setItem(slot, item(slot, index))
                 }
@@ -103,17 +104,17 @@ object BranchUI {
 
             val branch = getBranch(name)!!
 
-            setSlots("CareerBranch\$branch", listOf(), player, branch)
-            setSlots("CareerBranch\$mine", listOf(), player)
+            setSlots("Branch\$branch", listOf(), player, branch)
+            setSlots("Branch\$mine", listOf(), player)
 
-            branch.spells.filter { (_, spell) -> !spell.isEureka }.values.sortedBy { it.name }.let {
-                setSlots("CareerBranch\$skill", it, player, "element")
-                setSlots("CareerBranch\$level", it, player, "element=tot-tot/3*3", "expression=tot/3+1")
+            branch.spells.filterValues { spell -> !spell.isEureka }.values.sortedBy { it.name }.let {
+                setSlots("Branch\$skill", it, player, "element")
+                setSlots("Branch\$level", it, player, "element=tot-tot/3*3", "expression=tot/3+1")
             }
 
-            setSlots("CareerBranch\$eureka_guide", listOf(), player, branch)
-            branch.spells.filter { (_, spell) -> spell.isEureka }.values.sortedBy { it.name }.let {
-                setSlots("CareerBranch\$eureka", it, player, branch, "element")
+            setSlots("Branch\$eureka_guide", listOf(), player, branch)
+            branch.spells.filterValues { spell -> spell.isEureka }.values.sortedBy { it.name }.let {
+                setSlots("Branch\$eureka", it, player, branch, "element")
             }
 
             onClick {
@@ -197,7 +198,9 @@ object BranchUI {
                     player.sendMessage("§a生涯系统 §7>> 你输入的不是§a1-9§7中的数字")
                 }
                 player.sendMessage("§a生涯系统 §7>> " + career.addShortCut(id, it.toInt()).second)
-                open(player, args[0].toString())
+                submit {
+                    open(player, args[0].toString())
+                }
             }
         }
     }
@@ -327,7 +330,9 @@ object BranchUI {
                         player.sendMessage("§a生涯系统 §7>> 你输入的不是§a1-9§7中的数字")
                     }
                     player.sendMessage("§a生涯系统 §7>> " + career.addShortCut(name, it.toInt()).second)
-                    open(player, args[0].toString())
+                    submit {
+                        open(player, args[0].toString())
+                    }
                 }
             } else {
                 player.sendMessage("§a生涯系统 §7>> " + career.upgradeSpell(name).second)

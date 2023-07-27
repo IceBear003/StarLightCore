@@ -17,6 +17,7 @@ object StarLightCore : Plugin() {
 
     override fun onEnable() {
         ClassLoader.initialize()
+        AutoIO.initialize()
 
         setupPlayerDatabase(File(getDataFolder(), "data.db"))
 //        setupPlayerDatabase(Config.config.getConfigurationSection("database")!!)
@@ -49,9 +50,5 @@ object StarLightCore : Plugin() {
     }
 
     override fun onDisable() {
-        onlinePlayers.forEach {
-//            it.kickPlayer("核心插件重载")
-            it.saveStarLightData()
-        }
     }
 }

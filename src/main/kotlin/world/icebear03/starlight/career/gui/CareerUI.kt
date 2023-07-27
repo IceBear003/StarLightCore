@@ -93,9 +93,9 @@ object CareerUI {
 
             onBuild { _, inventory ->
                 shape.all(
-                    "CareerMenu\$career_class", "CareerMenu\$branch",
-                    "CareerMenu\$resonate", "CareerMenu\$forget", "CareerMenu\$bind",
-                    "CareerMenu\$resonate_type", "CareerMenu\$resonate_info"
+                    "Career\$career_class", "Career\$branch",
+                    "Career\$resonate", "Career\$forget", "Career\$bind",
+                    "Career\$resonate_type", "Career\$resonate_info"
                 ) { slot, index, item, _ ->
                     inventory.setItem(slot, item(slot, index))
                 }
@@ -105,16 +105,16 @@ object CareerUI {
             val clazz = getClass(name) ?: career.getClasses()[0]
 
             val classes = ClassLoader.classes.values.toList().sortedBy { it.name }
-            setSlots("CareerMenu\$career_class", classes, player, "element")
+            setSlots("Career\$career_class", classes, player, "element")
 
             val branches = clazz.branches.values.toList().sortedBy { it.name }
             listOf("branch", "resonate", "forget").forEach {
-                setSlots("CareerMenu\$$it", branches, player, "element")
+                setSlots("Career\$$it", branches, player, "element")
             }
 
-            setSlots("CareerMenu\$bind", listOf(), player)
-            setSlots("CareerMenu\$resonate_type", listOf(), player)
-            setSlots("CareerMenu\$resonate_info", listOf(), player)
+            setSlots("Career\$bind", listOf(), player)
+            setSlots("Career\$resonate_type", listOf(), player)
+            setSlots("Career\$resonate_info", listOf(), player)
 
             onClick {
                 it.isCancelled = true

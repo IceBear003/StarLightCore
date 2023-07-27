@@ -15,7 +15,6 @@ object BrewerPassive {
 
     fun initialize() {
         CraftHandler.registerLowest(Material.SUSPICIOUS_STEW) { player, _ ->
-            println("awa")
             if (!player.meetRequirement("药剂师", 0) && Math.random() <= 0.5) {
                 CraftResult.FAIL to "§a生涯系统 §7>> 合成谜之炖菜失败，解锁 §e职业分支 §7${display("药剂师")} §7可以提高成功率"
             } else CraftResult.ALLOW to null

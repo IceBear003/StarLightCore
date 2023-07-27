@@ -24,13 +24,13 @@ object BranchLoader {
 
         var section = config.getConfigurationSection("skills")!!
         section.getKeys(false).forEach {
-            SpellLoader.loadSpell(it, branch, section.getConfigurationSection(it)!!)
+            spells += it to SpellLoader.loadSpell(it, branch, section.getConfigurationSection(it)!!)
         }
         section = config.getConfigurationSection("eurekas")!!
         section.getKeys(false).forEach {
-            SpellLoader.loadSpell(it, branch, section.getConfigurationSection(it)!!)
+            spells += it to SpellLoader.loadSpell(it, branch, section.getConfigurationSection(it)!!)
         }
-
+        branch.refreshSpells()
         return branch
     }
 

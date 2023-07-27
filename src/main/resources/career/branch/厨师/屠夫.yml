@@ -42,6 +42,7 @@ skills:
     color: "&{#BF9000}"
     cooldown: 120
     type: ACTIVE
+    description:
       1:
         - "&7使周围 &a8格 &7内所有陆生动物*"
         - "&7获得 &a10秒 &7的&b缓慢I&7、&b发光"

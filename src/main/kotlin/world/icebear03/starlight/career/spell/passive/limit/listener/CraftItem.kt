@@ -5,6 +5,7 @@ import org.bukkit.event.Event
 import org.bukkit.event.inventory.CraftItemEvent
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
+import world.icebear03.starlight.career.display
 import world.icebear03.starlight.career.meetRequirements
 import world.icebear03.starlight.career.spell.passive.limit.LimitType
 import world.icebear03.starlight.career.spell.passive.limit.limit
@@ -24,7 +25,7 @@ object CraftItem {
             player.closeInventory()
             player.sendMessage("§a生涯系统 §7>> 无法合成此物品，需要解锁以下其中之一: ")
             type.limit(LimitType.CRAFT).forEach {
-                player.sendMessage("               §7|—— $it")
+                player.sendMessage("               §7|—— ${display(it.first, it.second)}")
             }
         }
     }

@@ -5,6 +5,7 @@ import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryType
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
+import world.icebear03.starlight.career.display
 import world.icebear03.starlight.career.meetRequirements
 import world.icebear03.starlight.career.spell.passive.limit.LimitType
 import world.icebear03.starlight.career.spell.passive.limit.limit
@@ -32,7 +33,7 @@ object SinterItem {
             player.closeInventory()
             player.sendMessage("§a生涯系统 §7>> 无法烧炼获得此方块，需要解锁以下其中之一:")
             type.limit(LimitType.SINTER).forEach {
-                player.sendMessage("               §7|—— $it")
+                player.sendMessage("               §7|—— ${display(it.first, it.second)}")
             }
         }
     }

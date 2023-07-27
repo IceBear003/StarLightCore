@@ -4,6 +4,7 @@ import org.bukkit.event.player.PlayerInteractEvent
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.platform.util.isMainhand
+import world.icebear03.starlight.career.display
 import world.icebear03.starlight.career.meetRequirements
 import world.icebear03.starlight.career.spell.passive.limit.LimitType
 import world.icebear03.starlight.career.spell.passive.limit.limit
@@ -23,7 +24,7 @@ object Interact {
             if (event.isMainhand()) {
                 player.sendMessage("§a生涯系统 §7>> 无法使用此方块，需要解锁以下其中之一: ")
                 type.limit(LimitType.USE).forEach {
-                    player.sendMessage("               §7|—— $it")
+                    player.sendMessage("               §7|—— ${display(it.first, it.second)}")
                 }
             }
         }
@@ -43,7 +44,7 @@ object Interact {
             if (event.isMainhand()) {
                 player.sendMessage("§a生涯系统 §7>> 无法使用此物品，需要解锁以下其中之一: ")
                 type.limit(LimitType.USE).forEach {
-                    player.sendMessage("               §7|—— $it")
+                    player.sendMessage("               §7|—— ${display(it.first, it.second)}")
                 }
             }
         }
