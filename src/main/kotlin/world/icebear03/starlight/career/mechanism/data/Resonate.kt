@@ -3,10 +3,7 @@ package world.icebear03.starlight.career.mechanism.data
 import org.bukkit.entity.Player
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.onlinePlayers
-import world.icebear03.starlight.career.internal.Branch
-import world.icebear03.starlight.career.internal.ResonateType
-import world.icebear03.starlight.career.internal.Skill
-import world.icebear03.starlight.career.internal.SkillType
+import world.icebear03.starlight.career.core.spell.SpellType
 import world.icebear03.starlight.loadCareerData
 import java.util.*
 
@@ -33,7 +30,7 @@ object Resonate {
             val otherMap = otherData.getSkillsInBranch(branch).toMutableMap()
             val distance = other.location.distance(player.location)
             for ((skill, level) in otherMap) {
-                if (skill.type != SkillType.PASSIVE)
+                if (skill.type != SpellType.PASSIVE)
                     continue
                 val shareLevel = if (otherData.getBranchLevel(branch) == 10) level else level - 1
                 if (distance < level * 8) {
@@ -81,4 +78,11 @@ object Resonate {
         val map = resonating[player.uniqueId] ?: return -1
         return (map[skill] ?: return -1).second
     }
+}
+
+enum class ResonateType(val displayName: String) {
+    ALL("所有"),
+    FRIENDLY("非敌对"),
+    INTERNAL("同盟"),
+    PRIVATE("孤独")
 }

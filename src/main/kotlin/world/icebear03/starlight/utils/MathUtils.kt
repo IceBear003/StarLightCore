@@ -1,6 +1,8 @@
 package world.icebear03.starlight.utils
 
 import taboolib.common.util.replaceWithOrder
+import taboolib.common5.util.replace
+import taboolib.module.kether.compileToJexl
 
 object MathUtils {
     fun numToRoman(num: Int, ignoreI: Boolean, hasPreviousBlank: Boolean = false): String {
@@ -55,4 +57,14 @@ fun Int.secToFormattedTime(): String {
         }
     }
     return result.toString().trim { it <= ' ' }
+}
+
+fun String.calcToInt(vararg replacers: Pair<String, Any>): Int {
+    val expression = this.replace(*replacers)
+    return expression.compileToJexl().eval() as Int
+}
+
+fun String.calcToDouble(vararg replacers: Pair<String, Any>): Double {
+    val expression = this.replace(*replacers)
+    return expression.compileToJexl().eval() as Double
 }

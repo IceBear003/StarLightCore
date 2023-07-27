@@ -11,8 +11,8 @@ import taboolib.expansion.getDataContainer
 import taboolib.expansion.releaseDataContainer
 import taboolib.expansion.setupDataContainer
 import taboolib.platform.util.onlinePlayers
-import world.icebear03.starlight.career.SavableCareer
-import world.icebear03.starlight.career.UsableCareer
+import world.icebear03.starlight.career.data.SavableCareer
+import world.icebear03.starlight.career.data.UsableCareer
 import world.icebear03.starlight.career.mechanism.data.Resonate
 import world.icebear03.starlight.stamina.Stamina
 import java.util.*

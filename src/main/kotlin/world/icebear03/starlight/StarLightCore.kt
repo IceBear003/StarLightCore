@@ -5,7 +5,7 @@ import taboolib.common.platform.function.getDataFolder
 import taboolib.common.platform.function.info
 import taboolib.expansion.setupPlayerDatabase
 import taboolib.platform.util.onlinePlayers
-import world.icebear03.starlight.career.internal.Class
+import world.icebear03.starlight.career.core.`class`.Class
 import world.icebear03.starlight.career.mechanism.data.Resonate
 import world.icebear03.starlight.career.mechanism.entry.architect.*
 import world.icebear03.starlight.career.mechanism.entry.cook.BrewerPassive

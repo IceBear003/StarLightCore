@@ -19,11 +19,10 @@ import taboolib.module.ui.openMenu
 import taboolib.module.ui.type.Basic
 import taboolib.platform.util.giveItem
 import taboolib.platform.util.modifyMeta
-import world.icebear03.starlight.career.internal.Branch
-import world.icebear03.starlight.career.internal.Class
-import world.icebear03.starlight.career.internal.ResonateType
+import world.icebear03.starlight.career.core.`class`.Class
 import world.icebear03.starlight.career.mechanism.data.Forget
 import world.icebear03.starlight.career.mechanism.data.Resonate
+import world.icebear03.starlight.career.mechanism.data.ResonateType
 import world.icebear03.starlight.career.mechanism.discharge.DischargeHandler
 import world.icebear03.starlight.career.mechanism.display
 import world.icebear03.starlight.loadCareerData

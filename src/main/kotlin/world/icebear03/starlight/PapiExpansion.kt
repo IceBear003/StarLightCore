@@ -4,8 +4,6 @@ import org.bukkit.entity.Player
 import taboolib.common5.format
 import taboolib.platform.compat.PlaceholderExpansion
 import taboolib.platform.compat.replacePlaceholder
-import world.icebear03.starlight.career.internal.Eureka
-import world.icebear03.starlight.career.internal.Skill
 import world.icebear03.starlight.career.mechanism.discharge.checkCooldownStamp
 import world.icebear03.starlight.career.mechanism.discharge.isDischarging
 import world.icebear03.starlight.career.mechanism.display

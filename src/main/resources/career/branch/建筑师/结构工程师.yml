@@ -19,91 +19,61 @@ skills:
     type: PASSIVE
     1:
       description:
-        - "&e被动技能"
         - "&7破坏装饰性方块*时可以&b获得掉落物"
-      cooldown: 0
     2:
       description:
-        - "&e被动技能"
         - "&7破坏染色方块*时可以&b获得掉落物"
-      cooldown: 0
     3:
       description:
-        - "&e被动技能"
         - "&7破坏各类玻璃*时可以&b获得掉落物"
-      cooldown: 0
   识色敏锐:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzg2YjgwMjZhNjU5NmQ5MjJiM2I5ZTI0NWM2YjNmYWYzMTdhY2Q0ZjNjOTU3YTU4ZmE4NTNhZjY2MzJhOWViMiJ9fX0="
     color: "&{#1E4E79}"
-    type: ACTIVE
+    type: ACTIVE_ONLINE
+    cooldown: 25-5*level
     1:
       description:
-        - "&eCD：&a20s"
         - "&7下次合成染色方块时，&b额外获得 &a1个 &7同种染色方块"
-      cooldown: 20
     2:
       description:
-        - "&eCD：&a15s"
-        - "&7此技能 &aCD -5s"
-      cooldown: 15
+        - "&7下次合成染色方块时，&b额外获得 &a1个 &7同种染色方块"
     3:
       description:
-        - "&eCD：&a15s"
         - "&7下次合成染色方块时，&b额外获得 &a2个 &7同种染色方块"
-      cooldown: 15
   凌空创想:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzUzYzg5YTJhZGM0ZWU1YmExZjA1ZTVkNjRlOWI0YmI2YjMyMzJjNzIwMjhlMGNiZTM1ZTFiNzNkMGM1N2RjMSJ9fX0="
     color: "&{#1E4E79}"
-    type: ACTIVE
-    1:
-      description:
-        - "&eCD：&a600s"
-        - "&7持续时间：&a1min"
+    type: ACTIVE_ONLINE
+    cooldown: 600-level*100
+    duration: 120
+    description:
+      1:
         - "&7获得&b速度I"
         - "&7在脚手架上行动时持续获得 &a3秒 &7的&b速度II、跳跃提升I、抗性提升I"
-      cooldown: 600
-      duration: 60
-    2:
-      description:
-        - "&eCD：&a600s"
-        - "&7持续时间：&a1.5min"
+      2:
         - "&7获得&b速度I"
         - "&7在脚手架上行动时持续获得 &a3秒 &7的&b速度II、跳跃提升II、抗性提升II"
-      cooldown: 600
-      duration: 90
-    3:
-      description:
-        - "&eCD：&a600s"
-        - "&7持续时间：&a2min"
-        - "&7获得&b速度II、抗性提升I"
+      3:
+        - "&7获得&b速度I"
         - "&7在脚手架上行动时持续获得 &a3秒 &7的&b速度III、跳跃提升III、抗性提升III"
-      cooldown: 600
-      duration: 120
   #继续添加
 eurekas:
   奇珍颜料:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjhiMjc2NGExMTRiODg3NDk1NzdjMDEyZTE3YjcxYzliZmQ1OGIxZTlhMTgzYTdiMWFjYzY2MWIyNDAxYWU1In19fQ=="
     color: "&{#1E4E79}"
     description:
-      - "&e被动技能"
       - "&7破坏染色方块时，有 &a20% &7概率获得 &a1个 &7相应的染料"
     type: PASSIVE
-    cooldown: 0
   凝固剂:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjU2ZWM2NzI5NjlhZmU1N2Y2YTRlYjM1ZDg3MTQ1MGMzZTcxOWFiMjA1MGE5YTQwZDMzNjEyY2FkNTc2N2UifX19"
     color: "&{#1E4E79}"
     description:
-      - "&e被动技能"
       - "&7解锁&b混凝土&7的合成表*"
     type: PASSIVE
-    cooldown: 0
   主世界的建造者:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjU2MDc2MzI4N2E3Zjk4NzE1MmMxYTM3NDA4Y2JmMzRlYmNlMDg0YzM3MTM2NmFmMmE3M2Y3ZjY5Mzc3ZDk3OSJ9fX0="
     color: "&{#1E4E79}"
     description:
-      - "&e被动技能"
-      - "&c仅当自身拥有&b【建筑师】&c职业下的另一个分支时可触发"
       - "&c立即触发且仅触发一次："
-      - "&7获得 &a3 &7技能点"
+      - "&7随机升级 &a3个 &b【建筑师】&7职业下的分支中可以升级的技能"
     type: PASSIVE
-    cooldown: 0

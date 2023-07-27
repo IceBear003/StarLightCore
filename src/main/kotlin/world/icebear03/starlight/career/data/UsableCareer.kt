@@ -1,8 +1,11 @@
-package world.icebear03.starlight.career
+package world.icebear03.starlight.career.data
 
 import org.bukkit.entity.Player
-import world.icebear03.starlight.career.internal.*
+import world.icebear03.starlight.career.core.*
+import world.icebear03.starlight.career.core.`class`.Class
+import world.icebear03.starlight.career.core.spell.SpellType
 import world.icebear03.starlight.career.mechanism.data.Resonate
+import world.icebear03.starlight.career.mechanism.data.ResonateType
 import world.icebear03.starlight.loadCareerData
 
 data class UsableCareer(
@@ -268,7 +271,7 @@ data class UsableCareer(
     }
 
     fun attemptToAddSkillToShortCut(skill: Skill, key: Int): Pair<Boolean, String> {
-        if (skill.type == SkillType.PASSIVE)
+        if (skill.type == SpellType.PASSIVE)
             return false to "§a被动技能§7无法绑定至键盘"
         if (getSkillLevel(skill) < 1)
             return false to "请先升级该§a技能"
@@ -283,7 +286,7 @@ data class UsableCareer(
     }
 
     fun attemptToAddEurekaToShortCut(eureka: Eureka, key: Int): Pair<Boolean, String> {
-        if (eureka.type == SkillType.PASSIVE)
+        if (eureka.type == SpellType.PASSIVE)
             return false to "§d被动顿悟§7无法绑定至键盘"
         if (!hasEureka(eureka))
             return false to "请先激活该§d顿悟"

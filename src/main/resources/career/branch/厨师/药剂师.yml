@@ -17,17 +17,20 @@ skills:
     1:
       description:
         - "&e被动技能"
-        - "&7周围 &a1格 &7内所有的酿造台每次酿造时间 &a-3s"
+        - "&7所酿造的药水持续时间 &a+20s"
+        - "&7加入红石粉的药水持续时间 &a+20s"
       cooldown: 0
     2:
       description:
         - "&e被动技能"
-        - "&7周围 &a1格 &7内所有的酿造台每次酿造时间 &a-6s"
+        - "&7所酿造的药水持续时间 &a+40s"
+        - "&7加入红石粉的药水持续时间 &a+60s"
       cooldown: 0
     3:
       description:
         - "&e被动技能"
-        - "&7周围 &a1格 &7内所有的酿造台每次酿造时间 &a-10s"
+        - "&7所酿造的药水持续时间 &a+60s"
+        - "&7加入红石粉的药水持续时间 &a+100s"
       cooldown: 0
   蒸发控件:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTE4YWExMzFjZmI1NWE5MjY4YzhhNWI0MGJiOTc3MjU5MWQ5YzYyYjA4ZjA0Y2QxNDFiYjJlZDY2MjUxNTZkZiJ9fX0="
@@ -65,7 +68,7 @@ skills:
       description:
         - "&eCD：&a600s"
         - "&c仅当不携带不死图腾时触发"
-        - "&7下次使用&b治疗药水II&7或&b喷溅型治疗药水II时"
+        - "&7下次使用&b治疗药水II&7或&b喷溅型治疗药水II&7时"
         - "&7为受影响的每个玩家赋予"
         - "&a8秒 &7抗火、&a20秒 &7生命恢复I、&a3秒 &7伤害吸收I"
       cooldown: 600
@@ -73,7 +76,7 @@ skills:
       description:
         - "&eCD：&a600s"
         - "&c仅当不携带不死图腾时触发"
-        - "&7下次使用&b治疗药水II&7或&b喷溅型治疗药水II时"
+        - "&7下次使用&b治疗药水II&7或&b喷溅型治疗药水II&7时"
         - "&7为受影响的每个玩家赋予"
         - "&a12秒 &7抗火、&a25秒 &7生命恢复II、&a4秒 &7伤害吸收II"
       cooldown: 600
@@ -81,7 +84,7 @@ skills:
       description:
         - "&eCD：&a600s"
         - "&c仅当不携带不死图腾时触发"
-        - "&7下次使用&b治疗药水II&7或&b喷溅型治疗药水II时"
+        - "&7下次使用&b治疗药水II&7或&b喷溅型治疗药水II&7时"
         - "&7为受影响的每个玩家赋予"
         - "&a20秒 &7抗火、&a30秒 &7生命恢复II、&a5秒 &7伤害吸收III"
       cooldown: 600

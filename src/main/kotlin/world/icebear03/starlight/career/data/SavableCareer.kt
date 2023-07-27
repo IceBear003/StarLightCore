@@ -1,6 +1,8 @@
-package world.icebear03.starlight.career
+package world.icebear03.starlight.career.data
 
-import world.icebear03.starlight.career.internal.*
+import world.icebear03.starlight.career.core.*
+import world.icebear03.starlight.career.core.`class`.Class
+import world.icebear03.starlight.career.mechanism.data.ResonateType
 
 data class SavableCareer(
     val classes: Map<String, List<String>>,

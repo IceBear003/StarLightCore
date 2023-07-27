@@ -12,9 +12,7 @@ import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.hasName
 import taboolib.platform.util.modifyMeta
-import world.icebear03.starlight.career.getSkillLevel
-import world.icebear03.starlight.career.internal.Eureka
-import world.icebear03.starlight.career.internal.Skill
+import world.icebear03.starlight.career.data.getSkillLevel
 import world.icebear03.starlight.career.mechanism.hasAbility
 import world.icebear03.starlight.loadCareerData
 import java.util.*

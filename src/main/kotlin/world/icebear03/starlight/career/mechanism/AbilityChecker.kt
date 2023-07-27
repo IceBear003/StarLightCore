@@ -1,12 +1,9 @@
 package world.icebear03.starlight.career.mechanism
 
 import org.bukkit.entity.Player
-import world.icebear03.starlight.career.hasBranch
-import world.icebear03.starlight.career.hasEureka
-import world.icebear03.starlight.career.hasSkill
-import world.icebear03.starlight.career.internal.Branch
-import world.icebear03.starlight.career.internal.Eureka
-import world.icebear03.starlight.career.internal.Skill
+import world.icebear03.starlight.career.data.hasBranch
+import world.icebear03.starlight.career.data.hasEureka
+import world.icebear03.starlight.career.data.hasSkill
 import world.icebear03.starlight.utils.toRoman
 
 fun Player.hasAbility(limit: Pair<String, Int>): Boolean {

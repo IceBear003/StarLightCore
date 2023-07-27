@@ -16,9 +16,9 @@ import org.bukkit.potion.PotionEffectType
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.platform.util.giveItem
-import world.icebear03.starlight.career.getSkillLevel
-import world.icebear03.starlight.career.hasBranch
-import world.icebear03.starlight.career.hasEureka
+import world.icebear03.starlight.career.data.getSkillLevel
+import world.icebear03.starlight.career.data.hasBranch
+import world.icebear03.starlight.career.data.hasEureka
 import world.icebear03.starlight.career.mechanism.discharge.defineDischarge
 import world.icebear03.starlight.career.mechanism.discharge.defineFinish
 import world.icebear03.starlight.career.mechanism.display

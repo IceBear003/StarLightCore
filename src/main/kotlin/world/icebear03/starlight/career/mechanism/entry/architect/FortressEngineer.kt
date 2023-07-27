@@ -10,8 +10,8 @@ import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.onlinePlayers
-import world.icebear03.starlight.career.getSkillLevel
-import world.icebear03.starlight.career.hasEureka
+import world.icebear03.starlight.career.data.getSkillLevel
+import world.icebear03.starlight.career.data.hasEureka
 import world.icebear03.starlight.career.mechanism.discharge.defineDischarge
 import world.icebear03.starlight.career.mechanism.discharge.defineFinish
 import world.icebear03.starlight.career.mechanism.discharge.isDischarging

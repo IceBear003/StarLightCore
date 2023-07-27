@@ -1,7 +1,6 @@
 package world.icebear03.starlight.career.mechanism.data
 
 import org.bukkit.entity.Player
-import world.icebear03.starlight.career.internal.Branch
 import world.icebear03.starlight.loadCareerData
 
 object Forget {
