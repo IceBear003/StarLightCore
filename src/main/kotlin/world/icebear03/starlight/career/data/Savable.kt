@@ -17,7 +17,7 @@ data class Savable(
     var resonantType: String,
     val shortCuts: MutableMap<Int, String>
 ) {
-    fun toUsableCareer(): UsableCareer {
+    fun toUsableCareer(): Career {
         val usableClasses = mutableMapOf<Class, MutableList<Branch>>()
         val usableBranches = mutableMapOf<Branch, MutableMap<Spell, Int>>()
         val usableSpells = mutableMapOf<Spell, Int>()
@@ -30,7 +30,7 @@ data class Savable(
         spells.forEach { (key, value) ->
             usableSpells[getSpell(key)!!] = value
         }
-        return UsableCareer(
+        return Career(
             usableClasses,
             usableBranches,
             usableSpells,

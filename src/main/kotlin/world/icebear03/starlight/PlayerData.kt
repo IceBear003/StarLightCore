@@ -11,8 +11,8 @@ import taboolib.expansion.getDataContainer
 import taboolib.expansion.releaseDataContainer
 import taboolib.expansion.setupDataContainer
 import taboolib.platform.util.onlinePlayers
+import world.icebear03.starlight.career.data.Career
 import world.icebear03.starlight.career.data.Savable
-import world.icebear03.starlight.career.data.UsableCareer
 import world.icebear03.starlight.career.mechanism.data.Resonate
 import world.icebear03.starlight.stamina.Stamina
 import java.util.*
@@ -46,11 +46,11 @@ object PlayerData {
         player.releaseDataContainer()
     }
 
-    val careerData = mutableMapOf<UUID, UsableCareer>()
+    val careerData = mutableMapOf<UUID, Career>()
     var staminaData = mutableMapOf<UUID, Stamina>()
 }
 
-fun loadCareerData(player: Player): UsableCareer {
+fun loadCareerData(player: Player): Career {
     val uuid = player.uniqueId
     return PlayerData.careerData.getOrDefault(uuid,
         run {
@@ -59,7 +59,7 @@ fun loadCareerData(player: Player): UsableCareer {
                     val string = player.getDataContainer()["career"]
                     Gson().fromJson(string, Savable::class.java).toUsableCareer()
                 } else {
-                    UsableCareer().remake()
+                    Career().remake()
                 }
             PlayerData.careerData[uuid] = data
             data

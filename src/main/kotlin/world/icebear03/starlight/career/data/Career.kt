@@ -10,7 +10,7 @@ import world.icebear03.starlight.career.getClass
 import world.icebear03.starlight.career.getSpell
 import world.icebear03.starlight.career.mechanism.data.ResonateType
 
-data class UsableCareer(
+data class Career(
     val classes: MutableMap<Class, MutableList<Branch>> = mutableMapOf(),
     val branches: MutableMap<Branch, MutableMap<Spell, Int>> = mutableMapOf(),
     val spells: MutableMap<Spell, Int> = mutableMapOf(),
@@ -43,7 +43,7 @@ data class UsableCareer(
         )
     }
 
-    fun remake(): UsableCareer {
+    fun remake(): Career {
         classes.clear()
         branches.clear()
         spells.clear()
@@ -148,7 +148,7 @@ data class UsableCareer(
     }
     //--------------------------------------------------------------------
 
-    //--------------------------------技能相关------------------------------
+    //--------------------------------SPELL相关----------------------------
     fun getSpellLevel(name: String?): Int {
         return this.getSpellLevel(getSpell(name))
     }
