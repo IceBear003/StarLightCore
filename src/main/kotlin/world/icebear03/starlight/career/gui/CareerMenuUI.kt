@@ -204,7 +204,7 @@ object CareerMenuUI {
                 CareerBranchUI.open(player, branchId)
 
             if (event.clickEvent().isRightClick) {
-                val result = data.attemptToUnlockBranch(branchId)
+                val result = data.unlockBranch(branchId)
                 player.sendMessage("§a生涯系统 §7>> " + result.second)
                 if (result.first)
                     open(player, args[0].toString())

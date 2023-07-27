@@ -12,7 +12,7 @@ import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.hasName
 import taboolib.platform.util.modifyMeta
-import world.icebear03.starlight.career.data.getSkillLevel
+import world.icebear03.starlight.career.data.getSpellLevel
 import world.icebear03.starlight.career.mechanism.hasAbility
 import world.icebear03.starlight.loadCareerData
 import java.util.*
@@ -54,7 +54,7 @@ object DischargeHandler {
 
         val skill = Skill.fromId(id)
         if (skill != null) {
-            val level = data.getSkillLevel(skill)
+            val level = data.getSpellLevel(skill)
             if (level <= 0)
                 return "请先升级§a技能§7 ${skill.display()}"
 
@@ -125,7 +125,7 @@ fun Player.isDischarging(key: String, removeIfConsumable: Boolean = true): Boole
 
     val skill = Skill.fromId(key)
     if (skill != null) {
-        val level = this.getSkillLevel(key)
+        val level = this.getSpellLevel(key)
         val duration = skill.level(level).duration
         if (duration == -1) {
             if (removeIfConsumable)

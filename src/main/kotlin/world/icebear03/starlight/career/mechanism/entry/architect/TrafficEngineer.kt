@@ -16,7 +16,7 @@ import org.bukkit.potion.PotionEffectType
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.platform.util.giveItem
-import world.icebear03.starlight.career.data.getSkillLevel
+import world.icebear03.starlight.career.data.getSpellLevel
 import world.icebear03.starlight.career.data.hasBranch
 import world.icebear03.starlight.career.data.hasEureka
 import world.icebear03.starlight.career.mechanism.discharge.defineDischarge
@@ -135,7 +135,7 @@ object TrafficEngineerPassive {
         val type = item.type
         val player = event.player
 
-        val level = player.getSkillLevel("路线规划")
+        val level = player.getSpellLevel("路线规划")
 
         if (TrafficEngineerSet.RAILS.types.contains(type)) {
             val percent = when (level) {

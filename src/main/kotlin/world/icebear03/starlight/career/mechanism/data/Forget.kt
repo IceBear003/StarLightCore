@@ -22,7 +22,7 @@ object Forget {
         data.classes[branch.careerClass]!!.remove(branch)
         data.branches.remove(branch)
         branch.skills.forEach {
-            data.skills.remove(it)
+            data.spells.remove(it)
         }
         branch.eurekas.forEach {
             data.eurekas.remove(it)

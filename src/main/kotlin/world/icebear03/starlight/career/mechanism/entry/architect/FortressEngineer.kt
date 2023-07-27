@@ -10,7 +10,7 @@ import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.onlinePlayers
-import world.icebear03.starlight.career.data.getSkillLevel
+import world.icebear03.starlight.career.data.getSpellLevel
 import world.icebear03.starlight.career.data.hasEureka
 import world.icebear03.starlight.career.mechanism.discharge.defineDischarge
 import world.icebear03.starlight.career.mechanism.discharge.defineFinish
@@ -167,7 +167,7 @@ object FortressEngineerPassive {
         if (event.cause != EntityDamageEvent.DamageCause.FALL)
             return
 
-        val level = entity.getSkillLevel("缓冲装置")
+        val level = entity.getSpellLevel("缓冲装置")
         if (level in 0..3)
             event.damage = event.damage * (maxOf(0.4, 0.8 - 0.2 * level))
         if (level == 3 && Math.random() <= 0.2) {

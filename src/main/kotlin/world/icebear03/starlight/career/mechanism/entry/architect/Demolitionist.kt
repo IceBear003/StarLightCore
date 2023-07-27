@@ -15,7 +15,7 @@ import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.giveItem
-import world.icebear03.starlight.career.data.getSkillLevel
+import world.icebear03.starlight.career.data.getSpellLevel
 import world.icebear03.starlight.career.data.hasBranch
 import world.icebear03.starlight.career.data.hasEureka
 import world.icebear03.starlight.career.mechanism.discharge.defineDischarge
@@ -87,7 +87,7 @@ object DemolitionistActive {
         if (entity !is Player)
             return
         if (entity.isDischarging("气浪行者")) {
-            val percent = 35 + 15 * entity.getSkillLevel("气浪行者")
+            val percent = 35 + 15 * entity.getSpellLevel("气浪行者")
             event.damage = event.damage * (1 - percent / 100.0)
         }
     }
@@ -115,7 +115,7 @@ object DemolitionistPassive {
         }
 
         CraftHandler.registerLowest(DemolitionistSet.TNT.types) skill@{ player, _ ->
-            val failPercent = when (player.getSkillLevel("稳定三硝基甲苯")) {
+            val failPercent = when (player.getSpellLevel("稳定三硝基甲苯")) {
                 1 -> 0.25
                 2 -> 0.1
                 3 -> 0.0

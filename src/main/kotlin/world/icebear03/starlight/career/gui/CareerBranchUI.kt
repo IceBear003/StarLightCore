@@ -168,12 +168,12 @@ object CareerBranchUI {
             val skill = args[1] as Skill
             val data = loadCareerData(player)
 
-            val level = data.getSkillLevel(skill)
+            val level = data.getSpellLevel(skill)
             val state =
                 if (level < 0) {
                     "&c未解锁分支"
                 } else {
-                    "&a已解锁 &e${data.getSkillLevel(skill)}级"
+                    "&a已解锁 &e${data.getSpellLevel(skill)}级"
                 }
 
             icon.modifyMeta<ItemMeta> {
@@ -205,7 +205,7 @@ object CareerBranchUI {
                 if (it.toInt() !in 1..9) {
                     player.sendMessage("§a生涯系统 §7>> 你输入的不是§a1-9§7中的数字")
                 }
-                player.sendMessage("§a生涯系统 §7>> " + data.attemptToAddSkillToShortCut(id, it.toInt()).second)
+                player.sendMessage("§a生涯系统 §7>> " + data.addShortCut(id, it.toInt()).second)
             }
         }
     }
@@ -218,7 +218,7 @@ object CareerBranchUI {
             val slotLevel = args[2] as Int
             val data = loadCareerData(player)
 
-            val level = data.getSkillLevel(skill)
+            val level = data.getSpellLevel(skill)
             var state = "&c请先解锁上一等级"
 
             if (level == slotLevel - 1) {
@@ -258,11 +258,11 @@ object CareerBranchUI {
             val id = string.split("=")[0]
             val level = string.split("=")[1].toInt()
 
-            if (data.getSkillLevel(id) >= level || data.getSkillLevel(id) < level - 1) {
+            if (data.getSpellLevel(id) >= level || data.getSpellLevel(id) < level - 1) {
                 return@onClick
             }
 
-            val result = data.attemptToUpgradeSkill(id)
+            val result = data.upgradeSpell(id)
             player.sendMessage("§a生涯系统 §7>> " + result.second)
             if (result.first)
                 open(player, args[0].toString())

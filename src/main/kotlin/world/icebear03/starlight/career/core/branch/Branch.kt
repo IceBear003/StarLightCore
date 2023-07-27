@@ -31,6 +31,6 @@ data class Branch(
 
     fun spellNames(skillOrEureka: Boolean, displayed: Boolean = false): List<String> {
         val tmp = if (skillOrEureka) skills else eurekas
-        return tmp.values.sortedBy { it.name }.map { if (displayed) it.name else it.display() }
+        return tmp.values.sortedBy { it.name }.map { if (displayed) it.display() else it.name }
     }
 }

@@ -29,7 +29,7 @@ object PapiExpansion : PlaceholderExpansion {
             var cd = 0
             var duration = -1
             Skill.fromId(string)?.let {
-                level = careerData.getSkillLevel(it)
+                level = careerData.getSpellLevel(it)
                 cd = it.level(level).cooldown
                 duration = it.level(level).duration
             }

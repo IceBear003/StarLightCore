@@ -27,4 +27,12 @@ data class Spell(
     fun description(level: Int = 1): List<String> {
         return description[level - 1]
     }
+
+    fun prefix(withVerb: Boolean = false): String {
+        if (withVerb) {
+            return if (isEureka) "§d顿悟" else "§a技能"
+        } else {
+            return if (isEureka) "§7激活§d顿悟" else "§7升级§a技能"
+        }
+    }
 }

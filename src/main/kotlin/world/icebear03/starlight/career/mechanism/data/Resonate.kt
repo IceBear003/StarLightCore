@@ -27,7 +27,7 @@ object Resonate {
 //            if (otherData.resonantType != ResonateType.ALL)
 //                return@forEach
             val branch = otherData.resonantBranch ?: return@forEach
-            val otherMap = otherData.getSkillsInBranch(branch).toMutableMap()
+            val otherMap = otherData.getSpellsInBranch(branch).toMutableMap()
             val distance = other.location.distance(player.location)
             for ((skill, level) in otherMap) {
                 if (skill.type != SpellType.PASSIVE)
@@ -43,7 +43,7 @@ object Resonate {
             }
         }
         return resonatedMap.filter {
-            data.getSkillLevel(it.key) < it.value.second
+            data.getSpellLevel(it.key) < it.value.second
         }
     }
 
