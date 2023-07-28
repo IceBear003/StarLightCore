@@ -3,15 +3,10 @@ package world.icebear03.starlight.utils
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Material
+import org.bukkit.Statistic
 import org.bukkit.entity.Player
-import org.bukkit.persistence.PersistentDataType
 import org.bukkit.potion.PotionEffectType
-import world.icebear03.starlight.other.DeathStamp.deathStampKey
 import java.util.*
-
-fun Player.effect(type: PotionEffectType, duration: Int, level: Int = 1) {
-    this.addPotionEffect(type.createEffect(duration * 20, level - 1))
-}
 
 fun Player.hasBlockAside(type: Material, range: Int = 3): Boolean {
     return this.location.hasBlockAside(type, range)
@@ -50,9 +45,7 @@ fun Location.add(x: Int, y: Int, z: Int) {
 }
 
 fun Player.secondLived(): Int {
-    val pdc = this.persistentDataContainer
-    val lastDeath = pdc.get(deathStampKey, PersistentDataType.LONG)!!
-    return ((System.currentTimeMillis() - lastDeath) / 1000).toInt()
+    return getStatistic(Statistic.TIME_SINCE_DEATH) / 20
 }
 
 fun UUID.toName(): String {
@@ -71,4 +64,8 @@ fun String.toLocation(): Location {
         split[2].toDouble(),
         split[3].toDouble()
     )
+}
+
+fun Player.effect(type: PotionEffectType, duration: Int, level: Int = 1) {
+    this.addPotionEffect(type.createEffect(duration * 20, level - 1))
 }

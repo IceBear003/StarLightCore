@@ -16,6 +16,10 @@ fun Player.removeDischargeStamp(id: String) {
     dischargeStamp.getOrPut(this.uniqueId) { mutableMapOf() }.remove(id)
 }
 
+fun Player.clearDischargeStamp() {
+    dischargeStamp.remove(uniqueId)
+}
+
 fun Player.isDischarging(name: String, removeIfConsumable: Boolean = true): Boolean {
     if (!this.meetRequirement(name, 1))
         return false

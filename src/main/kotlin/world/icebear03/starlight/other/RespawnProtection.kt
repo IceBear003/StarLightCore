@@ -2,14 +2,16 @@ package world.icebear03.starlight.other
 
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player
+import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerRespawnEvent
-import org.bukkit.persistence.PersistentDataType
 import org.bukkit.potion.PotionEffectType
 import org.bukkit.util.Vector
+import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.onlinePlayers
 import world.icebear03.starlight.utils.effect
+import world.icebear03.starlight.utils.secondLived
 
 object RespawnProtection {
 
@@ -37,7 +39,18 @@ object RespawnProtection {
         }
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    fun join(event: PlayerJoinEvent) {
+        val player = event.player
+        if (!player.hasPlayedBefore()) {
+            player.sendMessage("§b繁星工坊 §7>> 这一觉睡了好久...我这是到哪了?")
+            player.sendMessage("§b繁星工坊 §7>> 进入新玩家保护模式，持续时间§e10分钟")
+            player.sendMessage("               §7|—— 获得持续的§b20%免伤")
+            player.sendMessage("               §7|—— 体力值损耗§b减慢80%")
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
     fun respawn(event: PlayerRespawnEvent) {
         val player = event.player
         submit(delay = 2) {
@@ -56,8 +69,6 @@ object RespawnProtection {
     }
 
     fun isInProtection(player: Player): Boolean {
-        val pdc = player.persistentDataContainer
-        val lastDeathStamp = pdc.get(DeathStamp.deathStampKey, PersistentDataType.LONG) ?: return false
-        return System.currentTimeMillis() - lastDeathStamp < 360 * 1000
+        return player.secondLived() < 600
     }
 }

@@ -5,6 +5,7 @@ import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import world.icebear03.starlight.career
 import world.icebear03.starlight.career.spell.clearCooldownStamp
+import world.icebear03.starlight.career.spell.clearDischargeStamp
 
 object Remake {
     @SubscribeEvent(priority = EventPriority.NORMAL)
@@ -12,5 +13,6 @@ object Remake {
         val player = event.entity
         player.career().remake()
         player.clearCooldownStamp()
+        player.clearDischargeStamp()
     }
 }
