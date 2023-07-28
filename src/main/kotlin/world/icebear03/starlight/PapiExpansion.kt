@@ -10,8 +10,11 @@ import world.icebear03.starlight.career.spell.checkCooldownStamp
 import world.icebear03.starlight.career.spell.isDischarging
 import world.icebear03.starlight.other.NearestPlayer
 import world.icebear03.starlight.station.mechanism.StaminaModifier
+import world.icebear03.starlight.station.mechanism.StationMechanism
+import world.icebear03.starlight.station.station
 import world.icebear03.starlight.utils.secToFormattedTime
 import world.icebear03.starlight.utils.secondLived
+import world.icebear03.starlight.utils.toRoman
 
 object PapiExpansion : PlaceholderExpansion {
 
@@ -50,6 +53,15 @@ object PapiExpansion : PlaceholderExpansion {
 
             return "$int &7- ${display(name)} &7> $state"
         }
+
+        if (args.startsWith("station_halo_")) {
+            val index = args.replace("station_halo_", "").toInt()
+            val pairs = StationMechanism.haloMap[player.uniqueId]!!.toList()
+            if (index > pairs.size)
+                return ""
+            val pair = pairs[index - 1]
+            return "&e${pair.first} &7> &a+${pair.second.format(1)}/秒"
+        }
         return when (args) {
             "tag" -> "%deluxetags_tag%".replacePlaceholder(player).ifEmpty { "&6跋涉者" }
             "career_points" -> career.points.toString()
@@ -60,6 +72,20 @@ object PapiExpansion : PlaceholderExpansion {
             "nearest_distance" -> NearestPlayer.nearestMap.getOrDefault(player.uniqueId, "无" to "N/A").second
             "stamina" -> player.stamina().display()
             "stamina_magnification" -> "×" + (StaminaModifier.magnificationMap[player.uniqueId] ?: 1.0).format(2)
+            "station_level" -> player.station().level.toRoman()
+            "station_cd" -> {
+                val result = player.station().checkStamp()
+                if (result.first) {
+                    "&a✔ &7可放置/回收"
+                } else {
+                    "&c✘ &7${result.second.secToFormattedTime()}"
+                }
+            }
+
+            "station_state" -> {
+                player.station().location?.let { "&b驻扎中" } ?: "&e未驻扎"
+            }
+
             else -> args
         }
     }

@@ -18,7 +18,7 @@ import world.icebear03.starlight.career.data.Savable
 import world.icebear03.starlight.station.core.Station
 import world.icebear03.starlight.station.core.StationLoader
 import world.icebear03.starlight.station.data.Stamina
-import world.icebear03.starlight.station.getStation
+import world.icebear03.starlight.station.station
 import java.util.*
 
 object AutoIO {
@@ -71,7 +71,7 @@ fun Player.loadStarLightData() {
         Station(uniqueId, 1, null, System.currentTimeMillis() - 100000000)
     )
     staminaMap[uniqueId] = data["stamina"]?.let { Gson().fromJson(it, Stamina::class.java) } ?: run {
-        giveItem(getStation().generateItem())
+        giveItem(station().generateItem())
         Stamina()
     }
 }

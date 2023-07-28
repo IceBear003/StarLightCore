@@ -14,7 +14,7 @@ import java.util.*
 
 data class Station(
     val ownerId: UUID,
-    val level: Int,
+    var level: Int,
     var location: Location?,
     var stamp: Long
 ) {
@@ -56,6 +56,7 @@ data class Station(
                 "§8| §7等级: §a" + level.toRoman(),
                 "§7",
                 "§8| §7放置于地面上以提供一定范围内的体力光环效果",
+                "§8| §7注意: §c回收或重放置需要较长冷却时间",
                 "§8| §7具体介绍和指导请看官方Wiki"
             )
             set("station_owner_id", PersistentDataType.STRING, ownerId.toString())
@@ -79,9 +80,13 @@ data class Station(
         if (player.uniqueId != ownerId) {
             return false to "无法放置不属于自己的驻扎篝火"
         }
+        if (player.world.getHighestBlockYAt(loc) > loc.y) {
+            return false to "驻扎篝火必须放置于地表"
+        }
         val replace = checkStamp()
         return if (replace.first) {
 
+            deleteFromWorld()
             location = loc
             val block = loc.block
             val pdc = block.loadPdc()

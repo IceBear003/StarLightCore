@@ -17,6 +17,6 @@ fun Player.setStamina(amount: Double) {
     return stamina().set(amount)
 }
 
-fun Player.getStation(): Station {
+fun Player.station(): Station {
     return StationLoader.stationMap[uniqueId]!!
 }

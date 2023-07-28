@@ -1,5 +1,6 @@
 package world.icebear03.starlight.station.mechanism
 
+import org.bukkit.Material
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.persistence.PersistentDataType
@@ -21,7 +22,7 @@ object StationMechanism {
     fun initialize() {
         submit(period = 20L) {
             onlinePlayers.forEach { player ->
-                haloMap.putIfAbsent(player.uniqueId, mutableMapOf())
+                haloMap[player.uniqueId] = mutableMapOf()
             }
             StationLoader.stationMap.values.forEach { station ->
                 val stationLoc = station.location ?: return@forEach
@@ -52,6 +53,14 @@ object StationMechanism {
 
                     player.addStamina(add)
                     haloMap[player.uniqueId]!![ownerName] = add
+                }
+
+                for (y in stationLoc.blockY + 1..256) {
+                    val current = stationLoc.clone()
+                    current.y = y.toDouble()
+                    if (current.block.type != Material.AIR) {
+                        current.block.breakNaturally()
+                    }
                 }
             }
         }

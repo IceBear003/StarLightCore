@@ -15,6 +15,7 @@ import world.icebear03.starlight.other.*
 import world.icebear03.starlight.station.core.StationLoader
 import world.icebear03.starlight.station.mechanism.StaminaEffector
 import world.icebear03.starlight.station.mechanism.StaminaModifier
+import world.icebear03.starlight.station.mechanism.StationCraft
 import world.icebear03.starlight.station.mechanism.StationMechanism
 import java.io.File
 
@@ -35,6 +36,7 @@ object StarLightCore : Plugin() {
         StationMechanism.initialize()
         StaminaModifier.initialize()
         StaminaEffector.initialize()
+        StationCraft.initialize()
 
         info("Successfully running StarLightCore!")
 

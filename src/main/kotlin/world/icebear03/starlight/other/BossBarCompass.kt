@@ -12,6 +12,7 @@ import org.bukkit.event.player.PlayerMoveEvent
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.onlinePlayers
+import world.icebear03.starlight.station.station
 import java.util.*
 import kotlin.math.abs
 import kotlin.math.atan2
@@ -64,6 +65,7 @@ object BossBarCompass {
             val other = Bukkit.getPlayer(name) ?: return@nearest -3600.0
             getVectorYaw(loc, other.location)
         } ?: -3600.0
+        val stationYaw = player.station().location?.let { getVectorYaw(loc, it) } ?: -3600.0
 
         var tot = 0
         while (tot++ in 0..dValue) {
@@ -73,7 +75,8 @@ object BossBarCompass {
             val symbol = getSymbol(
                 current,
                 deathYaw to "☠",
-                nearestYaw to "☺"
+                nearestYaw to "☺",
+                stationYaw to "◈"
             )
             if (symbol.isNotBlank()) {
                 val index = minOf(size - 1, (size.toDouble() * tot / dValue).roundToInt())
@@ -93,6 +96,7 @@ object BossBarCompass {
                 '︱' -> result += "§f§l︱"
                 '☠' -> result += "§c☠"
                 '☺' -> result += "§e☺"
+                '◈' -> result += "§6◈"
             }
         }
 

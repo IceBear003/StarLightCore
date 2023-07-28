@@ -6,7 +6,7 @@ import org.bukkit.entity.Boat
 import org.bukkit.entity.Minecart
 import org.bukkit.entity.Player
 import world.icebear03.starlight.other.RespawnProtection
-import world.icebear03.starlight.station.getStation
+import world.icebear03.starlight.station.station
 
 object Magnification {
     fun getMagnification(player: Player, isTeleport: Boolean = false): Double {
@@ -52,7 +52,7 @@ object Magnification {
         if (RespawnProtection.isInProtection(player)) {
             result *= 0.2
         } else {
-            val station = player.getStation()
+            val station = player.station()
             if (station.location == null)
                 result *= 1.25
             if (StationMechanism.haloMap[player.uniqueId]!!.isNotEmpty()) {
