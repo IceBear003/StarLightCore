@@ -26,21 +26,24 @@ object Commands {
     @CommandBody
     val career = commandCareer
 
-    @CommandBody
+    @CommandBody(permission = "starlight.op")
     val careerPoint = commandCareerPoint
 
-    @CommandBody
+    @CommandBody(permission = "starlight.op")
     val careerSignalItem = commandCareerSignalItem
 
-    @CommandBody
+    @CommandBody(permission = "starlight.op")
     val careerReset = commandCareerReset
 
-    @CommandBody
+    @CommandBody(permission = "starlight.op")
     val stamina = commandStamina
 
-    @CommandBody
+    @CommandBody(permission = "starlight.op")
     val station = commandStation
 
-    @CommandBody
+    @CommandBody(permission = "starlight.op")
     val stationStampReset = commandStationStampReset
+
+    @CommandBody
+    val escape = commandEscape
 }

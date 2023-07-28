@@ -1,6 +1,7 @@
 package world.icebear03.starlight.career.spell
 
 import org.bukkit.Material
+import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
 import org.bukkit.event.player.PlayerSwapHandItemsEvent
 import org.bukkit.inventory.ItemStack
@@ -17,6 +18,7 @@ import taboolib.platform.util.onlinePlayers
 import world.icebear03.starlight.career
 import world.icebear03.starlight.career.getSpell
 import world.icebear03.starlight.career.meetRequirement
+import world.icebear03.starlight.career.spell.passive.recipe.registerShapelessRecipe
 
 object DischargeHandler {
     val dischargeMap = mutableMapOf<String, Player.(id: String, level: Int) -> String?>()
@@ -34,6 +36,13 @@ object DischargeHandler {
         .textured("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2E5Y2IwNDU3ZDUwMTVkZmJkM2UyNTJkNzY3MDcxMjc1OTEwNjNhMGIyZmViYWY4YzY0NGFjYWRhOTBiZDRkMCJ9fX0=")
 
     fun initialize() {
+        registerShapelessRecipe(
+            NamespacedKey.minecraft("career_core"),
+            item.clone(),
+            1 to Material.IRON_INGOT,
+            1 to Material.GOLD_INGOT
+        )
+
         submit(period = 20L) {
             onlinePlayers.forEach { player ->
                 val career = player.career()

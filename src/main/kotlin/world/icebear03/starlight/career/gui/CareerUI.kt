@@ -16,7 +16,6 @@ import taboolib.module.configuration.Configuration
 import taboolib.module.kether.compileToJexl
 import taboolib.module.ui.openMenu
 import taboolib.module.ui.type.Basic
-import taboolib.platform.util.giveItem
 import taboolib.platform.util.modifyMeta
 import world.icebear03.starlight.career
 import world.icebear03.starlight.career.core.Resonate
@@ -26,7 +25,6 @@ import world.icebear03.starlight.career.core.`class`.ClassLoader
 import world.icebear03.starlight.career.display
 import world.icebear03.starlight.career.forget
 import world.icebear03.starlight.career.getClass
-import world.icebear03.starlight.career.spell.DischargeHandler
 import world.icebear03.starlight.utils.YamlUpdater
 import world.icebear03.starlight.utils.get
 import world.icebear03.starlight.utils.set
@@ -282,9 +280,6 @@ object CareerUI {
             }
 
             icon.variable("binds", list)
-        }
-        onClick { (_, _, event, _) ->
-            event.clicker.giveItem(DischargeHandler.item)
         }
     }
 
