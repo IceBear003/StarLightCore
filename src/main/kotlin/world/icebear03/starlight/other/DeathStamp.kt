@@ -21,7 +21,12 @@ object DeathStamp {
     fun join(event: PlayerJoinEvent) {
         val player = event.player
         val pdc = player.persistentDataContainer
-        if (!pdc.has(deathStampKey, PersistentDataType.LONG))
+        if (!pdc.has(deathStampKey, PersistentDataType.LONG)) {
             pdc.set(deathStampKey, PersistentDataType.LONG, System.currentTimeMillis())
+            player.sendMessage("§b繁星工坊 §7>> 这一觉睡了好久...我这是到哪了?")
+            player.sendMessage("§b繁星工坊 §7>> 进入新玩家保护模式，持续时间§e10分钟")
+            player.sendMessage("               §7|—— 获得持续的§b20%免伤")
+            player.sendMessage("               §7|—— 体力值损耗§b减慢80%")
+        }
     }
 }

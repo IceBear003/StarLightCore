@@ -14,6 +14,7 @@ import taboolib.platform.util.onlinePlayers
 import world.icebear03.starlight.career.core.Resonate
 import world.icebear03.starlight.career.data.Career
 import world.icebear03.starlight.career.data.Savable
+import world.icebear03.starlight.station.data.Stamina
 import java.util.*
 
 object AutoIO {
@@ -38,13 +39,19 @@ object AutoIO {
 }
 
 val careerMap = mutableMapOf<UUID, Career>()
+val staminaMap = mutableMapOf<UUID, Stamina>()
 
 fun Player.career(): Career {
     return careerMap[uniqueId]!!
 }
 
+fun Player.stamina(): Stamina {
+    return staminaMap[uniqueId]!!
+}
+
 fun Player.saveStarLightData() {
     getDataContainer()["career"] = Gson().toJson(career().toSavable())
+    getDataContainer()["stamina"] = Gson().toJson(stamina())
 }
 
 //仅在进入服务器或者热重载后调用
@@ -52,5 +59,6 @@ fun Player.loadStarLightData() {
     setupDataContainer()
     val data = getDataContainer()
     careerMap[uniqueId] = data["career"]?.let { Gson().fromJson(it, Savable::class.java).toCareer() } ?: Career().remake()
+    staminaMap[uniqueId] = data["stamina"]?.let { Gson().fromJson(it, Stamina::class.java) } ?: Stamina()
     Resonate.resonateMap[uniqueId] = mutableMapOf()
 }

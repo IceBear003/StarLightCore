@@ -12,6 +12,8 @@ import world.icebear03.starlight.career.spell.entry.architect.*
 import world.icebear03.starlight.career.spell.entry.cook.BrewerPassive
 import world.icebear03.starlight.career.spell.passive.limit.MaterialLimitLibrary
 import world.icebear03.starlight.other.*
+import world.icebear03.starlight.station.mechanism.StaminaEffector
+import world.icebear03.starlight.station.mechanism.StaminaModifier
 import java.io.File
 
 object StarLightCore : Plugin() {
@@ -27,6 +29,8 @@ object StarLightCore : Plugin() {
         }
 
         Resonate.initialize()
+        StaminaModifier.initialize()
+        StaminaEffector.initialize()
 
         info("Successfully running StarLightCore!")
 
@@ -48,6 +52,7 @@ object StarLightCore : Plugin() {
         RespawnProtection.initialize()
         WorldRule.initialize()
         DarkMare.initialize()
+        BossBarCompass.initialize()
 
         DischargeHandler.initialize()
     }
@@ -56,6 +61,9 @@ object StarLightCore : Plugin() {
         onlinePlayers.forEach {
             it.closeInventory()
             it.sendMessage("§b繁星工坊 §7>> 服务器正在重载...")
+        }
+        BossBarCompass.barMap.values.forEach {
+            it.removeAll()
         }
     }
 }

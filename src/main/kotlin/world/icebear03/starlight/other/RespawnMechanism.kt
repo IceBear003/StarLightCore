@@ -16,7 +16,7 @@ object RespawnProtection {
     fun initialize() {
         submit(period = 100L) {
             onlinePlayers.forEach {
-                if (!it.isInRespawnProtection())
+                if (!isInProtection(it))
                     return@forEach
 
                 val deathLoc = it.lastDeathLocation ?: return@forEach
@@ -54,10 +54,10 @@ object RespawnProtection {
             player.sendMessage("               §7|—— 跑向死亡箱时获得§b速度§7效果")
         }
     }
-}
 
-fun Player.isInRespawnProtection(): Boolean {
-    val pdc = this.persistentDataContainer
-    val lastDeathStamp = pdc.get(DeathStamp.deathStampKey, PersistentDataType.LONG) ?: return false
-    return System.currentTimeMillis() - lastDeathStamp < 360 * 1000
+    fun isInProtection(player: Player): Boolean {
+        val pdc = player.persistentDataContainer
+        val lastDeathStamp = pdc.get(DeathStamp.deathStampKey, PersistentDataType.LONG) ?: return false
+        return System.currentTimeMillis() - lastDeathStamp < 360 * 1000
+    }
 }

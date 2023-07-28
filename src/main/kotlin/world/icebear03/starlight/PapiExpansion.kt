@@ -9,6 +9,7 @@ import world.icebear03.starlight.career.getSpell
 import world.icebear03.starlight.career.spell.checkCooldownStamp
 import world.icebear03.starlight.career.spell.isDischarging
 import world.icebear03.starlight.other.NearestPlayer
+import world.icebear03.starlight.station.mechanism.StaminaModifier
 import world.icebear03.starlight.utils.secToFormattedTime
 import world.icebear03.starlight.utils.secondLived
 
@@ -57,6 +58,8 @@ object PapiExpansion : PlaceholderExpansion {
             "period_alive" -> player.secondLived().secToFormattedTime()
             "nearest_player" -> NearestPlayer.nearestMap.getOrDefault(player.uniqueId, "无" to "N/A").first
             "nearest_distance" -> NearestPlayer.nearestMap.getOrDefault(player.uniqueId, "无" to "N/A").second
+            "stamina" -> player.stamina().display()
+            "stamina_magnification" -> "×" + (StaminaModifier.magnificationMap[player.uniqueId] ?: 1.0).format(2)
             else -> args
         }
     }
