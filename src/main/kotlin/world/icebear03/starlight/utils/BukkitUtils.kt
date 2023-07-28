@@ -1,11 +1,13 @@
 package world.icebear03.starlight.utils
 
+import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import org.bukkit.persistence.PersistentDataType
 import org.bukkit.potion.PotionEffectType
 import world.icebear03.starlight.other.DeathStamp.deathStampKey
+import java.util.*
 
 fun Player.effect(type: PotionEffectType, duration: Int, level: Int = 1) {
     this.addPotionEffect(type.createEffect(duration * 20, level - 1))
@@ -51,4 +53,8 @@ fun Player.secondLived(): Int {
     val pdc = this.persistentDataContainer
     val lastDeath = pdc.get(deathStampKey, PersistentDataType.LONG)!!
     return ((System.currentTimeMillis() - lastDeath) / 1000).toInt()
+}
+
+fun UUID.toName(): String {
+    return Bukkit.getOfflinePlayer(this).name!!
 }

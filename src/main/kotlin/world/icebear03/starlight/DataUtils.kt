@@ -10,10 +10,13 @@ import taboolib.common.platform.function.submit
 import taboolib.expansion.getDataContainer
 import taboolib.expansion.releaseDataContainer
 import taboolib.expansion.setupDataContainer
+import taboolib.platform.util.giveItem
 import taboolib.platform.util.onlinePlayers
 import world.icebear03.starlight.career.core.Resonate
 import world.icebear03.starlight.career.data.Career
 import world.icebear03.starlight.career.data.Savable
+import world.icebear03.starlight.station.core.Station
+import world.icebear03.starlight.station.core.StationLoader
 import world.icebear03.starlight.station.data.Stamina
 import java.util.*
 
@@ -58,7 +61,12 @@ fun Player.saveStarLightData() {
 fun Player.loadStarLightData() {
     setupDataContainer()
     val data = getDataContainer()
+    //CAREER
     careerMap[uniqueId] = data["career"]?.let { Gson().fromJson(it, Savable::class.java).toCareer() } ?: Career().remake()
-    staminaMap[uniqueId] = data["stamina"]?.let { Gson().fromJson(it, Stamina::class.java) } ?: Stamina()
     Resonate.resonateMap[uniqueId] = mutableMapOf()
+    //STATION
+    staminaMap[uniqueId] = data["stamina"]?.let { Gson().fromJson(it, Stamina::class.java) } ?: Stamina()
+    val station = Station(uniqueId, 1, null, System.currentTimeMillis() - 100000)
+    StationLoader.stationMap[uniqueId] = station
+    giveItem(station.generateItem())
 }

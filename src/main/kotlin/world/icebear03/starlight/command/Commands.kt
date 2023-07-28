@@ -37,4 +37,7 @@ object Commands {
 
     @CommandBody
     val stamina = commandStamina
+
+    @CommandBody
+    val station = commandStation
 }
