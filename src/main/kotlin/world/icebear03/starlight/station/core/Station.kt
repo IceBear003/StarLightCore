@@ -90,7 +90,7 @@ data class Station(
 
             true to "放置驻扎篝火，开始生效..."
         } else {
-            false to "重新放置冷却中，还有§e${replace.second.secToFormattedTime()}"
+            false to "重放置冷却中，还有§e${replace.second.secToFormattedTime()}"
         }
     }
 }

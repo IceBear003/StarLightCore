@@ -65,7 +65,7 @@ object StationMechanism {
             val ownerId = UUID.fromString(meta.get("station_owner_id", PersistentDataType.STRING) ?: return)
             val station = StationLoader.stationMap[ownerId]!!
             val result = station.place(player, event.block.location)
-            player.sendMessage(result.second)
+            player.sendMessage("§b繁星工坊 §7>> " + result.second)
             if (!result.first)
                 event.isCancelled = true
         }
@@ -80,7 +80,7 @@ object StationMechanism {
 
         val station = StationLoader.stationMap[ownerId]!!
         val result = station.destroy(player)
-        player.sendMessage(result.second)
+        player.sendMessage("§b繁星工坊 §7>> " + result.second)
         if (!result.first)
             event.isCancelled = true
     }

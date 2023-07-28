@@ -10,7 +10,7 @@ import world.icebear03.starlight.station.getStation
 
 object Magnification {
     fun getMagnification(player: Player, isTeleport: Boolean = false): Double {
-        if (player.isFlying || player.gameMode == GameMode.CREATIVE || player.gameMode == GameMode.SPECTATOR)
+        if (player.isFlying || player.gameMode == GameMode.SPECTATOR)
             return 0.0
 
         var result = -1.0

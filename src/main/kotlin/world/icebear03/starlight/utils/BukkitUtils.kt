@@ -58,3 +58,17 @@ fun Player.secondLived(): Int {
 fun UUID.toName(): String {
     return Bukkit.getOfflinePlayer(this).name!!
 }
+
+fun Location.toSavableString(): String {
+    return "${world!!.name}:$blockX:$blockY:$blockZ"
+}
+
+fun String.toLocation(): Location {
+    val split = split(":")
+    return Location(
+        Bukkit.getWorld(split[0]),
+        split[1].toDouble(),
+        split[2].toDouble(),
+        split[3].toDouble()
+    )
+}

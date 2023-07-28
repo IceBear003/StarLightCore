@@ -40,4 +40,7 @@ object Commands {
 
     @CommandBody
     val station = commandStation
+
+    @CommandBody
+    val stationStampReset = commandStationStampReset
 }

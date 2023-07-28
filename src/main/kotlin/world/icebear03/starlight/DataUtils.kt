@@ -18,6 +18,7 @@ import world.icebear03.starlight.career.data.Savable
 import world.icebear03.starlight.station.core.Station
 import world.icebear03.starlight.station.core.StationLoader
 import world.icebear03.starlight.station.data.Stamina
+import world.icebear03.starlight.station.getStation
 import java.util.*
 
 object AutoIO {
@@ -65,8 +66,12 @@ fun Player.loadStarLightData() {
     careerMap[uniqueId] = data["career"]?.let { Gson().fromJson(it, Savable::class.java).toCareer() } ?: Career().remake()
     Resonate.resonateMap[uniqueId] = mutableMapOf()
     //STATION
-    staminaMap[uniqueId] = data["stamina"]?.let { Gson().fromJson(it, Stamina::class.java) } ?: Stamina()
-    val station = Station(uniqueId, 1, null, System.currentTimeMillis() - 100000)
-    StationLoader.stationMap[uniqueId] = station
-    giveItem(station.generateItem())
+    StationLoader.stationMap.putIfAbsent(
+        uniqueId,
+        Station(uniqueId, 1, null, System.currentTimeMillis() - 100000000)
+    )
+    staminaMap[uniqueId] = data["stamina"]?.let { Gson().fromJson(it, Stamina::class.java) } ?: run {
+        giveItem(getStation().generateItem())
+        Stamina()
+    }
 }
