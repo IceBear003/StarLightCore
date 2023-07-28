@@ -29,7 +29,7 @@ object StationCraft {
             )
         }
         for (i in 1..3) {
-            val result = item.variable("level", listOf(i.toRoman()))
+            val result = item.clone().variable("level", listOf(i.toRoman()))
             crafts += result
             val ingredients = when (i) {
                 1 -> listOf('a' to Material.BARREL, 'b' to Material.COBBLESTONE, 'i' to Material.IRON_BLOCK)

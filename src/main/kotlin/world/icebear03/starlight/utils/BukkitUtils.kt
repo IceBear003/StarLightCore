@@ -53,7 +53,7 @@ fun UUID.toName(): String {
 }
 
 fun Location.toSavableString(): String {
-    return "${world!!.name}:$blockX:$blockY:$blockZ"
+    return "${world?.name}:$blockX:$blockY:$blockZ"
 }
 
 fun String.toLocation(): Location {

@@ -1,6 +1,7 @@
 package world.icebear03.starlight.station.mechanism
 
 import org.bukkit.Material
+import org.bukkit.Particle
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.persistence.PersistentDataType
@@ -40,6 +41,7 @@ object StationMechanism {
                     3 -> 6.0
                     else -> 0.0
                 }
+                stationLoc.world ?: return@forEach
 
                 stationLoc.world!!.players.forEach players@{ player ->
                     val loc = player.location
@@ -58,8 +60,10 @@ object StationMechanism {
                 for (y in stationLoc.blockY + 1..256) {
                     val current = stationLoc.clone()
                     current.y = y.toDouble()
-                    if (current.block.type != Material.AIR) {
-                        current.block.breakNaturally()
+                    val block = current.block
+                    if (block.type != Material.AIR) {
+                        block.type = Material.AIR
+                        block.world.spawnParticle(Particle.BLOCK_DUST, current, 2, block.blockData)
                     }
                 }
             }

@@ -220,6 +220,8 @@ enum class DemolitionistSet(
 }
 
 fun Location.shootPrimedTNT(velocity: Vector, fuseTicks: Int = 100, breakBlocks: Boolean = false) {
+    if (this.world == null)
+        return
     val tnt = this.world!!.spawnEntity(this, EntityType.PRIMED_TNT) as TNTPrimed
     submit {
         tnt.velocity = velocity

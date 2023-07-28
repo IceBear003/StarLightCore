@@ -33,5 +33,5 @@ fun Block.savePdc(data: MutableMap<String, String>) {
 }
 
 fun Location.toKey(): NamespacedKey {
-    return NamespacedKey.minecraft("${world!!.name}_${blockX}_${blockY}_$blockZ")
+    return NamespacedKey.minecraft("${world?.name}_${blockX}_${blockY}_$blockZ")
 }

@@ -96,7 +96,6 @@ object FortressEngineerActive {
 
         "淬炼固化".defineFinish { _, _ ->
             obsidianWalls[this.uniqueId]?.forEach {
-                it.world!!.spawnParticle(Particle.BLOCK_CRACK, it.block.location, 1, it.block.blockData)
                 it.block.type = Material.AIR
             }
             obsidianWalls.remove(this.uniqueId)

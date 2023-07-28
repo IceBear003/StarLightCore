@@ -22,6 +22,7 @@ object BossBarCompass {
 
     val barMap = mutableMapOf<UUID, BossBar>()
     fun initialize() {
+        clearBars()
         submit(period = 1L) {
             onlinePlayers.forEach {
                 updateCompass(it)
@@ -35,7 +36,7 @@ object BossBarCompass {
     }
 
     fun updateCompass(player: Player) {
-        val barKey = NamespacedKey.minecraft("bar_${player.name.lowercase()}")
+        val barKey = NamespacedKey.minecraft("compass_bar_${player.name.lowercase()}")
         val bar = barMap[player.uniqueId] ?: Bukkit.createBossBar(barKey, "", BarColor.BLUE, BarStyle.SOLID, BarFlag.CREATE_FOG)
         bar.removeFlag(BarFlag.CREATE_FOG)
         bar.setTitle(generateTitle(player))
@@ -132,13 +133,20 @@ object BossBarCompass {
     }
 
     fun getVectorYaw(from: Location, to: Location): Double {
-        if (from.world!!.name != to.world!!.name)
+        if (from.world != to.world)
             return -3600.0
-        val vector = from.subtract(to).toVector()
+        val vector = from.clone().subtract(to).toVector()
         val degree = Math.toDegrees(atan2(vector.x, vector.z))
         return if (degree >= 0)
             180 - degree
         else
             -180 - degree
+    }
+
+    fun clearBars() {
+        Bukkit.getBossBars().forEach {
+            if (it.key.key.startsWith("compass"))
+                it.removeAll()
+        }
     }
 }

@@ -7,9 +7,11 @@ import org.bukkit.event.player.PlayerRespawnEvent
 import org.bukkit.event.player.PlayerTeleportEvent
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
+import taboolib.platform.util.giveItem
 import taboolib.platform.util.onlinePlayers
 import world.icebear03.starlight.station.addStamina
 import world.icebear03.starlight.station.setStamina
+import world.icebear03.starlight.station.station
 import world.icebear03.starlight.station.takeStamina
 import java.util.*
 
@@ -31,7 +33,7 @@ object StaminaModifier {
                     return@forEach
                 }
 
-                if (lastLoc.world!!.name != currentLoc.world!!.name)
+                if (lastLoc.world != currentLoc.world)
                     return@forEach
 
                 val distance = lastLoc.distance(currentLoc)
@@ -56,7 +58,7 @@ object StaminaModifier {
             return
         val from = event.from
         val to = event.to ?: return
-        if (from.world!!.name != to.world!!.name)
+        if (from.world != to.world)
             return
 
         magnificationMap[uuid] = Magnification.getMagnification(player, true)
@@ -78,6 +80,14 @@ object StaminaModifier {
 
     @SubscribeEvent
     fun respawn(event: PlayerRespawnEvent) {
-        event.player.setStamina(1800.0)
+        val player = event.player
+        player.setStamina(1800.0)
+        player.station().deleteFromWorld()
+        player.station().level = 1
+        player.station().stamp = System.currentTimeMillis() - 100000000
+
+        submit {
+            player.giveItem(player.station().generateItem())
+        }
     }
 }
