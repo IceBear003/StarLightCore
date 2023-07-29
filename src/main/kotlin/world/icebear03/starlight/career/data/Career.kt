@@ -183,6 +183,12 @@ data class Career(
             takePoint(1)
             branches[branch]!![spell] = 1
             spells[spell] = 1
+
+            if (spell.name == "主世界的建造者") {
+                points += 3
+                return true to "成功激活§d顿悟§7 ${spell.display()} §7额外获得了 §a3；技能点"
+            }
+
             return true to "成功激活§d顿悟§7 ${spell.display()}"
         }
 
@@ -192,6 +198,7 @@ data class Career(
         points -= 1
         branches[branch]!![spell] = level + 1
         spells[spell] = level + 1
+
         return true to "成功升级§a技能§7 ${spell.display()}"
     }
     //--------------------------------------------------------------------

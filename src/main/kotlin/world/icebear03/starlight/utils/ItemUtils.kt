@@ -11,3 +11,8 @@ fun <T, Z> ItemMeta.get(key: String, type: PersistentDataType<T, Z>): Z? {
 fun <T, Z : Any> ItemMeta.set(key: String, type: PersistentDataType<T, Z>, value: Z) {
     persistentDataContainer.set(NamespacedKey.minecraft(key), type, value)
 }
+
+
+fun <T, Z : Any> ItemMeta.has(key: String, type: PersistentDataType<T, Z>): Boolean {
+    return persistentDataContainer.has(NamespacedKey.minecraft(key), type)
+}

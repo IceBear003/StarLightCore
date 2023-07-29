@@ -10,7 +10,7 @@ object WorldRule {
             Bukkit.getWorlds().forEach {
                 it.setGameRule(GameRule.KEEP_INVENTORY, true)
                 it.setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false)
-                it.setGameRule(GameRule.PLAYERS_SLEEPING_PERCENTAGE, 30)
+                it.setGameRule(GameRule.PLAYERS_SLEEPING_PERCENTAGE, 100)
             }
         }
     }

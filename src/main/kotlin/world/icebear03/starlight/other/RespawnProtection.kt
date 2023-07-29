@@ -45,7 +45,7 @@ object RespawnProtection {
         if (!player.hasPlayedBefore()) {
             submit(delay = 1) {
                 player.effect(PotionEffectType.DAMAGE_RESISTANCE, 600, 1)
-                val randomLoc = player.world.randomLocation()
+                val randomLoc = WorldBorder.randomLocation(player.world)
                 if (randomLoc.block.isLiquid) {
                     player.world.spawnEntity(randomLoc, EntityType.BOAT)
                 }
@@ -61,13 +61,15 @@ object RespawnProtection {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     fun respawn(event: PlayerRespawnEvent) {
         val player = event.player
+
+        val randomLoc = WorldBorder.randomLocation(player.world)
+        if (randomLoc.block.isLiquid) {
+            player.world.spawnEntity(randomLoc, EntityType.BOAT)
+        }
+        event.respawnLocation = randomLoc
+
         submit(delay = 1) {
             player.effect(PotionEffectType.DAMAGE_RESISTANCE, 600, 1)
-            val randomLoc = player.world.randomLocation()
-            if (randomLoc.block.isLiquid) {
-                player.world.spawnEntity(randomLoc, EntityType.BOAT)
-            }
-            player.teleport(randomLoc)
             player.sendMessage("§b繁星工坊 §7>> 这一觉睡了好久...我这是到哪了?")
             player.sendMessage("§b繁星工坊 §7>> 本次重生保护，持续时间§e10分钟")
             player.sendMessage("               §7|—— 获得持续的§b20%免伤")

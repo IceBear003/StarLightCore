@@ -47,10 +47,10 @@ object WorldBorder {
             config.saveToFile()
         }
     }
-}
 
-fun World.randomLocation(): Location {
-    val max = this.worldBorder.size * 0.2
-    val block = this.getHighestBlockAt((max * Math.random()).roundToInt(), (max * Math.random()).roundToInt())
-    return block.location.clone().add(0.0, 1.5, 0.0)
+    fun randomLocation(world: World): Location {
+        val max = world.worldBorder.size * 0.2
+        val block = world.getHighestBlockAt((max * Math.random()).roundToInt(), (max * Math.random()).roundToInt())
+        return block.location.clone().add(0.0, 1.5, 0.0)
+    }
 }

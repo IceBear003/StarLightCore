@@ -3,15 +3,11 @@ package world.icebear03.starlight.station.mechanism
 import org.bukkit.Location
 import org.bukkit.entity.Player
 import org.bukkit.event.entity.FoodLevelChangeEvent
-import org.bukkit.event.player.PlayerRespawnEvent
 import org.bukkit.event.player.PlayerTeleportEvent
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
-import taboolib.platform.util.giveItem
 import taboolib.platform.util.onlinePlayers
 import world.icebear03.starlight.station.addStamina
-import world.icebear03.starlight.station.setStamina
-import world.icebear03.starlight.station.station
 import world.icebear03.starlight.station.takeStamina
 import java.util.*
 
@@ -23,6 +19,10 @@ object StaminaModifier {
     fun initialize() {
         submit(period = 20L) {
             onlinePlayers.forEach { player ->
+
+                if (player.isSleeping)
+                    player.addStamina(0.5)
+
                 val uuid = player.uniqueId
                 magnificationMap[uuid] = Magnification.getMagnification(player)
                 val mag = magnificationMap[uuid]!!
@@ -75,19 +75,6 @@ object StaminaModifier {
         val old = player.foodLevel
         if (new > old) {
             player.addStamina((new - old) * 3.0)
-        }
-    }
-
-    @SubscribeEvent
-    fun respawn(event: PlayerRespawnEvent) {
-        val player = event.player
-        player.setStamina(1800.0)
-        player.station().deleteFromWorld()
-        player.station().level = 1
-        player.station().stamp = System.currentTimeMillis() - 100000000
-
-        submit {
-            player.giveItem(player.station().generateItem())
         }
     }
 }

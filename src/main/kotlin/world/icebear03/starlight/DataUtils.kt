@@ -71,7 +71,9 @@ fun Player.loadStarLightData() {
         Station(uniqueId, 1, null, System.currentTimeMillis() - 100000000)
     )
     staminaMap[uniqueId] = data["stamina"]?.let { Gson().fromJson(it, Stamina::class.java) } ?: run {
-        giveItem(station().generateItem())
+        submit(delay = 5L) {
+            giveItem(station().generateItem())
+        }
         Stamina()
     }
 }

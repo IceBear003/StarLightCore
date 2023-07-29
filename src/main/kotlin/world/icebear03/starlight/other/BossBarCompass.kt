@@ -9,6 +9,8 @@ import org.bukkit.boss.BarStyle
 import org.bukkit.boss.BossBar
 import org.bukkit.entity.Player
 import org.bukkit.event.player.PlayerMoveEvent
+import org.bukkit.event.player.PlayerQuitEvent
+import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.onlinePlayers
@@ -33,6 +35,13 @@ object BossBarCompass {
     @SubscribeEvent
     fun move(event: PlayerMoveEvent) {
         updateCompass(event.player)
+    }
+
+    @SubscribeEvent(priority = EventPriority.MONITOR)
+    fun quit(event: PlayerQuitEvent) {
+        val player = event.player
+        barMap[player.uniqueId]!!.removeAll()
+        barMap.remove(player.uniqueId)
     }
 
     fun updateCompass(player: Player) {

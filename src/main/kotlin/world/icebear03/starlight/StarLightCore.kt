@@ -61,6 +61,7 @@ object StarLightCore : Plugin() {
             WorldRule.initialize()
             DarkMare.initialize()
             BossBarCompass.initialize()
+            FasterNight.initialize()
 
             DischargeHandler.initialize()
         }

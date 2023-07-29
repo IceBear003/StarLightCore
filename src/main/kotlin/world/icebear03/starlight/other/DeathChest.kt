@@ -12,12 +12,17 @@ import org.bukkit.persistence.PersistentDataType
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
+import world.icebear03.starlight.career
+import world.icebear03.starlight.utils.has
 import java.util.*
+import kotlin.math.ceil
+import kotlin.math.roundToInt
 
 object DeathChest {
 
     val ownerKey = NamespacedKey.minecraft("death_chest_owner")
     val expKey = NamespacedKey.minecraft("death_chest_exp")
+    val pointKey = NamespacedKey.minecraft("death_chest_point")
 
     @SubscribeEvent(priority = EventPriority.HIGH)
     fun death(event: PlayerDeathEvent) {
@@ -27,10 +32,18 @@ object DeathChest {
         val inv = player.inventory
         for (slot in 0 until inv.size) {
             val item = player.inventory.getItem(slot) ?: continue
-            items += item
+            val meta = item.itemMeta ?: continue
+            if (!meta.has("station_owner_id", PersistentDataType.STRING))
+                items += item
         }
 
         val minecart = player.world.spawnEntity(loc, EntityType.MINECART_CHEST) as StorageMinecart
+
+        var point = player.career().points
+        player.career().branches.keys.forEach {
+            point += player.career().getBranchLevel(it)
+        }
+        if (point <= 3) point = 0
 
         submit {
             items.shuffle()
@@ -42,6 +55,7 @@ object DeathChest {
             minecart.customName = "§e${player.name}的遗物 §r关闭时自动消失"
             minecart.persistentDataContainer.set(ownerKey, PersistentDataType.STRING, player.name)
             minecart.persistentDataContainer.set(expKey, PersistentDataType.INTEGER, getTotalExp(player.level))
+            minecart.persistentDataContainer.set(pointKey, PersistentDataType.INTEGER, ceil(point * 0.25).roundToInt())
             minecart.isInvulnerable = true
             minecart.setGravity(false)
         }
@@ -95,6 +109,13 @@ object DeathChest {
         val exp = maxOf(0, pdc.get(expKey, PersistentDataType.INTEGER)!!)
         minecart.persistentDataContainer.set(expKey, PersistentDataType.INTEGER, 0)
         player.giveExp(exp)
+
+        val point = maxOf(0, pdc.get(pointKey, PersistentDataType.INTEGER)!!)
+        minecart.persistentDataContainer.set(pointKey, PersistentDataType.INTEGER, 0)
+        if (point != 0) {
+            player.career().addPoint(point)
+            player.sendMessage("§b繁星工坊 §7>> 你从死亡箱中找到了 §a${point}技能点")
+        }
     }
 
 
