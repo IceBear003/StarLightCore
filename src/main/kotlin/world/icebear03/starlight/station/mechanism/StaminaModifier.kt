@@ -7,6 +7,7 @@ import org.bukkit.event.player.PlayerTeleportEvent
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.onlinePlayers
+import world.icebear03.starlight.other.RespawnProtection
 import world.icebear03.starlight.station.addStamina
 import world.icebear03.starlight.station.takeStamina
 import java.util.*
@@ -19,7 +20,6 @@ object StaminaModifier {
     fun initialize() {
         submit(period = 20L) {
             onlinePlayers.forEach { player ->
-
                 if (player.isSleeping)
                     player.addStamina(0.5)
 
@@ -40,8 +40,10 @@ object StaminaModifier {
                 if (distance <= 0.02) {
                     player.addStamina(0.2)
                 } else {
-                    player.takeStamina(mag * distance)
-                    locationMap[uuid] = currentLoc
+                    if (!RespawnProtection.isInProtection(player, 10)) {
+                        player.takeStamina(mag * distance)
+                        locationMap[uuid] = currentLoc
+                    }
                 }
             }
         }

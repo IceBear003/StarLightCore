@@ -18,6 +18,9 @@ import world.icebear03.starlight.utils.toRoman
 
 object PapiExpansion : PlaceholderExpansion {
 
+    override val autoReload: Boolean
+        get() = true
+
     override val identifier: String
         get() = "starlight"
 

@@ -1,5 +1,7 @@
 package world.icebear03.starlight.other
 
+import org.bukkit.Bukkit
+import org.bukkit.World
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player
 import org.bukkit.event.player.PlayerJoinEvent
@@ -15,7 +17,10 @@ import world.icebear03.starlight.utils.secondLived
 
 object RespawnProtection {
 
+    lateinit var world: World
+
     fun initialize() {
+        world = Bukkit.getWorld("world")!!
         submit(period = 100L) {
             onlinePlayers.forEach {
                 if (!isInProtection(it))
@@ -45,11 +50,13 @@ object RespawnProtection {
         if (!player.hasPlayedBefore()) {
             submit(delay = 1) {
                 player.effect(PotionEffectType.DAMAGE_RESISTANCE, 600, 1)
-                val randomLoc = WorldBorder.randomLocation(player.world)
-                if (randomLoc.block.isLiquid) {
-                    player.world.spawnEntity(randomLoc, EntityType.BOAT)
+                val randomLoc = WorldBorder.randomLocation(world)
+                player.teleport(randomLoc.clone().add(0.0, 1.5, 0.0))
+                submit(delay = 5) {
+                    if (randomLoc.block.isLiquid) {
+                        world.spawnEntity(randomLoc.add(0.0, 1.0, 0.0), EntityType.BOAT)
+                    }
                 }
-                player.teleport(randomLoc)
                 player.sendMessage("§b繁星工坊 §7>> 这一觉睡了好久...我这是到哪了?")
                 player.sendMessage("§b繁星工坊 §7>> 进入新玩家保护模式，持续时间§e10分钟")
                 player.sendMessage("               §7|—— 获得持续的§b20%免伤")
@@ -62,11 +69,8 @@ object RespawnProtection {
     fun respawn(event: PlayerRespawnEvent) {
         val player = event.player
 
-        val randomLoc = WorldBorder.randomLocation(player.world)
-        if (randomLoc.block.isLiquid) {
-            player.world.spawnEntity(randomLoc, EntityType.BOAT)
-        }
-        event.respawnLocation = randomLoc
+        val randomLoc = WorldBorder.randomLocation(world)
+        event.respawnLocation = randomLoc.clone().add(0.0, 1.5, 0.0)
 
         submit(delay = 1) {
             player.effect(PotionEffectType.DAMAGE_RESISTANCE, 600, 1)
@@ -75,10 +79,13 @@ object RespawnProtection {
             player.sendMessage("               §7|—— 获得持续的§b20%免伤")
             player.sendMessage("               §7|—— 体力值损耗§b减慢80%")
             player.sendMessage("               §7|—— 跑向死亡箱时获得§b速度§7效果")
+            if (randomLoc.block.isLiquid) {
+                world.spawnEntity(randomLoc.add(0.0, 1.0, 0.0), EntityType.BOAT)
+            }
         }
     }
 
-    fun isInProtection(player: Player): Boolean {
-        return player.secondLived() < 600
+    fun isInProtection(player: Player, time: Int = 600): Boolean {
+        return player.secondLived() < time
     }
 }

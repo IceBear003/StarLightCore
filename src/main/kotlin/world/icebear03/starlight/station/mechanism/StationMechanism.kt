@@ -3,17 +3,21 @@ package world.icebear03.starlight.station.mechanism
 import org.bukkit.Material
 import org.bukkit.Particle
 import org.bukkit.event.block.BlockBreakEvent
+import org.bukkit.event.block.BlockExplodeEvent
 import org.bukkit.event.block.BlockPlaceEvent
+import org.bukkit.event.entity.EntityExplodeEvent
+import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.persistence.PersistentDataType
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
+import taboolib.platform.util.isMainhand
+import taboolib.platform.util.isRightClick
+import taboolib.platform.util.isRightClickBlock
 import taboolib.platform.util.onlinePlayers
 import world.icebear03.starlight.station.addStamina
 import world.icebear03.starlight.station.core.StationLoader
-import world.icebear03.starlight.utils.get
-import world.icebear03.starlight.utils.loadPdc
-import world.icebear03.starlight.utils.toName
+import world.icebear03.starlight.utils.*
 import java.util.*
 
 object StationMechanism {
@@ -29,10 +33,16 @@ object StationMechanism {
                 val stationLoc = station.location ?: return@forEach
                 val ownerName = station.ownerId.toName()
 
-                val range = when (station.level) {
+                val horizontal = when (station.level) {
                     1 -> 16
-                    2 -> 48
-                    3 -> 96
+                    2 -> 32
+                    3 -> 48
+                    else -> 0
+                }
+                val vertical = when (station.level) {
+                    1 -> 72
+                    2 -> 144
+                    3 -> 1000
                     else -> 0
                 }
                 val halo = when (station.level) {
@@ -45,11 +55,15 @@ object StationMechanism {
 
                 stationLoc.world!!.players.forEach players@{ player ->
                     val loc = player.location
-                    val distance = loc.distance(stationLoc)
-                    if (distance > range)
+                    val horizontalDistance = loc.horizontalDistance(stationLoc)
+                    if (horizontalDistance > horizontal)
                         return@players
+                    val verticalDistance = loc.verticalDistance(stationLoc)
+                    if (verticalDistance > vertical) {
+                        return@players
+                    }
 
-                    var add = halo * minOf(1.0, 1 - distance / range + 0.3)
+                    var add = halo * minOf(1.0, 1 - horizontalDistance / horizontal + 0.3)
                     if (player.uniqueId == station.ownerId)
                         add *= 2
 
@@ -92,9 +106,46 @@ object StationMechanism {
         val ownerId = UUID.fromString(pdc["station_owner_id"] ?: return)
 
         val station = StationLoader.stationMap[ownerId]!!
-        val result = station.destroy(player)
-        player.sendMessage("§b繁星工坊 §7>> " + result.second)
-        if (!result.first)
-            event.isCancelled = true
+        player.sendMessage("§b繁星工坊 §7>> " + station.destroy(player))
+    }
+
+    @SubscribeEvent(priority = EventPriority.NORMAL, ignoreCancelled = true)
+    fun explode(event: BlockExplodeEvent) {
+        event.blockList().filter { it.type == Material.CAMPFIRE }.forEach {
+            if (it.loadPdc().containsKey("station_owner_id"))
+                event.blockList().remove(it)
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.NORMAL, ignoreCancelled = true)
+    fun explode(event: EntityExplodeEvent) {
+        event.blockList().filter { it.type == Material.CAMPFIRE }.forEach {
+            if (it.loadPdc().containsKey("station_owner_id"))
+                event.blockList().remove(it)
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    fun rightClick(event: PlayerInteractEvent) {
+        if (!event.hasBlock())
+            return
+
+        val block = event.clickedBlock!!
+        if (block.type != Material.CAMPFIRE)
+            return
+
+        if (!event.isRightClickBlock())
+            return
+
+        event.isCancelled = true
+
+        val player = event.player
+        val ownerId = UUID.fromString(block.loadPdc()["station_owner_id"] ?: return)
+
+        val station = StationLoader.stationMap[ownerId]!!
+        val ownerName = ownerId.toName()
+
+        if (event.isMainhand())
+            player.sendMessage("§b繁星工坊 §7>> 这是 §e$ownerName §7的驻扎篝火，等级 ${station.level.toRoman()}")
     }
 }

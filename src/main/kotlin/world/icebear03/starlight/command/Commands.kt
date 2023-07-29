@@ -44,6 +44,12 @@ object Commands {
     @CommandBody(permission = "starlight.op")
     val stationStampReset = commandStationStampReset
 
+    @CommandBody(permission = "starlight.op")
+    val qte = commandQTE
+
     @CommandBody
     val escape = commandEscape
+
+    @CommandBody
+    val scoreboard = commandScoreboard
 }

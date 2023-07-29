@@ -6,6 +6,7 @@ import org.bukkit.Location
 import org.bukkit.NamespacedKey
 import org.bukkit.block.Block
 import org.bukkit.persistence.PersistentDataType
+import kotlin.math.abs
 
 
 fun Block.loadPdc(): MutableMap<String, String> {
@@ -34,4 +35,14 @@ fun Block.savePdc(data: MutableMap<String, String>) {
 
 fun Location.toKey(): NamespacedKey {
     return NamespacedKey.minecraft("${world?.name}_${blockX}_${blockY}_$blockZ")
+}
+
+fun Location.horizontalDistance(to: Location): Double {
+    val tmp = this.clone()
+    tmp.y = to.y
+    return tmp.distance(to)
+}
+
+fun Location.verticalDistance(to: Location): Double {
+    return abs(this.y - to.y)
 }

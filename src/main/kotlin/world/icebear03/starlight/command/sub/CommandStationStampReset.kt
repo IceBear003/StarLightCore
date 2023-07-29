@@ -8,6 +8,6 @@ import world.icebear03.starlight.station.station
 val commandStationStampReset = subCommand {
     execute<Player> { sender, _, _ ->
         sender.station().stamp = System.currentTimeMillis() - 100000000
-        sender.sendMessage("§b繁星工坊 §7>> §b驻扎信标§7回收/重放置冷却已清除")
+        sender.sendMessage("§b繁星工坊 §7>> §b驻扎信标§7重放置冷却已清除")
     }
 }

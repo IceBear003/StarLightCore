@@ -19,33 +19,51 @@ data class Station(
     var stamp: Long
 ) {
 
-    fun checkStamp(): Pair<Boolean, Int> {
-        val period = (System.currentTimeMillis() - stamp) / 1000
+    fun cooldown(): Int {
         return when (level) {
-            1 -> (period >= 3600) to 3600 - period.toInt()
-            2 -> (period >= 43200) to 43200 - period.toInt()
-            3 -> (period >= 86400) to 86400 - period.toInt()
-            else -> false to 0
+            1 -> 3600
+            2 -> 7200
+            3 -> 14400
+            else -> 14400
         }
     }
 
-    fun destroy(player: Player): Pair<Boolean, String> {
+    fun horizontal(): Int {
+        return when (level) {
+            1 -> 16
+            2 -> 32
+            3 -> 48
+            else -> 16
+        }
+    }
+
+    fun vertical(): Int {
+        return when (level) {
+            1 -> 72
+            2 -> 144
+            3 -> 512
+            else -> 72
+        }
+    }
+
+    fun checkStamp(): Pair<Boolean, Int> {
+        val period = (System.currentTimeMillis() - stamp) / 1000
+        val cooldown = cooldown()
+        return (period >= cooldown) to cooldown - period.toInt()
+    }
+
+    fun destroy(player: Player): String {
         if (player.uniqueId != ownerId) {
             val owner = Bukkit.getOfflinePlayer(ownerId)
             deleteFromWorld()
             if (owner.isOnline) {
                 (owner as Player).sendMessage("§b繁星工坊 §7>> 你的驻扎篝火被 §e${player.name} §7破坏")
             }
-            return true to "破坏了 §e${owner.name} §7的驻扎篝火"
+            return "破坏了 §e${owner.name} §7的驻扎篝火"
         }
-        val recycle = checkStamp()
-        return if (recycle.first) {
-            deleteFromWorld()
-            player.giveItem(generateItem())
-            true to "成功回收驻扎篝火，物品已经收回背包(或掉落)"
-        } else {
-            false to "回收冷却中，还有§e${recycle.second.secToFormattedTime()}"
-        }
+        deleteFromWorld()
+        player.giveItem(generateItem())
+        return "成功回收驻扎篝火，物品已经收回背包(或掉落)"
     }
 
     fun generateItem(): ItemStack {
@@ -54,9 +72,12 @@ data class Station(
             lore = listOf(
                 "§8| §7主人: §e" + ownerId.toName(),
                 "§8| §7等级: §a" + level.toRoman(),
+                "§8| §7范围: §b${horizontal()}格 §7(水平)",
+                "       §b${vertical()}格 §7(垂直)",
+                "§8| §7冷却: §6${cooldown()}s",
                 "§7",
                 "§8| §7放置于地面上以提供一定范围内的体力光环效果",
-                "§8| §7注意: §c回收或重放置需要较长冷却时间",
+                "§8| §7注意: §c回收后重放置需要较长冷却时间",
                 "§8| §7具体介绍和指导请看官方Wiki"
             )
             set("station_owner_id", PersistentDataType.STRING, ownerId.toString())
