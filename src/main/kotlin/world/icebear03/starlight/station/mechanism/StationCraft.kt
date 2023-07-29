@@ -33,7 +33,7 @@ object StationCraft {
             crafts += result
             val ingredients = when (i) {
                 1 -> listOf('a' to Material.BARREL, 'b' to Material.COBBLESTONE, 'i' to Material.IRON_BLOCK)
-                2 -> listOf('a' to Material.CHORUS_FLOWER, 'b' to Material.OBSIDIAN, 'i' to Material.NETHERITE_BLOCK)
+                2 -> listOf('a' to Material.CHORUS_FLOWER, 'b' to Material.CRYING_OBSIDIAN, 'i' to Material.NETHERITE_BLOCK)
                 3 -> listOf('a' to Material.EXPERIENCE_BOTTLE, 'b' to Material.DRAGON_HEAD, 'i' to Material.NETHER_STAR)
                 else -> continue
             }
