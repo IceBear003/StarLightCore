@@ -12,7 +12,6 @@ import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.isMainhand
-import taboolib.platform.util.isRightClick
 import taboolib.platform.util.isRightClickBlock
 import taboolib.platform.util.onlinePlayers
 import world.icebear03.starlight.station.addStamina
@@ -33,24 +32,10 @@ object StationMechanism {
                 val stationLoc = station.location ?: return@forEach
                 val ownerName = station.ownerId.toName()
 
-                val horizontal = when (station.level) {
-                    1 -> 16
-                    2 -> 32
-                    3 -> 48
-                    else -> 0
-                }
-                val vertical = when (station.level) {
-                    1 -> 72
-                    2 -> 144
-                    3 -> 1000
-                    else -> 0
-                }
-                val halo = when (station.level) {
-                    1 -> 1.5
-                    2 -> 3.0
-                    3 -> 6.0
-                    else -> 0.0
-                }
+                val horizontal = station.horizontal()
+                val vertical = station.vertical()
+                val halo = station.halo()
+                
                 stationLoc.world ?: return@forEach
 
                 stationLoc.world!!.players.forEach players@{ player ->

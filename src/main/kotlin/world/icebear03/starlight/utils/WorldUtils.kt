@@ -2,10 +2,12 @@ package world.icebear03.starlight.utils
 
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import org.bukkit.Chunk
 import org.bukkit.Location
 import org.bukkit.NamespacedKey
 import org.bukkit.block.Block
 import org.bukkit.persistence.PersistentDataType
+import java.util.*
 import kotlin.math.abs
 
 
@@ -45,4 +47,25 @@ fun Location.horizontalDistance(to: Location): Double {
 
 fun Location.verticalDistance(to: Location): Double {
     return abs(this.y - to.y)
+}
+
+fun getSurroundings(chunks: List<Chunk>): List<Chunk> {
+    val world = chunks[0].world
+    val graph = mutableMapOf<Chunk, Vector<Chunk>>()
+    chunks.forEach { chunk ->
+        val x = chunk.x
+        val z = chunk.z
+        listOf(
+            world.getChunkAt(x - 1, z),
+            world.getChunkAt(x, z + 1),
+            world.getChunkAt(x + 1, z),
+            world.getChunkAt(x, z - 1)
+        ).forEach { nearby ->
+            graph.putIfAbsent(nearby, Vector())
+            graph[nearby]!! += chunk
+        }
+    }
+    return chunks.filter { chunk ->
+        graph[chunk]!!.size < 4
+    }
 }

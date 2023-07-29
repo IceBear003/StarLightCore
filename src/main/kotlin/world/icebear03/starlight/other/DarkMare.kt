@@ -16,7 +16,7 @@ object DarkMare {
             onlinePlayers.forEach { player ->
                 if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION))
                     return@forEach
-                val block = player.location.block
+                val block = player.eyeLocation.block
                 if (block.lightLevel == 0.toByte()) {
                     val current = timeInDark.getOrDefault(player.uniqueId, 0.0) + 0.25
                     timeInDark[player.uniqueId] = current

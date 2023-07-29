@@ -40,7 +40,7 @@ object QTEProvider {
         val interval = difficulty.interval
 
         //QTE成功区间开头的index
-        val intervalStart = ((0.2 + Math.random() * 0.6) * total).roundToInt()
+        var intervalStart = ((0.2 + Math.random() * 0.6) * total).roundToInt()
 
         //QTE总时长
         val ticks = when (type) {
@@ -53,6 +53,7 @@ object QTEProvider {
         var failTime = 0
         //计时器
         var tot = 0
+        var lastTickChance = 1
         submit(period = 1L) {
             //完成QTE，并进行下一步操作
             fun finish(result: Boolean? = null) {
@@ -63,6 +64,12 @@ object QTEProvider {
 
             //目前是第几次
             val chance = tot / (total * period) + 1
+
+            //重置校准位置
+            if (chance != lastTickChance) {
+                lastTickChance = chance
+                intervalStart = ((0.2 + Math.random() * 0.6) * total).roundToInt()
+            }
 
             //玩家不能完成QTE了
             if (player.isDead || !player.isOnline) {

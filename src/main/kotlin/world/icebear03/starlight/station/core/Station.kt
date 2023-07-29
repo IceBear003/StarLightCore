@@ -28,6 +28,15 @@ data class Station(
         }
     }
 
+    fun halo(): Double {
+        return when (level) {
+            1 -> 1.5
+            2 -> 3.0
+            3 -> 6.0
+            else -> 1.5
+        }
+    }
+
     fun horizontal(): Int {
         return when (level) {
             1 -> 16

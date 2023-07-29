@@ -13,10 +13,7 @@ import world.icebear03.starlight.career.spell.entry.cook.BrewerPassive
 import world.icebear03.starlight.career.spell.passive.limit.MaterialLimitLibrary
 import world.icebear03.starlight.other.*
 import world.icebear03.starlight.station.core.StationLoader
-import world.icebear03.starlight.station.mechanism.StaminaEffector
-import world.icebear03.starlight.station.mechanism.StaminaModifier
-import world.icebear03.starlight.station.mechanism.StationCraft
-import world.icebear03.starlight.station.mechanism.StationMechanism
+import world.icebear03.starlight.station.mechanism.*
 import java.io.File
 
 object StarLightCore : Plugin() {
@@ -36,6 +33,7 @@ object StarLightCore : Plugin() {
         StaminaModifier.initialize()
         StaminaEffector.initialize()
         StationCraft.initialize()
+        NearestStation.initialize()
 
         info("Successfully running StarLightCore!")
 

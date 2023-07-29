@@ -13,6 +13,7 @@ import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.onlinePlayers
+import world.icebear03.starlight.station.mechanism.NearestStation
 import world.icebear03.starlight.station.station
 import java.util.*
 import kotlin.math.abs
@@ -70,6 +71,10 @@ object BossBarCompass {
             getVectorYaw(loc, other.location)
         } ?: -3600.0
         val stationYaw = player.station().location?.let { getVectorYaw(loc, it) } ?: -3600.0
+        val nearestStationYaw = NearestStation.nearestMap[player.uniqueId]?.let nearest@{ (stationLoc, _) ->
+            stationLoc ?: return@nearest -3600.0
+            getVectorYaw(loc, stationLoc)
+        } ?: -3600.0
 
         var tot = 0
         while (tot++ in 0..dValue) {
@@ -80,7 +85,8 @@ object BossBarCompass {
                 current,
                 deathYaw to "☠",
                 nearestYaw to "☺",
-                stationYaw to "◈"
+                stationYaw to "▣",
+                nearestStationYaw to "⧈"
             )
             if (symbol.isNotBlank()) {
                 val index = minOf(size - 1, (size.toDouble() * tot / dValue).roundToInt())
@@ -100,7 +106,8 @@ object BossBarCompass {
                 '︱' -> result += "§f§l︱"
                 '☠' -> result += "§c☠"
                 '☺' -> result += "§e☺"
-                '◈' -> result += "§6◈"
+                '▣' -> result += "§6▣"
+                '⧈' -> result += "§6⧈"
             }
         }
 
