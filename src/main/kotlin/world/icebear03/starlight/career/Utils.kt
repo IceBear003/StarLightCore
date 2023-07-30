@@ -12,8 +12,8 @@ import world.icebear03.starlight.career.core.spell.Spell
 import world.icebear03.starlight.career.core.spell.SpellLoader
 import world.icebear03.starlight.career.spell.discharge.DischargeHandler
 import world.icebear03.starlight.career.spell.handler.EventHandler
-import world.icebear03.starlight.career.spell.handler.limit.Limit
-import world.icebear03.starlight.career.spell.handler.limit.LimitType
+import world.icebear03.starlight.career.spell.handler.internal.HandlerType
+import world.icebear03.starlight.career.spell.handler.internal.Limit
 
 fun getClass(name: String?): Class? {
     return ClassLoader.fromName(name)
@@ -75,8 +75,8 @@ fun Player.meetRequirements(limits: List<Pair<String, Int>>?): Boolean {
     return result
 }
 
-fun addLimit(limitType: LimitType, limit: Pair<String, Int>, vararg types: Material) {
-    EventHandler.add(limitType, limit, *types)
+fun addLimit(handlerType: HandlerType, limit: Pair<String, Int>, vararg types: Material) {
+    EventHandler.addLimit(handlerType, limit, *types)
 }
 
 fun String.discharge(function: Player.(id: String, level: Int) -> String?) {

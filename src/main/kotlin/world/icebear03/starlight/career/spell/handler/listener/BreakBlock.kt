@@ -4,30 +4,38 @@ import org.bukkit.event.block.BlockBreakEvent
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import world.icebear03.starlight.career.spell.handler.EventHandler
-import world.icebear03.starlight.career.spell.handler.limit.LimitType
+import world.icebear03.starlight.career.spell.handler.internal.HandlerType
 
 object BreakBlock {
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    fun breakBlock(event: BlockBreakEvent) {
+    fun breakBlockLowest(event: BlockBreakEvent) {
         val type = event.block.type
         val player = event.player
 
-        val breakResult = EventHandler.check(LimitType.BREAK, player, type)
+        val breakResult = EventHandler.checkLimit(HandlerType.BREAK, player, type)
         if (!breakResult.first) {
             event.isCancelled = true
             player.sendMessage("§a生涯系统 §7>> 无法破坏此方块，需要解锁以下其中之一: ")
             breakResult.second.forEach {
                 player.sendMessage("               §7|—— $it")
             }
+            return
+        }
+
+        event.isCancelled = EventHandler.triggerLowest(type, HandlerType.BREAK, player)
+        val result = EventHandler.triggerLowest(type, HandlerType.DROP_IF_BREAK, player)
+        if (!result) {
+            event.isDropItems = false
+            event.expToDrop = 0
         }
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    fun drop(event: BlockBreakEvent) {
+    @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
+    fun breakBlockHigh(event: BlockBreakEvent) {
         val type = event.block.type
         val player = event.player
 
-        val dropResult = EventHandler.check(LimitType.DROP_IF_BREAK, player, type)
+        val dropResult = EventHandler.checkLimit(HandlerType.DROP_IF_BREAK, player, type)
         if (!dropResult.first) {
             event.isDropItems = false
             event.expToDrop = 0
@@ -35,6 +43,10 @@ object BreakBlock {
             dropResult.second.forEach {
                 player.sendMessage("               §7|—— $it")
             }
+            return
         }
+
+        EventHandler.triggerHigh(type, HandlerType.DROP_IF_BREAK, player)
+        EventHandler.triggerHigh(type, HandlerType.BREAK, player)
     }
 }

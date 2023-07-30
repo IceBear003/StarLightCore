@@ -11,7 +11,7 @@ import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.platform.util.modifyMeta
 import world.icebear03.starlight.station.station
-import world.icebear03.starlight.utils.recipe.shapedRecipe
+import world.icebear03.starlight.utils.shapedRecipe
 import world.icebear03.starlight.utils.toRoman
 
 object StationCraft {

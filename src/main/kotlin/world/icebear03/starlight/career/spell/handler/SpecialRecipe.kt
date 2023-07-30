@@ -1,4 +1,4 @@
-package world.icebear03.starlight.utils.recipe
+package world.icebear03.starlight.career.spell.handler
 
 import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
@@ -37,10 +37,10 @@ object SpecialRecipeLibrary {
     }
 }
 
-fun ShapedRecipe.addSpecialRecipe(id: String, level: Int = 1) {
-    SpecialRecipeLibrary.recipeMap[this.key] = id to level
+fun ShapedRecipe.addSpecialRecipe(name: String, level: Int = 1) {
+    SpecialRecipeLibrary.recipeMap[this.key] = name to level
 }
 
-fun ShapelessRecipe.addSpecialRecipe(id: String, level: Int = 1) {
-    SpecialRecipeLibrary.recipeMap[this.key] = id to level
+fun ShapelessRecipe.addSpecialRecipe(name: String, level: Int = 1) {
+    SpecialRecipeLibrary.recipeMap[this.key] = name to level
 }

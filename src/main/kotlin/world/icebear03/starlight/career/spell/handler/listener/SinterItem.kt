@@ -6,23 +6,18 @@ import org.bukkit.event.inventory.InventoryType
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import world.icebear03.starlight.career.spell.handler.EventHandler
-import world.icebear03.starlight.career.spell.handler.limit.LimitType
+import world.icebear03.starlight.career.spell.handler.internal.HandlerType
 
 object SinterItem {
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    fun sinter(event: InventoryClickEvent) {
-        val inv = event.inventory
-        if (!inv.type.toString().contains("FURNACE"))
+    fun sinterLowest(event: InventoryClickEvent) {
+        if (!isAvailable(event))
             return
 
-        if (event.slotType != InventoryType.SlotType.RESULT)
-            return
-
-        val item = event.currentItem ?: return
-        val type = item.type
+        val type = event.currentItem!!.type
         val player = event.whoClicked as Player
 
-        val sinterResult = EventHandler.check(LimitType.SINTER, player, type)
+        val sinterResult = EventHandler.checkLimit(HandlerType.SINTER, player, type)
         if (!sinterResult.first) {
             event.isCancelled = true
             player.closeInventory()
@@ -30,6 +25,30 @@ object SinterItem {
             sinterResult.second.forEach {
                 player.sendMessage("               §7|—— $it")
             }
+            return
         }
+
+        event.isCancelled = EventHandler.triggerLowest(type, HandlerType.SINTER, player)
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    fun sinterHigh(event: InventoryClickEvent) {
+        if (!isAvailable(event))
+            return
+
+        val type = event.currentItem!!.type
+        val player = event.whoClicked as Player
+
+        EventHandler.triggerHigh(type, HandlerType.SINTER, player)
+    }
+
+    fun isAvailable(event: InventoryClickEvent): Boolean {
+        val inv = event.inventory
+        if (!inv.type.toString().contains("FURNACE"))
+            return false
+        if (event.slotType != InventoryType.SlotType.RESULT)
+            return false
+        event.currentItem ?: return false
+        return true
     }
 }

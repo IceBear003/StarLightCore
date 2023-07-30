@@ -13,7 +13,7 @@ import taboolib.common.platform.event.SubscribeEvent
 import taboolib.platform.util.hasName
 import taboolib.platform.util.modifyMeta
 import world.icebear03.starlight.career
-import world.icebear03.starlight.utils.recipe.shapelessRecipe
+import world.icebear03.starlight.utils.shapelessRecipe
 
 object ShortcutDischarge {
 

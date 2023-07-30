@@ -4,15 +4,15 @@ import org.bukkit.event.block.BlockPlaceEvent
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import world.icebear03.starlight.career.spell.handler.EventHandler
-import world.icebear03.starlight.career.spell.handler.limit.LimitType
+import world.icebear03.starlight.career.spell.handler.internal.HandlerType
 
 object PlaceBlock {
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    fun place(event: BlockPlaceEvent) {
+    fun placeLowest(event: BlockPlaceEvent) {
         val type = event.block.type
         val player = event.player
 
-        val placeResult = EventHandler.check(LimitType.PLACE, player, type)
+        val placeResult = EventHandler.checkLimit(HandlerType.PLACE, player, type)
         if (!placeResult.first) {
             event.isCancelled = true
             player.sendMessage("§a生涯系统 §7>> 无法放置此方块，需要解锁以下其中之一: ")
@@ -21,5 +21,15 @@ object PlaceBlock {
             }
             return
         }
+
+        event.isCancelled = EventHandler.triggerLowest(type, HandlerType.PLACE, player)
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGH)
+    fun placeHigh(event: BlockPlaceEvent) {
+        val type = event.block.type
+        val player = event.player
+
+        EventHandler.triggerHigh(type, HandlerType.PLACE, player)
     }
 }

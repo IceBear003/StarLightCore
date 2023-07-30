@@ -5,7 +5,7 @@ import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.platform.util.isMainhand
 import world.icebear03.starlight.career.spell.handler.EventHandler
-import world.icebear03.starlight.career.spell.handler.limit.LimitType
+import world.icebear03.starlight.career.spell.handler.internal.HandlerType
 
 object Interact {
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -15,7 +15,7 @@ object Interact {
         val type = event.clickedBlock!!.type
         val player = event.player
 
-        val useResult = EventHandler.check(LimitType.USE, player, type)
+        val useResult = EventHandler.checkLimit(HandlerType.USE, player, type)
         if (!useResult.first) {
             event.isCancelled = true
             if (event.isMainhand()) {
@@ -24,7 +24,10 @@ object Interact {
                     player.sendMessage("               §7|—— $it")
                 }
             }
+            return
         }
+
+        event.isCancelled = EventHandler.triggerLowest(type, HandlerType.USE, player)
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -34,7 +37,7 @@ object Interact {
         val type = event.item!!.type
         val player = event.player
 
-        val useResult = EventHandler.check(LimitType.USE, player, type)
+        val useResult = EventHandler.checkLimit(HandlerType.USE, player, type)
         if (!useResult.first) {
             event.isCancelled = true
             if (event.isMainhand()) {
@@ -43,6 +46,9 @@ object Interact {
                     player.sendMessage("               §7|—— $it")
                 }
             }
+            return
         }
+
+        event.isCancelled = EventHandler.triggerLowest(type, HandlerType.USE, player)
     }
 }

@@ -139,7 +139,7 @@ object BindUI {
             val career = player.career()
             val spell = args[0] as Spell
             val result = career.addShortCut(spell, item.amount)
-            player.sendMessage("§6生涯系统 §7>> " + result.second)
+            player.sendMessage("§a生涯系统 §7>> " + result.second)
             if (result.first) {
                 BranchUI.open(player, spell.branch.name)
             } else {

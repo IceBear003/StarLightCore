@@ -1,4 +1,4 @@
-package world.icebear03.starlight.utils.recipe
+package world.icebear03.starlight.utils
 
 import org.bukkit.Bukkit
 import org.bukkit.Material
