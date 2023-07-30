@@ -122,10 +122,10 @@ object StationMechanism {
         if (!event.isRightClickBlock())
             return
 
-        event.isCancelled = true
-
         val player = event.player
         val ownerId = UUID.fromString(block.loadPdc()["station_owner_id"] ?: return)
+
+        event.isCancelled = true
 
         val station = StationLoader.stationMap[ownerId]!!
         val ownerName = ownerId.toName()

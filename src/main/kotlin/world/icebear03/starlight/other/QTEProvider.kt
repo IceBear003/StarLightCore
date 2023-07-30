@@ -152,8 +152,9 @@ object QTEProvider {
     @SubscribeEvent
     fun shift(event: PlayerToggleSneakEvent) {
         val player = event.player
-        if (!player.isSneaking)
+        if (!player.isSneaking && isQTEing(player)) {
             shiftMap[player.uniqueId] = true
+        }
     }
 
     enum class SymbolType(val colored: List<String>) {
