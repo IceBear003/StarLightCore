@@ -10,7 +10,7 @@ import org.serverct.parrot.parrotx.function.variable
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.platform.util.modifyMeta
-import world.icebear03.starlight.career.spell.passive.recipe.registerShapedRecipe
+import world.icebear03.starlight.career.spell.old.passive.recipe.registerShapedRecipe
 import world.icebear03.starlight.station.station
 import world.icebear03.starlight.utils.toRoman
 

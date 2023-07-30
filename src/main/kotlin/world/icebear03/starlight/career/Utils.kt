@@ -9,6 +9,7 @@ import world.icebear03.starlight.career.core.`class`.Class
 import world.icebear03.starlight.career.core.`class`.ClassLoader
 import world.icebear03.starlight.career.core.spell.Spell
 import world.icebear03.starlight.career.core.spell.SpellLoader
+import world.icebear03.starlight.career.spell.current.limit.Limit
 
 fun getClass(name: String?): Class? {
     return ClassLoader.fromName(name)
@@ -39,14 +40,19 @@ fun Player.branchLevel(name: String?): Int {
     return career().getBranchLevel(name)
 }
 
+fun Player.forget(name: String): Pair<Boolean, String> {
+    return career().forget(name)
+}
+
 fun Player.meetRequirement(name: String?, level: Int = 1, includeResonate: Boolean = true): Boolean {
     return spellLevel(name, includeResonate) >= level ||
             branchLevel(name) >= level
 }
 
-fun Player.forget(name: String): Pair<Boolean, String> {
-    return career().forget(name)
+fun Player.meetRequirement(limit: Limit, includeResonate: Boolean = true): Boolean {
+    return meetRequirement(limit.name, limit.level, includeResonate)
 }
+
 
 fun Player.meetRequirements(limits: List<Pair<String, Int>>?): Boolean {
     if (limits == null)

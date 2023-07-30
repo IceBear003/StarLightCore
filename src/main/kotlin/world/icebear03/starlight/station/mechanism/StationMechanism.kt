@@ -2,6 +2,7 @@ package world.icebear03.starlight.station.mechanism
 
 import org.bukkit.Material
 import org.bukkit.Particle
+import org.bukkit.block.data.type.Campfire
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockExplodeEvent
 import org.bukkit.event.block.BlockPlaceEvent
@@ -65,6 +66,13 @@ object StationMechanism {
                         block.world.spawnParticle(Particle.BLOCK_DUST, current, 2, block.blockData)
                     }
                 }
+                val block = stationLoc.block
+                if (block.type != Material.CAMPFIRE) {
+                    block.type = Material.CAMPFIRE
+                }
+                val data = block.blockData as Campfire
+                data.isLit = true
+                block.blockData = data
             }
         }
     }

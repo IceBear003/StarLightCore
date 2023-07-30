@@ -7,9 +7,9 @@ import org.bukkit.event.player.PlayerTeleportEvent
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.onlinePlayers
-import world.icebear03.starlight.other.RespawnProtection
 import world.icebear03.starlight.station.addStamina
 import world.icebear03.starlight.station.takeStamina
+import world.icebear03.starlight.tool.player.RespawnProtection
 import java.util.*
 
 object StaminaModifier {

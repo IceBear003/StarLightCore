@@ -5,8 +5,8 @@ import org.bukkit.World.Environment.*
 import org.bukkit.entity.Boat
 import org.bukkit.entity.Minecart
 import org.bukkit.entity.Player
-import world.icebear03.starlight.other.RespawnProtection
 import world.icebear03.starlight.station.station
+import world.icebear03.starlight.tool.player.RespawnProtection
 
 object Magnification {
     fun getMagnification(player: Player, isTeleport: Boolean = false): Double {
