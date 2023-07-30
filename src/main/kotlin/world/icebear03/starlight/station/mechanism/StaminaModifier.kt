@@ -16,6 +16,7 @@ object StaminaModifier {
 
     val magnificationMap = mutableMapOf<UUID, Double>()
     val locationMap = mutableMapOf<UUID, Location>()
+    val resting = mutableListOf<UUID>()
 
     fun initialize() {
         submit(period = 20L) {
@@ -33,13 +34,17 @@ object StaminaModifier {
                     return@forEach
                 }
 
-                if (lastLoc.world != currentLoc.world)
+                if (lastLoc.world != currentLoc.world) {
+                    locationMap[uuid] = currentLoc
                     return@forEach
+                }
 
                 val distance = lastLoc.distance(currentLoc)
                 if (distance <= 0.02) {
+                    resting += player.uniqueId
                     player.addStamina(0.2)
                 } else {
+                    resting -= player.uniqueId
                     locationMap[uuid] = currentLoc
                     if (RespawnProtection.isInProtection(player, 5)) {
                         return@forEach

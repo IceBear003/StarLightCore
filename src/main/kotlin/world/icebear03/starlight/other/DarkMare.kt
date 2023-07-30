@@ -1,5 +1,6 @@
 package world.icebear03.starlight.other
 
+import org.bukkit.GameMode
 import org.bukkit.World
 import org.bukkit.potion.PotionEffectType
 import taboolib.common.platform.function.submit
@@ -15,6 +16,8 @@ object DarkMare {
     fun initialize() {
         submit(period = 5) {
             onlinePlayers.forEach { player ->
+                if (player.gameMode == GameMode.CREATIVE || player.gameMode == GameMode.SPECTATOR)
+                    return@forEach
                 if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION))
                     return@forEach
                 if (player.world.environment == World.Environment.THE_END)

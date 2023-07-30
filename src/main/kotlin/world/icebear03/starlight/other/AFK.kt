@@ -5,6 +5,7 @@ import org.bukkit.event.player.PlayerJoinEvent
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.onlinePlayers
+import world.icebear03.starlight.station.mechanism.StaminaModifier
 import java.util.*
 
 object AFK {
@@ -19,7 +20,10 @@ object AFK {
                     return@forEach
                 if (isAFKing(player) || checking.contains(player.uniqueId))
                     return@forEach
-                if (Math.random() <= 0.001) {
+
+                val ran = if (StaminaModifier.resting.contains(player.uniqueId)) 0.005 else 0.002
+
+                if (Math.random() <= ran) {
                     checking += player.uniqueId
                     player.closeInventory()
                     QTEProvider.sendQTE(
