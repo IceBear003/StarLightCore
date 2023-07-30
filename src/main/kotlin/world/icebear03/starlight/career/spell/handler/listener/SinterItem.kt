@@ -28,7 +28,7 @@ object SinterItem {
             return
         }
 
-        event.isCancelled = EventHandler.triggerLowest(type, HandlerType.SINTER, player)
+        event.isCancelled = !EventHandler.triggerLowest(event, type, HandlerType.SINTER, player)
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
@@ -39,7 +39,7 @@ object SinterItem {
         val type = event.currentItem!!.type
         val player = event.whoClicked as Player
 
-        EventHandler.triggerHigh(type, HandlerType.SINTER, player)
+        EventHandler.triggerHigh(event, type, HandlerType.SINTER, player)
     }
 
     fun isAvailable(event: InventoryClickEvent): Boolean {

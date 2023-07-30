@@ -2,6 +2,7 @@ package world.icebear03.starlight.career
 
 import org.bukkit.Material
 import org.bukkit.entity.Player
+import org.bukkit.event.Event
 import world.icebear03.starlight.career
 import world.icebear03.starlight.career.core.Resonate
 import world.icebear03.starlight.career.core.branch.Branch
@@ -85,4 +86,32 @@ fun String.discharge(function: Player.(id: String, level: Int) -> String?) {
 
 fun String.finish(function: Player.(id: String, level: Int) -> Unit) {
     DischargeHandler.finishMap[this] = function
+}
+
+fun Material.addLowestListener(
+    handlerType: HandlerType,
+    function: (event: Event, player: Player, type: Material) -> Pair<Boolean, String?>
+) {
+    listOf(this).addLowestListener(handlerType, function)
+}
+
+fun Material.addHighListener(
+    handlerType: HandlerType,
+    function: (event: Event, player: Player, type: Material) -> String?
+) {
+    listOf(this).addHighListener(handlerType, function)
+}
+
+fun List<Material>.addLowestListener(
+    handlerType: HandlerType,
+    function: (event: Event, player: Player, type: Material) -> Pair<Boolean, String?>
+) {
+    EventHandler.addLowestListener(handlerType, function, *this.toTypedArray())
+}
+
+fun List<Material>.addHighListener(
+    handlerType: HandlerType,
+    function: (event: Event, player: Player, type: Material) -> String?
+) {
+    EventHandler.addHighListener(handlerType, function, *this.toTypedArray())
 }

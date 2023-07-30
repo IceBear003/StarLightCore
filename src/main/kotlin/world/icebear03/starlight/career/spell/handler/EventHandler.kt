@@ -2,6 +2,7 @@ package world.icebear03.starlight.career.spell.handler
 
 import org.bukkit.Material
 import org.bukkit.entity.Player
+import org.bukkit.event.Event
 import world.icebear03.starlight.career.meetRequirement
 import world.icebear03.starlight.career.spell.handler.internal.HandlerType
 import world.icebear03.starlight.career.spell.handler.internal.Limit
@@ -29,9 +30,13 @@ object EventHandler {
         return flag to limits.map { it.string() }
     }
 
-    val lowestListeners = mutableMapOf<Material, MutableMap<HandlerType, (Player, Material) -> Pair<Boolean, String?>>>()
-    val highListeners = mutableMapOf<Material, MutableMap<HandlerType, (Player, Material) -> String?>>()
-    fun addLowestListener(handlerType: HandlerType, function: (Player, Material) -> Pair<Boolean, String?>, vararg types: Material) {
+    val lowestListeners = mutableMapOf<Material, MutableMap<HandlerType, (Event, Player, Material) -> Pair<Boolean, String?>>>()
+    val highListeners = mutableMapOf<Material, MutableMap<HandlerType, (Event, Player, Material) -> String?>>()
+    fun addLowestListener(
+        handlerType: HandlerType,
+        function: (Event, Player, Material) -> Pair<Boolean, String?>,
+        vararg types: Material
+    ) {
         types.forEach { type ->
             lowestListeners.putIfAbsent(type, mutableMapOf())
             val map = lowestListeners[type]!!
@@ -39,7 +44,11 @@ object EventHandler {
         }
     }
 
-    fun addLowestListener(handlerType: HandlerType, function: (Player, Material) -> String?, vararg types: Material) {
+    fun addHighListener(
+        handlerType: HandlerType,
+        function: (Event, Player, Material) -> String?,
+        vararg types: Material
+    ) {
         types.forEach { type ->
             highListeners.putIfAbsent(type, mutableMapOf())
             val map = highListeners[type]!!
@@ -47,13 +56,13 @@ object EventHandler {
         }
     }
 
-    fun triggerLowest(type: Material, handlerType: HandlerType, player: Player): Boolean {
-        val result = lowestListeners[type]?.get(handlerType)?.invoke(player, type) ?: (true to null)
+    fun triggerLowest(event: Event, type: Material, handlerType: HandlerType, player: Player): Boolean {
+        val result = lowestListeners[type]?.get(handlerType)?.invoke(event, player, type) ?: (true to null)
         result.second?.let { player.sendMessage("§b繁星工坊 §7>> $it") }
         return result.first
     }
 
-    fun triggerHigh(type: Material, handlerType: HandlerType, player: Player) {
-        highListeners[type]?.get(handlerType)?.invoke(player, type)?.let { player.sendMessage("§b繁星工坊 §7>> $it") }
+    fun triggerHigh(event: Event, type: Material, handlerType: HandlerType, player: Player) {
+        highListeners[type]?.get(handlerType)?.invoke(event, player, type)?.let { player.sendMessage("§b繁星工坊 §7>> $it") }
     }
 }

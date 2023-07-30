@@ -27,7 +27,7 @@ object CraftItem {
             return
         }
 
-        event.isCancelled = EventHandler.triggerLowest(type, HandlerType.CRAFT, player)
+        event.isCancelled = !EventHandler.triggerLowest(event, type, HandlerType.CRAFT, player)
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
@@ -35,6 +35,6 @@ object CraftItem {
         val type = event.recipe.result.type
         val player = event.whoClicked as Player
 
-        EventHandler.triggerHigh(type, HandlerType.CRAFT, player)
+        EventHandler.triggerHigh(event, type, HandlerType.CRAFT, player)
     }
 }

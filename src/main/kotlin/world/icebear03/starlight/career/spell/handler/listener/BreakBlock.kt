@@ -22,8 +22,8 @@ object BreakBlock {
             return
         }
 
-        event.isCancelled = EventHandler.triggerLowest(type, HandlerType.BREAK, player)
-        val result = EventHandler.triggerLowest(type, HandlerType.DROP_IF_BREAK, player)
+        event.isCancelled = !EventHandler.triggerLowest(event, type, HandlerType.BREAK, player)
+        val result = EventHandler.triggerLowest(event, type, HandlerType.DROP_IF_BREAK, player)
         if (!result) {
             event.isDropItems = false
             event.expToDrop = 0
@@ -46,7 +46,7 @@ object BreakBlock {
             return
         }
 
-        EventHandler.triggerHigh(type, HandlerType.DROP_IF_BREAK, player)
-        EventHandler.triggerHigh(type, HandlerType.BREAK, player)
+        EventHandler.triggerHigh(event, type, HandlerType.DROP_IF_BREAK, player)
+        EventHandler.triggerHigh(event, type, HandlerType.BREAK, player)
     }
 }

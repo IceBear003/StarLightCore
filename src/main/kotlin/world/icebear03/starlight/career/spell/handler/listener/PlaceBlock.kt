@@ -22,7 +22,7 @@ object PlaceBlock {
             return
         }
 
-        event.isCancelled = EventHandler.triggerLowest(type, HandlerType.PLACE, player)
+        event.isCancelled = !EventHandler.triggerLowest(event, type, HandlerType.PLACE, player)
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
@@ -30,6 +30,6 @@ object PlaceBlock {
         val type = event.block.type
         val player = event.player
 
-        EventHandler.triggerHigh(type, HandlerType.PLACE, player)
+        EventHandler.triggerHigh(event, type, HandlerType.PLACE, player)
     }
 }

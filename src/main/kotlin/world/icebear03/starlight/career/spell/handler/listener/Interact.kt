@@ -27,7 +27,7 @@ object Interact {
             return
         }
 
-        event.isCancelled = EventHandler.triggerLowest(type, HandlerType.USE, player)
+        event.isCancelled = !EventHandler.triggerLowest(event, type, HandlerType.USE, player)
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -49,6 +49,6 @@ object Interact {
             return
         }
 
-        event.isCancelled = EventHandler.triggerLowest(type, HandlerType.USE, player)
+        event.isCancelled = !EventHandler.triggerLowest(event, type, HandlerType.USE, player)
     }
 }
