@@ -11,7 +11,7 @@ import world.icebear03.starlight.career.spell.handler.internal.HandlerType
 object CraftItem {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     fun craftLowest(event: CraftItemEvent) {
-        val item = event.recipe.result
+        val item = event.currentItem ?: return
         val type = item.type
         val player = event.whoClicked as Player
 
@@ -28,11 +28,15 @@ object CraftItem {
         }
 
         event.isCancelled = !EventHandler.triggerLowest(event, type, HandlerType.CRAFT, player)
+        if (event.isCancelled) {
+            event.inventory.clear()
+            player.closeInventory()
+        }
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
     fun craftHigh(event: CraftItemEvent) {
-        val type = event.recipe.result.type
+        val type = event.currentItem?.type ?: return
         val player = event.whoClicked as Player
 
         EventHandler.triggerHigh(event, type, HandlerType.CRAFT, player)
