@@ -1,11 +1,11 @@
-package world.icebear03.starlight.career.spell.current.limit.listener
+package world.icebear03.starlight.career.spell.handler.listener
 
 import org.bukkit.event.player.PlayerInteractEvent
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.platform.util.isMainhand
-import world.icebear03.starlight.career.spell.current.limit.LimitHandler
-import world.icebear03.starlight.career.spell.current.limit.LimitType
+import world.icebear03.starlight.career.spell.handler.EventHandler
+import world.icebear03.starlight.career.spell.handler.limit.LimitType
 
 object Interact {
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -15,7 +15,7 @@ object Interact {
         val type = event.clickedBlock!!.type
         val player = event.player
 
-        val useResult = LimitHandler.check(LimitType.USE, player, type)
+        val useResult = EventHandler.check(LimitType.USE, player, type)
         if (!useResult.first) {
             event.isCancelled = true
             if (event.isMainhand()) {
@@ -34,7 +34,7 @@ object Interact {
         val type = event.item!!.type
         val player = event.player
 
-        val useResult = LimitHandler.check(LimitType.USE, player, type)
+        val useResult = EventHandler.check(LimitType.USE, player, type)
         if (!useResult.first) {
             event.isCancelled = true
             if (event.isMainhand()) {

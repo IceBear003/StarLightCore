@@ -104,7 +104,7 @@ object RespawnProtection {
 
     fun isInProtection(player: Player, time: Int = 600): Boolean {
         val current = System.currentTimeMillis()
-        return current - (player["respawn_stamp", PersistentDataType.LONG] ?: current) < time * 1000
+        return current - (player["respawn_stamp", PersistentDataType.LONG] ?: 0) < time * 1000
     }
 
     enum class RespawnType {

@@ -15,7 +15,6 @@ object StarLightCore : Plugin() {
 
     override fun onEnable() {
         CareerManager.initialize()
-        StationManager.initialize()
 
         AutoIO.initialize()
         setupPlayerDatabase(File(getDataFolder(), "data.db"))
@@ -23,6 +22,7 @@ object StarLightCore : Plugin() {
             it.loadStarLightData()
         }
 
+        StationManager.initialize()
         ToolManager.initialize()
         info("Successfully Running StarLightCore!")
     }

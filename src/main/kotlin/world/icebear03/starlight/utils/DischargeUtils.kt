@@ -1,4 +1,4 @@
-package world.icebear03.starlight.career.spell.old
+package world.icebear03.starlight.utils
 
 import org.bukkit.entity.Player
 import world.icebear03.starlight.career
@@ -8,19 +8,19 @@ import java.util.*
 
 val dischargeStamp = mutableMapOf<UUID, MutableMap<String, Long>>()
 
-fun Player.addDischargeStamp(id: String) {
-    dischargeStamp.getOrPut(this.uniqueId) { mutableMapOf() }[id] = System.currentTimeMillis()
+fun Player.addDischargeStamp(name: String) {
+    dischargeStamp.getOrPut(this.uniqueId) { mutableMapOf() }[name] = System.currentTimeMillis()
 }
 
-fun Player.removeDischargeStamp(id: String) {
-    dischargeStamp.getOrPut(this.uniqueId) { mutableMapOf() }.remove(id)
+fun Player.removeDischargeStamp(name: String) {
+    dischargeStamp.getOrPut(this.uniqueId) { mutableMapOf() }.remove(name)
 }
 
 fun Player.clearDischargeStamp() {
     dischargeStamp.remove(uniqueId)
 }
 
-fun Player.isDischarging(name: String, removeIfConsumable: Boolean = true): Boolean {
+fun Player.isDischarging(name: String): Boolean {
     if (!this.meetRequirement(name, 1))
         return false
 
@@ -32,20 +32,10 @@ fun Player.isDischarging(name: String, removeIfConsumable: Boolean = true): Bool
         val level = career().getSpellLevel(spell)
         val duration = spell.duration(level)
         if (duration == -1) {
-            if (removeIfConsumable)
-                this.removeDischargeStamp(name)
             return true
         }
         return duration >= period
     }
 
     return false
-}
-
-fun String.setDischarge(function: Player.(id: String, level: Int) -> String?) {
-    DischargeHandler.dischargeMap[this] = function
-}
-
-fun String.setFinish(function: Player.(id: String, level: Int) -> Unit) {
-    DischargeHandler.finishMap[this] = function
 }

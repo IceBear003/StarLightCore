@@ -1,4 +1,4 @@
-package world.icebear03.starlight.career.spell.old.passive.recipe
+package world.icebear03.starlight.utils.recipe
 
 import org.bukkit.Material
 import org.bukkit.entity.Player

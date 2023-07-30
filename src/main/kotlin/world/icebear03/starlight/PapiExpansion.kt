@@ -7,17 +7,12 @@ import taboolib.platform.compat.PlaceholderExpansion
 import taboolib.platform.compat.replacePlaceholder
 import world.icebear03.starlight.career.display
 import world.icebear03.starlight.career.getSpell
-import world.icebear03.starlight.career.spell.old.checkCooldownStamp
-import world.icebear03.starlight.career.spell.old.isDischarging
 import world.icebear03.starlight.station.mechanism.StaminaModifier
 import world.icebear03.starlight.station.mechanism.StationMechanism
 import world.icebear03.starlight.station.station
 import world.icebear03.starlight.tool.player.AFK
 import world.icebear03.starlight.tool.player.NearestPlayer
-import world.icebear03.starlight.utils.get
-import world.icebear03.starlight.utils.secToFormattedTime
-import world.icebear03.starlight.utils.secondLived
-import world.icebear03.starlight.utils.toRoman
+import world.icebear03.starlight.utils.*
 
 object PapiExpansion : PlaceholderExpansion {
 
@@ -45,7 +40,7 @@ object PapiExpansion : PlaceholderExpansion {
             val state = when (cdPair.first) {
                 true -> "&a✔"
                 false -> {
-                    if (player.isDischarging(name, false)) {
+                    if (player.isDischarging(name)) {
                         if (duration != -1) {
                             "&e✷ &7(&b${(duration - (cd - cdPair.second)).format(1)}秒&7)"
                         } else {

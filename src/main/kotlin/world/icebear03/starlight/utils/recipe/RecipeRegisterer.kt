@@ -1,4 +1,4 @@
-package world.icebear03.starlight.career.spell.old.passive.recipe
+package world.icebear03.starlight.utils.recipe
 
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -7,7 +7,7 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.ShapedRecipe
 import org.bukkit.inventory.ShapelessRecipe
 
-fun registerShapedRecipe(
+fun shapedRecipe(
     key: NamespacedKey,
     result: ItemStack,
     rows: List<String>,
@@ -23,7 +23,7 @@ fun registerShapedRecipe(
     return recipe
 }
 
-fun registerShapelessRecipe(
+fun shapelessRecipe(
     key: NamespacedKey,
     result: ItemStack,
     vararg ingredients: Pair<Int, Material>

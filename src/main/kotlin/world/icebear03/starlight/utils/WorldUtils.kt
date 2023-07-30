@@ -7,7 +7,10 @@ import org.bukkit.Chunk
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.block.Block
+import org.bukkit.entity.EntityType
+import org.bukkit.entity.TNTPrimed
 import org.bukkit.persistence.PersistentDataType
+import taboolib.common.platform.function.submit
 import java.util.*
 import kotlin.math.abs
 import kotlin.math.pow
@@ -132,7 +135,7 @@ fun generateEdges(chunks: List<Chunk>, y: Double): List<Pair<Chunk, Chunk>> {
         val x = chunk.x
         val z = chunk.z
         graph.putIfAbsent(chunk, Vector())
-        val nearbyChunks = listOf(
+        listOf(
             world.getChunkAt(x - 1, z),
             world.getChunkAt(x, z + 1),
             world.getChunkAt(x + 1, z),
@@ -209,4 +212,18 @@ fun generateEdges(chunks: List<Chunk>, y: Double): List<Pair<Chunk, Chunk>> {
 //    }
 
     return edges
+}
+
+fun Location.shootPrimedTNT(velocity: org.bukkit.util.Vector, fuseTicks: Int = 100, breakBlocks: Boolean = false) {
+    if (this.world == null)
+        return
+    val tnt = this.world!!.spawnEntity(this, EntityType.PRIMED_TNT) as TNTPrimed
+    submit {
+        tnt.velocity = velocity
+        tnt.fuseTicks = fuseTicks
+        tnt.isGlowing = true
+        if (!breakBlocks) {
+//            DemolitionistActive.tnts += tnt.uniqueId FIXME
+        }
+    }
 }

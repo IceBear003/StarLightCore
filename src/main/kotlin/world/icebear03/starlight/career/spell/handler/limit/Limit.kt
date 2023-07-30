@@ -1,4 +1,4 @@
-package world.icebear03.starlight.career.spell.current.limit
+package world.icebear03.starlight.career.spell.handler.limit
 
 import world.icebear03.starlight.career.display
 

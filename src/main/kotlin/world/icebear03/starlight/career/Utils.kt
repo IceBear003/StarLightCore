@@ -1,5 +1,6 @@
 package world.icebear03.starlight.career
 
+import org.bukkit.Material
 import org.bukkit.entity.Player
 import world.icebear03.starlight.career
 import world.icebear03.starlight.career.core.Resonate
@@ -9,7 +10,10 @@ import world.icebear03.starlight.career.core.`class`.Class
 import world.icebear03.starlight.career.core.`class`.ClassLoader
 import world.icebear03.starlight.career.core.spell.Spell
 import world.icebear03.starlight.career.core.spell.SpellLoader
-import world.icebear03.starlight.career.spell.current.limit.Limit
+import world.icebear03.starlight.career.spell.discharge.DischargeHandler
+import world.icebear03.starlight.career.spell.handler.EventHandler
+import world.icebear03.starlight.career.spell.handler.limit.Limit
+import world.icebear03.starlight.career.spell.handler.limit.LimitType
 
 fun getClass(name: String?): Class? {
     return ClassLoader.fromName(name)
@@ -69,4 +73,16 @@ fun Player.meetRequirements(limits: List<Pair<String, Int>>?): Boolean {
         }
     }
     return result
+}
+
+fun addLimit(limitType: LimitType, limit: Pair<String, Int>, vararg types: Material) {
+    EventHandler.add(limitType, limit, *types)
+}
+
+fun String.discharge(function: Player.(id: String, level: Int) -> String?) {
+    DischargeHandler.dischargeMap[this] = function
+}
+
+fun String.finish(function: Player.(id: String, level: Int) -> Unit) {
+    DischargeHandler.finishMap[this] = function
 }

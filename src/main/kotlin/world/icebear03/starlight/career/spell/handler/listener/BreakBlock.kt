@@ -1,10 +1,10 @@
-package world.icebear03.starlight.career.spell.current.limit.listener
+package world.icebear03.starlight.career.spell.handler.listener
 
 import org.bukkit.event.block.BlockBreakEvent
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
-import world.icebear03.starlight.career.spell.current.limit.LimitHandler
-import world.icebear03.starlight.career.spell.current.limit.LimitType
+import world.icebear03.starlight.career.spell.handler.EventHandler
+import world.icebear03.starlight.career.spell.handler.limit.LimitType
 
 object BreakBlock {
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -12,7 +12,7 @@ object BreakBlock {
         val type = event.block.type
         val player = event.player
 
-        val breakResult = LimitHandler.check(LimitType.BREAK, player, type)
+        val breakResult = EventHandler.check(LimitType.BREAK, player, type)
         if (!breakResult.first) {
             event.isCancelled = true
             player.sendMessage("§a生涯系统 §7>> 无法破坏此方块，需要解锁以下其中之一: ")
@@ -27,7 +27,7 @@ object BreakBlock {
         val type = event.block.type
         val player = event.player
 
-        val dropResult = LimitHandler.check(LimitType.DROP_IF_BREAK, player, type)
+        val dropResult = EventHandler.check(LimitType.DROP_IF_BREAK, player, type)
         if (!dropResult.first) {
             event.isDropItems = false
             event.expToDrop = 0

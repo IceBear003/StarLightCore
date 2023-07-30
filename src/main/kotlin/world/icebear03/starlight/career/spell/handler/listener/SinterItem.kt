@@ -1,12 +1,12 @@
-package world.icebear03.starlight.career.spell.current.limit.listener
+package world.icebear03.starlight.career.spell.handler.listener
 
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.InventoryType
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
-import world.icebear03.starlight.career.spell.current.limit.LimitHandler
-import world.icebear03.starlight.career.spell.current.limit.LimitType
+import world.icebear03.starlight.career.spell.handler.EventHandler
+import world.icebear03.starlight.career.spell.handler.limit.LimitType
 
 object SinterItem {
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -22,7 +22,7 @@ object SinterItem {
         val type = item.type
         val player = event.whoClicked as Player
 
-        val sinterResult = LimitHandler.check(LimitType.SINTER, player, type)
+        val sinterResult = EventHandler.check(LimitType.SINTER, player, type)
         if (!sinterResult.first) {
             event.isCancelled = true
             player.closeInventory()

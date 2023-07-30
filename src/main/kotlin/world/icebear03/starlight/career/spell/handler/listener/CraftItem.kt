@@ -1,12 +1,12 @@
-package world.icebear03.starlight.career.spell.current.limit.listener
+package world.icebear03.starlight.career.spell.handler.listener
 
 import org.bukkit.entity.Player
 import org.bukkit.event.Event
 import org.bukkit.event.inventory.CraftItemEvent
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
-import world.icebear03.starlight.career.spell.current.limit.LimitHandler
-import world.icebear03.starlight.career.spell.current.limit.LimitType
+import world.icebear03.starlight.career.spell.handler.EventHandler
+import world.icebear03.starlight.career.spell.handler.limit.LimitType
 
 object CraftItem {
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -15,7 +15,7 @@ object CraftItem {
         val type = item.type
         val player = event.whoClicked as Player
 
-        val craftResult = LimitHandler.check(LimitType.CRAFT, player, type)
+        val craftResult = EventHandler.check(LimitType.CRAFT, player, type)
         if (!craftResult.first) {
             event.isCancelled = true
             event.result = Event.Result.DENY

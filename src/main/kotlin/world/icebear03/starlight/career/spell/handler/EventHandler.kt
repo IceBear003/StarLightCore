@@ -1,17 +1,19 @@
-package world.icebear03.starlight.career.spell.current.limit
+package world.icebear03.starlight.career.spell.handler
 
 import org.bukkit.Material
 import org.bukkit.entity.Player
 import world.icebear03.starlight.career.meetRequirement
+import world.icebear03.starlight.career.spell.handler.limit.Limit
+import world.icebear03.starlight.career.spell.handler.limit.LimitType
 
-object LimitHandler {
+object EventHandler {
     val limitSets = mutableMapOf<Material, MutableMap<LimitType, MutableList<Limit>>>()
-    fun add(limitType: LimitType, limit: Limit, vararg types: Material) {
+    fun add(limitType: LimitType, limit: Pair<String, Int>, vararg types: Material) {
         types.forEach { type ->
             limitSets.putIfAbsent(type, mutableMapOf())
             val map = limitSets[type]!!
             map.putIfAbsent(limitType, mutableListOf())
-            map[limitType]!! += limit
+            map[limitType]!! += Limit(limit)
         }
     }
 

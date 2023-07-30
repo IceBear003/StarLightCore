@@ -1,4 +1,4 @@
-package world.icebear03.starlight.career.spell.old
+package world.icebear03.starlight.utils
 
 import org.bukkit.entity.Player
 import taboolib.common5.format
