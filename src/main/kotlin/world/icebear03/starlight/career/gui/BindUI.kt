@@ -1,8 +1,6 @@
 package world.icebear03.starlight.career.gui
 
 import org.bukkit.entity.Player
-import org.bukkit.inventory.meta.ItemMeta
-import org.bukkit.persistence.PersistentDataType
 import org.serverct.parrot.parrotx.function.textured
 import org.serverct.parrot.parrotx.function.variables
 import org.serverct.parrot.parrotx.mechanism.Reloadable
@@ -15,23 +13,19 @@ import taboolib.module.configuration.Configuration
 import taboolib.module.kether.compileToJexl
 import taboolib.module.ui.openMenu
 import taboolib.module.ui.type.Basic
-import taboolib.platform.util.modifyMeta
 import world.icebear03.starlight.career
-import world.icebear03.starlight.career.core.`class`.Class
-import world.icebear03.starlight.career.display
+import world.icebear03.starlight.career.core.spell.Spell
+import world.icebear03.starlight.career.getSpell
 import world.icebear03.starlight.utils.YamlUpdater
-import world.icebear03.starlight.utils.get
-import world.icebear03.starlight.utils.set
-import java.util.*
 
-@MenuComponent("Choose")
-object ChooseUI {
+@MenuComponent("Bind")
+object BindUI {
 
     init {
-        YamlUpdater.loadAndUpdate("career/gui/choose.yml")
+        YamlUpdater.loadAndUpdate("career/gui/bind.yml")
     }
 
-    @Config("career/gui/choose.yml")
+    @Config("career/gui/bind.yml")
     private lateinit var source: Configuration
     private lateinit var config: MenuConfiguration
 
@@ -41,7 +35,7 @@ object ChooseUI {
         config = MenuConfiguration(source)
     }
 
-    fun open(player: Player) {
+    fun open(player: Player, name: String) {
         if (!::config.isInitialized) {
             config = MenuConfiguration(source)
         }
@@ -85,68 +79,116 @@ object ChooseUI {
 
             onBuild { _, inventory ->
                 shape.all(
-                    "Choose\$choice"
+                    "Bind\$bind", "Bind\$unbind"
                 ) { slot, index, item, _ ->
                     inventory.setItem(slot, item(slot, index))
                 }
             }
 
-            setSlots("Choose\$choice", listOf(), player, "expression=tot")
+            val career = player.career()
+            val spell = getSpell(name)!!
+
+            val binds = mutableListOf<String?>()
+            repeat(9) {
+                binds += if (career.shortCuts.containsKey(it)) career.shortCuts[it]!! else null
+            }
+
+            setSlots("Bind\$bind", binds, "expression=tot", "element", spell)
+            setSlots("Bind\$unbind", listOf(), spell, binds)
 
             onClick {
                 it.isCancelled = true
                 if (it.rawSlot in shape) {
-                    templates[it.rawSlot]?.handle(it)
+                    templates[it.rawSlot]?.handle(it, spell)
                 }
             }
         }
     }
 
-    val choicesMap = mutableMapOf<UUID, List<Class>>()
-
     @MenuComponent
-    private val choice = MenuFunctionBuilder {
+    private val bind = MenuFunctionBuilder {
         onBuild { (_, _, _, _, icon, args) ->
-            val player = args[0] as Player
-            val index = args[1] as Int
-            val career = player.career()
-            val choices = choicesMap[player.uniqueId] ?: career.chooseList()
-            choicesMap[player.uniqueId] = choices
+            val index = args[0] as Int
+            val name = args[1]
+            val spell = args[2] as Spell
 
-            val choice = choices[index]
+            icon.amount = index + 1
 
-            icon.textured(choice.skull)
-
-            icon.modifyMeta<ItemMeta> {
-                this["mark", PersistentDataType.STRING] = choice.name
-            }
+            val state =
+                if (name == null) {
+                    icon.textured("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjViOTVkYTEyODE2NDJkYWE1ZDAyMmFkYmQzZTdjYjY5ZGMwOTQyYzgxY2Q2M2JlOWMzODU3ZDIyMmUxYzhkOSJ9fX0=")
+                    "§f空闲"
+                } else {
+                    val current = getSpell(name.toString())!!
+                    icon.textured(current.skull)
+                    "§a已绑定 ${current.display()}"
+                }
 
             icon.variables {
                 when (it) {
-                    "display" -> listOf(choice.display())
-                    "branches" -> choice.branchNames(true)
+                    "int" -> listOf("${index + 1}")
+                    "display" -> listOf(spell.display())
+                    "state" -> listOf(state)
                     else -> listOf()
                 }
             }
         }
-        onClick { (_, _, event, _) ->
+        onClick { (_, _, event, args) ->
             val item = event.clickEvent().currentItem ?: return@onClick
-            val name = item.itemMeta!!["mark", PersistentDataType.STRING] ?: return@onClick
             val player = event.clicker
             val career = player.career()
-
-            if (career.canChoose()) {
-                career.addClass(name)
-                player.sendMessage("§a生涯系统 §7>> 你选择了职业 ${display(name)}")
-                player.sendMessage("§a生涯系统 §7>> 加上随机抽取的两个，你现在拥有一下职业:")
-                career.classes.keys.forEach {
-                    player.sendMessage("               §7|—— ${it.display()}")
-                }
-                player.sendMessage("§a生涯系统 §7>> 打开生涯面板可查看详细信息，解锁升级更多能力")
+            val spell = args[0] as Spell
+            val result = career.addShortCut(spell, item.amount)
+            player.sendMessage("§6生涯系统 §7>> " + result.second)
+            if (result.first) {
+                BranchUI.open(player, spell.branch.name)
             } else {
-                player.sendMessage("§a生涯系统 §7>> 你已经选择过职业了")
+                player.closeInventory()
             }
-            player.closeInventory()
+        }
+    }
+
+    @MenuComponent
+    private val unbind = MenuFunctionBuilder {
+        onBuild { (_, _, _, _, icon, args) ->
+            val spell = args[0] as Spell
+            val binds = (args[1] as List<*>).map { it?.toString() ?: "" }
+
+            val state = if (binds.contains(spell.name)) {
+                val indexes = mutableListOf<Int>()
+                binds.forEachIndexed { index, name ->
+                    if (name == spell.name)
+                        indexes += index
+                }
+                "§a已绑定: $indexes"
+            } else {
+                "§7未绑定"
+            }
+
+            icon.textured(spell.skull)
+
+            icon.variables {
+                when (it) {
+                    "state" -> listOf(state)
+                    "display" -> listOf(spell.display())
+                    else -> listOf()
+                }
+            }
+        }
+        onClick { (_, _, event, args) ->
+            val player = event.clicker
+            val career = player.career()
+            val spell = args[0] as Spell
+            career.shortCuts.filterValues { it == spell.name }.forEach { career.shortCuts.remove(it.key, it.value) }
+            BranchUI.open(player, spell.branch.name)
+        }
+    }
+
+    @MenuComponent
+    private val back = MenuFunctionBuilder {
+        onClick { (_, _, event, args) ->
+            val spell = args[0] as Spell
+            BranchUI.open(event.clicker, spell.branch.name)
         }
     }
 }

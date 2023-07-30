@@ -6,6 +6,8 @@ import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.persistence.PersistentDataType
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
+import world.icebear03.starlight.utils.get
+import world.icebear03.starlight.utils.set
 
 object ScoreboardSwitcher {
 
@@ -13,13 +15,13 @@ object ScoreboardSwitcher {
 
     fun switch(player: Player, scoreboard: String) {
         player.performCommand("asb switch $scoreboard")
-        player.persistentDataContainer[key, PersistentDataType.STRING] = scoreboard
+        player["scoreboard_switcher", PersistentDataType.STRING] = scoreboard
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     fun join(event: PlayerJoinEvent) {
         val player = event.player
-        player.persistentDataContainer[key, PersistentDataType.STRING]?.let {
+        player["scoreboard_switcher", PersistentDataType.STRING]?.let {
             player.performCommand("asb switch $it")
         }
     }

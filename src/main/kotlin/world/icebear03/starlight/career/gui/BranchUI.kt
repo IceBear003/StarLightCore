@@ -11,17 +11,14 @@ import org.serverct.parrot.parrotx.mechanism.Reloadable
 import org.serverct.parrot.parrotx.ui.MenuComponent
 import org.serverct.parrot.parrotx.ui.config.MenuConfiguration
 import org.serverct.parrot.parrotx.ui.feature.util.MenuFunctionBuilder
-import taboolib.common.platform.function.submit
 import taboolib.module.chat.colored
 import taboolib.module.configuration.Config
 import taboolib.module.configuration.Configuration
 import taboolib.module.kether.compileToJexl
-import taboolib.module.kether.isInt
 import taboolib.module.ui.openMenu
 import taboolib.module.ui.type.Basic
 import taboolib.platform.util.modifyLore
 import taboolib.platform.util.modifyMeta
-import taboolib.platform.util.nextChat
 import world.icebear03.starlight.career
 import world.icebear03.starlight.career.core.branch.Branch
 import world.icebear03.starlight.career.core.spell.Spell
@@ -170,7 +167,7 @@ object BranchUI {
             val state = if (!career.hasBranch(spell.branch)) "&c未解锁分支" else "&a已解锁 &e${career.getSpellLevel(spell)}级"
 
             icon.modifyMeta<ItemMeta> {
-                set("mark", PersistentDataType.STRING, spell.name)
+                this["mark", PersistentDataType.STRING] = spell.name
             }
 
             icon.textured(spell.skull)
@@ -202,24 +199,11 @@ object BranchUI {
             val item = event.clickEvent().currentItem ?: return@onClick
             val player = event.clicker
             val career = player.career()
-            val name = item.itemMeta!!.get("mark", PersistentDataType.STRING)!!
+            val name = item.itemMeta!!["mark", PersistentDataType.STRING]!!
 
             val click = event.clickEvent().click
             if (click.isLeftClick) {
-                player.closeInventory()
-                player.sendMessage("§a生涯系统 §7>> 请输入§a1-9§7中的一个数字，将这个技能绑定到§e对应的按键")
-                player.nextChat {
-                    if (!it.isInt()) {
-                        player.sendMessage("§a生涯系统 §7>> 你输入的不是数字")
-                    }
-                    if (it.toInt() !in 1..9) {
-                        player.sendMessage("§a生涯系统 §7>> 你输入的不是§a1-9§7中的数字")
-                    }
-                    player.sendMessage("§a生涯系统 §7>> " + career.addShortCut(name, it.toInt()).second)
-                    submit {
-                        open(player, args[0].toString())
-                    }
-                }
+                BindUI.open(player, name)
             }
             if (click.isRightClick) {
                 player.sendMessage("§a生涯系统 §7>> " + career.switchAutoDischarge(name))
@@ -252,7 +236,7 @@ object BranchUI {
             }
 
             icon.modifyMeta<ItemMeta> {
-                set("mark", PersistentDataType.STRING, "${spell.name}=$slotLevel")
+                this["mark", PersistentDataType.STRING] = "${spell.name}=$slotLevel"
             }
 
             icon.amount = slotLevel
@@ -272,7 +256,7 @@ object BranchUI {
             val item = event.clickEvent().currentItem ?: return@onClick
             val player = event.clicker
             val career = player.career()
-            val string = item.itemMeta!!.get("mark", PersistentDataType.STRING)!!
+            val string = item.itemMeta!!["mark", PersistentDataType.STRING]!!
             val name = string.split("=")[0]
             val level = string.split("=")[1].toInt()
 
@@ -323,7 +307,7 @@ object BranchUI {
             icon.textured(spell.skull)
 
             icon.modifyMeta<ItemMeta> {
-                set("mark", PersistentDataType.STRING, spell.name)
+                this["mark", PersistentDataType.STRING] = spell.name
             }
 
             icon.variables {
@@ -340,23 +324,10 @@ object BranchUI {
             val item = event.clickEvent().currentItem ?: return@onClick
             val player = event.clicker
             val career = player.career()
-            val name = item.itemMeta!!.get("mark", PersistentDataType.STRING)!!
+            val name = item.itemMeta!!["mark", PersistentDataType.STRING]!!
 
             if (career.getSpellLevel(name) == 1) {
-                player.closeInventory()
-                player.sendMessage("§a生涯系统 §7>> 请输入§a1-9§7中的一个数字，将这个顿悟绑定到§e对应的按键")
-                player.nextChat {
-                    if (!it.isInt()) {
-                        player.sendMessage("§a生涯系统 §7>> 你输入的不是数字")
-                    }
-                    if (it.toInt() !in 1..9) {
-                        player.sendMessage("§a生涯系统 §7>> 你输入的不是§a1-9§7中的数字")
-                    }
-                    player.sendMessage("§a生涯系统 §7>> " + career.addShortCut(name, it.toInt()).second)
-                    submit {
-                        open(player, args[0].toString())
-                    }
-                }
+                BindUI.open(player, name)
             } else {
                 player.sendMessage("§a生涯系统 §7>> " + career.upgradeSpell(name).second)
                 open(player, args[0].toString())

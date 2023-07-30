@@ -4,7 +4,6 @@ import org.bukkit.Bukkit
 import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import taboolib.common.platform.event.SubscribeEvent
-import java.awt.desktop.QuitEvent
 
 object WelcomeMsg {
     @SubscribeEvent

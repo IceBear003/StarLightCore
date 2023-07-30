@@ -8,6 +8,7 @@ import org.bukkit.boss.BarFlag
 import org.bukkit.boss.BarStyle
 import org.bukkit.boss.BossBar
 import org.bukkit.entity.Player
+import org.bukkit.event.player.PlayerMoveEvent
 import org.bukkit.event.player.PlayerQuitEvent
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
@@ -30,6 +31,12 @@ object BossBarCompass {
                 updateCompass(it)
             }
         }
+    }
+
+    @SubscribeEvent(priority = EventPriority.MONITOR)
+    fun move(event: PlayerMoveEvent) {
+        val player = event.player
+        updateCompass(player)
     }
 
     @SubscribeEvent(priority = EventPriority.MONITOR)
@@ -85,8 +92,8 @@ object BossBarCompass {
                 current,
                 deathYaw to "☠",
                 nearestYaw to "☺",
-                stationYaw to "▣",
-                nearestStationYaw to "⧈"
+                stationYaw to "⧈",
+                nearestStationYaw to "▣"
             )
             if (symbol.isNotBlank()) {
                 val index = minOf(size - 1, (size.toDouble() * tot / dValue).roundToInt())
@@ -139,7 +146,7 @@ object BossBarCompass {
         var dValue = abs(current - goal)
         dValue = minOf(abs(dValue + 360), dValue)
         dValue = minOf(abs(dValue - 360), dValue)
-        return dValue <= 0.8
+        return dValue <= 0.5
     }
 
     fun getVectorYaw(from: Location, to: Location): Double {

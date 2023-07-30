@@ -35,7 +35,7 @@ object StationMechanism {
                 val horizontal = station.horizontal()
                 val vertical = station.vertical()
                 val halo = station.halo()
-                
+
                 stationLoc.world ?: return@forEach
 
                 stationLoc.world!!.players.forEach players@{ player ->
@@ -74,7 +74,7 @@ object StationMechanism {
         val item = event.itemInHand
         val player = event.player
         item.itemMeta?.let { meta ->
-            val ownerId = UUID.fromString(meta.get("station_owner_id", PersistentDataType.STRING) ?: return)
+            val ownerId = UUID.fromString(meta["station_owner_id", PersistentDataType.STRING] ?: return)
             val station = StationLoader.stationMap[ownerId]!!
             val result = station.place(player, event.block.location)
             player.sendMessage("§b繁星工坊 §7>> " + result.second)

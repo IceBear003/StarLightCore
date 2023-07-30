@@ -1,20 +1,37 @@
 title: "技能/顿悟绑定快捷键"
 shape:
   - '         '
-  - ' A  A  A '
+  - '  AAA X  '
+  - '  AAA    '
+  - '  AAA B  '
   - '         '
 
 template:
   'A':
     material: PLAYER_HEAD
-    name: "{display}"
+    name: "&7{int} - {display}"
     lore:
-      - "&8| &7分支列表:"
-      - "&7     {branches}"
-      - "&7"
-      - "&8| &7点击&e选择&7这个职业"
-      - "&8| &7同时再&e随机抽取两个&7其他职业"
-      - "&8| &7注意: 死亡前职业&c无法更改"
+      - "&8| &7当前状态: {state}"
+      - "&8| &7点击将 {display} &7绑定这个快捷键"
     feature:
       - ==: Functional
-        keyword: Choose$choice
+        keyword: Bind$bind
+  'X':
+    material: PLAYER_HEAD
+    name: "&c取消绑定"
+    lore:
+      - "&8| &7当前状态: {state}"
+      - "&8| &7点击取消 {display} &7的绑定"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjc1NDgzNjJhMjRjMGZhODQ1M2U0ZDkzZTY4YzU5NjlkZGJkZTU3YmY2NjY2YzAzMTljMWVkMWU4NGQ4OTA2NSJ9fX0="
+      - ==: Functional
+        keyword: Bind$unbind
+  'B':
+    material: PLAYER_HEAD
+    name: "&e返回分支菜单"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzk3OGYzNWM2Mzg2MGQ2OTRmZWU0YWIzYzM2OTRmZGU0MDQ2Yzk2NmU0YzFiZjA2NjVmODg3NDhmOWY4MDI1In19fQ=="
+      - ==: Functional
+        keyword: Bind$back

@@ -14,16 +14,24 @@ import kotlin.math.roundToInt
 // GPL v3.0
 object QTEProvider {
 
+    val waitingQTEs = mutableMapOf<UUID, MutableList<() -> Unit>>()
     val shiftMap = mutableMapOf<UUID, Boolean>()
 
     fun sendQTE(
         player: Player,
         difficulty: QTEDifficulty,
         type: QTEType,
-        function: Player.(suc: Boolean) -> Unit,
+        function: Player.(result: QTEResult) -> Unit,
         title: String = "",
         subtitle: String = "§7请完成下方校准 (在§e合适时机§7下蹲)"
     ) {
+        //如果正在QTE了，就排队等
+        if (isQTEing(player)) {
+            waitingQTEs.putIfAbsent(player.uniqueId, mutableListOf())
+            waitingQTEs[player.uniqueId]!! += { sendQTE(player, difficulty, type, function, title, subtitle) }
+            return
+        }
+
         player.sendTitle(title, subtitle)
 
         val uuid = player.uniqueId
@@ -56,9 +64,21 @@ object QTEProvider {
         var lastTickChance = 1
         submit(period = 1L) {
             //完成QTE，并进行下一步操作
-            fun finish(result: Boolean? = null) {
-                result?.let { function.invoke(player, result) }
+            fun finish(result: QTEResult? = null) {
+                result?.let {
+                    function.invoke(player, result)
+                    player.sendActionBar(format.replace("{bar}", if (it == QTEResult.ACCEPTED) "§a✔" else "§c✘").colored())
+                } ?: function.invoke(player, QTEResult.UNABLE)
                 shiftMap.remove(uuid)
+                //延迟，让玩家看到效果
+                submit(delay = 20L) {
+                    waitingQTEs[player.uniqueId]?.let { qtes ->
+                        if (qtes.isNotEmpty()) {
+                            qtes[0].invoke()
+                            qtes.removeAt(0)
+                        }
+                    }
+                }
                 cancel()
             }
 
@@ -80,7 +100,7 @@ object QTEProvider {
             //时间超了，或者玩家放弃了
             tot += difficulty.mag
             if (tot >= ticks || !shiftMap.containsKey(uuid)) {
-                finish(false)
+                finish(QTEResult.REJECTED)
                 return@submit
             }
 
@@ -94,12 +114,12 @@ object QTEProvider {
                 } * period
 
                 if (tot in intervalThisTime..intervalThisTime + interval * period) {
-                    finish(true)
+                    finish(QTEResult.ACCEPTED)
                     return@submit
                 } else {
                     failTime += 1
                     if (failTime >= type.time) {
-                        finish(false)
+                        finish(QTEResult.REJECTED)
                         return@submit
                     }
                     shiftMap[uuid] = false
@@ -125,6 +145,10 @@ object QTEProvider {
         }
     }
 
+    fun isQTEing(player: Player): Boolean {
+        return shiftMap.containsKey(player.uniqueId)
+    }
+
     @SubscribeEvent
     fun shift(event: PlayerToggleSneakEvent) {
         val player = event.player
@@ -143,7 +167,7 @@ object QTEProvider {
         HARD(2, 12),
         CHAOS(1, 9),
         GLITCH(1, 6, 2),
-        BETA(1, 3, 2)
+        BETA(1, 4, 3)
     }
 
     //给玩家几次机会，增加容错率
@@ -151,5 +175,11 @@ object QTEProvider {
         ONE_TIME(1),
         TWO_TIMES(2),
         THREE_TIMES(3)
+    }
+
+    enum class QTEResult {
+        ACCEPTED, //通过
+        REJECTED, //不通过
+        UNABLE //无法响应（退出了服务器，死了等）
     }
 }

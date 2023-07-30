@@ -40,10 +40,11 @@ object StaminaModifier {
                 if (distance <= 0.02) {
                     player.addStamina(0.2)
                 } else {
-                    if (!RespawnProtection.isInProtection(player, 10)) {
-                        player.takeStamina(mag * distance)
-                        locationMap[uuid] = currentLoc
+                    locationMap[uuid] = currentLoc
+                    if (RespawnProtection.isInProtection(player, 5)) {
+                        return@forEach
                     }
+                    player.takeStamina(mag * distance)
                 }
             }
         }

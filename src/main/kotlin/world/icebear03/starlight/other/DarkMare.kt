@@ -1,5 +1,6 @@
 package world.icebear03.starlight.other
 
+import org.bukkit.World
 import org.bukkit.potion.PotionEffectType
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.actionBar
@@ -15,6 +16,8 @@ object DarkMare {
         submit(period = 5) {
             onlinePlayers.forEach { player ->
                 if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION))
+                    return@forEach
+                if (player.world.environment == World.Environment.THE_END)
                     return@forEach
                 val block = player.eyeLocation.block
                 if (block.lightLevel == 0.toByte()) {

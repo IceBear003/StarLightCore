@@ -141,7 +141,7 @@ object CareerUI {
             icon.textured(if (career.hasClass(clazz)) clazz.skull else unlock)
 
             icon.modifyMeta<ItemMeta> {
-                set("mark", PersistentDataType.STRING, clazz.name)
+                this["mark", PersistentDataType.STRING] = clazz.name
             }
 
             icon.variables {
@@ -154,7 +154,7 @@ object CareerUI {
         }
         onClick { (_, _, event, _) ->
             val item = event.clickEvent().currentItem ?: return@onClick
-            val name = item.itemMeta!!.get("mark", PersistentDataType.STRING)
+            val name = item.itemMeta!!["mark", PersistentDataType.STRING]
             open(event.clicker, name)
         }
     }
@@ -178,7 +178,7 @@ object CareerUI {
             }
 
             icon.modifyMeta<ItemMeta> {
-                set("mark", PersistentDataType.STRING, branch.name)
+                this["mark", PersistentDataType.STRING] = branch.name
             }
 
             icon.variables {
@@ -195,7 +195,7 @@ object CareerUI {
             val player = event.clicker
             val career = player.career()
             val click = event.clickEvent()
-            val name = item.itemMeta!!.get("mark", PersistentDataType.STRING)!!
+            val name = item.itemMeta!!["mark", PersistentDataType.STRING]!!
 
             if (click.isLeftClick)
                 BranchUI.open(player, name)
@@ -226,7 +226,7 @@ object CareerUI {
             }
 
             icon.modifyMeta<ItemMeta> {
-                set("mark", PersistentDataType.STRING, branch.name)
+                this["mark", PersistentDataType.STRING] = branch.name
             }
 
             icon.variable("state", listOf(state))
@@ -234,7 +234,7 @@ object CareerUI {
         onClick { (_, _, event, args) ->
             val item = event.clickEvent().currentItem ?: return@onClick
             val player = event.clicker
-            val name = item.itemMeta!!.get("mark", PersistentDataType.STRING)!!
+            val name = item.itemMeta!!["mark", PersistentDataType.STRING]!!
 
             player.sendMessage("§a生涯系统 §7>> " + Resonate.resonate(player, name).second)
             open(player, args[0].toString())
@@ -254,7 +254,7 @@ object CareerUI {
             )
 
             icon.modifyMeta<ItemMeta> {
-                set("mark", PersistentDataType.STRING, branch.name)
+                this["mark", PersistentDataType.STRING] = branch.name
             }
 
             icon.variable("cost", listOf("${career.getBranchLevel(branch) * 2 + 2}"))
@@ -262,7 +262,7 @@ object CareerUI {
         onClick { (_, _, event, args) ->
             val item = event.clickEvent().currentItem ?: return@onClick
             val player = event.clicker
-            val name = item.itemMeta!!.get("mark", PersistentDataType.STRING)!!
+            val name = item.itemMeta!!["mark", PersistentDataType.STRING]!!
 
             player.sendMessage("§a生涯系统 §7>> " + player.forget(name).second)
             open(player, args[0].toString())

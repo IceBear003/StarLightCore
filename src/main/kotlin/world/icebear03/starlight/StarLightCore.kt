@@ -49,6 +49,8 @@ object StarLightCore : Plugin() {
         TrafficEngineerPassive.initialize()
         BrewerPassive.initialize()
 
+        DischargeHandler.initialize()
+
         CustomTab.initialize()
         WorldBorder.initialize()
         NearestPlayer.initialize()
@@ -57,8 +59,8 @@ object StarLightCore : Plugin() {
         DarkMare.initialize()
         BossBarCompass.initialize()
         FasterNight.initialize()
-
-        DischargeHandler.initialize()
+        AFK.initialize()
+        DailyOnline.initialize()
     }
 
     override fun onDisable() {

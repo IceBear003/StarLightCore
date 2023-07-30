@@ -89,7 +89,7 @@ data class Station(
                 "§8| §7注意: §c回收后重放置需要较长冷却时间",
                 "§8| §7具体介绍和指导请看官方Wiki"
             )
-            set("station_owner_id", PersistentDataType.STRING, ownerId.toString())
+            this["station_owner_id", PersistentDataType.STRING] = ownerId.toString()
         }
     }
 
