@@ -30,8 +30,9 @@ object EventHandler {
         return flag to limits.map { it.string() }
     }
 
-    val lowestListeners = mutableMapOf<Material, MutableMap<HandlerType, (Event, Player, Material) -> Pair<Boolean, String?>>>()
-    val highListeners = mutableMapOf<Material, MutableMap<HandlerType, (Event, Player, Material) -> String?>>()
+    val lowestListeners =
+        mutableMapOf<Material, MutableMap<HandlerType, MutableList<(Event, Player, Material) -> Pair<Boolean, String?>>>>()
+    val highListeners = mutableMapOf<Material, MutableMap<HandlerType, MutableList<(Event, Player, Material) -> String?>>>()
     fun addLowestListener(
         handlerType: HandlerType,
         function: (Event, Player, Material) -> Pair<Boolean, String?>,
@@ -40,7 +41,8 @@ object EventHandler {
         types.forEach { type ->
             lowestListeners.putIfAbsent(type, mutableMapOf())
             val map = lowestListeners[type]!!
-            map[handlerType] = function
+            map.putIfAbsent(handlerType, mutableListOf())
+            map[handlerType]!! += function
         }
     }
 
@@ -52,17 +54,25 @@ object EventHandler {
         types.forEach { type ->
             highListeners.putIfAbsent(type, mutableMapOf())
             val map = highListeners[type]!!
-            map[handlerType] = function
+            map.putIfAbsent(handlerType, mutableListOf())
+            map[handlerType]!! += function
         }
     }
 
     fun triggerLowest(event: Event, type: Material, handlerType: HandlerType, player: Player): Boolean {
-        val result = lowestListeners[type]?.get(handlerType)?.invoke(event, player, type) ?: (true to null)
-        result.second?.let { player.sendMessage("§b繁星工坊 §7>> $it") }
-        return result.first
+        lowestListeners[type]?.get(handlerType)?.forEach { func ->
+            val result = func.invoke(event, player, type)
+            if (!result.first) {
+                result.second?.let { player.sendMessage("§b繁星工坊 §7>> $it") }
+                return false
+            }
+        }
+        return true
     }
 
     fun triggerHigh(event: Event, type: Material, handlerType: HandlerType, player: Player) {
-        highListeners[type]?.get(handlerType)?.invoke(event, player, type)?.let { player.sendMessage("§b繁星工坊 §7>> $it") }
+        highListeners[type]?.get(handlerType)?.forEach { func ->
+            func.invoke(event, player, type)?.let { player.sendMessage("§b繁星工坊 §7>> $it") }
+        }
     }
 }
