@@ -52,4 +52,7 @@ object Commands {
 
     @CommandBody
     val scoreboard = commandScoreboard
+
+    @CommandBody
+    val recipe = commandRecipe
 }

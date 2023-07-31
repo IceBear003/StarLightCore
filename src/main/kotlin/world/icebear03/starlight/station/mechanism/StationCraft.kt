@@ -10,8 +10,8 @@ import org.serverct.parrot.parrotx.function.variable
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.platform.util.modifyMeta
+import world.icebear03.starlight.recipe.shapedRecipe
 import world.icebear03.starlight.station.station
-import world.icebear03.starlight.utils.shapedRecipe
 import world.icebear03.starlight.utils.toRoman
 
 object StationCraft {
@@ -19,7 +19,7 @@ object StationCraft {
     val crafts = mutableListOf<ItemStack>()
 
     fun initialize() {
-        val item = ItemStack(Material.CAMPFIRE).modifyMeta<ItemMeta> {
+        val item = ItemStack(Material.SOUL_CAMPFIRE).modifyMeta<ItemMeta> {
             setDisplayName("§6驻扎篝火")
             lore = listOf(
                 "§8| §7等级: &e{level}",
@@ -54,7 +54,6 @@ object StationCraft {
             val level = crafts.indexOf(item) + 1
             player.station().level = level
             event.currentItem = player.station().generateItem()
-            player.sendMessage(event.currentItem.toString())
             player.sendMessage("§b繁星工坊 §7>> 驻扎等级已经变更为 §e${level.toRoman()}")
         }
     }

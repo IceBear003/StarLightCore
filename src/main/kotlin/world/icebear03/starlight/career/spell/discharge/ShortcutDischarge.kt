@@ -13,7 +13,7 @@ import taboolib.common.platform.event.SubscribeEvent
 import taboolib.platform.util.hasName
 import taboolib.platform.util.modifyMeta
 import world.icebear03.starlight.career
-import world.icebear03.starlight.utils.shapelessRecipe
+import world.icebear03.starlight.recipe.shapelessRecipe
 
 object ShortcutDischarge {
 
@@ -24,8 +24,7 @@ object ShortcutDischarge {
             lore = listOf(
                 "§8| §7将此物置于副手，按下交换键(默认F)时",
                 "§8| §7即可施放快捷栏格子编号对应的技能",
-                "§8| §c蹲下时不触发此判定",
-                ""
+                "§8| §c蹲下时不触发此判定"
             )
         }
 

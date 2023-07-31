@@ -17,10 +17,10 @@ import taboolib.platform.util.modifyMeta
 import world.icebear03.starlight.career.*
 import world.icebear03.starlight.career.spell.handler.addSpecialRecipe
 import world.icebear03.starlight.career.spell.handler.internal.HandlerType
+import world.icebear03.starlight.recipe.shapelessRecipe
 import world.icebear03.starlight.utils.effect
 import world.icebear03.starlight.utils.hasBlockAside
 import world.icebear03.starlight.utils.isDischarging
-import world.icebear03.starlight.utils.shapelessRecipe
 
 object Brewer {
     fun initialize() {

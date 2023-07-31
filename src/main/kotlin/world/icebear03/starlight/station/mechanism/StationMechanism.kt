@@ -67,8 +67,8 @@ object StationMechanism {
                     }
                 }
                 val block = stationLoc.block
-                if (block.type != Material.CAMPFIRE) {
-                    block.type = Material.CAMPFIRE
+                if (block.type != Material.SOUL_CAMPFIRE) {
+                    block.type = Material.SOUL_CAMPFIRE
                 }
                 val data = block.blockData as Campfire
                 data.isLit = true
@@ -104,7 +104,7 @@ object StationMechanism {
 
     @SubscribeEvent(priority = EventPriority.NORMAL, ignoreCancelled = true)
     fun explode(event: BlockExplodeEvent) {
-        event.blockList().filter { it.type == Material.CAMPFIRE }.forEach {
+        event.blockList().filter { it.type == Material.SOUL_CAMPFIRE }.forEach {
             if (it.loadPdc().containsKey("station_owner_id"))
                 event.blockList().remove(it)
         }
@@ -112,7 +112,7 @@ object StationMechanism {
 
     @SubscribeEvent(priority = EventPriority.NORMAL, ignoreCancelled = true)
     fun explode(event: EntityExplodeEvent) {
-        event.blockList().filter { it.type == Material.CAMPFIRE }.forEach {
+        event.blockList().filter { it.type == Material.SOUL_CAMPFIRE }.forEach {
             if (it.loadPdc().containsKey("station_owner_id"))
                 event.blockList().remove(it)
         }
@@ -124,7 +124,7 @@ object StationMechanism {
             return
 
         val block = event.clickedBlock!!
-        if (block.type != Material.CAMPFIRE)
+        if (block.type != Material.SOUL_CAMPFIRE)
             return
 
         if (!event.isRightClickBlock())

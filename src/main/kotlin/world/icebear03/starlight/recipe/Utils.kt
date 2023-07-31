@@ -1,4 +1,4 @@
-package world.icebear03.starlight.utils
+package world.icebear03.starlight.recipe
 
 import org.bukkit.Bukkit
 import org.bukkit.Material
@@ -6,6 +6,9 @@ import org.bukkit.NamespacedKey
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.ShapedRecipe
 import org.bukkit.inventory.ShapelessRecipe
+
+val shapedRecipes = mutableListOf<ShapedRecipe>()
+val shapelessRecipes = mutableListOf<ShapelessRecipe>()
 
 fun shapedRecipe(
     key: NamespacedKey,
@@ -20,6 +23,7 @@ fun shapedRecipe(
     }
     Bukkit.removeRecipe(key)
     Bukkit.addRecipe(recipe)
+    shapedRecipes += recipe
     return recipe
 }
 
@@ -34,5 +38,6 @@ fun shapelessRecipe(
     }
     Bukkit.removeRecipe(key)
     Bukkit.addRecipe(recipe)
+    shapelessRecipes += recipe
     return recipe
 }

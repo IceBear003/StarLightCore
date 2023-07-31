@@ -1,0 +1,109 @@
+title: "合成查询 | 左侧可筛选"
+#W-按照品质筛选菜单
+#X-按照对象筛选
+#Y-按照附魔定位/类型筛选
+#Z-输入字符串搜索
+shape:
+  - 'BCFFFFFFF'
+  - 'FFFEEEEEE'
+  - 'WXFEEEEEE'
+  - 'YZFEEEEEE'
+  - 'FFFEEEEEE'
+  - 'PNFFFFFFF'
+
+template:
+  'F':
+    material: BLACK_STAINED_GLASS_PANE
+    name: "&7"
+
+  'C':
+    material: PLAYER_HEAD
+    name: "&c关闭"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTZjNjBkYTQxNGJmMDM3MTU5YzhiZThkMDlhOGVjYjkxOWJmODlhMWEyMTUwMWI1YjJlYTc1OTYzOTE4YjdiIn19fQ=="
+      - ==: Close
+
+  'B':
+    material: PLAYER_HEAD
+    name: "&b回到主菜单"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjU5NmNlNTg3NWMzZGM1ZTliOThlZWYyMmIxMjFlZTEwMDQzNzMyMGFmOGZmZDMyOGYzMWU4MWQyYzk0Mzk2NCJ9fX0="
+      - ==: Functional
+        keyword: RecipeBook$back
+
+  'P':
+    material: PLAYER_HEAD
+    name: "&e上一页"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjllYTFkODYyNDdmNGFmMzUxZWQxODY2YmNhNmEzMDQwYTA2YzY4MTc3Yzc4ZTQyMzE2YTEwOThlNjBmYjdkMyJ9fX0="
+      - ==: Functional
+        keyword: Previous
+
+  'N':
+    material: PLAYER_HEAD
+    name: "&e下一页"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODI3MWE0NzEwNDQ5NWUzNTdjM2U4ZTgwZjUxMWE5ZjEwMmIwNzAwY2E5Yjg4ZTg4Yjc5NWQzM2ZmMjAxMDVlYiJ9fX0="
+      - ==: Functional
+        keyword: Next
+
+  'W':
+    material: PLAYER_HEAD
+    name: "&b筛选 &7>> &e驻扎"
+    lore:
+      - "&8| &7点击只显示驻扎玩法相关的合成"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWJiODRlNGMxYTMzMDY5M2Y3YmU1NTE2ZmQ2YzRmMzVhZWVjNDcwNTEyNDg5Y2U3MDYzYzYzOTMyOGFkNTdjNSJ9fX0="
+      - ==: Functional
+        keyword: RecipeBook$filter_station
+
+  'X':
+    material: PLAYER_HEAD
+    name: "&b筛选 &7>> &e生涯"
+    lore:
+      - "&8| &7点击只显示生涯玩法相关的合成"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTlmNGQ4YjlkZjJmOGMzZjBhYTNlNDAwOTFmNzhmZTc3OTc4Y2FkY2IwMGFjMmY0OWU4ZTIxNWI4NTIwMzZlNSJ9fX0="
+      - ==: Functional
+        keyword: RecipeBook$filter_career
+
+  'Y':
+    material: PLAYER_HEAD
+    name: "&b筛选 &7>> &e部落"
+    lore:
+      - "&8| &7点击只显示部落玩法相关的合成"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTk0Yzc5ZjAzZTE5MWI5MzQ3N2Y3YzE5NTU3NDA4ZjdhZjRmOTY2MGU1ZGZiMDY4N2UzYjhlYjkyZmJkM2FlMSJ9fX0="
+      - ==: Functional
+        keyword: RecipeBook$filter_tribe
+
+  'Z':
+    material: PLAYER_HEAD
+    name: "&b筛选 &7>> &e重置筛选"
+    lore:
+      - "&8| &7点击显示全部合成"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTFiZDljOGNmZjQ1ZThjZDdjNjdiMzBhNzc5YjQwNWNmOWMyYzRlY2U5ZDEzMTRmOTdmY2EwYjRmZmM4YzFjNSJ9fX0="
+      - ==: Functional
+        keyword: RecipeBook$filter_clear
+  'E':
+    material: PLAYER_HEAD
+    name: "{name}"
+    lore:
+      - "{lore}"
+      - ""
+      - "&8| &7合成类型: {type}"
+      - "&8| &7合成表: "
+      - "     {recipe}"
+      - "&8| &7{more}"
+    feature:
+      - ==: Functional
+        keyword: RecipeBook$recipe

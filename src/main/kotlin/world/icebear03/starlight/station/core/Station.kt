@@ -77,7 +77,7 @@ data class Station(
     }
 
     fun generateItem(): ItemStack {
-        return ItemStack(Material.CAMPFIRE).modifyMeta<ItemMeta> {
+        return ItemStack(Material.SOUL_CAMPFIRE).modifyMeta<ItemMeta> {
             setDisplayName("§6驻扎篝火")
             lore = listOf(
                 "§8| §7主人: §e" + ownerId.toName(),
