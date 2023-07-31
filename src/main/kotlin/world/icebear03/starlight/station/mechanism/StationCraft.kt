@@ -46,7 +46,7 @@ object StationCraft {
         }
     }
 
-    @SubscribeEvent(EventPriority.MONITOR, ignoreCancelled = true)
+    @SubscribeEvent(EventPriority.HIGHEST, ignoreCancelled = true)
     fun craft(event: CraftItemEvent) {
         val item = event.recipe.result
         val player = event.whoClicked as Player
@@ -54,6 +54,7 @@ object StationCraft {
             val level = crafts.indexOf(item) + 1
             player.station().level = level
             event.currentItem = player.station().generateItem()
+            player.sendMessage(event.currentItem.toString())
             player.sendMessage("§b繁星工坊 §7>> 驻扎等级已经变更为 §e${level.toRoman()}")
         }
     }

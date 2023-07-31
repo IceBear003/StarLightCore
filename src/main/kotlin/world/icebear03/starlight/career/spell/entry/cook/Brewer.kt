@@ -32,7 +32,7 @@ object Brewer {
             } else true to null
         }
 
-        listOf(Material.HOPPER, Material.DISPENSER).addLowestListener(HandlerType.PLACE) { event, player, _ ->
+        listOf(Material.HOPPER, Material.DISPENSER, Material.DROPPER).addLowestListener(HandlerType.PLACE) { event, player, _ ->
             val placeEvent = event as BlockPlaceEvent
             if (player.meetRequirement("药剂师", 0))
                 return@addLowestListener true to null
@@ -54,12 +54,21 @@ object Brewer {
             activePotionEffects.toList().forEach { effect ->
                 val type = effect.type
                 val effectLevel = effect.amplifier + 2
-                val duration = effect.duration
+                val duration = effect.duration / 20
                 removePotionEffect(type)
                 effect(type, duration, effectLevel)
             }
             "你过量服用了神秘的药水，使得目前所有药水效果等级§a+1"
         }.finish { _, _ ->
+            activePotionEffects.toList().forEach { effect ->
+                val type = effect.type
+                val effectLevel = effect.amplifier
+                val duration = effect.duration / 20
+                if (effectLevel >= 1) {
+                    removePotionEffect(type)
+                    effect(type, duration, effectLevel)
+                }
+            }
             effect(PotionEffectType.POISON, 8, 2)
             "由于过量服用，你受到了很强的副作用"
         }
@@ -102,7 +111,7 @@ object Brewer {
         }
     }
 
-    @SubscribeEvent(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    @SubscribeEvent(priority = EventPriority.LOWEST)
     fun splash(event: PotionSplashEvent) {
         val potion = event.potion
         val player = potion.shooter
@@ -125,5 +134,6 @@ object Brewer {
             it.effect(PotionEffectType.REGENERATION, 15 + 5 * level, level1)
             it.effect(PotionEffectType.ABSORPTION, 2 + level, level)
         }
+        player.finish("肾上腺素注射")
     }
 }

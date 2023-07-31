@@ -29,7 +29,7 @@ object Baker {
 
     val bakery = listOf(Material.BREAD, Material.CAKE, Material.COOKIE, Material.PUMPKIN_PIE)
     val soup = listOf(Material.SUSPICIOUS_STEW, Material.MUSHROOM_STEW, Material.RABBIT_STEW)
-    val food = bakery.also { soup }
+    val food = bakery + soup
     fun initialize() {
         food.addLowestListener(HandlerType.CRAFT) { _, player, type ->
             val rate = when (player.spellLevel("预热烤箱")) {
@@ -40,7 +40,7 @@ object Baker {
                 else -> 0.5
             }
             if (Math.random() > rate && type != Material.SUSPICIOUS_STEW) {
-                false to "合成食品失败，解锁 §e职业分支 §7${display("烘培师")} §7可以提高成功率"
+                false to "合成食品失败，解锁 §e职业分支 §7${display("烘焙师")} §7可以提高成功率"
             } else true to null
         }
 
@@ -52,7 +52,7 @@ object Baker {
         }
 
         Material.CAKE.addHighListener(HandlerType.CRAFT) { _, player, _ ->
-            if (player.meetRequirement("烘培师", 0)) {
+            if (player.meetRequirement("烘焙师", 0)) {
                 player.giveItem(ItemStack(Material.CAKE))
                 "合成蛋糕时额外获得了产物"
             } else null
@@ -110,7 +110,7 @@ object Baker {
             if (player.meetRequirement("幸运曲奇")) {
                 craftEvent.currentItem = item.modifyMeta<ItemMeta> {
                     setDisplayName("&{#ffd965}幸运曲奇".colored())
-                    lore = listOf("§8| §7安迪和§f白熊§7钦点的曲奇", "§8| §7吃下去有奇效")
+                    lore = listOf("§8| ${"&{#426AB3}".colored()}安迪§7和§f白熊§7钦点的曲奇", "§8| §7吃下去有奇效")
                     this["fortune_cookie", PersistentDataType.INTEGER] = 0
                 }
             }
@@ -156,7 +156,7 @@ object Baker {
         val item = event.item ?: return
         val type = item.type
         val player = event.entity as Player
-        if (player.meetRequirement("烘培师", 0) && food.contains(type)) {
+        if (player.meetRequirement("烘焙师", 0) && food.contains(type)) {
             event.foodLevel += 2
         }
 
@@ -171,7 +171,7 @@ object Baker {
                     player.giveItem(ItemStack(Material.DIAMOND))
                 val index = floor(prays.size * Math.random()).roundToInt()
                 val pray = prays[index]
-                player.sendMessage("§6幸运曲奇 §7>> §e安迪§7&§f白熊 §7> $pray")
+                player.sendMessage("§6幸运曲奇 §7>> ${"&{#426AB3}".colored()}安迪§7&§f白熊 §7> $pray")
                 var current = player["pray_collected_amount", PersistentDataType.INTEGER_ARRAY] ?: listOf<Int>().toIntArray()
                 if (!current.contains(index)) {
                     current += index
@@ -201,8 +201,8 @@ object Baker {
 
         val type = player.inventory.itemInMainHand.type
         if (type == Material.BREAD && player.attackCooldown >= 0.9f) {
-            damaged.effect(PotionEffectType.WEAKNESS, 3, 1)
-            damaged.effect(PotionEffectType.DARKNESS, 3, 1)
+            damaged.effect(PotionEffectType.CONFUSION, 15, 2)
+            damaged.effect(PotionEffectType.DARKNESS, 5, 1)
             if (Math.random() <= 0.2) {
                 damaged.health = maxOf(0.02, damaged.health - 2.0)
                 damaged.damage(0.1, player)

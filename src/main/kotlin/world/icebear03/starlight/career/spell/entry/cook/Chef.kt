@@ -14,16 +14,13 @@ import world.icebear03.starlight.career
 import world.icebear03.starlight.career.*
 import world.icebear03.starlight.career.spell.handler.addSpecialRecipe
 import world.icebear03.starlight.career.spell.handler.internal.HandlerType
-import world.icebear03.starlight.utils.cooldownStamps
-import world.icebear03.starlight.utils.effect
-import world.icebear03.starlight.utils.hasBlockAside
-import world.icebear03.starlight.utils.shapedRecipe
+import world.icebear03.starlight.utils.*
 
 object Chef {
     fun initialize() {
         addLimit(HandlerType.USE, "主厨" to 0, Material.SMOKER)
 
-        listOf(Material.HOPPER, Material.DISPENSER).addLowestListener(HandlerType.PLACE) { event, player, _ ->
+        listOf(Material.HOPPER, Material.DISPENSER, Material.DROPPER).addLowestListener(HandlerType.PLACE) { event, player, _ ->
             val placeEvent = event as BlockPlaceEvent
             if (player.meetRequirement("主厨", 0))
                 return@addLowestListener true to null
@@ -44,9 +41,11 @@ object Chef {
 
         "地狱厨房".discharge { name, _ ->
             var amount = 0
-            getNearbyEntities(8.0, 8.0, 8.0).filter {
+            val list = getNearbyEntities(8.0, 8.0, 8.0).filter {
                 it is Player && it.career().hasClass("厨师")
-            }.also { listOf(this) }.forEach { player ->
+            }.toMutableList()
+            list += player
+            list.forEach { player ->
                 amount += 1
                 val map = cooldownStamps[player.uniqueId] ?: return@forEach
                 map.toMap().forEach spells@{ (spellName, stamp) ->
@@ -54,18 +53,24 @@ object Chef {
                     if (!spell.isEureka)
                         map[spellName] = stamp - 1000 * 20
                 }
+                if (player.uniqueId != uniqueId)
+                    player.sendMessage("§a生涯系统 §7>> §e${this.name} §7使用 ${display(name)} §7让你的技能冷却§a-20s")
             }
             finish(name)
-            "地狱厨房运作中，为周围${amount}个玩家减少了技能冷却"
+            "地狱厨房运作中，为周围§a${amount}个§7玩家减少了技能冷却"
         }.finish { _, _ ->
             null
         }
 
         "奇味异珍".discharge { name, _ ->
-            "${display(name)} 使得下一次食用某些水果时触发额外增益"
+            "${display(name)} §7使得下一次食用某些水果时触发额外增益"
         }
         "镀金美馔".discharge { name, _ ->
-            "${display(name)} 使得下一次食用某些镀金食物时触发额外增益"
+            "${display(name)} §7使得下一次食用某些镀金食物时触发额外增益"
+        }
+
+        Material.values().filter { it.isEdible }.addHighListener(HandlerType.SINTER) { _, player, type ->
+            null //TODO
         }
     }
 
@@ -82,7 +87,7 @@ object Chef {
             event.foodLevel = 20
         }
 
-        if (player.meetRequirement("奇味异珍")) {
+        if (player.isDischarging("奇味异珍")) {
             val level = player.spellLevel("奇味异珍")
             if (level >= 1) {
                 if (type == Material.CHORUS_FRUIT) {
@@ -113,20 +118,39 @@ object Chef {
                 }
             }
         }
-        if (player.meetRequirement("镀金美馔")) {
+        if (player.isDischarging("镀金美馔")) {
             val level = player.spellLevel("镀金美馔")
             if (level >= 1) {
                 if (type == Material.GOLDEN_CARROT) {
+                    player.getNearbyEntities(4.0, 4.0, 4.0).filterIsInstance<Player>().forEach { other ->
+                        other.foodLevel = minOf(other.foodLevel + 4, 20)
+                        other.sendMessage("§a生涯系统 §7>> §e${player.name} §7使用 ${display("镀金美馔")} §7让你的饱食度§a+4")
+                    }
+                    player.foodLevel = minOf(player.foodLevel + 4, 20)
                     player.finish("镀金美馔")
                 }
             }
             if (level >= 2) {
                 if (type == Material.GOLDEN_APPLE) {
+                    player.getNearbyEntities(4.0, 4.0, 4.0).filterIsInstance<Player>().forEach { other ->
+                        other.health = minOf(other.health + 2, 20.0)
+                        other.sendMessage("§a生涯系统 §7>> §e${player.name} §7使用 ${display("镀金美馔")} §7让你的生命值§a+2")
+                    }
+                    player.health = minOf(player.health + 2, 20.0)
                     player.finish("镀金美馔")
                 }
             }
             if (level >= 3) {
                 if (type == Material.ENCHANTED_GOLDEN_APPLE) {
+                    player.getNearbyEntities(4.0, 4.0, 4.0).filterIsInstance<Player>().forEach { other ->
+                        other.foodLevel = minOf(other.foodLevel + 6, 20)
+                        other.health = minOf(other.health + 8, 20.0)
+                        other.effect(PotionEffectType.FIRE_RESISTANCE, 30, 1)
+                        other.effect(PotionEffectType.DAMAGE_RESISTANCE, 30, 1)
+                        other.sendMessage("§a生涯系统 §7>> §e${player.name} §7使用 ${display("镀金美馔")} §7让你获得大量增益")
+                    }
+                    player.foodLevel = minOf(player.foodLevel + 6, 20)
+                    player.health = minOf(player.health + 8, 20.0)
                     player.finish("镀金美馔")
                 }
             }

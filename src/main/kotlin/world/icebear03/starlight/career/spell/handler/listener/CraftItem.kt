@@ -5,6 +5,7 @@ import org.bukkit.event.Event
 import org.bukkit.event.inventory.CraftItemEvent
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
+import taboolib.platform.util.takeItem
 import world.icebear03.starlight.career.spell.handler.EventHandler
 import world.icebear03.starlight.career.spell.handler.internal.HandlerType
 
@@ -29,7 +30,9 @@ object CraftItem {
 
         event.isCancelled = !EventHandler.triggerLowest(event, type, HandlerType.CRAFT, player)
         if (event.isCancelled) {
-            event.inventory.clear()
+            val recipe = event.recipe
+            val inv = event.inventory
+            inv.matrix.toList().forEach { itemInMatrix -> inv.takeItem(1) { it.isSimilar(itemInMatrix) } }
             player.closeInventory()
         }
     }
