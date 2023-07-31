@@ -18,6 +18,7 @@ import taboolib.module.chat.colored
 import taboolib.module.nms.getI18nName
 import taboolib.platform.util.modifyMeta
 import taboolib.platform.util.takeItem
+import world.icebear03.starlight.career.spellLevel
 import world.icebear03.starlight.utils.toRoman
 
 object WeakerPotion {
@@ -82,7 +83,7 @@ object WeakerPotion {
 
     @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun fuel(event: BrewingStandFuelEvent) {
-        event.fuelPower = event.fuelPower / 3
+        event.fuelPower = event.fuelPower / 5
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
@@ -99,11 +100,25 @@ object WeakerPotion {
                     addCustomEffect(type.createEffect(0, if (data.isUpgraded) 1 else 0), true)
                 } else {
                     val base = getNewTime(type)
-                    var time = 20 * if (data.isExtended && potion.isExtendable) (1.5 * base).toInt() else base
+                    var time = 20 * if (data.isExtended && potion.isExtendable) (1.5 * base).toInt()
+                    else base
                     val amplifier = if (data.isUpgraded && potion.isUpgradeable) {
                         time /= 2
                         1
                     } else 0
+
+                    val loc = event.block.location
+                    val world = event.block.world
+                    var level = 0
+                    world.players.forEach { player ->
+                        if (player.location.distance(loc) <= 6)
+                            level = maxOf(level, player.spellLevel("熟练配制"))
+                    }
+                    if (level >= 1) {
+                        time += if (data.isExtended && potion.isExtendable) 20 * level
+                        else if (level == 3) 40 else 20
+                    }
+
                     addCustomEffect(type.createEffect(time, amplifier), true)
                 }
 

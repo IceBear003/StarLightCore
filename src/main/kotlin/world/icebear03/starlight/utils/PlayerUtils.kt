@@ -3,6 +3,7 @@ package world.icebear03.starlight.utils
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Statistic
+import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.potion.PotionEffectType
 import java.util.*
@@ -23,6 +24,6 @@ fun UUID.toName(): String {
     return Bukkit.getOfflinePlayer(this).name!!
 }
 
-fun Player.effect(type: PotionEffectType, duration: Int, level: Int = 1) {
+fun LivingEntity.effect(type: PotionEffectType, duration: Int, level: Int = 1) {
     this.addPotionEffect(type.createEffect(duration * 20, level - 1))
 }

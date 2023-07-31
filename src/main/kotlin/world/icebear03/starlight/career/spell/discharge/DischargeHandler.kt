@@ -12,7 +12,7 @@ import world.icebear03.starlight.utils.*
 
 object DischargeHandler {
     val dischargeMap = mutableMapOf<String, Player.(id: String, level: Int) -> String?>()
-    val finishMap = mutableMapOf<String, Player.(id: String, level: Int) -> Unit>()
+    val finishMap = mutableMapOf<String, Player.(id: String, level: Int) -> String?>()
 
     fun initialize() {
         submit(period = 20L) {
@@ -46,7 +46,7 @@ object DischargeHandler {
         if (duration != -1) {
             submit(delay = 20L * duration) {
                 //注意玩家是否还在线，或者以及重生
-                finishMap[name]?.invoke(player, name, level)
+                finish(player, name)
                 if (career.getSpellLevel(spell) > 0) {
                     if (isAuto) {
                         player.sendMessage("§a生涯系统 §7>> ${spell.prefix()} §7${spell.display()} §7已经结束")
@@ -61,5 +61,22 @@ object DischargeHandler {
 
         player.addDischargeStamp(name)
         return dischargeMap[name]?.invoke(player, name, level)
+    }
+
+    fun finish(player: Player, name: String) {
+        if (!player.isDischarging(name))
+            return
+
+        player.removeDischargeStamp(name)
+
+        val career = player.career()
+        val spell = getSpell(name) ?: return
+
+        val level = career.getSpellLevel(spell)
+        if (level <= 0)
+            return
+
+        val msg = finishMap[name]?.invoke(player, name, level) ?: return
+        player.sendMessage("§a生涯系统 §7>> $msg")
     }
 }

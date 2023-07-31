@@ -59,17 +59,16 @@ eurekas:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjMxYjc0Nzk2OWY1YTM1NWE5ZDNhNDYxNmVjN2FjZDgzOTEyNWU4YWMxZWZkNGRmOGExOGY3ZWQ5MTRjNmYxMCJ9fX0="
     color: "&{#FFD965}"
     description:
-      - "&7使用&b面包&7攻击时为对方赋予 &a3秒 &7反胃和 &a3秒 &7黑暗"
+      - "&7使用&b面包&7攻击时为对方赋予 &a3秒 &7虚弱和 &a3秒 &7黑暗"
       - "&7且有 &a25% &7概率造成 &a2点 &7真实伤害"
     type: PASSIVE
   糖霜:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDNjOGI0NmMxNGJkZGEwMDEyMzY3MjY0OWViZTkzYTc3ZjJhN2FiMjRjNDBmYWRkNzU0ZjcwZTY5NTBkZTNjNSJ9fX0="
     color: "&{#FFD965}"
-    cooldown: 5
     description:
       - "&c仅饥饿值不为满时可触发"
       - "&7消耗 &a1个 &7糖，回复 &a1饥饿值"
-    type: ACTIVE
+    type: PASSIVE
   幸运曲奇:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvY2VjYjZkM2JhZjkwYWQ5MDQ2OThjMTVkNGFiOWI3YzA4NTNkOTA5MWUyZjUxY2Y5OGNkODdiYTM4ZWQ1ODIwNSJ9fX0="
     color: "&{#FFD965}"

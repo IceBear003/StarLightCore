@@ -76,7 +76,7 @@ eurekas:
       - "&c对&d顿悟&c不生效"
     type: ACTIVE
   配方传承:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTRmZjFmODMzNzMxZGZkMzA0MWYyM2U4ZmUyYTkwZGE2YzExMmJmYWVkN2E2YzVkMmNlODA2ZGY2NDFmNDM0YiJ9fX0="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjlhMzg0YzU3MmJjMWJlMDc3NGE5NDM5MzVmZGRjNmFlNTM3ZWNhODY2ZGFkZGI2MzZkZWEwYmNmYzRmIn19fQ=="
     color: "&{#FFFF00}"
     description:
       - "&7解锁&b附魔金苹果&7的合成表*"

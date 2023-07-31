@@ -80,11 +80,12 @@ fun addLimit(handlerType: HandlerType, limit: Pair<String, Int>, vararg types: M
     EventHandler.addLimit(handlerType, limit, *types)
 }
 
-fun String.discharge(function: Player.(id: String, level: Int) -> String?) {
+fun String.discharge(function: Player.(name: String, level: Int) -> String?): String {
     DischargeHandler.dischargeMap[this] = function
+    return this
 }
 
-fun String.finish(function: Player.(id: String, level: Int) -> Unit) {
+fun String.finish(function: Player.(name: String, level: Int) -> String?) {
     DischargeHandler.finishMap[this] = function
 }
 
@@ -114,4 +115,8 @@ fun List<Material>.addHighListener(
     function: (event: Event, player: Player, type: Material) -> String?
 ) {
     EventHandler.addHighListener(handlerType, function, *this.toTypedArray())
+}
+
+fun Player.finish(name: String) {
+    DischargeHandler.finish(this, name)
 }
