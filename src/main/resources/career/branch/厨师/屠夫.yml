@@ -5,7 +5,6 @@ description:
   - " "
   - "&7分支基础效果："
   - "&7使用&b斧&7可以造成&b全额伤害"
-  - "&7击杀陆生动物*时必定可以&b获得掉落物"
   - "&7食用熟肉食品*后额外获得 &a4饥饿值"
   - "&7使用&b斧&7击杀动物时&b额外掉落 &a1个 &7骨头"
   - " "
@@ -34,7 +33,7 @@ skills:
       1:
         - "&7使周围 &a3格 &7内随机 &a1个 &7营火立即完成烹饪"
       2:
-        - "&7此技能 &aCD -10s"
+        - "&7使周围 &a3格 &7内随机 &a1个 &7营火立即完成烹饪"
       3:
         - "&7使周围 &a3格 &7内随机 &a2个 &7营火立即完成烹饪"
   困兽天敌:
@@ -66,14 +65,13 @@ eurekas:
     color: "&{#BF9000}"
     description:
       - "&7使用&b斧&7对产肉动物*造成暴击时，赋予其 &a5秒 &7的&b中毒I"
-      - "&7周围 &a4格 &7内的中毒的产肉动物*生命值为 &a1♥ &7时即死"
+      - "&7周围 &a4格 &7内的中毒的产肉动物*&a生命值不足一半&7即死"
       - "&7即死时&b额外掉落 &a1个 &7对应的生肉"
     type: PASSIVE
   追猎:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmIyYWJkNjY5MzlmNGNiNzI1N2E4OGNmNTJmYmM2ZmRjZWVjMTQzM2VjMmE2ZWYxNmQ2MmUzNGY2MjM4NzgxIn19fQ=="
     color: "&{#BF9000}"
     cooldown: 180
-    duration: 60
     description:
       - "&c需对准某一生物使用，对玩家无效"
       - "&7使该生物获得 &a60秒 &7的&b发光&7和&b虚弱II"

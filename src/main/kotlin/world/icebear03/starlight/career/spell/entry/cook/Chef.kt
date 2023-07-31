@@ -5,6 +5,7 @@ import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
 import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.entity.FoodLevelChangeEvent
+import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.potion.PotionEffectType
 import taboolib.common.platform.event.SubscribeEvent
@@ -57,7 +58,7 @@ object Chef {
                     player.sendMessage("§a生涯系统 §7>> §e${this.name} §7使用 ${display(name)} §7让你的技能冷却§a-20s")
             }
             finish(name)
-            "地狱厨房运作中，为周围§a${amount}个§7玩家减少了技能冷却"
+            "${display(name)} §7运作中，为周围§a${amount}个§7玩家减少了技能冷却"
         }.finish { _, _ ->
             null
         }
@@ -69,11 +70,23 @@ object Chef {
             "${display(name)} §7使得下一次食用某些镀金食物时触发额外增益"
         }
 
-        Material.values().filter { it.isEdible }.addHighListener(HandlerType.SINTER) { _, player, type ->
-            null //TODO
+        Material.values().filter { it.isEdible }.addHighListener(HandlerType.SINTER) { event, player, type ->
+            val level = player.spellLevel("主厨")
+            val rate = level * 0.1
+            var amount = 0
+            val sinterEvent = event as InventoryClickEvent
+            val originAmount = sinterEvent.currentItem!!.amount
+
+            for (i in 1..originAmount)
+                if (Math.random() <= rate)
+                    amount += 1
+
+            if (amount != 0) {
+                player.giveItem(ItemStack(type, amount))
+                "${display("精准火候")} §7使得烧炼获得额外§a${amount}个§7产物"
+            } else null
         }
     }
-
 
     @SubscribeEvent
     fun eat(event: FoodLevelChangeEvent) {

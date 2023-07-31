@@ -5,6 +5,7 @@ import world.icebear03.starlight.career.spell.discharge.ShortcutDischarge
 import world.icebear03.starlight.career.spell.entry.architect.Demolitionist
 import world.icebear03.starlight.career.spell.entry.cook.Baker
 import world.icebear03.starlight.career.spell.entry.cook.Brewer
+import world.icebear03.starlight.career.spell.entry.cook.Butcher
 import world.icebear03.starlight.career.spell.entry.cook.Chef
 
 object SpellManager {
@@ -18,5 +19,6 @@ object SpellManager {
         Brewer.initialize()
         Baker.initialize()
         Chef.initialize()
+        Butcher.initialize()
     }
 }
