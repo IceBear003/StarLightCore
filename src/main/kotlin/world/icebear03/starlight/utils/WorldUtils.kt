@@ -228,14 +228,14 @@ fun Location.shootPrimedTNT(velocity: org.bukkit.util.Vector, fuseTicks: Int = 1
     }
 }
 
-fun Location.getBlockAside(range: Int, type: Material): List<Location> {
+fun Location.getBlockAside(range: Int, vararg types: Material): List<Location> {
     val result = mutableListOf<Location>()
     for (x in -range..range)
         for (y in -range..range)
             for (z in -range..range) {
                 val newLoc = this.clone()
                 newLoc.add(x, y, z)
-                if (newLoc.block.type == type)
+                if (types.contains(newLoc.block.type))
                     result += newLoc
             }
     return result

@@ -16,7 +16,7 @@ import taboolib.common.platform.function.submit
 import taboolib.platform.util.onlinePlayers
 import world.icebear03.starlight.station.mechanism.NearestStation
 import world.icebear03.starlight.station.station
-import world.icebear03.starlight.tool.player.NearestPlayer
+import world.icebear03.starlight.tool.mechanism.NearestPlayer
 import java.util.*
 import kotlin.math.abs
 import kotlin.math.atan2

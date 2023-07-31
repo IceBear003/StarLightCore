@@ -1,4 +1,4 @@
-package world.icebear03.starlight.tool.player
+package world.icebear03.starlight.tool.mechanism
 
 import org.bukkit.Material
 import org.bukkit.Particle
@@ -15,7 +15,6 @@ import org.bukkit.potion.PotionEffectType
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.module.chat.colored
-import taboolib.module.nms.getI18nName
 import taboolib.platform.util.modifyMeta
 import taboolib.platform.util.takeItem
 import world.icebear03.starlight.career.spellLevel
@@ -115,8 +114,14 @@ object WeakerPotion {
                             level = maxOf(level, player.spellLevel("熟练配制"))
                     }
                     if (level >= 1) {
-                        time += if (data.isExtended && potion.isExtendable) 20 * level
-                        else if (level == 3) 40 else 20
+                        time += if (data.isExtended && potion.isExtendable) {
+                            when (level) {
+                                1 -> 600
+                                2 -> 800
+                                3 -> 1200
+                                else -> 600
+                            }
+                        } else if (level == 3) 800 else 400
                     }
 
                     addCustomEffect(type.createEffect(time, amplifier), true)
@@ -124,7 +129,7 @@ object WeakerPotion {
 
                 addItemFlags(ItemFlag.HIDE_POTION_EFFECTS)
                 lore = listOf("&8| &7效果列表:".colored()) + customEffects.map {
-                    "    &7|—— &b${it.type.getI18nName()} ${(it.amplifier + 1).toRoman()} &a${it.duration / 20}s".colored()
+                    "    &7|—— &b${it.type.name} ${(it.amplifier + 1).toRoman()} &a${it.duration / 20}s".colored()
                 }
             }
         }

@@ -1,4 +1,4 @@
-package world.icebear03.starlight.tool.player
+package world.icebear03.starlight.tool.mechanism
 
 import org.bukkit.entity.Player
 import org.bukkit.event.inventory.CraftItemEvent

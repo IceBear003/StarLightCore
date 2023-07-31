@@ -71,7 +71,7 @@ object Chef {
         }
 
         Material.values().filter { it.isEdible }.addHighListener(HandlerType.SINTER) { event, player, type ->
-            val level = player.spellLevel("主厨")
+            val level = player.spellLevel("精准火候")
             val rate = level * 0.1
             var amount = 0
             val sinterEvent = event as InventoryClickEvent

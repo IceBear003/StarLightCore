@@ -1,4 +1,4 @@
-package world.icebear03.starlight.tool.player
+package world.icebear03.starlight.tool.mechanism
 
 import org.bukkit.entity.Player
 import org.bukkit.event.player.PlayerToggleSneakEvent
@@ -6,7 +6,7 @@ import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
 import taboolib.module.chat.colored
 import taboolib.platform.util.sendActionBar
-import world.icebear03.starlight.tool.player.QTEProvider.QTEType.*
+import world.icebear03.starlight.tool.mechanism.QTEProvider.QTEType.*
 import java.util.*
 import kotlin.math.roundToInt
 

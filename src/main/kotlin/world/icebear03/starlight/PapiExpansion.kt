@@ -10,8 +10,8 @@ import world.icebear03.starlight.career.getSpell
 import world.icebear03.starlight.station.mechanism.StaminaModifier
 import world.icebear03.starlight.station.mechanism.StationMechanism
 import world.icebear03.starlight.station.station
-import world.icebear03.starlight.tool.player.AFK
-import world.icebear03.starlight.tool.player.NearestPlayer
+import world.icebear03.starlight.tool.mechanism.AFK
+import world.icebear03.starlight.tool.mechanism.NearestPlayer
 import world.icebear03.starlight.utils.*
 
 object PapiExpansion : PlaceholderExpansion {

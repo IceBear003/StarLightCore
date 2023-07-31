@@ -10,7 +10,7 @@ import taboolib.common.platform.function.submit
 import taboolib.platform.util.onlinePlayers
 import world.icebear03.starlight.station.addStamina
 import world.icebear03.starlight.station.takeStamina
-import world.icebear03.starlight.tool.player.RespawnProtection
+import world.icebear03.starlight.tool.mechanism.RespawnProtection
 import java.util.*
 
 object StaminaModifier {

@@ -3,7 +3,7 @@ package world.icebear03.starlight.tool.info
 import org.bukkit.persistence.PersistentDataType
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.onlinePlayers
-import world.icebear03.starlight.tool.player.AFK
+import world.icebear03.starlight.tool.mechanism.AFK
 import world.icebear03.starlight.utils.get
 import world.icebear03.starlight.utils.set
 import java.time.ZonedDateTime

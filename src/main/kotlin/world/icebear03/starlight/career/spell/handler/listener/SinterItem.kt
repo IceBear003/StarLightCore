@@ -44,7 +44,7 @@ object SinterItem {
 
     fun isAvailable(event: InventoryClickEvent): Boolean {
         val inv = event.inventory
-        if (!inv.type.toString().contains("FURNACE"))
+        if (!inv.type.toString().contains("FURNACE") && inv.type != InventoryType.SMOKER)
             return false
         if (event.slotType != InventoryType.SlotType.RESULT)
             return false

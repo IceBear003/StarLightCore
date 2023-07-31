@@ -1,4 +1,4 @@
-package world.icebear03.starlight.tool.player
+package world.icebear03.starlight.tool.mechanism
 
 import org.bukkit.event.player.PlayerItemMendEvent
 import org.bukkit.inventory.meta.Damageable

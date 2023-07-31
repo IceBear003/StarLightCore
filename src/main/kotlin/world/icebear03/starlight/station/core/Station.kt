@@ -3,6 +3,7 @@ package world.icebear03.starlight.station.core
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Material
+import org.bukkit.World
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
@@ -110,7 +111,7 @@ data class Station(
         if (player.uniqueId != ownerId) {
             return false to "无法放置不属于自己的驻扎篝火"
         }
-        if (player.world.getHighestBlockYAt(loc) > loc.y) {
+        if (player.world.getHighestBlockYAt(loc) > loc.y && player.world.environment == World.Environment.NORMAL) {
             return false to "驻扎篝火必须放置于地表"
         }
         val replace = checkStamp()

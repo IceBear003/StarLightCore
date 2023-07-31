@@ -1,6 +1,5 @@
 package world.icebear03.starlight.career.spell.entry.cook
 
-import org.bukkit.FluidCollisionMode
 import org.bukkit.Material
 import org.bukkit.Particle
 import org.bukkit.block.Campfire
@@ -19,7 +18,6 @@ import taboolib.platform.util.kill
 import world.icebear03.starlight.career.*
 import world.icebear03.starlight.utils.effect
 import world.icebear03.starlight.utils.getBlockAside
-import world.icebear03.starlight.utils.isDischarging
 
 object Butcher {
 
@@ -80,7 +78,7 @@ object Butcher {
             val max = if (level == 3) 2 else 1
             var amount = 0
 
-            location.getBlockAside(3, Material.CAMPFIRE).forEach { loc ->
+            location.getBlockAside(3, Material.CAMPFIRE, Material.SOUL_CAMPFIRE).forEach { loc ->
                 if (amount >= max)
                     return@forEach
 
@@ -88,15 +86,17 @@ object Butcher {
                 val state = block.state
                 var flag = false
                 if (state is Campfire) {
-                    for (index in 0..state.size) {
+                    for (index in 0 until state.size) {
                         state.getItem(index) ?: continue
                         state.setCookTimeTotal(index, 1)
                         flag = true
                     }
                 }
-                block.world.spawnParticle(Particle.FLAME, loc.add(0.0, 0.5, 0.0), 1)
-                if (flag)
+                if (flag) {
+                    state.update()
+                    block.world.spawnParticle(Particle.LAVA, loc.add(0.0, 0.5, 0.0), 3)
                     amount += 1
+                }
             }
 
             finish(name)
@@ -104,20 +104,21 @@ object Butcher {
         }
 
         "追猎".discharge spell@{ name, _ ->
-            val trace = rayTraceBlocks(50.0, FluidCollisionMode.NEVER) ?: return@spell "${display(name)} §7释放成功，但是并没有锁定一个生物"
+            finish(name)
+            val trace = world.rayTraceEntities(location, eyeLocation.direction.normalize(), 50.0)
+                ?: return@spell "${display(name)} §7释放成功，但是并没有锁定一个生物"
             val entity = trace.hitEntity
             if (entity !is LivingEntity)
                 return@spell "${display(name)} §7释放成功，但是并没有锁定一个生物"
             entity.effect(PotionEffectType.GLOWING, 60, 2)
             entity.effect(PotionEffectType.WEAKNESS, 60, 2)
             submit(delay = 55 * 20) {
-                if (entity.isDead && isDischarging(name)) {
+                if (entity.isDead && meetRequirement("追猎")) {
                     giveExp(25)
                     sendMessage("§a生涯系统 §7>> 击杀 ${display(name)} §7锁定的生物，经验值§a+25")
                 }
             }
-            finish(name)
-            "${display(name)} §7释放成功，已锁定生物，快速完成击杀可获得§b额外经验"
+            "${display(name)} §7释放成功，已锁定生物，若在60s内完成击杀可获得§b额外经验"
         }
     }
 
@@ -125,10 +126,11 @@ object Butcher {
     fun attack(event: EntityDamageByEntityEvent) {
         val player = event.damager
         val entity = event.entity
+        val type = entity.type
         if (player !is Player || entity !is LivingEntity) {
             return
         }
-        val isMeatAnimal = meatAnimal.containsKey(entity.type)
+        val isMeatAnimal = meatAnimal.containsKey(type)
         val world = entity.world
         val loc = entity.location
         if (player.meetRequirement("放血") && player.fallDistance > 0 && !player.isOnGround && isMeatAnimal) {
@@ -164,10 +166,10 @@ object Butcher {
                 world.dropItemNaturally(loc, ItemStack(Material.BONE))
             }
 
-            if (player.meetRequirement("庖丁遗风")) {
+            if (player.meetRequirement("庖丁遗风") && meatAnimal.containsKey(type)) {
                 val level = player.spellLevel("庖丁遗风")
-                val meat = ItemStack(meatAnimal[entity.type]!!.first)
-                val cooked = ItemStack(meatAnimal[entity.type]!!.second)
+                val meat = ItemStack(meatAnimal[type]!!.first)
+                val cooked = ItemStack(meatAnimal[type]!!.second)
                 world.dropItemNaturally(loc, meat)
 
                 if (level == 2 && Math.random() <= 0.25 && !isBurning) {
