@@ -4,6 +4,7 @@ import org.bukkit.Location
 import org.bukkit.entity.Player
 import org.bukkit.event.entity.FoodLevelChangeEvent
 import org.bukkit.event.player.PlayerTeleportEvent
+import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.onlinePlayers
@@ -76,7 +77,7 @@ object StaminaModifier {
         player.takeStamina(distance * mag)
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.MONITOR, ignoreCancelled = true)
     fun eat(event: FoodLevelChangeEvent) {
         val player = event.entity as Player
         val new = event.foodLevel

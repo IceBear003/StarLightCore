@@ -6,13 +6,16 @@ import org.bukkit.entity.Player
 import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.entity.FoodLevelChangeEvent
 import org.bukkit.inventory.ItemStack
+import org.bukkit.potion.PotionEffectType
 import taboolib.common.platform.event.SubscribeEvent
-import world.icebear03.starlight.career.addLimit
-import world.icebear03.starlight.career.addLowestListener
-import world.icebear03.starlight.career.display
-import world.icebear03.starlight.career.meetRequirement
+import taboolib.common.platform.function.submit
+import taboolib.platform.util.giveItem
+import world.icebear03.starlight.career
+import world.icebear03.starlight.career.*
 import world.icebear03.starlight.career.spell.handler.addSpecialRecipe
 import world.icebear03.starlight.career.spell.handler.internal.HandlerType
+import world.icebear03.starlight.utils.cooldownStamps
+import world.icebear03.starlight.utils.effect
 import world.icebear03.starlight.utils.hasBlockAside
 import world.icebear03.starlight.utils.shapedRecipe
 
@@ -38,6 +41,32 @@ object Chef {
             'a' to Material.GOLD_BLOCK,
             'b' to Material.APPLE
         ).addSpecialRecipe("配方传承", 1)
+
+        "地狱厨房".discharge { name, _ ->
+            var amount = 0
+            getNearbyEntities(8.0, 8.0, 8.0).filter {
+                it is Player && it.career().hasClass("厨师")
+            }.also { listOf(this) }.forEach { player ->
+                amount += 1
+                val map = cooldownStamps[player.uniqueId] ?: return@forEach
+                map.toMap().forEach spells@{ (spellName, stamp) ->
+                    val spell = getSpell(spellName) ?: return@spells
+                    if (!spell.isEureka)
+                        map[spellName] = stamp - 1000 * 20
+                }
+            }
+            finish(name)
+            "地狱厨房运作中，为周围${amount}个玩家减少了技能冷却"
+        }.finish { _, _ ->
+            null
+        }
+
+        "奇味异珍".discharge { name, _ ->
+            "${display(name)} 使得下一次食用某些水果时触发额外增益"
+        }
+        "镀金美馔".discharge { name, _ ->
+            "${display(name)} 使得下一次食用某些镀金食物时触发额外增益"
+        }
     }
 
 
@@ -51,6 +80,56 @@ object Chef {
         }
         if (type == Material.GOLDEN_APPLE || type == Material.ENCHANTED_GOLDEN_APPLE) {
             event.foodLevel = 20
+        }
+
+        if (player.meetRequirement("奇味异珍")) {
+            val level = player.spellLevel("奇味异珍")
+            if (level >= 1) {
+                if (type == Material.CHORUS_FRUIT) {
+                    event.foodLevel += 4
+                    val teleported = player.getNearbyEntities(8.0, 8.0, 8.0).filterIsInstance<Player>().random()
+                    submit(delay = 1L) {
+                        teleported.teleport(player)
+                    }
+                    player.finish("奇味异珍")
+                }
+            }
+            if (level >= 2) {
+                if (type == Material.GLOW_BERRIES) {
+                    event.foodLevel += 2
+                    player.effect(PotionEffectType.GLOWING, 10, 1)
+                    player.effect(PotionEffectType.SPEED, 10, 2)
+                    player.finish("奇味异珍")
+                }
+            }
+            if (level >= 3) {
+                if (type == Material.POISONOUS_POTATO) {
+                    event.foodLevel += 2
+                    player.giveItem(ItemStack(Material.POTATO, 3))
+                    submit {
+                        player.removePotionEffect(PotionEffectType.POISON)
+                    }
+                    player.finish("奇味异珍")
+                }
+            }
+        }
+        if (player.meetRequirement("镀金美馔")) {
+            val level = player.spellLevel("镀金美馔")
+            if (level >= 1) {
+                if (type == Material.GOLDEN_CARROT) {
+                    player.finish("镀金美馔")
+                }
+            }
+            if (level >= 2) {
+                if (type == Material.GOLDEN_APPLE) {
+                    player.finish("镀金美馔")
+                }
+            }
+            if (level >= 3) {
+                if (type == Material.ENCHANTED_GOLDEN_APPLE) {
+                    player.finish("镀金美馔")
+                }
+            }
         }
     }
 }

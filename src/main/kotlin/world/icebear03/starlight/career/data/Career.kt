@@ -111,6 +111,14 @@ data class Career(
         return branches.containsKey(branch ?: return false)
     }
 
+    fun hasOtherBranchesInClass(branch: Branch): Boolean {
+        branch.clazz.branches.forEach { (_, br) ->
+            if (branches.containsKey(br) && br != branch)
+                return true
+        }
+        return false
+    }
+
     fun getBranchLevel(name: String?): Int {
         return getBranchLevel(getBranch(name))
     }
@@ -184,9 +192,14 @@ data class Career(
             branches[branch]!![spell] = 1
             spells[spell] = 1
 
-            if (spell.name == "主世界的建造者") {
+            if (spell.name == "主世界的建造者" && hasOtherBranchesInClass(branch)) {
                 points += 3
-                return true to "成功激活§d顿悟§7 ${spell.display()} §7额外获得了 §a3；技能点"
+                return true to "成功激活§d顿悟§7 ${spell.display()} §7额外获得了 §a3技能点"
+            }
+
+            if (spell.name == "以厨为师" && hasOtherBranchesInClass(branch)) {
+                points += 3
+                return true to "成功激活§d顿悟§7 ${spell.display()} §7额外获得了 §a3技能点"
             }
 
             return true to "成功激活§d顿悟§7 ${spell.display()}"

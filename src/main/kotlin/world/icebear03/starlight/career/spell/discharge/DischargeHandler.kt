@@ -54,8 +54,6 @@ object DischargeHandler {
                         player.sendActionBar("§7自动释放 > ${spell.prefix()} §7${spell.display()} §7已经结束")
                     }
                 }
-                player.addCooldownStamp(name)
-                player.removeDischargeStamp(name)
             }
         }
 
@@ -68,6 +66,7 @@ object DischargeHandler {
             return
 
         player.removeDischargeStamp(name)
+        player.addCooldownStamp(name)
 
         val career = player.career()
         val spell = getSpell(name) ?: return

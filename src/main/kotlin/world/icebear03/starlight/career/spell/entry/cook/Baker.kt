@@ -14,6 +14,7 @@ import org.bukkit.inventory.meta.SuspiciousStewMeta
 import org.bukkit.persistence.PersistentDataType
 import org.bukkit.potion.PotionEffect
 import org.bukkit.potion.PotionEffectType
+import org.serverct.parrot.parrotx.function.textured
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.module.chat.colored
 import taboolib.platform.util.giveItem
@@ -38,7 +39,7 @@ object Baker {
                 2, 3 -> 1.0
                 else -> 0.5
             }
-            if (Math.random() <= rate && type != Material.SUSPICIOUS_STEW) {
+            if (Math.random() > rate && type != Material.SUSPICIOUS_STEW) {
                 false to "合成食品失败，解锁 §e职业分支 §7${display("烘培师")} §7可以提高成功率"
             } else true to null
         }
@@ -78,17 +79,17 @@ object Baker {
                         player.giveItem(stew)
                     }
                 }
+                player.finish("文火慢炖")
             }
-            player.finish("文火慢炖")
             null
         }
 
         "甜点派对".discharge { name, level ->
             val loc = location
-            var amount = getNearbyEntities(4.0, 4.0, 4.0).filterIsInstance<Player>().size
+            var amount = getNearbyEntities(4.0, 4.0, 4.0).filterIsInstance<Player>().size + 1
             var max = level + 1
             val per = if (level == 1) 3 else 2
-            while (max > 0 && amount > per) {
+            while (max > 0 && amount > 0) {
                 amount -= per
                 max -= 1
                 val tmp = loc.clone().add(-4.0 + 8.0 * Math.random(), -4.0 + 8.0 * Math.random(), -4.0 + 8.0 * Math.random())
@@ -139,6 +140,16 @@ object Baker {
         "我祝福你，愿你经得起长久的离别、种种考验、吉凶未卜的折磨、漫长的昏暗的路程。依照你的意愿安排生活吧，只要你觉得好就行。",
         "万事胜意，岁岁安安，你会像太阳一样，有起有落而不失光彩，祝你开心，无论何时，无论和谁。",
     )
+    val prayMedal = ItemStack(Material.PLAYER_HEAD)
+        .textured("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmJkZjlmYjdmMmFjNTk4N2VjZmJkMTczZThiOTcxMWQ5OWI1ODExNmY4Y2E0ZDc3ZDBhZjhiMzg5ZiJ9fX0=")
+        .modifyMeta<ItemMeta> {
+            setDisplayName("§e幸运之星")
+            lore = listOf(
+                "§8§o 繁星与你，带着这些祝福，前行不止.",
+                "§7",
+                "§8| §7获得条件: §b收集到所有幸运曲奇祝福语"
+            )
+        }
 
     @SubscribeEvent
     fun eat(event: FoodLevelChangeEvent) {
@@ -152,21 +163,26 @@ object Baker {
         if (type == Material.COOKIE) {
             val meta = item.itemMeta ?: return
             if (meta.has("fortune_cookie", PersistentDataType.INTEGER)) {
-                val ran = Math.random()
-                if (ran <= 0.2)
+                if (Math.random() <= 0.2)
                     player.effect(PotionEffectType.LUCK, 30, 1)
-                if (ran <= 0.05)
+                if (Math.random() <= 0.05)
                     player.effect(PotionEffectType.LUCK, 30, 2)
-                if (ran <= 0.001)
+                if (Math.random() <= 0.001)
                     player.giveItem(ItemStack(Material.DIAMOND))
                 val index = floor(prays.size * Math.random()).roundToInt()
                 val pray = prays[index]
-                player.sendMessage("§e安迪§7与§f白熊 §7>> $pray")
+                player.sendMessage("§6幸运曲奇 §7>> §e安迪§7&§f白熊 §7> $pray")
                 var current = player["pray_collected_amount", PersistentDataType.INTEGER_ARRAY] ?: listOf<Int>().toIntArray()
-                if (!current.contains(index))
+                if (!current.contains(index)) {
                     current += index
+                    if (current.size == 20) {
+                        player.sendMessage("§b繁星工坊 §7>> 祝福收集完毕，纪念品已发送至背包")
+                        player.giveItem(prayMedal)
+                    } else {
+                        player.sendMessage("§b繁星工坊 §7>> 祝福当前已收集 §e${current.size}§7/§a20")
+                    }
+                }
                 player["pray_collected_amount", PersistentDataType.INTEGER_ARRAY] = current
-                player.sendMessage("§b繁星工坊 §7>> 祝福当前已收集 §e${current.size}§7/§a20")
             }
         }
     }
