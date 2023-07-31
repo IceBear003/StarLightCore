@@ -31,9 +31,8 @@ fun Player.isDischarging(name: String): Boolean {
     if (spell != null) {
         val level = career().getSpellLevel(spell)
         val duration = spell.duration(level)
-        if (duration == -1) {
+        if (duration == -1)
             return true
-        }
         return duration >= period
     }
 

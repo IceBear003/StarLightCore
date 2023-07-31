@@ -2,7 +2,6 @@ package world.icebear03.starlight.tool.player
 
 import org.bukkit.entity.Player
 import org.bukkit.event.player.PlayerJoinEvent
-import org.bukkit.event.player.PlayerQuitEvent
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.onlinePlayers
@@ -22,7 +21,7 @@ object AFK {
                 if (isAFKing(player) || checking.contains(player.uniqueId))
                     return@forEach
 
-                val ran = if (StaminaModifier.resting.contains(player.uniqueId)) 0.002 else 0.001
+                val ran = if (StaminaModifier.resting.contains(player.uniqueId)) 0.001 else 0.0005
 
                 if (Math.random() <= ran) {
                     checking += player.uniqueId
@@ -49,12 +48,7 @@ object AFK {
     fun join(event: PlayerJoinEvent) {
         val player = event.player
         afkPlayers -= player.uniqueId
-        player.sendTitle("", "§7", 0, 1, 0)
-    }
-
-    @SubscribeEvent
-    fun join(event: PlayerQuitEvent) {
-        event.player.sendTitle("", "§7", 0, 1, 0)
+        player.sendTitle("", "§7", 0, 5, 0)
     }
 
     fun isAFKing(player: Player): Boolean {

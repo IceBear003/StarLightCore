@@ -90,7 +90,7 @@ object BindUI {
 
             val binds = mutableListOf<String?>()
             repeat(9) {
-                binds += if (career.shortCuts.containsKey(it)) career.shortCuts[it]!! else null
+                binds += if (career.shortCuts.containsKey(it + 1)) career.shortCuts[it + 1]!! else null
             }
 
             setSlots("Bind\$bind", binds, "expression=tot", "element", spell)

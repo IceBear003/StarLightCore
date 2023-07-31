@@ -6,6 +6,7 @@ import taboolib.platform.util.actionBar
 import taboolib.platform.util.onlinePlayers
 import taboolib.platform.util.sendActionBar
 import world.icebear03.starlight.career
+import world.icebear03.starlight.career.display
 import world.icebear03.starlight.career.getSpell
 import world.icebear03.starlight.utils.*
 
@@ -27,7 +28,7 @@ object DischargeHandler {
 
     fun discharge(player: Player, name: String, isAuto: Boolean = false): String? {
         if (player.isDischarging(name))
-            return "§a技能§7/§d顿悟§7正在释放中"
+            return "${display(name)} §7已经处于释放状态"
 
         val career = player.career()
         val spell = getSpell(name) ?: return "§a技能§7/§d顿悟§7不存在"

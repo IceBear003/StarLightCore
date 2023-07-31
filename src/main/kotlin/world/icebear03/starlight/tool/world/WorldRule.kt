@@ -11,6 +11,7 @@ object WorldRule {
                 it.setGameRule(GameRule.KEEP_INVENTORY, true)
                 it.setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false)
                 it.setGameRule(GameRule.PLAYERS_SLEEPING_PERCENTAGE, 100)
+                it.setGameRule(GameRule.SHOW_DEATH_MESSAGES, true)
             }
         }
     }

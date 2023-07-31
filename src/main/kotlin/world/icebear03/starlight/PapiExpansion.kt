@@ -37,18 +37,18 @@ object PapiExpansion : PlaceholderExpansion {
 
             val cdPair = player.checkCooldownStamp(name, cd)
 
-            val state = when (cdPair.first) {
-                true -> "&a✔"
-                false -> {
-                    if (player.isDischarging(name)) {
-                        if (duration != -1) {
-                            "&e✷ &7(&b${(duration - (cd - cdPair.second)).format(1)}秒&7)"
-                        } else {
-                            "&e✷"
-                        }
-                    } else {
-                        "&c✘ &7(&e${cdPair.second}s&7)"
-                    }
+            val state = if (player.isDischarging(name)) {
+                val stamp = dischargeStamp[player.uniqueId]!![name]!!
+                val period = (System.currentTimeMillis() - stamp) / 1000.0
+                if (duration != -1) {
+                    "&e✷ &7(&b${(duration - period).format(1)}秒&7)"
+                } else {
+                    "&e✷"
+                }
+            } else {
+                when (cdPair.first) {
+                    true -> "&a✔"
+                    false -> "&c✘ &7(&e${cdPair.second}s&7)"
                 }
             }
 
