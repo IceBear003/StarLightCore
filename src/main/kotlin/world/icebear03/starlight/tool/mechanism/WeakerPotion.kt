@@ -16,8 +16,8 @@ import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.module.chat.colored
 import taboolib.platform.util.modifyMeta
-import taboolib.platform.util.takeItem
 import world.icebear03.starlight.career.spellLevel
+import world.icebear03.starlight.utils.takeItem
 import world.icebear03.starlight.utils.toRoman
 
 object WeakerPotion {
@@ -38,7 +38,7 @@ object WeakerPotion {
             return
 
         event.isCancelled = true
-        player.inventory.takeItem(1) {
+        player.takeItem(1) {
             it == item
         }
         player.inventory.addItem(ItemStack(Material.GLASS_BOTTLE))

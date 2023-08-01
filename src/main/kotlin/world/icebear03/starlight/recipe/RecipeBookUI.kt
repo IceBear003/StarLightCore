@@ -22,11 +22,11 @@ import taboolib.module.ui.openMenu
 import taboolib.module.ui.type.Linked
 import taboolib.platform.util.modifyLore
 import taboolib.platform.util.modifyMeta
-import taboolib.platform.util.takeItem
 import world.icebear03.starlight.career.display
 import world.icebear03.starlight.career.spell.handler.SpecialRecipeLibrary
 import world.icebear03.starlight.utils.get
 import world.icebear03.starlight.utils.set
+import world.icebear03.starlight.utils.takeItem
 
 @MenuComponent("RecipeBook")
 object RecipeBookUI {
@@ -159,7 +159,7 @@ object RecipeBookUI {
                         single.amount = 1
                         val amount = ingredient.amount
                         repeat(amount) {
-                            if (playerInv.takeItem(1) { it.isSimilar(single) }) {
+                            if (player.takeItem(1) { it.isSimilar(single) }) {
                                 inv.setItem(tot++, single)
                             }
                         }
@@ -169,7 +169,7 @@ object RecipeBookUI {
                     val string = recipe.shape.joinToString("")
                     repeat(9) repeat@{ i ->
                         val ingredient = recipe.ingredientMap[string[i]]!!
-                        if (playerInv.takeItem(1) { it.isSimilar(ingredient) }) {
+                        if (player.takeItem(1) { it.isSimilar(ingredient) }) {
                             inv.setItem(i + 1, ingredient)
                         }
                     }

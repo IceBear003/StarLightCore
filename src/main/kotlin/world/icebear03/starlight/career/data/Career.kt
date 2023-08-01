@@ -171,6 +171,8 @@ data class Career(
         return upgradeSpell(getSpell(name))
     }
 
+    val specialEurekas = listOf("主世界的建造者", "以厨为师", "鞠躬尽瘁")
+
     fun upgradeSpell(spell: Spell?): Pair<Boolean, String> {
         spell ?: return false to "§a技能§7/§d顿悟§7不存在"
         val level = getSpellLevel(spell)
@@ -192,12 +194,7 @@ data class Career(
             branches[branch]!![spell] = 1
             spells[spell] = 1
 
-            if (spell.name == "主世界的建造者" && hasOtherBranchesInClass(branch)) {
-                points += 3
-                return true to "成功激活§d顿悟§7 ${spell.display()} §7额外获得了 §a3技能点"
-            }
-
-            if (spell.name == "以厨为师" && hasOtherBranchesInClass(branch)) {
+            if (specialEurekas.contains(spell.name) && hasOtherBranchesInClass(branch)) {
                 points += 3
                 return true to "成功激活§d顿悟§7 ${spell.display()} §7额外获得了 §a3技能点"
             }

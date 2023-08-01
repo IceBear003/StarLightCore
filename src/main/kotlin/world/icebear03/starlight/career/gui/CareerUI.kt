@@ -314,7 +314,7 @@ object CareerUI {
             val player = args[0] as Player
             val career = player.career()
 
-            val list = Resonate.resonateMap[player.uniqueId]!!.map { (name, pair) ->
+            val list = Resonate.resonateSpellMap[player.uniqueId]!!.map { (name, pair) ->
                 name.display() + " " + pair.second.toRoman() + "  &7来自 " + pair.first
             }
 

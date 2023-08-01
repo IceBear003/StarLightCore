@@ -64,7 +64,7 @@ fun Player.loadStarLightData() {
     val data = getDataContainer()
     //CAREER
     careerMap[uniqueId] = data["career"]?.let { Gson().fromJson(it, Savable::class.java).toCareer() } ?: Career().remake()
-    Resonate.resonateMap[uniqueId] = mutableMapOf()
+    Resonate.resonateSpellMap[uniqueId] = mutableMapOf()
     //STATION
     StationLoader.stationMap.putIfAbsent(
         uniqueId,

@@ -6,7 +6,7 @@ import org.bukkit.event.inventory.InventoryAction
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.platform.util.giveItem
-import taboolib.platform.util.takeItem
+import world.icebear03.starlight.utils.takeItem
 
 object NoFastCraft {
 
@@ -23,7 +23,7 @@ object NoFastCraft {
             inv.matrix.forEach { itemInMatrix ->
                 val amount = itemInMatrix?.amount ?: return@forEach
                 if (amount == 1) {
-                    inv.takeItem(1) { it.isSimilar(itemInMatrix) }
+                    player.takeItem(1) { it.isSimilar(itemInMatrix) }
                 } else {
                     itemInMatrix.amount = amount - 1
                 }

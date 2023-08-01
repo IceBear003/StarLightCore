@@ -5,7 +5,10 @@ import org.bukkit.Material
 import org.bukkit.Statistic
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
+import org.bukkit.inventory.ItemStack
 import org.bukkit.potion.PotionEffectType
+import taboolib.platform.util.countItem
+import taboolib.platform.util.takeItem
 import java.util.*
 
 fun Player.hasBlockAside(type: Material, range: Int = 3): Boolean {
@@ -26,4 +29,12 @@ fun UUID.toName(): String {
 
 fun LivingEntity.effect(type: PotionEffectType, duration: Int, level: Int = 1) {
     this.addPotionEffect(type.createEffect(duration * 20, level - 1))
+}
+
+fun Player.takeItem(amount: Int = 1, matcher: (itemStack: ItemStack) -> Boolean): Boolean {
+    if (inventory.countItem(matcher) >= amount) {
+        inventory.takeItem(amount, matcher)
+        return true
+    }
+    return false
 }

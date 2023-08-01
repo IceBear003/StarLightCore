@@ -1,5 +1,6 @@
 package world.icebear03.starlight.career.core
 
+import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.onlinePlayers
@@ -9,23 +10,29 @@ import world.icebear03.starlight.career.core.spell.Spell
 import world.icebear03.starlight.career.core.spell.SpellType
 import world.icebear03.starlight.career.getBranch
 import world.icebear03.starlight.career.getSpell
+import world.icebear03.starlight.career.meetRequirement
+import world.icebear03.starlight.career.spell.entry.scholar.Teacher
 import java.util.*
 
 object Resonate {
 
-    val resonateMap = mutableMapOf<UUID, Map<Spell, Pair<String, Int>>>()
+    val resonateSpellMap = mutableMapOf<UUID, Map<Spell, Pair<String, Int>>>()
+    val resonateBranchMap = mutableMapOf<UUID, List<Branch>>()
 
     fun initialize() {
         submit(delay = 20L, period = 100L) {
             onlinePlayers.forEach {
-                resonateMap[it.uniqueId] = searchResonate(it)
+                val result = searchResonate(it)
+                resonateSpellMap[it.uniqueId] = result.first
+                resonateBranchMap[it.uniqueId] = result.second
             }
         }
     }
 
-    fun searchResonate(player: Player): Map<Spell, Pair<String, Int>> {
+    fun searchResonate(player: Player): Pair<Map<Spell, Pair<String, Int>>, List<Branch>> {
         val career = player.career()
-        val resonate = mutableMapOf<Spell, Pair<String, Int>>()
+        val spellResonate = mutableMapOf<Spell, Pair<String, Int>>()
+        val branchResonate = mutableSetOf<Branch>()
         player.world.players.forEach { other ->
             if (other.uniqueId == player.uniqueId)
                 return@forEach
@@ -34,16 +41,33 @@ object Resonate {
             val otherCareer = other.career()
             val branch = otherCareer.resonantBranch ?: return@forEach
             val distance = other.location.distance(player.location)
+
             otherCareer.spells.filterKeys { it.branch == branch }.forEach spells@{ (spell, level) ->
                 if (spell.type != SpellType.PASSIVE || spell.isEureka)
                     return@spells
                 val levelShared = if (otherCareer.getBranchLevel(branch) == 10) level else level - 1
-                if (distance <= 8 * level) {
-                    resonate[spell] = other.name to maxOf(levelShared, resonate[spell]?.second ?: 0)
+
+                var range = if (otherCareer.getBranchLevel(branch) == 10) 32 else 8 * level
+                if (other.meetRequirement("触类旁通")) {
+                    range += 3 * otherCareer.branches.size
+                }
+                Teacher.saloning.forEach teachers@{ (uuid, extraRange) ->
+                    val teacher = Bukkit.getPlayer(uuid) ?: return@teachers
+                    if (!teacher.isOnline) return@teachers
+                    if (teacher.world.name != other.world.name) return@teachers
+                    if (teacher.location.distance(other.location) <= 4.0)
+                        range += extraRange
+                }
+
+                if (distance <= range) {
+                    branchResonate += branch
+                    spellResonate[spell] = other.name to maxOf(levelShared, spellResonate[spell]?.second ?: 0)
                 }
             }
         }
-        return resonate.filter { (spell, pair) -> career.getSpellLevel(spell) < pair.second }
+        return spellResonate.filter { (spell, pair) -> career.getSpellLevel(spell) < pair.second } to
+                branchResonate.filter { branch -> !career.hasBranch(branch) }
+
     }
 
     fun resonate(player: Player, name: String?): Pair<Boolean, String> {
@@ -59,16 +83,27 @@ object Resonate {
         career.resonantBranch = branch
         return true to "已经选择该§e职业分支§7作为§e共鸣分支"
     }
-    
+
     fun getSpellResonatedLevel(player: Player, name: String?): Int {
         return getSpellResonatedLevel(player, getSpell(name))
     }
 
     fun getSpellResonatedLevel(player: Player, spell: Spell?): Int {
         spell ?: return -1
-        val map = resonateMap[player.uniqueId] ?: return -1
+        val map = resonateSpellMap[player.uniqueId] ?: return -1
         return (map[spell] ?: return -1).second
     }
+
+    fun getBranchResonatedLevel(player: Player, name: String?): Int {
+        return getBranchResonatedLevel(player, getBranch(name))
+    }
+
+    fun getBranchResonatedLevel(player: Player, branch: Branch?): Int {
+        branch ?: return -1
+        val list = resonateBranchMap[player.uniqueId] ?: return -1
+        return if (list.contains(branch)) 0 else -1
+    }
+
 
     enum class ResonateType(val displayName: String) {
         ALL("所有"),

@@ -21,7 +21,7 @@ object AFK {
                 if (isAFKing(player) || checking.contains(player.uniqueId))
                     return@forEach
 
-                val ran = if (StaminaModifier.resting.contains(player.uniqueId)) 0.001 else 0.0005
+                val ran = if (StaminaModifier.resting.contains(player.uniqueId)) 0.0007 else 0.0003
 
                 if (Math.random() <= ran) {
                     checking += player.uniqueId

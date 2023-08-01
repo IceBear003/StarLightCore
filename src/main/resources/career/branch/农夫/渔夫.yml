@@ -4,7 +4,7 @@ description:
   - "&7搏击怒海狂涛，追猎鲜美海味"
   - " "
   - "&7分支基础效果："
-  - "&7可以&b使用&7钓鱼竿"
+  - "&7钓鱼的QTE难度相较普通玩家&b大幅降低"
   - "&7始终获得&b幸运I&7效果"
   - "&7处于水中时获得&b潮涌能量&7效果"
   - " "
@@ -16,11 +16,12 @@ skills:
     type: PASSIVE
     description:
       1:
-        - "&7钓鱼QTE复杂程度&b略微降低"
+        - "&7钓鱼的QTE难度&b降低"
       2:
-        - "&7钓鱼QTE复杂程度&b一定幅度降低"
+        - "&7钓鱼的QTE容错&b提升"
       3:
-        - "&7钓鱼QTE复杂程度&b进一步降低"
+        - "&7钓鱼的QTE难度&b进一步降低"
+        - "&7钓鱼的QTE容错&b进一步提升"
   收获涛声:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzg2YjgwMjZhNjU5NmQ5MjJiM2I5ZTI0NWM2YjNmYWYzMTdhY2Q0ZjNjOTU3YTU4ZmE4NTNhZjY2MzJhOWViMiJ9fX0="
     color: "&{#00FFCC}"

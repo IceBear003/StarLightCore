@@ -1,0 +1,81 @@
+skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODk0MjgyN2Q0MzRmYWE4MWU4NGZkMDY4ODJmOWExNTUzY2I3YzIwYTExM2Q1NzM0ZjM3ZWY0ODBlMGMyYTU5YSJ9fX0="
+color: "&{#FF66FF}"
+description:
+  - "&7任使电路交错，自有逻辑纵横"
+  - " "
+  - "&7分支基础效果："
+  - "&7可以&b合成&7并&b放置&7进阶红石器械*"
+  - "&7可以&b合成&7并&b放置&7激活铁轨、探测铁轨"
+  - "&7破坏红石粉和进阶红石器械时可以&b获得掉落物"
+  - " "
+  - "&7带*部分的详细解释请参见&b服务器Wiki"
+skills:
+  电路设计:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGVkNjc5OTE0OTc4OGI5ZTkwMTY4MTFkM2EzZDBlZDFmNTUyNTMwZDY3Zjk4Njk0NTAzMmQ2ZTQzOWZhODk5ZCJ9fX0="
+    color: "&{#FF66FF}"
+    type: PASSIVE
+    description:
+      1:
+        - "&7放置红石粉时有 &a4% &7概率不消耗"
+      2:
+        - "&7放置红石粉时有 &a6% &7概率不消耗"
+      3:
+        - "&7放置红石粉时有 &a8% &7概率不消耗"
+  自动化生产:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzg2YjgwMjZhNjU5NmQ5MjJiM2I5ZTI0NWM2YjNmYWYzMTdhY2Q0ZjNjOTU3YTU4ZmE4NTNhZjY2MzJhOWViMiJ9fX0="
+    color: "&{#FF66FF}"
+    type: ACTIVE
+    cooldown: 30
+    description:
+      1:
+        - "&7下次合成进阶红石器械时"
+        - "&7有 &a15% &7概率&b额外获得 &a1个 &7产物"
+      2:
+        - "&7下次合成进阶红石器械时"
+        - "&7有 &a22.5% &7概率&b额外获得 &a1个 &7产物"
+      3:
+        - "&7下次合成进阶红石器械时"
+        - "&7有 &a30% &7概率&b额外获得 &a1个 &7产物"
+  超载:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzUzYzg5YTJhZGM0ZWU1YmExZjA1ZTVkNjRlOWI0YmI2YjMyMzJjNzIwMjhlMGNiZTM1ZTFiNzNkMGM1N2RjMSJ9fX0="
+    color: "&{#FF66FF}"
+    type: ACTIVE
+    cooldown: 240
+    duration: 20+level*5
+    description:
+      1:
+        - "&7立即使自身周围 &a8格 &7内所有红石粉受到 &a15级 &7信号"
+        - "&7期间范围内所有站在红石粉上的玩家每秒受到 &a1点 (0.5♥) &7伤害"
+      2:
+        - "&7立即使自身周围 &a8格 &7内所有红石粉受到 &a15级 &7信号"
+        - "&7期间范围内所有站在红石粉上的玩家每秒受到 &a1点 (0.5♥) &7伤害"
+      3:
+        - "&7立即使自身周围 &a8格 &7内所有红石粉受到 &a15级 &7信号"
+        - "&7期间范围内所有站在红石粉上的玩家每秒受到 &a1点 (0.5♥) &7伤害"
+  #继续添加
+eurekas:
+  红色炬火:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjhiMjc2NGExMTRiODg3NDk1NzdjMDEyZTE3YjcxYzliZmQ1OGIxZTlhMTgzYTdiMWFjYzY2MWIyNDAxYWU1In19fQ=="
+    color: "&{#FF66FF}"
+    description:
+      - "&7解锁将&b火把&7变为&b红石火把&7的合成表*"
+    type: PASSIVE
+  定点脉冲:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjU2ZWM2NzI5NjlhZmU1N2Y2YTRlYjM1ZDg3MTQ1MGMzZTcxOWFiMjA1MGE5YTQwZDMzNjEyY2FkNTc2N2UifX19"
+    color: "&{#FF66FF}"
+    cooldown: 600
+    description:
+      - "&c消耗 &a16个 &c红石粉"
+      - "&7破坏自身周围 &a4格 &7内所有&b进阶红石器械"
+    type: ACTIVE
+  雷霆之杖:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjU2MDc2MzI4N2E3Zjk4NzE1MmMxYTM3NDA4Y2JmMzRlYmNlMDg0YzM3MTM2NmFmMmE3M2Y3ZjY5Mzc3ZDk3OSJ9fX0="
+    color: "&{#FF66FF}"
+    cooldown: 10
+    description:
+      - "&c仅当手持避雷针时触发"
+      - "&7有 &a10% &7概率在前方召唤一道&b闪电"
+      - "&c若失败则避雷针消失"
+      - "&7当天气为&b降雨&7时，成功概率上升至 &a20%"
+      - "&7当天气为&b雷暴&7时，成功概率上升至 &a33%"
+    type: ACTIVE

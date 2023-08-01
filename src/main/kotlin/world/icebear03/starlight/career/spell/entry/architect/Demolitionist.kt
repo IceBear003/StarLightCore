@@ -13,6 +13,5 @@ object Demolitionist {
         addLimit(HandlerType.CRAFT, basic, Material.FIRE_CHARGE)
         addLimit(HandlerType.USE, basic, Material.FIRE_CHARGE)
     }
-
-
+    
 }

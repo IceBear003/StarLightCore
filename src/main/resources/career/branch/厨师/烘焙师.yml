@@ -60,7 +60,7 @@ eurekas:
     color: "&{#FFD965}"
     description:
       - "&7使用&b面包&7攻击时为对方赋予 &a15秒 &7反胃和 &a5秒 &7黑暗"
-      - "&7且有 &a25% &7概率造成 &a2点 &7真实伤害"
+      - "&7且有 &a20% &7概率造成 &a2点 &7真实伤害"
     type: PASSIVE
   糖霜:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDNjOGI0NmMxNGJkZGEwMDEyMzY3MjY0OWViZTkzYTc3ZjJhN2FiMjRjNDBmYWRkNzU0ZjcwZTY5NTBkZTNjNSJ9fX0="

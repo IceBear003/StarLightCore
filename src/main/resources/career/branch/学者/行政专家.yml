@@ -1,0 +1,90 @@
+skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODk0MjgyN2Q0MzRmYWE4MWU4NGZkMDY4ODJmOWExNTUzY2I3YzIwYTExM2Q1NzM0ZjM3ZWY0ODBlMGMyYTU5YSJ9fX0="
+color: "&{#6600FF}"
+description:
+  - "&7用人举贤任能，理事算无遗策"
+  - " "
+  - "&7分支基础效果："
+  - "&7可以使用 &b窥镜 &7来查看他们所拥有的&c职业"
+  - "&c! &7仅对周围 &a32格 &7内的玩家有效"
+  - " "
+  - "&c以下效果将在未来实装："
+  - "&7可以担任所属势力的&b领导人"
+  - "&7可以&b创建&7势力"
+  - " "
+  - "&7带*部分的详细解释请参见&b服务器Wiki"
+skills:
+  人力资源管理:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGVkNjc5OTE0OTc4OGI5ZTkwMTY4MTFkM2EzZDBlZDFmNTUyNTMwZDY3Zjk4Njk0NTAzMmQ2ZTQzOWZhODk5ZCJ9fX0="
+    color: "&{#6600FF}"
+    type: PASSIVE
+    description:
+      1:
+        - "&7使用指令&b/待补充 [玩家名]&7来查看他们所拥有的"
+        - "&c职业&7和&e分支"
+      2:
+        - "&7使用指令&b/待补充 [玩家名]&7来查看他们所拥有的"
+        - "&c职业&7、&e分支&7和&a技能&7等级"
+      3:
+        - "&7使用指令&b/待补充 [玩家名]&7来查看他们所拥有的"
+        - "&c职业&7、&e分支&7、&a技能&7等级和&d顿悟"
+  行政结构优化:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzg2YjgwMjZhNjU5NmQ5MjJiM2I5ZTI0NWM2YjNmYWYzMTdhY2Q0ZjNjOTU3YTU4ZmE4NTNhZjY2MzJhOWViMiJ9fX0="
+    color: "&{#6600FF}"
+    type: ACTIVE
+    cooldown: 60
+    description:
+      1:
+        - "&7使用指令&b/待补充 [分支名]&7使在线的所有拥有该&e分支&7的玩家"
+        - "&7获得 &a15秒 &7的&b急迫I"
+        - "&c此技能的发动会向全服公告"
+      2:
+        - "&7使用指令&b/待补充 [分支名]&7使在线的所有拥有该&e分支&7的玩家"
+        - "&7获得 &a20秒 &7的&b急迫I"
+        - "&c此技能的发动会向全服公告"
+      3:
+        - "&7使用指令&b/待补充 [分支名]&7使在线的所有拥有该&e分支&7的玩家"
+        - "&7获得 &a20秒 &7的&b急迫I"
+        - "&7若拥有该指定&e分支&7的玩家已解锁任意一个&d顿悟"
+        - "&7则改为获得 &a20秒 &7的&b急迫II"
+        - "&c此技能的发动会向全服公告"
+  综合报告审阅:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzUzYzg5YTJhZGM0ZWU1YmExZjA1ZTVkNjRlOWI0YmI2YjMyMzJjNzIwMjhlMGNiZTM1ZTFiNzNkMGM1N2RjMSJ9fX0="
+    color: "&{#6600FF}"
+    type: ACTIVE
+    cooldown: 330
+    description:
+      1:
+        - "&7记录上一次使用&a“行政结构优化”技能&7时影响的&b玩家数"
+        - "&7获得 &a6倍 &7于&b该数&7的经验"
+      2:
+        - "&7记录上一次使用&a“行政结构优化”技能&7时影响的&b玩家数"
+        - "&7获得 &a8倍 &7于&b该数&7的经验"
+      3:
+        - "&7记录上一次使用&a“行政结构优化”技能&7时影响的&b玩家数"
+        - "&7获得 &a10倍 &7于&b该数&7的经验"
+        - "&7若&b该数&7大于等于 &a15"
+        - "&7则&b额外获得 &a1技能点"
+  #继续添加
+eurekas:
+  立法程序:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjhiMjc2NGExMTRiODg3NDk1NzdjMDEyZTE3YjcxYzliZmQ1OGIxZTlhMTgzYTdiMWFjYzY2MWIyNDAxYWU1In19fQ=="
+    color: "&{#6600FF}"
+    description:
+      - "&c这一顿悟当前的效果未知"
+      - "&c但会在未来的更新中逐渐揭示"
+    type: PASSIVE
+  危机处理:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjU2ZWM2NzI5NjlhZmU1N2Y2YTRlYjM1ZDg3MTQ1MGMzZTcxOWFiMjA1MGE5YTQwZDMzNjEyY2FkNTc2N2UifX19"
+    color: "&{#6600FF}"
+    description:
+      - "&c这一顿悟当前的效果未知"
+      - "&c但会在未来的更新中逐渐揭示"
+    type: PASSIVE
+  人才追踪:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjU2MDc2MzI4N2E3Zjk4NzE1MmMxYTM3NDA4Y2JmMzRlYmNlMDg0YzM3MTM2NmFmMmE3M2Y3ZjY5Mzc3ZDk3OSJ9fX0="
+    color: "&{#6600FF}"
+    cooldown: 120
+    description:
+      - "&c仅能对在线的任意一个解锁了&d顿悟&c的玩家使用"
+      - "&7使用 &b灵感定位器 &7来获取其&b坐标"
+    type: ACTIVE

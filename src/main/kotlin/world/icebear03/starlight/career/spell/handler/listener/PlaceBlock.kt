@@ -9,7 +9,7 @@ import world.icebear03.starlight.career.spell.handler.internal.HandlerType
 object PlaceBlock {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     fun placeLowest(event: BlockPlaceEvent) {
-        val type = event.block.type
+        val type = event.itemInHand.type
         val player = event.player
 
         val placeResult = EventHandler.checkLimit(HandlerType.PLACE, player, type)
@@ -27,7 +27,7 @@ object PlaceBlock {
 
     @SubscribeEvent(priority = EventPriority.HIGH)
     fun placeHigh(event: BlockPlaceEvent) {
-        val type = event.block.type
+        val type = event.itemInHand.type
         val player = event.player
 
         EventHandler.triggerHigh(event, type, HandlerType.PLACE, player)

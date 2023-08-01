@@ -14,6 +14,7 @@ import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.onlinePlayers
+import world.icebear03.starlight.stamina
 import world.icebear03.starlight.station.mechanism.NearestStation
 import world.icebear03.starlight.station.station
 import world.icebear03.starlight.tool.mechanism.NearestPlayer
@@ -51,6 +52,20 @@ object BossBarCompass {
         val barKey = NamespacedKey.minecraft("compass_bar_${player.name.lowercase()}")
         val bar = barMap[player.uniqueId] ?: Bukkit.createBossBar(barKey, "", BarColor.BLUE, BarStyle.SOLID, BarFlag.CREATE_FOG)
         bar.removeFlag(BarFlag.CREATE_FOG)
+
+        val percent = player.stamina().stamina / 1800.0
+        bar.progress = percent
+        if (percent in 0.0..0.28)
+            bar.color = BarColor.RED
+        if (percent in 0.28..0.42)
+            bar.color = BarColor.PINK
+        if (percent in 0.42..0.56)
+            bar.color = BarColor.YELLOW
+        if (percent in 0.56..0.89)
+            bar.color = BarColor.GREEN
+        if (percent >= 0.89)
+            bar.color = BarColor.BLUE
+
         bar.setTitle(generateTitle(player))
 
         if (bar.players.isEmpty())

@@ -41,8 +41,11 @@ fun Player.spellLevel(name: String?, includeResonate: Boolean = true): Int {
     )
 }
 
-fun Player.branchLevel(name: String?): Int {
-    return career().getBranchLevel(name)
+fun Player.branchLevel(name: String?, includeResonate: Boolean = true): Int {
+    return maxOf(
+        career().getBranchLevel(name),
+        if (includeResonate) Resonate.getBranchResonatedLevel(this, name) else -1
+    )
 }
 
 fun Player.forget(name: String): Pair<Boolean, String> {

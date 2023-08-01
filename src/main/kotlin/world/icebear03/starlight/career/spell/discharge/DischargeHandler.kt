@@ -48,7 +48,7 @@ object DischargeHandler {
                 //注意玩家是否还在线，或者以及重生
                 finish(player, name)
                 if (career.getSpellLevel(spell) > 0) {
-                    if (isAuto) {
+                    if (!isAuto) {
                         player.sendMessage("§a生涯系统 §7>> ${spell.prefix()} §7${spell.display()} §7已经结束")
                     } else {
                         player.sendActionBar("§7自动释放 > ${spell.prefix()} §7${spell.display()} §7已经结束")

@@ -2,6 +2,7 @@ package world.icebear03.starlight.station.mechanism
 
 import org.bukkit.Material
 import org.bukkit.Particle
+import org.bukkit.World
 import org.bukkit.block.data.type.Campfire
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockExplodeEvent
@@ -57,13 +58,15 @@ object StationMechanism {
                     haloMap[player.uniqueId]!![ownerName] = add
                 }
 
-                for (y in stationLoc.blockY + 1..256) {
-                    val current = stationLoc.clone()
-                    current.y = y.toDouble()
-                    val block = current.block
-                    if (block.type != Material.AIR) {
-                        block.type = Material.AIR
-                        block.world.spawnParticle(Particle.BLOCK_DUST, current, 2, block.blockData)
+                if (stationLoc.world!!.environment == World.Environment.NORMAL) {
+                    for (y in stationLoc.blockY + 1..256) {
+                        val current = stationLoc.clone()
+                        current.y = y.toDouble()
+                        val block = current.block
+                        if (block.type != Material.AIR) {
+                            block.type = Material.AIR
+                            block.world.spawnParticle(Particle.BLOCK_DUST, current, 2, block.blockData)
+                        }
                     }
                 }
                 val block = stationLoc.block

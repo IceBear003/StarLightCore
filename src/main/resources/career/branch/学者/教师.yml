@@ -1,0 +1,92 @@
+skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODk0MjgyN2Q0MzRmYWE4MWU4NGZkMDY4ODJmOWExNTUzY2I3YzIwYTExM2Q1NzM0ZjM3ZWY0ODBlMGMyYTU5YSJ9fX0="
+color: "&{#FF99CC}"
+description:
+  - "&7传递世代智慧，见证桃李成蹊"
+  - " "
+  - "&7分支基础效果："
+  - "&7从生存时间里程碑中获得&b双倍&7技能点"
+  - "&7可以&b合成&7并&b放置&7讲台、书架"
+  - "&7手持书&bShift+右键&7讲台可以获取一本&b技能之书"
+  - "&c! &7需要消耗 &a40级 &7经验等级"
+  - "&7手持书&bShift+右键&7书架可以获取一本&b技能之书"
+  - "&c! &7需要消耗 &a2技能点"
+  - " "
+  - "&b技能之书："
+  - "&b右键&7使用&b技能之书&7，可获得 &a1技能点"
+  - "&b【教师】&e分支&c无法使用&b技能之书"
+  - " "
+  - "&7带*部分的详细解释请参见&b服务器Wiki"
+skills:
+  教育学:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGVkNjc5OTE0OTc4OGI5ZTkwMTY4MTFkM2EzZDBlZDFmNTUyNTMwZDY3Zjk4Njk0NTAzMmQ2ZTQzOWZhODk5ZCJ9fX0="
+    color: "&{#FF99CC}"
+    type: PASSIVE
+    description:
+      1:
+        - "&7手持书&bShift+右键&7讲台可以获取一本&b技能之书"
+        - "&c! &7需要消耗 &a37级 &7经验等级"
+      2:
+        - "&7手持书&bShift+右键&7讲台可以获取一本&b技能之书"
+        - "&c! &7需要消耗 &a34级 &7经验等级"
+      3:
+        - "&7手持书&bShift+右键&7讲台可以获取一本&b技能之书"
+        - "&c! &7需要消耗 &a30级 &7经验等级"
+  厚积薄发:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzg2YjgwMjZhNjU5NmQ5MjJiM2I5ZTI0NWM2YjNmYWYzMTdhY2Q0ZjNjOTU3YTU4ZmE4NTNhZjY2MzJhOWViMiJ9fX0="
+    color: "&{#FF99CC}"
+    type: ACTIVE
+    cooldown: 120
+    description:
+      1:
+        - "&7下次手持书&bShift+右键&7书架可以获取一本&b技能之书"
+        - "&7且有 &a20% &7概率&b额外获得 &a1本 &b技能之书"
+        - "&c! &7需要消耗 &a2技能点"
+      2:
+        - "&7下次手持书&bShift+右键&7书架可以获取一本&b技能之书"
+        - "&7且有 &a35% &7概率&b额外获得 &a1本 &b技能之书"
+        - "&c! &7需要消耗 &a2技能点"
+      3:
+        - "&7下次手持书&bShift+右键&7书架可以获取一本&b技能之书"
+        - "&7且有 &a50% &7概率&b额外获得 &a1本 &b技能之书"
+        - "&c! &7需要消耗 &a2技能点"
+  学术沙龙:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzUzYzg5YTJhZGM0ZWU1YmExZjA1ZTVkNjRlOWI0YmI2YjMyMzJjNzIwMjhlMGNiZTM1ZTFiNzNkMGM1N2RjMSJ9fX0="
+    color: "&{#FF99CC}"
+    type: ACTIVE
+    cooldown: 180
+    duration: 15+level*15
+    description:
+      1:
+        - "&7周围 &a4格 &7内所有非敌对玩家的&b共鸣&7范围 &a+8格"
+        - "&c多个玩家的此技能不可叠加"
+      2:
+        - "&7周围 &a4格 &7内所有非敌对玩家的&b共鸣&7范围 &a+12格"
+        - "&c多个玩家的此技能不可叠加"
+      3:
+        - "&7周围 &a4格 &7内所有非敌对玩家的&b共鸣&7范围 &a+16格"
+        - "&c多个玩家的此技能不可叠加"
+  #继续添加
+eurekas:
+  诲人不倦:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjhiMjc2NGExMTRiODg3NDk1NzdjMDEyZTE3YjcxYzliZmQ1OGIxZTlhMTgzYTdiMWFjYzY2MWIyNDAxYWU1In19fQ=="
+    color: "&{#FF99CC}"
+    cooldown: 50
+    description:
+      - "&c仅当处于讲台周围 &a3格 &c时可触发"
+      - "&7获得 &a20点 &7经验"
+    type: ACTIVE
+  触类旁通:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjU2ZWM2NzI5NjlhZmU1N2Y2YTRlYjM1ZDg3MTQ1MGMzZTcxOWFiMjA1MGE5YTQwZDMzNjEyY2FkNTc2N2UifX19"
+    color: "&{#FF99CC}"
+    description:
+      - "&7记录自身当前拥有的&e分支&7数"
+      - "&7自身的&b共鸣&7范围增加 &a3倍 &7于&b该数&7的格数"
+    type: PASSIVE
+  鞠躬尽瘁:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjU2MDc2MzI4N2E3Zjk4NzE1MmMxYTM3NDA4Y2JmMzRlYmNlMDg0YzM3MTM2NmFmMmE3M2Y3ZjY5Mzc3ZDk3OSJ9fX0="
+    color: "&{#FF99CC}"
+    description:
+      - "&c仅当自身拥有&b【学者】&c职业下的另一个&e分支&c时可触发"
+      - "&c立即触发且仅触发一次："
+      - "&7获得 &a3 &7技能点"
+    type: PASSIVE
