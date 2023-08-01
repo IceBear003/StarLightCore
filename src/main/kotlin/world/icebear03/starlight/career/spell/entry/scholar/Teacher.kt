@@ -5,14 +5,14 @@ import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
 import org.serverct.parrot.parrotx.function.textured
+import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
-import taboolib.platform.util.modifyMeta
-import world.icebear03.starlight.career.addLimit
-import world.icebear03.starlight.career.discharge
-import world.icebear03.starlight.career.display
-import world.icebear03.starlight.career.finish
+import taboolib.platform.util.*
+import world.icebear03.starlight.career
+import world.icebear03.starlight.career.*
 import world.icebear03.starlight.career.spell.handler.internal.HandlerType
 import world.icebear03.starlight.utils.hasBlockAside
+import world.icebear03.starlight.utils.isDischarging
 import java.util.*
 
 object Teacher {
@@ -51,10 +51,74 @@ object Teacher {
                 "${display(name)} §7释放失败，因为周围没有讲台"
             }
         }
+
+        "厚积薄发".discharge { name, _ ->
+            "${display(name)} §7释放成功，下次通过书架制作技能之书时有几率消耗更少的技能点"
+        }
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.LOWEST)
     fun click(event: PlayerInteractEvent) {
-        //TODO 点书架等
+        if (!event.isMainhand())
+            return
+        if (!event.hasItem())
+            return
+        if (!event.isRightClick())
+            return
+        val player = event.player
+        val item = event.item!!
+        if (item.hasName()) {
+            if (item.itemMeta!!.displayName == "§b技能之书") {
+                if (player.meetRequirement("教师", 0)) {
+                    player.sendMessage("§a生涯系统 §7>> 教师不能使用技能之书")
+                    return
+                }
+                if (item.amount > 1) {
+                    item.amount -= 1
+                } else player.inventory.setItemInMainHand(null)
+                player.career().addPoint(1)
+                player.sendMessage("§a生涯系统 §7>> 从技能之书中获得了§a1技能点")
+            }
+        }
+        if (item.type == Material.BOOK && event.hasBlock() && player.isSneaking && player.meetRequirement("教师", 0)) {
+            val block = event.clickedBlock!!
+            val career = player.career()
+            if (block.type == Material.LECTERN) {
+                val levelCost = when (player.spellLevel("教育学", false)) {
+                    1 -> 37
+                    2 -> 34
+                    3 -> 30
+                    else -> 40
+                }
+                if (player.level >= levelCost && career.points >= 1) {
+                    career.points -= 1
+                    player.level -= levelCost
+                    if (item.amount > 1) {
+                        item.amount -= 1
+                    } else player.inventory.setItemInMainHand(null)
+                    player.giveItem(skillBook.clone())
+                    player.sendMessage("§a生涯系统 §7>> 你消耗§a1技能点§7和§a${levelCost}级经验§7制作了一本技能之书")
+                } else {
+                    player.sendMessage("§a生涯系统 §7>> 缺少技能点或经验，无法制作技能之书")
+                }
+            }
+            if (block.type == Material.BOOKSHELF) {
+                val rate = if (player.isDischarging("厚积薄发")) {
+                    player.finish("厚积薄发")
+                    player.spellLevel("厚积薄发") * 0.1
+                } else -1.0
+                val cost = if (Math.random() <= rate) 1 else 2
+                if (career.points >= cost) {
+                    career.points -= cost
+                    if (item.amount > 1) {
+                        item.amount -= 1
+                    } else player.inventory.setItemInMainHand(null)
+                    player.giveItem(skillBook.clone())
+                    player.sendMessage("§a生涯系统 §7>> 你消耗§a${cost}技能点§7制作了一本技能之书")
+                } else {
+                    player.sendMessage("§a生涯系统 §7>> 缺少技能点，无法制作技能之书")
+                }
+            }
+        }
     }
 }

@@ -1,0 +1,82 @@
+title: "技能点获取"
+shape:
+  - 'FFFCFBFFF'
+  - 'FDFCFCFWW'
+  - 'FDFCFCFWW'
+  - 'FDFCFCFWW'
+  - 'FDFCFCFFF'
+  - 'FAFCCCFYZ'
+
+template:
+  'F':
+    material: BLACK_STAINED_GLASS_PANE
+    name: "&7"
+
+  'Z':
+    material: PLAYER_HEAD
+    name: "&c关闭"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjc1NDgzNjJhMjRjMGZhODQ1M2U0ZDkzZTY4YzU5NjlkZGJkZTU3YmY2NjY2YzAzMTljMWVkMWU4NGQ4OTA2NSJ9fX0="
+      - ==: Close
+
+  'Y':
+    material: PLAYER_HEAD
+    name: "&e返回主菜单"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzk3OGYzNWM2Mzg2MGQ2OTRmZWU0YWIzYzM2OTRmZGU0MDQ2Yzk2NmU0YzFiZjA2NjVmODg3NDhmOWY4MDI1In19fQ=="
+      - ==: Functional
+        keyword: Point$back
+
+  'D':
+    material: RED_STAINED_GLASS_PANE
+    name: "{reward} {state}"
+    lore:
+      - "&8| &7领取条件:"
+      - "    &7今日在线 {time}"
+    feature:
+      - ==: Functional
+        keyword: Point$daily_time
+
+  'C':
+    material: RED_STAINED_GLASS_PANE
+    name: "{reward} {state}"
+    lore:
+      - "&8| &7领取条件:"
+      - "    &7生涯生存 &a{time}"
+    feature:
+      - ==: Functional
+        keyword: Point$career_time
+
+  'A':
+    material: PLAYER_HEAD
+    name: "&e今日在线"
+    lore:
+      - "&8| &7即今天的总在线时间"
+      - "&8| &c挂机时间不算在内"
+      - "&8| &7点击&e黄色玻璃板&7领取"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOWNiZjMwMjlkYWVkNDExYmYyYjAwMzI5MDc4MGVlOGEwYmNmNTllZjZkM2EyZTM4YWMzMjMwNmFhNWI0M2M1YyJ9fX0="
+
+  'B':
+    material: PLAYER_HEAD
+    name: "&e生涯在线"
+    lore:
+      - "&8| &7即本条命的总生存时间"
+      - "&8| &c挂机时间不算在内"
+      - "&8| &7点击&e黄色玻璃板&7领取"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTQyYTI0MTUyYWExM2FjMzE1YjI3MWQ2OThiODJiNGE3YTE3ZjEwZjE3ZjBlOGM0OTVmYjZmOGNiMzljNTU2NCJ9fX0="
+
+  'W':
+    material: PLAYER_HEAD
+    name: "{way}"
+    lore:
+      - "&8| &7有概率获得技能点:"
+      - "&7     |—— {rates}"
+    feature:
+      - ==: Functional
+        keyword: Point$other_way

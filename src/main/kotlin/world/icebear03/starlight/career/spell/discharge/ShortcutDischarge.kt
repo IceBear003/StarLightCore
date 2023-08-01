@@ -3,7 +3,6 @@ package world.icebear03.starlight.career.spell.discharge
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
-import org.bukkit.event.block.Action
 import org.bukkit.event.player.PlayerInteractEntityEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerSwapHandItemsEvent
@@ -15,6 +14,7 @@ import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.platform.util.hasName
 import taboolib.platform.util.isMainhand
+import taboolib.platform.util.isRightClick
 import taboolib.platform.util.modifyMeta
 import world.icebear03.starlight.career
 import world.icebear03.starlight.career.gui.CareerUI
@@ -64,9 +64,7 @@ object ShortcutDischarge {
     fun click(event: PlayerInteractEvent) {
         val item = event.item ?: return
 
-        if (event.action == Action.RIGHT_CLICK_AIR ||
-            event.action == Action.RIGHT_CLICK_BLOCK
-        ) {
+        if (event.isRightClick()) {
             if (item.hasName() && event.isMainhand()) {
                 if (item.itemMeta!!.displayName == "§b职业信物") {
                     CareerUI.open(event.player, null)

@@ -10,7 +10,6 @@ object NoHeadPlace {
     fun place(event: BlockPlaceEvent) {
         if (event.itemInHand.type == Material.PLAYER_HEAD) {
             event.isCancelled = true
-            event.player.sendMessage("§b繁星工坊 §7>> 不允许放置头颅")
         }
     }
 }

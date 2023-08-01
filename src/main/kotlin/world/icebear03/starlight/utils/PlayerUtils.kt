@@ -40,7 +40,7 @@ fun Player.takeItem(amount: Int = 1, matcher: (itemStack: ItemStack) -> Boolean)
     return false
 }
 
-fun Player.realDamage(amount: Double, who: Entity? = null) {
+fun LivingEntity.realDamage(amount: Double, who: Entity? = null) {
     health = maxOf(0.1, health - amount)
     damage(0.5, who)
 }

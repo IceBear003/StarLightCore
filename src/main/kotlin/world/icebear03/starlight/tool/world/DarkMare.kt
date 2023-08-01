@@ -7,6 +7,7 @@ import taboolib.common.platform.function.submit
 import taboolib.platform.util.actionBar
 import taboolib.platform.util.onlinePlayers
 import taboolib.platform.util.title
+import world.icebear03.starlight.utils.realDamage
 import java.util.*
 
 object DarkMare {
@@ -27,9 +28,7 @@ object DarkMare {
                     val current = timeInDark.getOrDefault(player.uniqueId, 0.0) + 0.25
                     timeInDark[player.uniqueId] = current
                     if (current >= 5) {
-                        player.damage(0.2)
-                        if (player.health >= 1)
-                            player.health = player.health - 0.75
+                        player.realDamage(0.75)
                         player.title("§7黑暗", "§7受到未知袭击...", 0, 10, 0)
                         player.actionBar("§7请尽一切可能离开黑暗")
                         return@forEach

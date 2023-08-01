@@ -204,6 +204,7 @@ object Baker {
             damaged.effect(PotionEffectType.CONFUSION, 15, 2)
             damaged.effect(PotionEffectType.DARKNESS, 5, 1)
             if (Math.random() <= 0.2) {
+                damaged.realDamage(2.0, player)
                 damaged.health = maxOf(0.02, damaged.health - 2.0)
                 damaged.damage(0.1, player)
             }

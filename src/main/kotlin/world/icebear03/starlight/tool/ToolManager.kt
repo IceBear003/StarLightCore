@@ -1,6 +1,7 @@
 package world.icebear03.starlight.tool
 
 import world.icebear03.starlight.tool.info.BossBarCompass
+import world.icebear03.starlight.tool.info.CareerOnline
 import world.icebear03.starlight.tool.info.CustomTab
 import world.icebear03.starlight.tool.info.DailyOnline
 import world.icebear03.starlight.tool.mechanism.AFK
@@ -24,5 +25,6 @@ object ToolManager {
         FasterNight.initialize()
         AFK.initialize()
         DailyOnline.initialize()
+        CareerOnline.initialize()
     }
 }

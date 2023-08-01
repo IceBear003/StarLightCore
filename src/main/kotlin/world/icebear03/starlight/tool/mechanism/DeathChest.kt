@@ -99,6 +99,12 @@ object DeathChest {
             return
 
         val player = event.player as Player
+        val who = minecart["death_chest_owner", PersistentDataType.STRING]
+        if (minecart.ticksLived <= 30 * 60 * 20 && player.name != who) {
+            player.sendMessage("§b繁星工坊 §7>> 死亡箱在生成的§a30分钟§7内只能由主人自己打开，请等待一会")
+            event.isCancelled = true
+            return
+        }
 
         opening += player.uniqueId
 

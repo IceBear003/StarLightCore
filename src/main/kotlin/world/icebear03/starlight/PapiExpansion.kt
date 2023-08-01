@@ -78,7 +78,7 @@ object PapiExpansion : PlaceholderExpansion {
             "career_points" -> career.points.toString()
             "career_resonate" -> career.resonantBranch?.display() ?: "&7无"
             "career_resonate_tag" -> career.resonantBranch?.display() ?: "&e玩家"
-            "period_alive" -> player.secondLived().secToFormattedTime()
+            "career_online_time" -> player["career_time", PersistentDataType.INTEGER]!!.secToFormattedTime()
             "nearest_player" -> NearestPlayer.nearestMap.getOrDefault(player.uniqueId, "无" to "N/A").first
             "nearest_distance" -> NearestPlayer.nearestMap.getOrDefault(player.uniqueId, "无" to "N/A").second
             "stamina" -> player.stamina().display()
@@ -97,7 +97,7 @@ object PapiExpansion : PlaceholderExpansion {
                 player.station().location?.let { "&b驻扎中" } ?: "&e未驻扎"
             }
 
-            "daily_online_time" -> player["time", PersistentDataType.INTEGER]?.secToFormattedTime() ?: "0秒"
+            "daily_online_time" -> player["daily_time", PersistentDataType.INTEGER]?.secToFormattedTime() ?: "0秒"
             "is_afking" -> if (!AFK.isAFKing(player)) "&a在线" else "&e挂机中"
 
             else -> args

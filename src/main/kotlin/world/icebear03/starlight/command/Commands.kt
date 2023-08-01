@@ -26,6 +26,9 @@ object Commands {
     @CommandBody
     val career = commandCareer
 
+    @CommandBody
+    val point = commandPoint
+
     @CommandBody(permission = "starlight.op")
     val careerPoint = commandCareerPoint
 
