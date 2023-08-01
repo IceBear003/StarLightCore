@@ -20,7 +20,7 @@ object Resonate {
     val resonateBranchMap = mutableMapOf<UUID, List<Branch>>()
 
     fun initialize() {
-        submit(delay = 20L, period = 100L) {
+        submit(delay = 20L, period = 20L) {
             onlinePlayers.forEach {
                 val result = searchResonate(it)
                 resonateSpellMap[it.uniqueId] = result.first

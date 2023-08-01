@@ -3,6 +3,9 @@ package world.icebear03.starlight.career.spell.discharge
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
+import org.bukkit.event.block.Action
+import org.bukkit.event.player.PlayerInteractEntityEvent
+import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerSwapHandItemsEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.PlayerInventory
@@ -11,8 +14,10 @@ import org.serverct.parrot.parrotx.function.textured
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.platform.util.hasName
+import taboolib.platform.util.isMainhand
 import taboolib.platform.util.modifyMeta
 import world.icebear03.starlight.career
+import world.icebear03.starlight.career.gui.CareerUI
 import world.icebear03.starlight.recipe.shapelessRecipe
 
 object ShortcutDischarge {
@@ -24,7 +29,8 @@ object ShortcutDischarge {
             lore = listOf(
                 "§8| §7将此物置于副手，按下交换键(默认F)时",
                 "§8| §7即可施放快捷栏格子编号对应的技能",
-                "§8| §c蹲下时不触发此判定"
+                "§8| §7注意: 蹲下时§c不触发§7此判定",
+                "§8| §7拿在手上右击也可以打开职业菜单"
             )
         }
 
@@ -50,6 +56,32 @@ object ShortcutDischarge {
                 val slot = inv.heldItemSlot + 1
                 val msg = triggerShortcut(player, slot) ?: return
                 player.sendMessage("§a生涯系统 §7>> $msg")
+            }
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
+    fun click(event: PlayerInteractEvent) {
+        val item = event.item ?: return
+
+        if (event.action == Action.RIGHT_CLICK_AIR ||
+            event.action == Action.RIGHT_CLICK_BLOCK
+        ) {
+            if (item.hasName() && event.isMainhand()) {
+                if (item.itemMeta!!.displayName == "§b职业信物") {
+                    CareerUI.open(event.player, null)
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
+    fun click(event: PlayerInteractEntityEvent) {
+        val player = event.player
+        val item = player.inventory.itemInMainHand
+        if (item.hasName() && event.isMainhand()) {
+            if (item.itemMeta!!.displayName == "§b职业信物") {
+                CareerUI.open(event.player, null)
             }
         }
     }

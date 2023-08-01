@@ -45,6 +45,9 @@ object Commands {
     val stationStampReset = commandStationStampReset
 
     @CommandBody(permission = "starlight.op")
+    val cooldownReset = commandCooldownReset
+
+    @CommandBody(permission = "starlight.op")
     val qte = commandQTE
 
     @CommandBody

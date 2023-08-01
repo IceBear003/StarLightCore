@@ -7,7 +7,6 @@ import org.bukkit.event.enchantment.EnchantItemEvent
 import org.bukkit.event.inventory.InventoryClickEvent
 import org.bukkit.event.inventory.PrepareAnvilEvent
 import org.bukkit.event.player.PlayerLevelChangeEvent
-import org.bukkit.inventory.AnvilInventory
 import org.bukkit.inventory.GrindstoneInventory
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.Damageable
@@ -16,6 +15,7 @@ import org.bukkit.potion.PotionEffectType
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
+import taboolib.platform.util.giveItem
 import taboolib.platform.util.modifyMeta
 import world.icebear03.starlight.career.*
 import world.icebear03.starlight.career.spell.handler.addSpecialRecipe
@@ -24,7 +24,6 @@ import world.icebear03.starlight.recipe.shapedRecipe
 import world.icebear03.starlight.utils.effect
 import world.icebear03.starlight.utils.getEnchants
 import world.icebear03.starlight.utils.isDischarging
-import world.icebear03.starlight.utils.takeItem
 import kotlin.math.roundToInt
 
 object Enchanter {
@@ -35,11 +34,6 @@ object Enchanter {
 
         "魔力虹吸".discharge { name, _ ->
             "${display(name)} §7释放成功，下次砂轮卸魔时会获得额外增益"
-        }
-        "咒术工程".discharge { name, _ ->
-            "${display(name)} §7释放成功，下次铁砧合并，若显示昂贵的附魔，可以使用青金石强制完成"
-        }.finish { name, _ ->
-            "${display(name)} §7消耗了额外的青金石和经验等级，使得本次过于昂贵无效"
         }
 
         shapedRecipe(
@@ -57,7 +51,8 @@ object Enchanter {
         }
 
         "禁术褫夺".discharge { name, _ ->
-            val trace = world.rayTraceEntities(location, eyeLocation.direction, 6.0)
+            val trace =
+                world.rayTraceEntities(location.add(0.0, 1.5, 0.0), eyeLocation.direction.normalize(), 6.0) { it.uniqueId != uniqueId }
             val entity = trace?.hitEntity
             if (entity !is Player)
                 return@discharge "${display(name)} §7释放成功，但是没有选中一个玩家"
@@ -67,16 +62,22 @@ object Enchanter {
             var tot = 0
             submit(period = 2L) {
                 tot++
-                if (tot >= 200)
+                if (tot >= 200) {
                     cancel()
-                if (!isDischarging("禁术褫夺") || !entity.isOnline || entity.isDead)
+                    finish(name)
+                    return@submit
+                }
+                if (!isDischarging(name) || !entity.isOnline || entity.isDead) {
                     cancel()
+                    return@submit
+                }
 
                 if (!entity.hasPotionEffect(PotionEffectType.FIRE_RESISTANCE) && entity.fireTicks > 0) {
                     val item = entity.inventory.armorContents.filter { it.itemMeta is Damageable }.random()
                     item.enchantments.toMap().forEach { item.removeEnchantment(it.key) }
-                    entity.sendMessage("§a生涯系统 §7>> 你被 §e$name §7使用 ${display(name)} §7卸除了一件装备的附魔")
+                    entity.sendMessage("§a生涯系统 §7>> 你被 §e${this@discharge.name} §7使用 ${display(name)} §7卸除了一件装备的附魔")
                     sendMessage("§a生涯系统 §7>> ${display(name)} §7标记中的玩家被点燃，触发附魔卸除")
+                    finish(name)
                 }
             }
 
@@ -100,33 +101,6 @@ object Enchanter {
         }
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGH)
-    fun combine(event: InventoryClickEvent) {
-        val inv = event.clickedInventory
-        val player = event.whoClicked as Player
-        if (inv !is AnvilInventory)
-            return
-
-        if (event.slot != 2)
-            return
-
-//        val result = event.currentItem?.clone() ?: return
-
-        if (inv.repairCost > inv.maximumRepairCost) {
-            println(event.result)
-            if (player.isDischarging("咒术工程")) {
-                val lapisLazuli = ItemStack(Material.LAPIS_LAZULI)
-                if (player.level >= 30) {
-                    if (player.takeItem(64) { it.isSimilar(lapisLazuli) }) {
-                        player.level -= 30
-//                        player.giveItem(result)
-                        player.finish("咒术工程")
-                    }
-                }
-            }
-        }
-    }
-
     @SubscribeEvent(priority = EventPriority.LOWEST)
     fun enchantLowest(event: EnchantItemEvent) {
         val minLevel = event.expLevelCost
@@ -141,11 +115,16 @@ object Enchanter {
     fun enchantHigh(event: EnchantItemEvent) {
         val player = event.enchanter
 
-        val cost = event.whichButton()
-        val spellLevel = player.spellLevel("注魔宝典")
+        val cost = event.whichButton() + 1
+        var spellLevel = player.spellLevel("注魔宝典")
         if (spellLevel > 0 && Math.random() <= spellLevel * 0.2) {
             player.giveExpLevels(cost)
             player.sendMessage("§a生涯系统 §7>> ${display("注魔宝典", spellLevel)} §7使得本次附魔不消耗经验等级")
+        }
+        spellLevel = player.spellLevel("咒术工程")
+        if (spellLevel > 0 && Math.random() <= spellLevel * 0.1 + 0.1) {
+            player.giveItem(ItemStack(Material.LAPIS_LAZULI, minOf(spellLevel, cost)))
+            player.sendMessage("§a生涯系统 §7>> ${display("咒术工程", spellLevel)} §7使得从本次附魔中额外获得了青金石")
         }
     }
 

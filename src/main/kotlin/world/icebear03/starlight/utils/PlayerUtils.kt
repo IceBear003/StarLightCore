@@ -3,6 +3,7 @@ package world.icebear03.starlight.utils
 import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Statistic
+import org.bukkit.entity.Entity
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
@@ -37,4 +38,9 @@ fun Player.takeItem(amount: Int = 1, matcher: (itemStack: ItemStack) -> Boolean)
         return true
     }
     return false
+}
+
+fun Player.realDamage(amount: Double, who: Entity? = null) {
+    health = maxOf(0.1, health - amount)
+    damage(0.5, who)
 }

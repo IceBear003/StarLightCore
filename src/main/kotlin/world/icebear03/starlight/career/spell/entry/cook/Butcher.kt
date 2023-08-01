@@ -105,8 +105,9 @@ object Butcher {
 
         "追猎".discharge spell@{ name, _ ->
             finish(name)
-            val trace = world.rayTraceEntities(location, eyeLocation.direction.normalize(), 50.0)
-                ?: return@spell "${display(name)} §7释放成功，但是并没有锁定一个生物"
+            val trace =
+                world.rayTraceEntities(location.add(0.0, 1.5, 0.0), eyeLocation.direction.normalize(), 50.0) { it.uniqueId != uniqueId }
+                    ?: return@spell "${display(name)} §7释放成功，但是并没有锁定一个生物"
             val entity = trace.hitEntity
             if (entity !is LivingEntity)
                 return@spell "${display(name)} §7释放成功，但是并没有锁定一个生物"

@@ -3,8 +3,10 @@ package world.icebear03.starlight.career.spell.entry.scholar
 import org.bukkit.*
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
+import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.inventory.ItemStack
+import org.bukkit.potion.PotionEffectType
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
@@ -16,6 +18,7 @@ import world.icebear03.starlight.utils.*
 
 object RedstoneEngineer {
 
+    val overloading = mutableListOf<String>()
     val machines = listOf(
         Material.DAYLIGHT_DETECTOR,
         Material.OBSERVER,
@@ -62,20 +65,25 @@ object RedstoneEngineer {
 
         "超载".discharge spell@{ name, _ ->
             val wires = location.getBlockAside(8, Material.REDSTONE_WIRE)
+            overloading += wires.map { it.toPDCString() }
             submit(delay = 10L, period = 20L) {
                 if (isDischarging(name)) {
                     wires.forEach {
-                        val loc = it.add(0.5, 0.5, 0.5)
+                        val loc = it.clone().add(0.5, 0.5, 0.5)
                         world.spawnParticle(Particle.REDSTONE, loc, 3, Particle.DustOptions(Color.RED, 1.0f))
                         world.players.forEach players@{ other ->
                             if (other.uniqueId == uniqueId)
                                 return@players
-                            if (other.location.verticalDistance(loc) <= 1.5 && other.location.horizontalDistance(loc) <= 0.5) {
-                                other.damage(1.0, this@spell)
+                            if (other.location.verticalDistance(loc) <= 1.5 && other.location.horizontalDistance(loc) <= 0.75) {
+                                other.realDamage(1.0, this@spell)
+                                other.effect(PotionEffectType.GLOWING, 2)
                             }
                         }
                     }
-                } else cancel()
+                } else {
+                    overloading -= wires.map { it.toPDCString() }.toSet()
+                    cancel()
+                }
             }
             "${display(name)} §7释放成功，周围的红石粉进入超载状态"
         }
@@ -120,6 +128,14 @@ object RedstoneEngineer {
             } else {
                 "${display(name)} §7释放失败，因为手里没有避雷针"
             }
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    fun breakBlock(event: BlockBreakEvent) {
+        if (overloading.contains(event.block.location.toPDCString())) {
+            event.player.realDamage(4.0)
+            event.player.sendMessage("§a生涯系统 §7>> 红石线路超载中，拆除对你造成了§a4点§7伤害")
         }
     }
 

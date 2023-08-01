@@ -1,5 +1,6 @@
 package world.icebear03.starlight.station.mechanism
 
+import org.bukkit.Bukkit
 import org.bukkit.Material
 import org.bukkit.Particle
 import org.bukkit.World
@@ -53,7 +54,9 @@ object StationMechanism {
                     var add = halo * minOf(1.0, 1 - horizontalDistance / horizontal + 0.3)
                     if (player.uniqueId == station.ownerId)
                         add *= 2
-
+                    if (!Bukkit.getOfflinePlayer(station.ownerId).isOnline)
+                        add /= 2
+                    
                     player.addStamina(add)
                     haloMap[player.uniqueId]!![ownerName] = add
                 }

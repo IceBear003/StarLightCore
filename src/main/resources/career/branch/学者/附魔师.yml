@@ -41,21 +41,14 @@ skills:
   咒术工程:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzUzYzg5YTJhZGM0ZWU1YmExZjA1ZTVkNjRlOWI0YmI2YjMyMzJjNzIwMjhlMGNiZTM1ZTFiNzNkMGM1N2RjMSJ9fX0="
     color: "&{#7030A0}"
-    type: ACTIVE
-    cooldown: 1800-(level-1)*150
+    type: PASSIVE
     description:
       1:
-        - "&7下次使用铁砧附魔时，若&b过于昂贵"
-        - "&7则可以通过花费 &a30经验等级 &7和 &a64个 &7青金石完成此附魔"
-        - "&c附魔完成后，铁砧被破坏"
+        - "&7使用附魔台进行附魔时有 &a20% &7概率使消耗的青金石 &b-1"
       2:
-        - "&7下次使用铁砧附魔时，若&b过于昂贵"
-        - "&7则可以通过花费 &a30经验等级 &7和 &a64个 &7青金石完成此附魔"
-        - "&c附魔完成后，铁砧被破坏"
+        - "&7使用附魔台进行附魔时有 &a30% &7概率使消耗的青金石 &b-2"
       3:
-        - "&7下次使用铁砧附魔时，若&b过于昂贵"
-        - "&7则可以通过花费 &a30经验等级 &7和 &a64个 &7青金石完成此附魔"
-        - "&c附魔完成后，铁砧被破坏"
+        - "&7使用附魔台进行附魔时有 &a40% &7概率使消耗的青金石 &b-3"
   #继续添加
 eurekas:
   青金术师:

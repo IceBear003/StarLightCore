@@ -5,6 +5,7 @@ import org.bukkit.persistence.PersistentDataType
 import taboolib.common5.format
 import taboolib.platform.compat.PlaceholderExpansion
 import taboolib.platform.compat.replacePlaceholder
+import world.icebear03.starlight.career.core.Resonate
 import world.icebear03.starlight.career.display
 import world.icebear03.starlight.career.getSpell
 import world.icebear03.starlight.station.mechanism.StaminaModifier
@@ -53,6 +54,15 @@ object PapiExpansion : PlaceholderExpansion {
             }
 
             return "$int &7- ${display(name)} &7> $state"
+        }
+
+        if (args.startsWith("career_resonating_")) {
+            val int = args.replace("career_resonating_", "").toInt()
+            val spellList = Resonate.resonateSpellMap[player.uniqueId]!!.toList()
+            if (int >= spellList.size)
+                return ""
+            val resonate = spellList[int]
+            return resonate.first.display(resonate.second.second) + " &7来自 " + resonate.second.first
         }
 
         if (args.startsWith("station_halo_")) {
