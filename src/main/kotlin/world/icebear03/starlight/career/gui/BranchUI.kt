@@ -206,7 +206,7 @@ object BranchUI {
                 BindUI.open(player, name)
             }
             if (click.isRightClick) {
-                player.sendMessage("§a生涯系统 §7>> " + career.switchAutoDischarge(name))
+                player.sendMessage("§a生涯系统 §7>> " + career.switchAutoDischarge(name).second)
                 open(player, args[0].toString())
             }
         }

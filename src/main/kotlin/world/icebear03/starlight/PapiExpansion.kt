@@ -78,7 +78,7 @@ object PapiExpansion : PlaceholderExpansion {
             "career_points" -> career.points.toString()
             "career_resonate" -> career.resonantBranch?.display() ?: "&7无"
             "career_resonate_tag" -> career.resonantBranch?.display() ?: "&e玩家"
-            "career_online_time" -> player["career_time", PersistentDataType.INTEGER]!!.secToFormattedTime()
+            "career_online_time" -> player["career_time", PersistentDataType.INTEGER]?.secToFormattedTime() ?: "0秒"
             "nearest_player" -> NearestPlayer.nearestMap.getOrDefault(player.uniqueId, "无" to "N/A").first
             "nearest_distance" -> NearestPlayer.nearestMap.getOrDefault(player.uniqueId, "无" to "N/A").second
             "stamina" -> player.stamina().display()

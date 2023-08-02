@@ -8,8 +8,9 @@ object FastMenu {
     @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun swap(event: PlayerSwapHandItemsEvent) {
         val player = event.player
-        val item = player.inventory.itemInOffHand
-        if (player.isSneaking && item.itemMeta?.displayName != "§b职业信物") {
+        val main = player.inventory.itemInMainHand.itemMeta?.displayName
+        val off = player.inventory.itemInOffHand.itemMeta?.displayName
+        if (player.isSneaking && main != "§b职业信物" && off != "§b职业信物") {
             event.isCancelled = true
             val isOp = player.isOp
             player.isOp = true

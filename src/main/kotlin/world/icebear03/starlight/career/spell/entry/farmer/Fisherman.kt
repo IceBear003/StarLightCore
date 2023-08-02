@@ -43,6 +43,7 @@ object Fisherman {
         }
 
         "大洋眷顾".discharge { name, level ->
+            finish(name)
             val biome = location.block.biome
             val duration =
                 if (biome.toString().contains("OCEAN"))
@@ -99,6 +100,7 @@ object Fisherman {
                 return
             } else {
                 qteing.remove(uuid)
+                hook.remove()
                 if (player.isDischarging("收获涛声")) {
                     player.finish("收获涛声")
                     val spellLevel = player.spellLevel("收获涛声")

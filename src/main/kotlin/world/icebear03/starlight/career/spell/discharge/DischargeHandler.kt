@@ -19,7 +19,7 @@ object DischargeHandler {
             onlinePlayers.forEach { player ->
                 val career = player.career()
                 career.autoDischarges.forEach spells@{ name ->
-                    val msg = discharge(player, name, true)
+                    val msg = discharge(player, name, true) ?: return@spells
                     player.actionBar("§7自动释放 > $msg")
                 }
             }
@@ -28,7 +28,7 @@ object DischargeHandler {
 
     fun discharge(player: Player, name: String, isAuto: Boolean = false): String? {
         if (player.isDischarging(name))
-            return "${display(name)} §7已经处于释放状态"
+            return if (isAuto) null else "${display(name)} §7已经处于释放状态"
 
         val career = player.career()
         val spell = getSpell(name) ?: return "§a技能§7/§d顿悟§7不存在"
@@ -40,7 +40,7 @@ object DischargeHandler {
         val cd = player.checkCooldownStamp(name, spell.cd(level))
         val duration = spell.duration(level)
         if (!cd.first) {
-            return "无法释放 ${spell.display()} §7还需等待 §e${cd.second}秒"
+            return if (isAuto) null else "无法释放 ${spell.display()} §7还需等待 §e${cd.second}秒"
         }
 
         if (duration != -1) {

@@ -50,6 +50,7 @@ data class Career(
         branches.clear()
         spells.clear()
         shortCuts.clear()
+        autoDischarges.clear()
         points = 0
         resonantBranch = null
         resonantType = Resonate.ResonateType.FRIENDLY
@@ -84,9 +85,7 @@ data class Career(
 
     fun chooseList(): List<Class> {
         val list = ClassLoader.classes.values.toMutableList()
-        println(list)
         list.removeAll(classes.keys)
-        println(list)
         list.remove(list.random())
         return list
     }

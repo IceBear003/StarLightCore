@@ -38,7 +38,8 @@ object QTEProvider {
         shiftMap[uuid] = false
 
         //格式
-        val format = "&7>&f {bar} &7< (容错&e{chance}次&7)"
+        val qteFormat = "&7>&f {bar} &7< (容错&e{chance}次&7)"
+        val resultFormat = "&7>&f {result} &7<"
         //QTE总长度，如果要修改此处，请一起修改下方的intervalStart计算公式，否则有可能超下标
         val total = 100
 
@@ -67,7 +68,7 @@ object QTEProvider {
             fun finish(result: QTEResult? = null) {
                 result?.let {
                     function.invoke(player, result)
-                    player.sendActionBar(format.replace("{bar}", if (it == QTEResult.ACCEPTED) "§a✔" else "§c✘").colored())
+                    player.sendActionBar(resultFormat.replace("{bar}", if (it == QTEResult.ACCEPTED) "§a✔" else "§c✘").colored())
                 } ?: function.invoke(player, QTEResult.UNABLE)
                 shiftMap.remove(uuid)
                 //延迟，让玩家看到效果
@@ -140,7 +141,7 @@ object QTEProvider {
                     else if (it in intervalStart..intervalStart + interval) SymbolType.INTERVAL.colored[chance - 1]
                     else SymbolType.WAITING.colored[chance - 1]
                 }
-                player.sendActionBar(format.replace("{bar}", bar).replace("{chance}", (type.time - failTime).toString()).colored())
+                player.sendActionBar(qteFormat.replace("{bar}", bar).replace("{chance}", (type.time - failTime).toString()).colored())
             }
         }
     }
