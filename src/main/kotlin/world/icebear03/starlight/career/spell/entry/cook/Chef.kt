@@ -77,7 +77,7 @@ object Chef {
             "${display(name)} §7使得下一次食用某些镀金食物时触发额外增益"
         }
 
-        Material.values().filter { it.isEdible }.addHighListener(HandlerType.SINTER) { event, player, type ->
+        Material.values().filter { it.isEdible }.addHighListener(HandlerType.CRAFT) { event, player, type ->
             val level = player.spellLevel("精准火候")
             val rate = level * 0.1
             var amount = 0

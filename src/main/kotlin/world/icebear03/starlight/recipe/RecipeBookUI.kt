@@ -96,9 +96,8 @@ object RecipeBookUI {
 
     @MenuComponent
     private val recipe = MenuFunctionBuilder {
-        onBuild { (_, _, _, _, icon, args) ->
+        onBuild { (_, _, _, _, _, args) ->
             val recipe = args[0] as Recipe
-            val filter = args[1]?.toString() ?: "null"
             val result = recipe.result.clone()
             var key: NamespacedKey? = null
             var type = "§7N/A"
@@ -119,7 +118,9 @@ object RecipeBookUI {
                     "§7${s[0]} | ${s[1]} | ${s[2]}"
                 }
 
-                ingredients += recipe.ingredientMap.map { (letter, type) -> "§7${letter.uppercase()} - §b${type.getI19nName()}" }
+                ingredients += recipe.ingredientMap
+                    .filter { it.key != ' ' }
+                    .map { (letter, type) -> "§7${letter.uppercase()} - §b${type.getI19nName()}" }
             }
 
             SpecialRecipeLibrary.recipeMap[key]?.let { pair ->

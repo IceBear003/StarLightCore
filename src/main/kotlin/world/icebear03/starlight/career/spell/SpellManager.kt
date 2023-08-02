@@ -3,6 +3,9 @@ package world.icebear03.starlight.career.spell
 import world.icebear03.starlight.career.spell.discharge.DischargeHandler
 import world.icebear03.starlight.career.spell.discharge.ShortcutDischarge
 import world.icebear03.starlight.career.spell.entry.architect.Demolitionist
+import world.icebear03.starlight.career.spell.entry.architect.FortressEngineer
+import world.icebear03.starlight.career.spell.entry.architect.StructuralEngineer
+import world.icebear03.starlight.career.spell.entry.architect.TrafficEngineer
 import world.icebear03.starlight.career.spell.entry.cook.Baker
 import world.icebear03.starlight.career.spell.entry.cook.Brewer
 import world.icebear03.starlight.career.spell.entry.cook.Butcher
@@ -19,6 +22,9 @@ object SpellManager {
         ShortcutDischarge.initialize()
 
         Demolitionist.initialize()
+        FortressEngineer.initialize()
+        StructuralEngineer.initialize()
+        TrafficEngineer.initialize()
 
         Brewer.initialize()
         Baker.initialize()

@@ -58,7 +58,7 @@ object PapiExpansion : PlaceholderExpansion {
 
         if (args.startsWith("career_resonating_")) {
             val int = args.replace("career_resonating_", "").toInt()
-            val spellList = Resonate.resonateSpellMap[player.uniqueId]!!.toList()
+            val spellList = Resonate.resonateSpellMap[player.uniqueId]?.toList() ?: return ""
             if (int >= spellList.size)
                 return ""
             val resonate = spellList[int]
@@ -67,7 +67,7 @@ object PapiExpansion : PlaceholderExpansion {
 
         if (args.startsWith("station_halo_")) {
             val index = args.replace("station_halo_", "").toInt()
-            val pairs = StationMechanism.haloMap[player.uniqueId]!!.toList()
+            val pairs = StationMechanism.haloMap[player.uniqueId]?.toList() ?: return ""
             if (index > pairs.size)
                 return ""
             val pair = pairs[index - 1]

@@ -11,6 +11,7 @@ import org.bukkit.entity.EntityType
 import org.bukkit.entity.TNTPrimed
 import org.bukkit.persistence.PersistentDataType
 import taboolib.common.platform.function.submit
+import world.icebear03.starlight.career.spell.entry.architect.Demolitionist
 import java.util.*
 import kotlin.math.abs
 import kotlin.math.pow
@@ -223,7 +224,7 @@ fun Location.shootPrimedTNT(velocity: org.bukkit.util.Vector, fuseTicks: Int = 1
         tnt.fuseTicks = fuseTicks
         tnt.isGlowing = true
         if (!breakBlocks) {
-//            DemolitionistActive.tnts += tnt.uniqueId FIXME
+            Demolitionist.tnts += tnt.uniqueId
         }
     }
 }
