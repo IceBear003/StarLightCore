@@ -44,7 +44,7 @@ object PapiExpansion : PlaceholderExpansion {
                 if (duration != -1) {
                     "&e✷ &7(&b${(duration - period).format(1)}秒&7)"
                 } else {
-                    "&e✷"
+                    "&e✷ &7(&b&l∞&7)"
                 }
             } else {
                 when (cdPair.first) {

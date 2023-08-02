@@ -96,7 +96,7 @@ object Baker {
                 val position = world.getHighestBlockAt(tmp).location
                 position.add(0, 1, 0)
                 position.block.type = Material.CAKE
-                world.spawnParticle(Particle.VILLAGER_HAPPY, position.clone().add(-0.5, 0.5, -0.5), 1)
+                world.spawnParticle(Particle.VILLAGER_HAPPY, position.clone().add(-0.5, 0.5, 0.5), 1)
             }
             finish(name)
             "召唤了一些蛋糕，甜点派对开始咯"

@@ -42,7 +42,7 @@ object Brewer {
         }
 
         shapelessRecipe(
-            NamespacedKey.minecraft("nether_native"),
+            NamespacedKey.minecraft("career_nether_native"),
             ItemStack(Material.POTION).modifyMeta<PotionMeta> {
                 basePotionData = PotionData(PotionType.AWKWARD, false, false)
             },
@@ -74,7 +74,7 @@ object Brewer {
         }
 
         shapelessRecipe(
-            NamespacedKey.minecraft("brewer_in_war"),
+            NamespacedKey.minecraft("career_brewer_in_war"),
             ItemStack(Material.SPLASH_POTION).modifyMeta<PotionMeta> {
                 basePotionData = PotionData(PotionType.AWKWARD, false, false)
             },

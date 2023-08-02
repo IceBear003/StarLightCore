@@ -40,7 +40,7 @@ object Chef {
         addLimit(HandlerType.CRAFT, "主厨" to 0, Material.GOLDEN_APPLE, Material.GOLDEN_CARROT, Material.GLISTERING_MELON_SLICE)
 
         shapedRecipe(
-            NamespacedKey.minecraft("enchant_apple"),
+            NamespacedKey.minecraft("career_enchanted_apple"),
             ItemStack(Material.ENCHANTED_GOLDEN_APPLE),
             listOf("aaa", "aba", "aaa"),
             'a' to Material.GOLD_BLOCK,

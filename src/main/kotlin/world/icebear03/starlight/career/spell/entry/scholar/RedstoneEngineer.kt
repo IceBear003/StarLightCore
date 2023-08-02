@@ -12,6 +12,7 @@ import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.giveItem
 import world.icebear03.starlight.career.*
+import world.icebear03.starlight.career.spell.handler.addSpecialRecipe
 import world.icebear03.starlight.career.spell.handler.internal.HandlerType
 import world.icebear03.starlight.recipe.shapelessRecipe
 import world.icebear03.starlight.utils.*
@@ -69,7 +70,7 @@ object RedstoneEngineer {
             submit(delay = 10L, period = 20L) {
                 if (isDischarging(name)) {
                     wires.forEach {
-                        val loc = it.clone().add(-0.5, 1.0, -0.5)
+                        val loc = it.clone().add(-0.5, 1.0, 0.5)
                         world.spawnParticle(Particle.REDSTONE, loc, 3, Particle.DustOptions(Color.RED, 1.0f))
                         world.players.forEach players@{ other ->
                             if (other.uniqueId == uniqueId)
@@ -89,10 +90,10 @@ object RedstoneEngineer {
         }
 
         shapelessRecipe(
-            NamespacedKey.minecraft("redstone_engineer_torch"),
+            NamespacedKey.minecraft("career_redstone_engineer_torch"),
             ItemStack(Material.REDSTONE_TORCH),
             1 to Material.TORCH
-        )
+        ).addSpecialRecipe("红色炬火", 1)
 
         "定点脉冲".discharge { name, _ ->
             finish(name)

@@ -137,6 +137,7 @@ object ChooseUI {
 
             if (career.canChoose()) {
                 career.addClass(name)
+                choicesMap.remove(player.uniqueId)
                 player.sendMessage("§a生涯系统 §7>> 你选择了职业 ${display(name)}")
                 player.sendMessage("§a生涯系统 §7>> 加上随机抽取的两个，你现在拥有一下职业:")
                 career.classes.keys.forEach {

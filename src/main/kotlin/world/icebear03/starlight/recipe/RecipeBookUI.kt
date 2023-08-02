@@ -53,7 +53,7 @@ object RecipeBookUI {
             val filtered = (shapedRecipes + shapelessRecipes).filter {
                 when (filter) {
                     "tribe" -> false
-                    "career" -> SpecialRecipeLibrary.recipeMap.containsKey(it.key)
+                    "career" -> it.key.key.contains("career")
                     "station" -> it.key.key.contains("station")
                     else -> true
                 }
@@ -108,13 +108,13 @@ object RecipeBookUI {
             var more = "§7无"
             if (recipe is ShapelessRecipe) {
                 key = recipe.key
-                type = "§a有序合成"
+                type = "§c无序合成"
                 ingredients.clear()
                 ingredients += recipe.ingredientList.map { item -> "§a${item.amount} × §b${item.getI18nName()}" }
             }
             if (recipe is ShapedRecipe) {
                 key = recipe.key
-                type = "§c无序合成"
+                type = "§a有序合成"
                 ingredients.clear()
                 ingredients += recipe.shape.map {
                     val s = it.uppercase()

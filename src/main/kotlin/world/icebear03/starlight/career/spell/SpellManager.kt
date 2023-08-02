@@ -7,6 +7,7 @@ import world.icebear03.starlight.career.spell.entry.cook.Baker
 import world.icebear03.starlight.career.spell.entry.cook.Brewer
 import world.icebear03.starlight.career.spell.entry.cook.Butcher
 import world.icebear03.starlight.career.spell.entry.cook.Chef
+import world.icebear03.starlight.career.spell.entry.farmer.Fisherman
 import world.icebear03.starlight.career.spell.entry.scholar.Enchanter
 import world.icebear03.starlight.career.spell.entry.scholar.RedstoneEngineer
 import world.icebear03.starlight.career.spell.entry.scholar.Teacher
@@ -27,5 +28,7 @@ object SpellManager {
         Enchanter.initialize()
         RedstoneEngineer.initialize()
         Teacher.initialize()
+
+        Fisherman.initialize()
     }
 }

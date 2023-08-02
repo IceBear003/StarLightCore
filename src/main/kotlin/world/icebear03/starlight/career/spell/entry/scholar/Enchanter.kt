@@ -37,7 +37,7 @@ object Enchanter {
         }
 
         shapedRecipe(
-            NamespacedKey.minecraft("enchanter_experience_bottle"),
+            NamespacedKey.minecraft("career_experience_bottle"),
             ItemStack(Material.EXPERIENCE_BOTTLE),
             listOf("aaa", "aba", "aaa"),
             'a' to Material.LAPIS_LAZULI,

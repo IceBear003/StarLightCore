@@ -1,0 +1,241 @@
+package world.icebear03.starlight.career.spell.entry.farmer
+
+import org.bukkit.Material
+import org.bukkit.Particle
+import org.bukkit.entity.Guardian
+import org.bukkit.entity.Item
+import org.bukkit.entity.Player
+import org.bukkit.event.entity.EntityDamageByEntityEvent
+import org.bukkit.event.player.PlayerFishEvent
+import org.bukkit.inventory.ItemStack
+import org.bukkit.potion.PotionEffectType
+import org.bukkit.util.Vector
+import taboolib.common.platform.event.EventPriority
+import taboolib.common.platform.event.SubscribeEvent
+import taboolib.common.platform.function.submit
+import taboolib.platform.util.attacker
+import taboolib.platform.util.onlinePlayers
+import world.icebear03.starlight.career.*
+import world.icebear03.starlight.career.spell.entry.farmer.Fisherman.CaughtRarity.*
+import world.icebear03.starlight.tool.mechanism.QTEProvider
+import world.icebear03.starlight.utils.effect
+import world.icebear03.starlight.utils.isDischarging
+import java.util.*
+import kotlin.math.floor
+import kotlin.math.roundToInt
+
+object Fisherman {
+
+    fun initialize() {
+        submit(period = 20L) {
+            onlinePlayers.filter { it.meetRequirement("渔夫", 0) }.forEach { player ->
+                player.effect(PotionEffectType.LUCK, 2, 1)
+                if (player.isInWater) {
+                    player.effect(PotionEffectType.CONDUIT_POWER, 2, 1)
+                }
+                val loc = player.location
+                val block = loc.block
+                val world = player.world
+                if (block.biome.toString().contains("OCEAN") && !world.isClearWeather) {
+                    player.effect(PotionEffectType.DAMAGE_RESISTANCE, 2, 1)
+                }
+            }
+        }
+
+        "大洋眷顾".discharge { name, level ->
+            val biome = location.block.biome
+            val duration =
+                if (biome.toString().contains("OCEAN"))
+                    if (biome.toString().contains("DEEP") && level == 3) 180
+                    else when (level) {
+                        1 -> 60
+                        2 -> 90
+                        3 -> 120
+                        else -> 30 + 10 * level
+                    }
+                else 30 + 10 * level
+
+            effect(PotionEffectType.LUCK, duration, 2)
+            "${display(name)} §7释放成功，获得§a${duration}秒§7幸运II效果"
+        }
+
+        "凝望反制".discharge { name, _ ->
+            removePotionEffect(PotionEffectType.SLOW_DIGGING)
+            "${display(name)} §7释放成功，清除挖掘疲劳效果，一段时间内受到守卫者伤害降低"
+        }
+
+        "收获涛声".discharge { name, _ ->
+            "${display(name)} §7释放成功，下一次钓鱼时若收获鱼类，其数量会有额外增加"
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.NORMAL, ignoreCancelled = true)
+    fun damaged(event: EntityDamageByEntityEvent) {
+        val damaged = event.entity
+        if (damaged !is Player)
+            return
+
+        val attacker = event.attacker
+        if (damaged.isDischarging("凝望反制") && attacker is Guardian) {
+            event.damage = maxOf(event.damage - 6.0, 0.1)
+        }
+    }
+
+    val qteing = mutableMapOf<UUID, ItemStack?>()
+
+    @SubscribeEvent(priority = EventPriority.NORMAL, ignoreCancelled = true)
+    fun fish(event: PlayerFishEvent) {
+        val player = event.player
+        val uuid = player.uniqueId
+
+        val hook = event.hook
+        val world = hook.world
+        val loc = hook.location
+
+        if (qteing.containsKey(uuid)) {
+            val item = qteing[uuid]
+            if (item == null) {
+                event.isCancelled = true
+                return
+            } else {
+                qteing.remove(uuid)
+                if (player.isDischarging("收获涛声")) {
+                    player.finish("收获涛声")
+                    val spellLevel = player.spellLevel("收获涛声")
+                    var amount = 1
+                    if (spellLevel == 3 && Math.random() <= 0.5) {
+                        amount += 1
+                    }
+                    if (CaughtRarity.getRarity(item) == FISH) {
+                        item.amount += amount
+                        player.sendMessage("§a生涯系统 §7>> ${display("收获涛声")} §7使得本次钓上额外多§a${amount}条§7鱼")
+                    }
+                }
+                val dropped = world.dropItem(loc, item)
+                val direction = player.eyeLocation.subtract(loc).toVector().normalize()
+                submit {
+                    dropped.velocity = direction
+                }
+                event.expToDrop = floor(1 + 6 * Math.random()).roundToInt()
+                if (player.meetRequirement("授人以渔"))
+                    event.expToDrop += 6
+            }
+        }
+
+        val hooked = event.caught ?: return
+        if (hooked !is Item) return
+        event.isCancelled = true
+
+        val caught = hooked.itemStack
+        val rarity = CaughtRarity.getRarity(caught)
+
+        val spellLevel = player.spellLevel("垂钓熟手")
+        val difficulty = run {
+            if (spellLevel <= 0)
+                return@run when (rarity) {
+                    TRASH -> QTEProvider.QTEDifficulty.CHAOS
+                    FISH -> QTEProvider.QTEDifficulty.GLITCH
+                    TREASURE -> QTEProvider.QTEDifficulty.BETA
+                }
+            if (spellLevel == 1 || spellLevel == 2)
+                return@run when (rarity) {
+                    TRASH -> QTEProvider.QTEDifficulty.HARD
+                    FISH -> QTEProvider.QTEDifficulty.CHAOS
+                    TREASURE -> QTEProvider.QTEDifficulty.GLITCH
+                }
+            return@run when (rarity) {
+                TRASH -> QTEProvider.QTEDifficulty.HARD
+                FISH -> QTEProvider.QTEDifficulty.HARD
+                TREASURE -> QTEProvider.QTEDifficulty.CHAOS
+            }
+        }
+        val type = when (spellLevel) {
+            2 -> QTEProvider.QTEType.TWO_TIMES
+            3 -> QTEProvider.QTEType.THREE_TIMES
+            else -> QTEProvider.QTEType.ONE_TIME
+        }
+
+        var end = false
+        qteing[uuid] = null
+        submit(period = 20L) {
+            if (end) cancel()
+            world.spawnParticle(Particle.WATER_SPLASH, loc.add(0.0, 0.5, 0.0), 5)
+            hook.velocity = Vector(0.0, -0.05, 0.0)
+        }
+
+        QTEProvider.sendQTE(player, difficulty, type, {
+            end = true
+            qteing.remove(uuid)
+            sendMessage(
+                when (it) {
+                    QTEProvider.QTEResult.ACCEPTED -> {
+                        qteing[uuid] = caught
+                        "§b繁星工坊 §7>> 校准成功，收钩以获取物品"
+                    }
+
+                    QTEProvider.QTEResult.REJECTED -> {
+                        qteing[uuid] = ItemStack((rarity.worse ?: TRASH).types.random())
+                        "§b繁星工坊 §7>> 校准失败，上钩物品品质降级，收钩以获取物品"
+                    }
+
+                    QTEProvider.QTEResult.UNABLE -> {
+                        qteing.remove(uuid)
+                        null
+                    }
+                }
+            )
+        }, "§e上钩", "§7请完成校准收回钓钩，否则战利品品质将§c降级")
+    }
+
+    enum class CaughtRarity(val types: List<Material>, val worse: CaughtRarity?) {
+        TRASH(
+            listOf(
+                Material.LILY_PAD,
+                Material.BOWL,
+                Material.FISHING_ROD,
+                Material.LEATHER_BOOTS,
+                Material.ROTTEN_FLESH,
+                Material.STICK,
+                Material.STRING,
+                Material.POTION,
+                Material.BONE,
+                Material.INK_SAC,
+                Material.TRIPWIRE_HOOK
+            ), null
+        ),
+        FISH(
+            listOf(
+                Material.SALMON,
+                Material.TROPICAL_FISH,
+                Material.PUFFERFISH,
+                Material.COD
+            ), TRASH
+        ),
+        TREASURE(
+            listOf(
+                Material.BOW,
+                Material.ENCHANTED_BOOK,
+                Material.FISHING_ROD,
+                Material.NAME_TAG,
+                Material.NAUTILUS_SHELL,
+                Material.SADDLE
+            ), FISH
+        );
+
+        companion object {
+            fun getRarity(item: ItemStack): CaughtRarity {
+                val type = item.type
+                if (type == Material.FISHING_ROD) {
+                    return if (item.enchantments.isNotEmpty())
+                        TREASURE
+                    else TRASH
+                }
+                values().forEach {
+                    if (it.types.contains(type))
+                        return it
+                }
+                return TRASH
+            }
+        }
+    }
+}

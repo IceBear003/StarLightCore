@@ -38,7 +38,7 @@ object QTEProvider {
         shiftMap[uuid] = false
 
         //格式
-        val format = "&7>&f {bar} &7<"
+        val format = "&7>&f {bar} &7< (容错&e{chance}次&7)"
         //QTE总长度，如果要修改此处，请一起修改下方的intervalStart计算公式，否则有可能超下标
         val total = 100
 
@@ -140,7 +140,7 @@ object QTEProvider {
                     else if (it in intervalStart..intervalStart + interval) SymbolType.INTERVAL.colored[chance - 1]
                     else SymbolType.WAITING.colored[chance - 1]
                 }
-                player.sendActionBar(format.replace("{bar}", bar).colored())
+                player.sendActionBar(format.replace("{bar}", bar).replace("{chance}", (type.time - failTime).toString()).colored())
             }
         }
     }
@@ -163,12 +163,12 @@ object QTEProvider {
         PASSED(listOf("&6|", "&c|", "&4|"))
     }
 
-    enum class QTEDifficulty(val period: Int, val interval: Int, val mag: Int = 1) {
-        EASY(3, 15),
-        HARD(2, 12),
-        CHAOS(1, 9),
-        GLITCH(1, 6, 2),
-        BETA(1, 4, 3)
+    enum class QTEDifficulty(val period: Int, val interval: Int, val mag: Int, val easier: QTEDifficulty?) {
+        EASY(3, 15, 1, null),
+        HARD(2, 12, 1, EASY),
+        CHAOS(1, 9, 1, HARD),
+        GLITCH(1, 6, 2, CHAOS),
+        BETA(1, 4, 3, GLITCH)
     }
 
     //给玩家几次机会，增加容错率
