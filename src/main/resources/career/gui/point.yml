@@ -34,7 +34,7 @@ template:
     name: "{reward} {state}"
     lore:
       - "&8| &7领取条件:"
-      - "    &7今日在线 {time}"
+      - "    &7今日在线 &a{time}"
     feature:
       - ==: Functional
         keyword: Point$daily_time

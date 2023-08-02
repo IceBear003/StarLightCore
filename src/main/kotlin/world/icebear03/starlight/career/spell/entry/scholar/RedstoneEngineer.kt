@@ -69,7 +69,7 @@ object RedstoneEngineer {
             submit(delay = 10L, period = 20L) {
                 if (isDischarging(name)) {
                     wires.forEach {
-                        val loc = it.clone().add(0.5, 0.5, 0.5)
+                        val loc = it.clone().add(-0.5, 1.0, -0.5)
                         world.spawnParticle(Particle.REDSTONE, loc, 3, Particle.DustOptions(Color.RED, 1.0f))
                         world.players.forEach players@{ other ->
                             if (other.uniqueId == uniqueId)
