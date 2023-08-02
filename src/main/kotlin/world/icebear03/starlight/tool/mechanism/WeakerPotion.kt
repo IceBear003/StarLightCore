@@ -15,6 +15,7 @@ import org.bukkit.potion.PotionEffectType
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.module.chat.colored
+import taboolib.module.nms.getI18nName
 import taboolib.platform.util.modifyMeta
 import world.icebear03.starlight.career.spellLevel
 import world.icebear03.starlight.utils.takeItem
@@ -129,7 +130,7 @@ object WeakerPotion {
 
                 addItemFlags(ItemFlag.HIDE_POTION_EFFECTS)
                 lore = listOf("&8| &7效果列表:".colored()) + customEffects.map {
-                    "    &7|—— &b${it.type.name} ${(it.amplifier + 1).toRoman()} &a${it.duration / 20}s".colored()
+                    "    &7|—— &b${it.type.getI18nName()} ${(it.amplifier + 1).toRoman()} &a${it.duration / 20}s".colored()
                 }
             }
         }

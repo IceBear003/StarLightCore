@@ -116,6 +116,7 @@ object Fisherman {
                 val dropped = world.dropItem(loc, item)
                 val direction = player.eyeLocation.subtract(loc).toVector().normalize()
                 submit {
+                    dropped.pickupDelay = 0
                     dropped.velocity = direction
                 }
                 event.expToDrop = floor(1 + 6 * Math.random()).roundToInt()

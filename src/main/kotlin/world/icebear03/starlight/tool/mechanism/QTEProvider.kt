@@ -68,7 +68,7 @@ object QTEProvider {
             fun finish(result: QTEResult? = null) {
                 result?.let {
                     function.invoke(player, result)
-                    player.sendActionBar(resultFormat.replace("{bar}", if (it == QTEResult.ACCEPTED) "§a✔" else "§c✘").colored())
+                    player.sendActionBar(resultFormat.replace("{result}", if (it == QTEResult.ACCEPTED) "§a✔" else "§c✘").colored())
                 } ?: function.invoke(player, QTEResult.UNABLE)
                 shiftMap.remove(uuid)
                 //延迟，让玩家看到效果
@@ -89,7 +89,7 @@ object QTEProvider {
             //重置校准位置
             if (chance != lastTickChance) {
                 lastTickChance = chance
-                intervalStart = ((0.2 + Math.random() * 0.6) * total).roundToInt()
+                intervalStart = ((0.1 + Math.random() * 0.6) * total).roundToInt()
             }
 
             //玩家不能完成QTE了
@@ -165,10 +165,10 @@ object QTEProvider {
     }
 
     enum class QTEDifficulty(val period: Int, val interval: Int, val mag: Int, val easier: QTEDifficulty?) {
-        EASY(3, 15, 1, null),
-        HARD(2, 12, 1, EASY),
-        CHAOS(1, 9, 1, HARD),
-        GLITCH(1, 6, 2, CHAOS),
+        EASY(1, 30, 1, null),
+        HARD(1, 15, 1, EASY),
+        CHAOS(1, 10, 1, HARD),
+        GLITCH(1, 7, 2, CHAOS),
         BETA(1, 4, 3, GLITCH)
     }
 

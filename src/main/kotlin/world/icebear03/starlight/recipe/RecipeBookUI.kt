@@ -1,12 +1,10 @@
 package world.icebear03.starlight.recipe
 
 import org.bukkit.Bukkit
+import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.entity.Player
-import org.bukkit.inventory.CraftingInventory
-import org.bukkit.inventory.Recipe
-import org.bukkit.inventory.ShapedRecipe
-import org.bukkit.inventory.ShapelessRecipe
+import org.bukkit.inventory.*
 import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataType
 import org.serverct.parrot.parrotx.mechanism.Reloadable
@@ -120,7 +118,8 @@ object RecipeBookUI {
                     val s = it.uppercase()
                     "§7${s[0]} | ${s[1]} | ${s[2]}"
                 }
-                ingredients += recipe.ingredientMap.map { (letter, type) -> "§7${letter.uppercase()} - §b${type.getI18nName()}" }
+
+                ingredients += recipe.ingredientMap.map { (letter, type) -> "§7${letter.uppercase()} - §b${type.getI19nName()}" }
             }
 
             SpecialRecipeLibrary.recipeMap[key]?.let { pair ->
@@ -210,6 +209,14 @@ object RecipeBookUI {
     private val filter_station = MenuFunctionBuilder {
         onClick { (_, _, event, _) ->
             open(event.clicker, "station")
+        }
+    }
+
+    fun ItemStack.getI19nName(): String {
+        return when (type) {
+            Material.NETHERITE_BLOCK -> "下界合金块"
+            Material.CRYING_OBSIDIAN -> "哭泣的黑曜石"
+            else -> getI18nName()
         }
     }
 }

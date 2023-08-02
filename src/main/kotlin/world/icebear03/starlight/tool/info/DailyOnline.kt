@@ -5,7 +5,6 @@ import taboolib.common.platform.function.submit
 import taboolib.platform.util.onlinePlayers
 import world.icebear03.starlight.tool.mechanism.AFK
 import world.icebear03.starlight.utils.get
-import world.icebear03.starlight.utils.has
 import world.icebear03.starlight.utils.set
 import java.time.ZonedDateTime
 
@@ -19,8 +18,8 @@ object DailyOnline {
                 val time = (player["daily_time", PersistentDataType.INTEGER] ?: 0) + 1
 
                 if (date != today) {
-                    player["time", PersistentDataType.INTEGER] = 0
-                    player["daily_time", PersistentDataType.INTEGER] = today
+                    player["daily_time", PersistentDataType.INTEGER] = 0
+                    player["date", PersistentDataType.INTEGER] = today
                     player["daily_rewards_received", PersistentDataType.INTEGER_ARRAY] = listOf<Int>().toIntArray()
                 } else {
                     if (!AFK.isAFKing(player))
