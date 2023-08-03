@@ -59,7 +59,7 @@ object Baker {
         }
 
         "文火慢炖".discharge { name, _ ->
-            "${display(name)} §7释放成功，下次合成汤煲食品时获得额外随机产物"
+            "§a技能 ${display(name)} §7释放成功，下次合成汤煲食品时获得额外随机产物"
         }.finish { _, _ ->
             "合成汤煲食品时获得了额外产物"
         }

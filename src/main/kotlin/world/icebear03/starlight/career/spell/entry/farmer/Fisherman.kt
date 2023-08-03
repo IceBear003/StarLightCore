@@ -57,16 +57,16 @@ object Fisherman {
                 else 30 + 10 * level
 
             effect(PotionEffectType.LUCK, duration, 2)
-            "${display(name)} §7释放成功，获得§a${duration}秒§7幸运II效果"
+            "§a技能 ${display(name)} §7释放成功，获得§a${duration}秒§7幸运II效果"
         }
 
         "凝望反制".discharge { name, _ ->
             removePotionEffect(PotionEffectType.SLOW_DIGGING)
-            "${display(name)} §7释放成功，清除挖掘疲劳效果，一段时间内受到守卫者伤害降低"
+            "§d顿悟 ${display(name)} §7释放成功，清除挖掘疲劳效果，一段时间内受到守卫者伤害降低"
         }
 
         "收获涛声".discharge { name, _ ->
-            "${display(name)} §7释放成功，下一次钓鱼时若收获鱼类，其数量会有额外增加"
+            "§a技能 ${display(name)} §7释放成功，下一次钓鱼时若收获鱼类，其数量会有额外增加"
         }
     }
 
@@ -110,7 +110,7 @@ object Fisherman {
                     }
                     if (CaughtRarity.getRarity(item) == FISH) {
                         item.amount += amount
-                        player.sendMessage("§a生涯系统 §7>> ${display("收获涛声")} §7使得本次钓上额外多§a${amount}条§7鱼")
+                        player.sendMessage("§a生涯系统 §7>> §a技能 ${display("收获涛声")} §7使得本次钓上额外多§a${amount}条§7鱼")
                     }
                 }
                 val dropped = world.dropItem(loc, item)

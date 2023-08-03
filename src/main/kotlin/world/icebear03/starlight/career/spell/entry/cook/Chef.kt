@@ -71,10 +71,10 @@ object Chef {
         }
 
         "奇味异珍".discharge { name, _ ->
-            "${display(name)} §7使得下一次食用某些水果时触发额外增益"
+            "§a技能 ${display(name)} §7使得下一次食用某些水果时触发额外增益"
         }
         "镀金美馔".discharge { name, _ ->
-            "${display(name)} §7使得下一次食用某些镀金食物时触发额外增益"
+            "§a技能 ${display(name)} §7使得下一次食用某些镀金食物时触发额外增益"
         }
 
         Material.values().filter { it.isEdible }.addHighListener(HandlerType.CRAFT) { event, player, type ->
@@ -90,7 +90,7 @@ object Chef {
 
             if (amount != 0) {
                 player.giveItem(ItemStack(type, amount))
-                "${display("精准火候")} §7使得烧炼获得额外§a${amount}个§7产物"
+                "§a技能 ${display("精准火候")} §7使得烧炼获得额外§a${amount}个§7产物"
             } else null
         }
     }

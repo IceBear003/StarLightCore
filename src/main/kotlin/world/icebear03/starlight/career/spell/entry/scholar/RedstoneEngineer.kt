@@ -44,7 +44,7 @@ object RedstoneEngineer {
             val level = player.spellLevel("电路设计")
             if (level > 0 && Math.random() <= 0.02 + 0.02 * level) {
                 player.giveItem(ItemStack(type))
-                return@addHighListener "${display("电路设计")} §7使得本次放置不消耗红石粉"
+                return@addHighListener "§a技能 ${display("电路设计")} §7使得本次放置不消耗红石粉"
             }
             null
         }
@@ -53,7 +53,7 @@ object RedstoneEngineer {
                 val level = player.spellLevel("自动化生产")
                 if (Math.random() <= 0.075 + 0.075 * level) {
                     player.giveItem(ItemStack(type))
-                    return@addHighListener "${display("自动化生产")} §7使得本次合成额外获得了产物"
+                    return@addHighListener "§a技能 ${display("自动化生产")} §7使得本次合成额外获得了产物"
                 }
                 player.finish("自动化生产")
             }
@@ -61,7 +61,7 @@ object RedstoneEngineer {
         }
 
         "自动化生产".discharge { name, _ ->
-            "${display(name)} §7释放成功，下次合成高级红石机械是有概率获得额外产物"
+            "§a技能 ${display(name)} §7释放成功，下次合成高级红石机械是有概率获得额外产物"
         }
 
         "超载".discharge spell@{ name, _ ->
@@ -86,7 +86,7 @@ object RedstoneEngineer {
                     cancel()
                 }
             }
-            "${display(name)} §7释放成功，周围的红石粉进入超载状态"
+            "§a技能 ${display(name)} §7释放成功，周围的红石粉进入超载状态"
         }
 
         shapelessRecipe(
@@ -102,9 +102,9 @@ object RedstoneEngineer {
                 locations.forEach {
                     it.block.breakNaturally()
                 }
-                "${display(name)} §7释放成功，破坏了周围§a${locations.size}个§7红石机械"
+                "§d顿悟 ${display(name)} §7释放成功，破坏了周围§a${locations.size}个§7红石机械"
             } else {
-                "${display(name)} §7释放失败，因为没有足够的红石粉"
+                "§d顿悟 ${display(name)} §7释放失败，因为没有足够的红石粉"
             }
         }
 
@@ -123,11 +123,11 @@ object RedstoneEngineer {
                     rate = 0.33
                 if (Math.random() <= rate) {
                     world.strikeLightning(block.location)
-                    "${display(name)} §7释放成功，在指针出引发了一道雷电"
+                    "§d顿悟 ${display(name)} §7释放成功，在指针出引发了一道雷电"
                 } else
-                    "${display(name)} §7释放失败，貌似这次没有引发雷电"
+                    "§d顿悟 ${display(name)} §7释放失败，貌似这次没有引发雷电"
             } else {
-                "${display(name)} §7释放失败，因为手里没有避雷针"
+                "§d顿悟 ${display(name)} §7释放失败，因为手里没有避雷针"
             }
         }
     }

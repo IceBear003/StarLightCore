@@ -1,4 +1,4 @@
-skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODk0MjgyN2Q0MzRmYWE4MWU4NGZkMDY4ODJmOWExNTUzY2I3YzIwYTExM2Q1NzM0ZjM3ZWY0ODBlMGMyYTU5YSJ9fX0="
+skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTI4NjljZjZhMWI3ZWJmZWM3ZmE4NDFhYjQ2OTk4MmMwOTA1MTFiZjNiMGVmMTQwYWE1ZGMwOTRmOTQ0NmM4OSJ9fX0="
 color: "&{#FF66FF}"
 description:
   - "&7任使电路交错，自有逻辑纵横"
@@ -11,7 +11,7 @@ description:
   - "&7带*部分的详细解释请参见&b服务器Wiki"
 skills:
   电路设计:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGVkNjc5OTE0OTc4OGI5ZTkwMTY4MTFkM2EzZDBlZDFmNTUyNTMwZDY3Zjk4Njk0NTAzMmQ2ZTQzOWZhODk5ZCJ9fX0="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjdkZGY4MTBmMDgzZGRlNDBhYmY2Y2M5ZDdjMzA1MmFkMGRkNTAxODA3ZGZmY2RiYzMzYjY0Njc2YTFhNzZjNSJ9fX0="
     color: "&{#FF66FF}"
     type: PASSIVE
     description:
@@ -22,7 +22,7 @@ skills:
       3:
         - "&7放置红石粉时有 &a8% &7概率不消耗"
   自动化生产:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzg2YjgwMjZhNjU5NmQ5MjJiM2I5ZTI0NWM2YjNmYWYzMTdhY2Q0ZjNjOTU3YTU4ZmE4NTNhZjY2MzJhOWViMiJ9fX0="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjAzNzEyMDYyZTgyYTA3OTdmZDdiMGMxMDU3NmVkOTI0ODBmZGM5NGJkMmUwMGMyMTk2MWIzNGJlNjBlODU4ZSJ9fX0="
     color: "&{#FF66FF}"
     type: ACTIVE
     cooldown: 30
@@ -37,7 +37,7 @@ skills:
         - "&7下次合成进阶红石器械时"
         - "&7有 &a30% &7概率&b额外获得 &a1个 &7产物"
   超载:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzUzYzg5YTJhZGM0ZWU1YmExZjA1ZTVkNjRlOWI0YmI2YjMyMzJjNzIwMjhlMGNiZTM1ZTFiNzNkMGM1N2RjMSJ9fX0="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODRhYzU3YjJhMmQ1YzYzMjE4OTVjNmY4ZTdmYmM2NzI2MmNhMDk3MjQzOTE4YWE1OTRjYjI0NThhNzA0MCJ9fX0="
     color: "&{#FF66FF}"
     type: ACTIVE
     cooldown: 240
@@ -55,13 +55,13 @@ skills:
   #继续添加
 eurekas:
   红色炬火:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjhiMjc2NGExMTRiODg3NDk1NzdjMDEyZTE3YjcxYzliZmQ1OGIxZTlhMTgzYTdiMWFjYzY2MWIyNDAxYWU1In19fQ=="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzJiMGEyNzA5YWQyN2M1NzgzYmE3YWNiZGFlODc4N2QxNzY3M2YwODg4ZjFiNmQ0ZTI0ZWUxMzI5OGQ0In19fQ=="
     color: "&{#FF66FF}"
     description:
       - "&7解锁将&b火把&7变为&b红石火把&7的合成表*"
     type: PASSIVE
   定点脉冲:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjU2ZWM2NzI5NjlhZmU1N2Y2YTRlYjM1ZDg3MTQ1MGMzZTcxOWFiMjA1MGE5YTQwZDMzNjEyY2FkNTc2N2UifX19"
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzBiZWNmMjc1NGJiNzkzZmMyZjczZjYwNGNmZDY2NmRjYzc2ZTgwOTYxOGNiZjM5Nzg4Njg0NjU0MmJkYTc4NSJ9fX0="
     color: "&{#FF66FF}"
     cooldown: 600
     description:
@@ -69,7 +69,7 @@ eurekas:
       - "&7破坏自身周围 &a4格 &7内所有&b进阶红石器械"
     type: ACTIVE
   雷霆之杖:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjU2MDc2MzI4N2E3Zjk4NzE1MmMxYTM3NDA4Y2JmMzRlYmNlMDg0YzM3MTM2NmFmMmE3M2Y3ZjY5Mzc3ZDk3OSJ9fX0="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzQyMGNkZjJhZjU3Y2M3NTc3NzNhY2UzZjE5MTVjYjcyYjU0MzJhMmZkYTMzNzNiMTY3OGY5OGJlYTdhYzcifX19"
     color: "&{#FF66FF}"
     cooldown: 1
     description:

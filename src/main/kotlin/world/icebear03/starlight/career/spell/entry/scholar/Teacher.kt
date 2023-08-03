@@ -36,7 +36,7 @@ object Teacher {
 
         "学术沙龙".discharge { name, level ->
             saloning[uniqueId] = 4 + 3 * level
-            "${display(name)} §7释放成功，周围所有非敌对玩家共鸣范围增加"
+            "§a技能 ${display(name)} §7释放成功，周围所有非敌对玩家共鸣范围增加"
         }.finish { _, _ ->
             saloning.remove(uniqueId)
             null
@@ -46,14 +46,14 @@ object Teacher {
             finish(name)
             if (hasBlockAside(Material.LECTERN)) {
                 giveExp(20)
-                "${display(name)} §7释放成功，获得§a20点§7经验"
+                "§d顿悟 ${display(name)} §7释放成功，获得§a20点§7经验"
             } else {
-                "${display(name)} §7释放失败，因为周围没有讲台"
+                "§d顿悟 ${display(name)} §7释放失败，因为周围没有讲台"
             }
         }
 
         "厚积薄发".discharge { name, _ ->
-            "${display(name)} §7释放成功，下次通过书架制作技能之书时有几率消耗更少的技能点"
+            "§a技能 ${display(name)} §7释放成功，下次通过书架制作技能之书时有几率消耗更少的技能点"
         }
     }
 

@@ -5,6 +5,7 @@ import org.bukkit.NamespacedKey
 import org.bukkit.entity.Arrow
 import org.bukkit.entity.Creeper
 import org.bukkit.entity.Player
+import org.bukkit.entity.TippedArrow
 import org.bukkit.event.block.BlockIgniteEvent
 import org.bukkit.event.entity.EntityDamageEvent
 import org.bukkit.event.entity.EntityExplodeEvent
@@ -15,6 +16,7 @@ import org.bukkit.util.Vector
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
+import taboolib.platform.util.giveItem
 import world.icebear03.starlight.career.*
 import world.icebear03.starlight.career.spell.handler.addSpecialRecipe
 import world.icebear03.starlight.career.spell.handler.internal.HandlerType
@@ -63,6 +65,13 @@ object Demolitionist {
             'a' to Material.GLASS,
             'b' to Material.TNT
         ).addSpecialRecipe("末影硝酸甘油")
+
+        listOf(Material.TNT, Material.TNT_MINECART).addHighListener(HandlerType.CRAFT) { _, player, type ->
+            if (player.meetRequirement("精炼炸药") && Math.random() <= 0.2) {
+                player.giveItem(ItemStack(type))
+                "§d顿悟 ${display("精炼炸药")} §7使得本次合成炸药时获得额外产物"
+            } else null
+        }
 
         listOf(Material.TNT, Material.TNT_MINECART).addLowestListener(HandlerType.CRAFT) skill@{ _, player, _ ->
             val failPercent = when (player.spellLevel("稳定三硝基甲苯")) {
@@ -129,7 +138,7 @@ object Demolitionist {
         if (shooter !is Player)
             return
 
-        if (arrow.customEffects.isNotEmpty())
+        if (arrow is TippedArrow)
             return
 
         if (shooter.isDischarging("手摇TNT火炮"))

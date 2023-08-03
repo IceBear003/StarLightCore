@@ -1,11 +1,12 @@
-skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODk0MjgyN2Q0MzRmYWE4MWU4NGZkMDY4ODJmOWExNTUzY2I3YzIwYTExM2Q1NzM0ZjM3ZWY0ODBlMGMyYTU5YSJ9fX0="
+skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTdiYWFlYTJhMjk0ZmFiYmZlNTkyZmQyYmMxNDRlNGYwMzg2NGQ5MzU5NDU3ZjhiNWE4NGZlOWFhODc5NTVkNiJ9fX0="
 color: "&{#6600FF}"
 description:
   - "&7用人举贤任能，理事算无遗策"
   - " "
   - "&7分支基础效果："
-  - "&7可以使用 &b窥镜 &7来查看他们所拥有的&c职业"
+  - "&7可以使用 &b人事目录 &7来查看他们所拥有的&c职业"
   - "&c! &7仅对周围 &a32格 &7内的玩家有效"
+  - "&c! &7该效果&c无法共鸣"
   - " "
   - "&c以下效果将在未来实装："
   - "&7可以担任所属势力的&b领导人"
@@ -14,21 +15,24 @@ description:
   - "&7带*部分的详细解释请参见&b服务器Wiki"
 skills:
   人力资源管理:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGVkNjc5OTE0OTc4OGI5ZTkwMTY4MTFkM2EzZDBlZDFmNTUyNTMwZDY3Zjk4Njk0NTAzMmQ2ZTQzOWZhODk5ZCJ9fX0="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmNiYTA0ZGI5NGZmMGYxOWM0YzM2MjE3ZTVkNWQ1NGM5NzQ1Y2YwZWVmNmMxZDhkNmNjNjFmNzg2YjYwZWI2NSJ9fX0="
     color: "&{#6600FF}"
     type: PASSIVE
     description:
       1:
-        - "&7使用指令&b/待补充 [玩家名]&7来查看他们所拥有的"
+        - "&7使用 &b人事目录 &7来查看他们所拥有的"
         - "&c职业&7和&e分支"
+        - "&c! &7该效果&c无法共鸣"
       2:
-        - "&7使用指令&b/待补充 [玩家名]&7来查看他们所拥有的"
+        - "&7使用 &b人事目录 &7来查看他们所拥有的"
         - "&c职业&7、&e分支&7和&a技能&7等级"
+        - "&c! &7该效果&c无法共鸣"
       3:
-        - "&7使用指令&b/待补充 [玩家名]&7来查看他们所拥有的"
+        - "&7使用 &b人事目录 &7来查看他们所拥有的"
         - "&c职业&7、&e分支&7、&a技能&7等级和&d顿悟"
+        - "&c! &7该效果&c无法共鸣"
   行政结构优化:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzg2YjgwMjZhNjU5NmQ5MjJiM2I5ZTI0NWM2YjNmYWYzMTdhY2Q0ZjNjOTU3YTU4ZmE4NTNhZjY2MzJhOWViMiJ9fX0="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNThmZTI1MWE0MGU0MTY3ZDM1ZDA4MWMyNzg2OWFjMTUxYWY5NmI2YmQxNmRkMjgzNGQ1ZGM3MjM1ZjQ3NzkxZCJ9fX0="
     color: "&{#6600FF}"
     type: ACTIVE
     cooldown: 60
@@ -48,7 +52,7 @@ skills:
         - "&7则改为获得 &a20秒 &7的&b急迫II"
         - "&c此技能的发动会向全服公告"
   综合报告审阅:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzUzYzg5YTJhZGM0ZWU1YmExZjA1ZTVkNjRlOWI0YmI2YjMyMzJjNzIwMjhlMGNiZTM1ZTFiNzNkMGM1N2RjMSJ9fX0="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjI4ZDk4Y2U0N2ZiNzdmOGI2MDRhNzY2ZGRkMjU0OTIzMjU2NGY5NTYyMjVjNTlmM2UzYjdiODczYTU4YzQifX19"
     color: "&{#6600FF}"
     type: ACTIVE
     cooldown: 330
@@ -67,21 +71,21 @@ skills:
   #继续添加
 eurekas:
   立法程序:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjhiMjc2NGExMTRiODg3NDk1NzdjMDEyZTE3YjcxYzliZmQ1OGIxZTlhMTgzYTdiMWFjYzY2MWIyNDAxYWU1In19fQ=="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU1MGI2M2U0ZmVhMjNhOTFjNWI3Nzk1NzlmOTg1OWNiNDQzZjg5Zjc0Y2YwMDliOTEwNmVkYmRlNjc2YjUyZCJ9fX0="
     color: "&{#6600FF}"
     description:
       - "&c这一顿悟当前的效果未知"
       - "&c但会在未来的更新中逐渐揭示"
     type: PASSIVE
   危机处理:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjU2ZWM2NzI5NjlhZmU1N2Y2YTRlYjM1ZDg3MTQ1MGMzZTcxOWFiMjA1MGE5YTQwZDMzNjEyY2FkNTc2N2UifX19"
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2M2MDBmMTkyNWMwZGU4MzNkZjA0MTc2MDRlNDYwZGYyZGM0MmFhOWNhNmNiYzNhN2FjZjZjN2M3M2M3M2Y3MiJ9fX0="
     color: "&{#6600FF}"
     description:
       - "&c这一顿悟当前的效果未知"
       - "&c但会在未来的更新中逐渐揭示"
     type: PASSIVE
   人才追踪:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjU2MDc2MzI4N2E3Zjk4NzE1MmMxYTM3NDA4Y2JmMzRlYmNlMDg0YzM3MTM2NmFmMmE3M2Y3ZjY5Mzc3ZDk3OSJ9fX0="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGRjZmJhNThmYWYxZjY0ODQ3ODg0MTExODIyYjY0YWZhMjFkN2ZjNjJkNDQ4MWYxNGYzZjNiY2I2MzMwIn19fQ=="
     color: "&{#6600FF}"
     cooldown: 120
     description:

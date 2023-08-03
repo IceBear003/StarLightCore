@@ -1,0 +1,79 @@
+skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODk0MjgyN2Q0MzRmYWE4MWU4NGZkMDY4ODJmOWExNTUzY2I3YzIwYTExM2Q1NzM0ZjM3ZWY0ODBlMGMyYTU5YSJ9fX0="
+color: "&{#006600}"
+description:
+  - "&7展示百般驯技，自立万兽之主"
+  - " "
+  - "&7分支基础效果："
+  - "&7可以&b驯养*&7生物"
+  - "&7可以&b建造&7雪傀儡、铁傀儡、凋灵"
+  - "&7自身驯养的生物始终获得&b生命恢复I"
+  - "&c! &7该效果&c无法共鸣"
+  - " "
+  - "&7带*部分的详细解释请参见&b服务器Wiki"
+skills:
+  动物朋友:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGVkNjc5OTE0OTc4OGI5ZTkwMTY4MTFkM2EzZDBlZDFmNTUyNTMwZDY3Zjk4Njk0NTAzMmQ2ZTQzOWZhODk5ZCJ9fX0="
+    color: "&{#006600}"
+    type: PASSIVE
+    description:
+      1:
+        - "&b驯养&7猫时只需一次就能成功"
+      2:
+        - "&b驯养&7猫、狼时只需一次就能成功"
+      3:
+        - "&b驯养&7猫、狼、马时只需一次就能成功"
+  振奋指令:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzg2YjgwMjZhNjU5NmQ5MjJiM2I5ZTI0NWM2YjNmYWYzMTdhY2Q0ZjNjOTU3YTU4ZmE4NTNhZjY2MzJhOWViMiJ9fX0="
+    color: "&{#006600}"
+    type: ACTIVE
+    cooldown: 60
+    description:
+      1:
+        - "&7使周围 &a4格 &7内所有陆生动物获得 &a5秒 &7的&b生命恢复II"
+      2:
+        - "&7使周围 &a4格 &7内所有陆生动物获得 &a7秒 &7的&b生命恢复II、抗性提升I"
+      3:
+        - "&7使周围 &a4格 &7内所有陆生动物获得 &a10秒 &7的&b生命恢复III、抗性提升II"
+  傀儡为锋:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzUzYzg5YTJhZGM0ZWU1YmExZjA1ZTVkNjRlOWI0YmI2YjMyMzJjNzIwMjhlMGNiZTM1ZTFiNzNkMGM1N2RjMSJ9fX0="
+    color: "&{#006600}"
+    type: ACTIVE
+    cooldown: 720
+    duration: 30+level*30
+    description:
+      1:
+        - "&7立即召唤 &a1个 &b铁傀儡&7和 &a1个 &b雪傀儡"
+        - "&c它们会在 &a60秒 &c后被强制清除"
+      2:
+        - "&7立即召唤 &a1个 &b铁傀儡&7和 &a2个 &b雪傀儡"
+        - "&c它们会在 &a90秒 &c后被强制清除"
+      3:
+        - "&7立即召唤 &a1个 &b铁傀儡&7和 &a3个 &b雪傀儡"
+        - "&b铁傀儡&7拥有 &a120秒 &b力量I"
+        - "&b雪傀儡&7拥有 &a120秒 &b生命恢复I"
+        - "&c它们会在 &a120秒 &c后被强制清除"
+  #继续添加
+eurekas:
+  挥鞭长啸:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjhiMjc2NGExMTRiODg3NDk1NzdjMDEyZTE3YjcxYzliZmQ1OGIxZTlhMTgzYTdiMWFjYzY2MWIyNDAxYWU1In19fQ=="
+    color: "&{#006600}"
+    description:
+      - "&7使用&b栓绳&7攻击时造成 &a6点 (3♥) &7伤害"
+      - "&7若攻击对象是陆生动物*"
+      - "&7则伤害变为 &a1点 (0.5♥) &7且为其赋予 &a5秒 &b迅捷II"
+    type: PASSIVE
+  钢铁巨兽:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjU2ZWM2NzI5NjlhZmU1N2Y2YTRlYjM1ZDg3MTQ1MGMzZTcxOWFiMjA1MGE5YTQwZDMzNjEyY2FkNTc2N2UifX19"
+    color: "&{#006600}"
+    cooldown: 240
+    description:
+      - "&7下一次&b建造&7铁傀儡后"
+      - "&7为其赋予 &a60秒 &7的&b伤害吸收III&7和&b抗性提升III"
+    type: ACTIVE
+  忠诚相护:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjU2MDc2MzI4N2E3Zjk4NzE1MmMxYTM3NDA4Y2JmMzRlYmNlMDg0YzM3MTM2NmFmMmE3M2Y3ZjY5Mzc3ZDk3OSJ9fX0="
+    color: "&{#006600}"
+    description:
+      - "&7周围 &a8格 &7内自己驯养的&b狼&7被击杀时"
+      - "&7使击杀方受到 &a10点 (5♥) &7真实伤害"
+    type: PASSIVE

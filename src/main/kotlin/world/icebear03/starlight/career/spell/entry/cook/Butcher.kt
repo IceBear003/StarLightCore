@@ -71,7 +71,7 @@ object Butcher {
                 creature.effect(PotionEffectType.SLOW, duration, level)
             }
             finish(name)
-            "${display(name)} §7释放成功，高亮并减速附近陆生生物"
+            "§a技能 ${display(name)} §7释放成功，高亮并减速附近陆生生物"
         }
 
         "烤肉专家".discharge { name, level ->
@@ -100,17 +100,17 @@ object Butcher {
             }
 
             finish(name)
-            "${display(name)} §7释放成功，使得附近§a${amount}个§7营火立即完成烹饪"
+            "§a技能 ${display(name)} §7释放成功，使得附近§a${amount}个§7营火立即完成烹饪"
         }
 
         "追猎".discharge spell@{ name, _ ->
             finish(name)
             val trace =
                 world.rayTraceEntities(location.add(0.0, 1.5, 0.0), eyeLocation.direction.normalize(), 50.0) { it.uniqueId != uniqueId }
-                    ?: return@spell "${display(name)} §7释放成功，但是并没有锁定一个生物"
+                    ?: return@spell "§d顿悟 ${display(name)} §7释放成功，但是并没有锁定一个生物"
             val entity = trace.hitEntity
             if (entity !is LivingEntity)
-                return@spell "${display(name)} §7释放成功，但是并没有锁定一个生物"
+                return@spell "§d顿悟 ${display(name)} §7释放成功，但是并没有锁定一个生物"
             entity.effect(PotionEffectType.GLOWING, 60, 2)
             entity.effect(PotionEffectType.WEAKNESS, 60, 2)
             submit(delay = 55 * 20) {
@@ -119,11 +119,11 @@ object Butcher {
                     sendMessage("§a生涯系统 §7>> 击杀 ${display(name)} §7锁定的生物，经验值§a+25")
                 }
             }
-            "${display(name)} §7释放成功，已锁定生物，若在60s内完成击杀可获得§b额外经验"
+            "§d顿悟 ${display(name)} §7释放成功，已锁定生物，若在60s内完成击杀可获得§b额外经验"
         }
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    @SubscribeEvent(priority = EventPriority.HIGHEST, ignoreCancelled = true)
     fun attack(event: EntityDamageByEntityEvent) {
         val player = event.damager
         val entity = event.entity

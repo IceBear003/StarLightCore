@@ -16,7 +16,7 @@ skills:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmY5YTJjOWUzNWI3MzgxZWZjYzM4NTFiNjY0Y2Q4ZGUyMWZmYzZmMzc3MDcwZjgxOTNjZGFmMThjZDk1ODc2YyJ9fX0="
     color: "&{#4472C4}"
     type: PASSIVE
-    description: 
+    description:
       1:
         - "&7放置各类铁轨时有 &a8% &7概率&b不消耗方块"
       2:
@@ -43,15 +43,15 @@ skills:
     cooldown: 360-level/3*60
     description:
       1:
-        - "&c仅当位于水中时可触发"
+        - "&c仅当位于水或冰旁时可触发"
         - "&7在原地召唤一艘&b船&7（随机材质）"
       2:
-        - "&c当位于水中时触发"
+        - "&c当位于水或冰旁时可触发"
         - "&7在原地召唤一艘&b船&7（随机材质）"
         - "&c当位于各类铁轨上时触发"
         - "&7在原地召唤一辆&b矿车"
       3:
-        - "&c当位于水中时触发"
+        - "&c当位于水或冰旁时可触发"
         - "&7在原地召唤一艘&b船&7（随机材质）"
         - "&c当位于各类铁轨上时触发"
         - "&7在原地召唤一辆&b矿车"

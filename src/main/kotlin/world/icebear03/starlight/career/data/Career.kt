@@ -172,7 +172,7 @@ data class Career(
         return upgradeSpell(getSpell(name))
     }
 
-    val specialEurekas = listOf("主世界的建造者", "以厨为师", "鞠躬尽瘁")
+    val specialEurekas = listOf("主世界的建造者", "以厨为师", "鞠躬尽瘁", "生态考察")
 
     fun upgradeSpell(spell: Spell?): Pair<Boolean, String> {
         spell ?: return false to "§a技能§7/§d顿悟§7不存在"
@@ -290,6 +290,7 @@ data class Career(
             shortCuts.filterValues { spell.name == it }.forEach { (level, _) ->
                 shortCuts.remove(level)
             }
+            autoDischarges.remove(spell.name)
         }
         if (resonantBranch == branch)
             resonantBranch = null

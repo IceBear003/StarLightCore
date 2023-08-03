@@ -15,7 +15,6 @@ import org.bukkit.potion.PotionEffectType
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.module.chat.colored
-import taboolib.module.nms.getI18nName
 import taboolib.platform.util.modifyMeta
 import world.icebear03.starlight.career.spellLevel
 import world.icebear03.starlight.utils.takeItem
@@ -130,7 +129,7 @@ object WeakerPotion {
 
                 addItemFlags(ItemFlag.HIDE_POTION_EFFECTS)
                 lore = listOf("&8| &7效果列表:".colored()) + customEffects.map {
-                    "    &7|—— &b${it.type.getI18nName()} ${(it.amplifier + 1).toRoman()} &a${it.duration / 20}s".colored()
+                    "    &7|—— &b${getChineseName(it.type)} ${(it.amplifier + 1).toRoman()} &a${it.duration / 20}s".colored()
                 }
             }
         }
@@ -143,6 +142,45 @@ object WeakerPotion {
             PotionEffectType.SLOW -> 24
             PotionEffectType.SLOW_DIGGING -> 24
             else -> 40
+        }
+    }
+
+    fun getChineseName(type: PotionEffectType): String {
+        return when (type) {
+            PotionEffectType.SPEED -> "迅捷"
+            PotionEffectType.SLOW -> "缓慢"
+            PotionEffectType.FAST_DIGGING -> "急迫"
+            PotionEffectType.SLOW_DIGGING -> "挖掘疲劳"
+            PotionEffectType.INCREASE_DAMAGE -> "力量"
+            PotionEffectType.HEAL -> "瞬间治疗"
+            PotionEffectType.HARM -> "瞬间伤害"
+            PotionEffectType.JUMP -> "跳跃提升"
+            PotionEffectType.CONFUSION -> "反胃"
+            PotionEffectType.REGENERATION -> "生命恢复"
+            PotionEffectType.DAMAGE_RESISTANCE -> "抗性提升"
+            PotionEffectType.FIRE_RESISTANCE -> "抗火"
+            PotionEffectType.WATER_BREATHING -> "水下呼吸"
+            PotionEffectType.INVISIBILITY -> "隐身"
+            PotionEffectType.BLINDNESS -> "失明"
+            PotionEffectType.NIGHT_VISION -> "夜视"
+            PotionEffectType.HUNGER -> "饥饿"
+            PotionEffectType.WEAKNESS -> "虚弱"
+            PotionEffectType.POISON -> "中毒"
+            PotionEffectType.WITHER -> "凋零"
+            PotionEffectType.HEALTH_BOOST -> "生命提升"
+            PotionEffectType.ABSORPTION -> "伤害吸收"
+            PotionEffectType.SATURATION -> "饱和"
+            PotionEffectType.GLOWING -> "发光"
+            PotionEffectType.LEVITATION -> "漂浮"
+            PotionEffectType.LUCK -> "幸运"
+            PotionEffectType.UNLUCK -> "霉运"
+            PotionEffectType.SLOW_FALLING -> "缓降"
+            PotionEffectType.CONDUIT_POWER -> "潮涌能量"
+            PotionEffectType.DOLPHINS_GRACE -> "海豚的恩惠"
+            PotionEffectType.BAD_OMEN -> "不祥之兆"
+            PotionEffectType.HERO_OF_THE_VILLAGE -> "村庄英雄"
+            PotionEffectType.DARKNESS -> "黑暗"
+            else -> "未知"
         }
     }
 }

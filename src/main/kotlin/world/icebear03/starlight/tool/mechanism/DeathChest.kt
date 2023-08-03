@@ -50,6 +50,7 @@ object DeathChest {
             minecart.isGlowing = true
             minecart.isCustomNameVisible = true
             minecart.customName = "§e${player.name}的遗物 §r关闭时自动消失"
+            minecart["death_chest_stamp", PersistentDataType.LONG] = System.currentTimeMillis()
             minecart["death_chest_owner", PersistentDataType.STRING] = player.name
             minecart["death_chest_level", PersistentDataType.INTEGER] = getTotalExp(player.level)
             minecart["death_chest_point", PersistentDataType.INTEGER] = ceil(point * 0.25).roundToInt()
@@ -100,7 +101,8 @@ object DeathChest {
 
         val player = event.player as Player
         val who = minecart["death_chest_owner", PersistentDataType.STRING]
-        if (minecart.ticksLived <= 30 * 60 * 20 && player.name != who) {
+        val stamp = minecart["death_chest_stamp", PersistentDataType.LONG] ?: 0
+        if (System.currentTimeMillis() - stamp <= 1000 * 30 * 60 && player.name != who) {
             player.sendMessage("§b繁星工坊 §7>> 死亡箱在生成的§a30分钟§7内只能由主人自己打开，请等待一会")
             event.isCancelled = true
             return

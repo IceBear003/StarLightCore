@@ -67,7 +67,7 @@ object TrafficEngineer {
             'b' to Material.STICK
         ).addSpecialRecipe("精炼铁轨")
 
-        rails.addHighListener(HandlerType.CRAFT) { _, player, type ->
+        rails.addHighListener(HandlerType.PLACE) { _, player, type ->
             val percent = when (player.spellLevel("路线规划")) {
                 0, -1 -> 0.0
                 1 -> 0.08
@@ -75,10 +75,10 @@ object TrafficEngineer {
             }
             if (Math.random() <= percent) {
                 player.giveItem(ItemStack(type))
-                "${display("路线规划")} §7使得本次放置不消耗铁轨"
+                "§a技能 ${display("路线规划")} §7使得本次放置不消耗铁轨"
             } else null
         }
-        iceBlocks.addHighListener(HandlerType.CRAFT) { _, player, type ->
+        iceBlocks.addHighListener(HandlerType.PLACE) { _, player, type ->
             val level = player.spellLevel("路线规划")
             if ((level >= 3 && Math.random() <= 0.1) ||
                 (player.world.environment == World.Environment.NETHER && player.meetRequirement("下界开路者") && Math.random() <= 0.15)
@@ -92,32 +92,21 @@ object TrafficEngineer {
             val percent = 20 + 10 * level
             if (this.isInsideVehicle) {
                 val vehicle = this.vehicle!!
-                if (vehicle is Boat)
-                    vehicle.maxSpeed = vehicle.maxSpeed * (percent / 100.0)
-                if (vehicle is Minecart)
-                    vehicle.maxSpeed = vehicle.maxSpeed * (percent / 100.0)
+                val now = vehicle.velocity
+                vehicle.velocity = now.multiply(1 + (percent * 7) / 100.0)
             }
             "§a技能 ${display(name)} §7释放成功，载具在§a5秒§7内速度加快§e${percent}%"
-        }.finish { _, level ->
-            val percent = 20 + 10 * level
-            if (this.isInsideVehicle) {
-                val vehicle = this.vehicle!!
-                if (vehicle is Boat)
-                    vehicle.maxSpeed = vehicle.maxSpeed / (percent / 100.0)
-                if (vehicle is Minecart)
-                    vehicle.maxSpeed = vehicle.maxSpeed / (percent / 100.0)
-            }
-            null
         }
-        "备用载具".discharge skill@{ name, _ ->
+        "备用载具".discharge skill@{ name, level ->
             finish(name)
             if (this.hasBlockAside(Material.WATER, 2) ||
                 this.hasBlockAside(iceBlocks + Material.ICE + Material.FROSTED_ICE, 2)
             ) {
-                this.world.spawnEntity(this.location.add(0.0, 1.0, 0.0), EntityType.BOAT)
+                val boat = this.world.spawnEntity(this.location.add(0.0, 1.0, 0.0), EntityType.BOAT) as Boat
+                boat.boatType = Boat.Type.values().random()
                 return@skill "§a技能 ${display(name)} §7释放成功，船只已经召唤"
             }
-            if (this.hasBlockAside(rails, 2)) {
+            if (level >= 2 && this.hasBlockAside(rails, 2)) {
                 this.world.spawnEntity(this.location, EntityType.MINECART)
                 return@skill "§a技能 ${display(name)} §7释放成功，矿车已经召唤"
             }
