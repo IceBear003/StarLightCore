@@ -12,7 +12,6 @@ taboolib {
             name("Andy_W7")
         }
         desc("StarLightCore 繁星工坊核心插件")
-        load("STARTUP")
     }
     install("common")
     install("common-5")
@@ -22,6 +21,7 @@ taboolib {
     install("module-ai")
     install("module-navigation")
     install("module-nms")
+    install("module-nms-util")
     install("module-ui")
     install("module-effect")
     install("module-kether")
@@ -31,7 +31,7 @@ taboolib {
     install("expansion-player-database")
     install("expansion-alkaid-redis")
     classifier = null
-    version = "6.0.11-27"
+    version = "6.0.11-31"
 
     relocate("org.serverct.parrot.parrotx", "world.icebear03.starlight.taboolib.parrotx")
 }
@@ -41,11 +41,11 @@ repositories {
 }
 
 dependencies {
-    implementation("com.google.code.gson:gson:2.8.7")
+    implementation("com.google.code.gson:gson:2.8.9")
 
     compileOnly("ink.ptms:nms-all:1.0.0")
-    compileOnly("ink.ptms.core:v11902:11902-minimize:mapped")
-    compileOnly("ink.ptms.core:v11902:11902-minimize:universal")
+    compileOnly("ink.ptms.core:v12001:12001:mapped")
+    compileOnly("ink.ptms.core:v12001:12001:universal")
 
     taboo("org.tabooproject.taboolib:module-parrotx:1.4.23")
     compileOnly(kotlin("stdlib"))

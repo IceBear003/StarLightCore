@@ -9,6 +9,7 @@ import world.icebear03.starlight.career.CareerManager
 import world.icebear03.starlight.station.StationManager
 import world.icebear03.starlight.tool.ToolManager
 import world.icebear03.starlight.tool.info.BossBarCompass
+import world.icebear03.starlight.utils.CooldownFreezer
 import java.io.File
 
 object StarLightCore : Plugin() {
@@ -24,6 +25,7 @@ object StarLightCore : Plugin() {
 
         StationManager.initialize()
         ToolManager.initialize()
+        CooldownFreezer.initialize()
         info("Successfully Running StarLightCore!")
     }
 

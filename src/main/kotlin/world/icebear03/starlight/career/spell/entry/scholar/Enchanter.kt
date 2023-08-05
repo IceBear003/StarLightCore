@@ -2,6 +2,7 @@ package world.icebear03.starlight.career.spell.entry.scholar
 
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
+import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.Player
 import org.bukkit.event.enchantment.EnchantItemEvent
 import org.bukkit.event.inventory.InventoryClickEvent
@@ -15,8 +16,9 @@ import org.bukkit.potion.PotionEffectType
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
-import taboolib.platform.util.giveItem
+import taboolib.module.nms.getI18nName
 import taboolib.platform.util.modifyMeta
+import world.icebear03.starlight.career
 import world.icebear03.starlight.career.*
 import world.icebear03.starlight.career.spell.handler.addSpecialRecipe
 import world.icebear03.starlight.career.spell.handler.internal.HandlerType
@@ -83,6 +85,34 @@ object Enchanter {
 
             "§d顿悟 ${display(name)} §7释放成功，期间内将标记玩家在§c无抗火条件§7下点燃即可卸除其一件盔甲上的§b所有附魔"
         }
+
+        "咒术工程".discharge { name, _ ->
+            finish(name)
+            val item = inventory.itemInMainHand
+            if (item.enchantments.isEmpty())
+                return@discharge "§a技能 ${display(name)} §7释放失败，因为手持物品没有附魔"
+            val enchants = item.enchantments.toMutableMap()
+            val toMaxLevel = mutableListOf<Enchantment>()
+            val toExtraLevel = mutableListOf<Enchantment>()
+            enchants.forEach { (enchant, level) ->
+                if (level < enchant.maxLevel)
+                    toMaxLevel += enchant
+                if (level == enchant.maxLevel)
+                    toExtraLevel += enchant
+            }
+            if (toMaxLevel.isNotEmpty()) {
+                val enchant = toMaxLevel.random()
+                item.addUnsafeEnchantment(enchant, enchants[enchant]!! + 1)
+                return@discharge "§a技能 ${display(name)} §7释放成功，附魔 §e${enchant.getI18nName()} §7等级§a+1"
+            }
+            if (toExtraLevel.isNotEmpty() && career().points >= 1) {
+                val enchant = toExtraLevel.random()
+                career().takePoint(1)
+                item.addUnsafeEnchantment(enchant, enchants[enchant]!! + 1)
+                return@discharge "§a技能 ${display(name)} §7释放成功，附魔 §e${enchant.getI18nName()} §7等级突破最大级，消耗了§a1技能点"
+            }
+            "§a技能 ${display(name)} §7释放失败，因为手持物品附魔不可再升级，或是技能点不足以突破最大级"
+        }
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -116,15 +146,10 @@ object Enchanter {
         val player = event.enchanter
 
         val cost = event.whichButton() + 1
-        var spellLevel = player.spellLevel("注魔宝典")
+        val spellLevel = player.spellLevel("注魔宝典")
         if (spellLevel > 0 && Math.random() <= spellLevel * 0.2) {
             player.giveExpLevels(cost)
             player.sendMessage("§a生涯系统 §7>> §a技能 ${display("注魔宝典", spellLevel)} §7使得本次附魔不消耗经验等级")
-        }
-        spellLevel = player.spellLevel("咒术工程")
-        if (spellLevel > 0 && Math.random() <= spellLevel * 0.1 + 0.1) {
-            player.giveItem(ItemStack(Material.LAPIS_LAZULI, minOf(spellLevel, cost)))
-            player.sendMessage("§a生涯系统 §7>> §a技能 ${display("咒术工程", spellLevel)} §7使得从本次附魔中额外获得了青金石")
         }
     }
 

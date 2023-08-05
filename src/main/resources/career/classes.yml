@@ -23,7 +23,7 @@
     - "行政专家"
     - "红石工程师"
 农夫:
-  skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDJlMGRjOTJkNzg2MmYwNDQzY2M3NzU3Mzc3NzRmNDA3YWFlZmJlMDVlOWM0MzIzMmJiNjkzZDM5YzE4ZmI4OSJ9fX0="
+  skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2I0M2IyMzE4OWRjZjEzMjZkYTQyNTNkMWQ3NTgyZWY1YWQyOWY2YzI3YjE3MWZlYjE3ZTMxZDA4NGUzYTdkIn19fQ=="
   color: "&{#70AD47}"
   branches:
     - "渔夫"
@@ -35,6 +35,9 @@
   color: "&{#ED7D31}"
   branches:
     - "伐木工"
+    - "工具制造商"
+    - "矿工"
+    - "烧炼师"
 战士:
   skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTYyZDg1ZDY1N2NhZjU4M2RhODRhMTZiMmRiYjU3Yjc5MGNlZTBjNjBmYjIwYTA4ZjRjYzY3Y2ZhMmZjMzNlZSJ9fX0="
   color: "&{#FF0000}"

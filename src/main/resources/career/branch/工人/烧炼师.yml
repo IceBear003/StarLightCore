@@ -1,0 +1,77 @@
+skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODk0MjgyN2Q0MzRmYWE4MWU4NGZkMDY4ODJmOWExNTUzY2I3YzIwYTExM2Q1NzM0ZjM3ZWY0ODBlMGMyYTU5YSJ9fX0="
+color: "&{#C55A11}"
+description:
+  - "&7点燃炽热火炉，成就百炼之钢"
+  - " "
+  - "&7分支基础效果："
+  - "&7可以&b使用&7高炉"
+  - "&7可以在高炉周围&b放置&7漏斗、发射器、投掷器"
+  - "&7可以将煤炭、煤炭块、岩浆桶、烈焰棒&b放入&7熔炉和高炉"
+  - "&7从熔炉或高炉中取出烧炼完成的物品时"
+  - "&7每个物品都有 &a5% &7概率增加 &a1个 &b额外产物"
+  - " "
+  - "&7带*部分的详细解释请参见&b服务器Wiki"
+skills:
+  熔炉改良:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGVkNjc5OTE0OTc4OGI5ZTkwMTY4MTFkM2EzZDBlZDFmNTUyNTMwZDY3Zjk4Njk0NTAzMmQ2ZTQzOWZhODk5ZCJ9fX0="
+    color: "&{#C55A11}"
+    type: PASSIVE
+    description:
+      1:
+        - "&7从熔炉或高炉中取出烧炼完成的物品时"
+        - "&7每个物品都有 &a10% &7概率增加 &a1个 &b额外产物"
+      2:
+        - "&7从熔炉或高炉中取出烧炼完成的物品时"
+        - "&7每个物品都有 &a15% &7概率增加 &a1个 &b额外产物"
+      3:
+        - "&7从熔炉或高炉中取出烧炼完成的物品时"
+        - "&7每个物品都有 &a20% &7概率增加 &a1个 &b额外产物"
+  熔金模具:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzg2YjgwMjZhNjU5NmQ5MjJiM2I5ZTI0NWM2YjNmYWYzMTdhY2Q0ZjNjOTU3YTU4ZmE4NTNhZjY2MzJhOWViMiJ9fX0="
+    color: "&{#C55A11}"
+    type: ACTIVE
+    cooldown: 90
+    description:
+      1:
+        - "&7下次从高炉中取出烧炼完成的物品时"
+        - "&7每个物品提供 &a2点 &b额外经验"
+      2:
+        - "&7下次从高炉中取出烧炼完成的物品时"
+        - "&7每个物品提供 &a3点 &b额外经验"
+      3:
+        - "&7下次从高炉中取出烧炼完成的物品时"
+        - "&7每个物品提供 &a4点 &b额外经验"
+  燃料管道:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzUzYzg5YTJhZGM0ZWU1YmExZjA1ZTVkNjRlOWI0YmI2YjMyMzJjNzIwMjhlMGNiZTM1ZTFiNzNkMGM1N2RjMSJ9fX0="
+    color: "&{#C55A11}"
+    type: ACTIVE
+    cooldown: 480
+    duration: 25+5*level
+    description:
+      1:
+        - "&7使周围 &a4格 &7内所有熔炉和高炉&b保持燃烧状态"
+      2:
+        - "&7使周围 &a6格 &7内所有熔炉和高炉&b保持燃烧状态"
+      3:
+        - "&7使周围 &a8格 &7内所有熔炉和高炉&b保持燃烧状态"
+  #继续添加
+eurekas:
+  煤液化:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjhiMjc2NGExMTRiODg3NDk1NzdjMDEyZTE3YjcxYzliZmQ1OGIxZTlhMTgzYTdiMWFjYzY2MWIyNDAxYWU1In19fQ=="
+    color: "&{#C55A11}"
+    description:
+      - "&7解锁&b岩浆桶&7的合成表*"
+    type: PASSIVE
+  回炉重铸:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjU2ZWM2NzI5NjlhZmU1N2Y2YTRlYjM1ZDg3MTQ1MGMzZTcxOWFiMjA1MGE5YTQwZDMzNjEyY2FkNTc2N2UifX19"
+    color: "&{#C55A11}"
+    description:
+      - "&7在高炉中熔炼获得&b铁粒&7或&b金粒&7时"
+      - "&b额外获得 &a1个 &b铁锭&7或&b金锭"
+    type: PASSIVE
+  地质学:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjU2MDc2MzI4N2E3Zjk4NzE1MmMxYTM3NDA4Y2JmMzRlYmNlMDg0YzM3MTM2NmFmMmE3M2Y3ZjY5Mzc3ZDk3OSJ9fX0="
+    color: "&{#C55A11}"
+    description:
+      - "&7解锁&b下界合金锭&7的合成表*"
+    type: PASSIVE

@@ -38,6 +38,10 @@ object PapiExpansion : PlaceholderExpansion {
 
             val cdPair = player.checkCooldownStamp(name, cd)
 
+            if (AFK.isAFKing(player)) {
+                return "$int &7- ${display(name)} &7> &c挂机-不读数"
+            }
+
             val state = if (player.isDischarging(name)) {
                 val stamp = dischargeStamp[player.uniqueId]!![name]!!
                 val period = (System.currentTimeMillis() - stamp) / 1000.0

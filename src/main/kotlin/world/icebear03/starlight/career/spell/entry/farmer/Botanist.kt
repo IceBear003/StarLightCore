@@ -18,7 +18,7 @@ import world.icebear03.starlight.utils.takeItem
 
 object Botanist {
 
-    val saplings = Material.values().filter { it.toString().contains("SAPLING") }
+    val saplings = Material.values().filter { it.toString().contains("SAPLING") } + Material.MANGROVE_PROPAGULE
 
     //方块
     val crops = mapOf(
@@ -95,6 +95,7 @@ object Botanist {
     fun fertilize(event: PlayerItemConsumeEvent) {
         val type = event.item.type
         val player = event.player
+        player.sendMessage("awa")
         if (type == Material.BONE_MEAL && player.isDischarging("科学施肥")) {
             val level = player.spellLevel("科学施肥")
             if (Math.random() <= 0.1 * level) {

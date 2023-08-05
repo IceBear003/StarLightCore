@@ -3,6 +3,7 @@ package world.icebear03.starlight.tool.mechanism
 import org.bukkit.Bukkit
 import org.bukkit.Statistic
 import org.bukkit.World
+import org.bukkit.attribute.Attribute
 import org.bukkit.entity.EntityType
 import org.bukkit.entity.Player
 import org.bukkit.event.player.PlayerJoinEvent
@@ -98,6 +99,10 @@ object RespawnProtection {
                 player.teleport(randomLoc.clone().add(0.0, 3.0, 0.0))
             if (randomLoc.block.isLiquid)
                 world.spawnEntity(randomLoc.clone().add(0.0, 1.0, 0.0), EntityType.BOAT)
+
+            val attribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH) ?: return@submit
+            attribute.baseValue = 40.0
+            player.health = player.maxHealth
         }
     }
 

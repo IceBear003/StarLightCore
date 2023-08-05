@@ -1,4 +1,4 @@
-skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODk0MjgyN2Q0MzRmYWE4MWU4NGZkMDY4ODJmOWExNTUzY2I3YzIwYTExM2Q1NzM0ZjM3ZWY0ODBlMGMyYTU5YSJ9fX0="
+skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMWUxYzU1YmVjMDg2N2QyZjY0Yzg3MzE2YTY5NzNmNDBmODk3OWZkYzNkOTJjN2FhNGI2MTY4ZTM2ZWI3NWY3YyJ9fX0="
 color: "&{#00B050}"
 description:
   - "&7观测植株成长，培植新生绿意"
@@ -12,7 +12,7 @@ description:
   - "&7带*部分的详细解释请参见&b服务器Wiki"
 skills:
   合理密植:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGVkNjc5OTE0OTc4OGI5ZTkwMTY4MTFkM2EzZDBlZDFmNTUyNTMwZDY3Zjk4Njk0NTAzMmQ2ZTQzOWZhODk5ZCJ9fX0="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWExZmJlZjNkMGM1MWFkNmM3MTNhYTIwYzQyZGIxODM0MzRjZWM0ZmI2M2E1YTNlYWExMDFhZDNjNWY3NWQxNSJ9fX0="
     color: "&{#00B050}"
     type: PASSIVE
     description:
@@ -23,7 +23,7 @@ skills:
       3:
         - "&7收割成熟的作物时有 &a25% &7概率&b额外获得 &a1个 &7相应作物"
   科学施肥:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzg2YjgwMjZhNjU5NmQ5MjJiM2I5ZTI0NWM2YjNmYWYzMTdhY2Q0ZjNjOTU3YTU4ZmE4NTNhZjY2MzJhOWViMiJ9fX0="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2ZiMTg2OTRlZDQyZWIzYmRhZTZlOTU1MTUwYWFhYWU3MDE5OGYyODEzYTk2OWNjZjc5YmExMzE5MDFlMWI5YiJ9fX0="
     color: "&{#00B050}"
     type: ACTIVE
     cooldown: 30
@@ -36,7 +36,7 @@ skills:
       3:
         - "&7期间使用骨粉时有 &a30% &7概率&b不消耗&7骨粉"
   植物遗传学:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzUzYzg5YTJhZGM0ZWU1YmExZjA1ZTVkNjRlOWI0YmI2YjMyMzJjNzIwMjhlMGNiZTM1ZTFiNzNkMGM1N2RjMSJ9fX0="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTI0YzhlOTk3ODUyZjJlNTcwMGI5YzM2ZGM2ZDE4Y2NhY2FlZDhhZTdlOTNjYTNhMmE0NTcxYTk5MTBjZmZjNiJ9fX0="
     color: "&{#00B050}"
     type: ACTIVE
     cooldown: 600-level/2*60
@@ -53,19 +53,19 @@ skills:
   #继续添加
 eurekas:
   于荫求果:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjhiMjc2NGExMTRiODg3NDk1NzdjMDEyZTE3YjcxYzliZmQ1OGIxZTlhMTgzYTdiMWFjYzY2MWIyNDAxYWU1In19fQ=="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjA5ZjA5NjViMmFhMjVhOTU0NDU4ODQ0NTdkMWQxN2VmMGU1ZDg1MTVhY2EzYmJlMjFmNzFkODEyNWFhNGU1YyJ9fX0="
     color: "&{#00B050}"
     description:
       - "&7破坏树叶时有 &a10% &7概率&b掉落&7苹果"
     type: PASSIVE
   终极奉献:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjU2ZWM2NzI5NjlhZmU1N2Y2YTRlYjM1ZDg3MTQ1MGMzZTcxOWFiMjA1MGE5YTQwZDMzNjEyY2FkNTc2N2UifX19"
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmI4MjIwZTUzNGVlYzBjM2VmNzFhNDk3MDk3YTQxNTYwYWUwMTU0ZTM0NGNjZmQ1MWYzZmE5N2Y0MWZmNTM5NSJ9fX0="
     color: "&{#00B050}"
     description:
       - "&7每当用坏一把下界合金锄时，立即&b获得&7一把新的下界合金锄"
     type: PASSIVE
   生态考察:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjU2MDc2MzI4N2E3Zjk4NzE1MmMxYTM3NDA4Y2JmMzRlYmNlMDg0YzM3MTM2NmFmMmE3M2Y3ZjY5Mzc3ZDk3OSJ9fX0="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjg3MDNmNjY3MzY1MGQzNjE2MTI5MTAyN2NiMGNmOGZiYjdhMzM5ZDY2ODgzMTc2NzQzZjQwMjQ3MzM1NDg5MyJ9fX0="
     color: "&{#00B050}"
     description:
       - "&c仅当自身拥有&b【农夫】&c职业下的另一个&e分支&c时可触发"

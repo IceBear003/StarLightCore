@@ -1,77 +1,78 @@
 skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODk0MjgyN2Q0MzRmYWE4MWU4NGZkMDY4ODJmOWExNTUzY2I3YzIwYTExM2Q1NzM0ZjM3ZWY0ODBlMGMyYTU5YSJ9fX0="
-color: "&{#FFC000}"
+color: "&{#833C0B}"
 description:
-  - "&7挥动锋利巨斧，裂断树木纤维"
+  - "&7开凿深层矿道，发掘瑰丽矿石"
   - " "
   - "&7分支基础效果："
-  - "&7使用&b斧&7可以造成&b全额伤害"
-  - "&7可以&b使用&7钻石斧、下界合金斧"
-  - "&7破坏原木和菌柄时&b必定掉落"
-  - "&7破坏木方块*时获得&b急迫I"
+  - "&7使用&b镐、锹&7可以造成&b全额伤害"
+  - "&7可以&b使用&7钻石镐、下界合金镐"
+  - "&7可以&b使用&7钻石锹、下界合金锹"
+  - "&7破坏矿石*时&b必定掉落"
+  - "&7破坏自然石方块*时获得&b急迫I"
   - " "
   - "&7带*部分的详细解释请参见&b服务器Wiki"
 skills:
-  全力劈砍:
+  奋力挖掘:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGVkNjc5OTE0OTc4OGI5ZTkwMTY4MTFkM2EzZDBlZDFmNTUyNTMwZDY3Zjk4Njk0NTAzMmQ2ZTQzOWZhODk5ZCJ9fX0="
-    color: "&{#FFC000}"
+    color: "&{#833C0B}"
     type: PASSIVE
     description:
       1:
-        - "&7破坏木方块*时获得&b急迫II"
+        - "&7破坏自然石方块*时获得&b急迫II"
       2:
-        - "&7破坏木方块*时获得&b急迫III"
+        - "&7破坏自然石方块*时获得&b急迫III"
       3:
-        - "&7破坏木方块*时获得&b急迫IV"
-  巧力用斧:
+        - "&7破坏自然石方块*时获得&b急迫IV"
+  强力运镐:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzg2YjgwMjZhNjU5NmQ5MjJiM2I5ZTI0NWM2YjNmYWYzMTdhY2Q0ZjNjOTU3YTU4ZmE4NTNhZjY2MzJhOWViMiJ9fX0="
-    color: "&{#FFC000}"
+    color: "&{#833C0B}"
     type: ACTIVE
     cooldown: 12-2*level
     description:
       1:
-        - "&7下次使用斧破坏木方块*时&b不消耗耐久"
+        - "&7下次使用镐破坏自然石方块*时&b不消耗耐久"
       2:
-        - "&7下次使用斧破坏木方块*时&b不消耗耐久"
+        - "&7下次使用镐破坏自然石方块*时&b不消耗耐久"
       3:
-        - "&7下次使用斧破坏木方块*时&b不消耗耐久"
-  斩尽桎梏:
+        - "&7下次使用镐破坏自然石方块*时&b不消耗耐久"
+  不灭矿灯:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzUzYzg5YTJhZGM0ZWU1YmExZjA1ZTVkNjRlOWI0YmI2YjMyMzJjNzIwMjhlMGNiZTM1ZTFiNzNkMGM1N2RjMSJ9fX0="
-    color: "&{#FFC000}"
+    color: "&{#833C0B}"
     type: ACTIVE
     cooldown: 600
-    duration: 45+15*level
+    duration: 60+level*60
     description:
       1:
-        - "&7获得 &a60秒 &7的&b力量I"
-        - "&7期间每破坏 &a4个 &7原木或菌柄即增加 &a1级 &b力量"
-        - "&7最多可增加至&b力量III"
+        - "&7获得一个光照强度为 &a9级 &7的"
+        - "&7跟随自身的&b动态光源"
       2:
-        - "&7获得 &a75秒 &7的&b力量I"
-        - "&7期间每破坏 &a3个 &7原木或菌柄即增加 &a1级 &b力量"
-        - "&7最多可增加至&b力量III"
+        - "&7获得一个光照强度为 &a12级 &7的"
+        - "&7跟随自身的&b动态光源"
       3:
-        - "&7获得 &a90秒 &7的&b力量I"
-        - "&7期间每破坏 &a3个 &7原木或菌柄即增加 &a1级 &b力量"
-        - "&7最多可增加至&b力量IV"
+        - "&7获得一个光照强度为 &a15级 &7的"
+        - "&7跟随自身的&b动态光源"
   #继续添加
 eurekas:
-  巨树攀登者:
+  自然矿洞勘探:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjhiMjc2NGExMTRiODg3NDk1NzdjMDEyZTE3YjcxYzliZmQ1OGIxZTlhMTgzYTdiMWFjYzY2MWIyNDAxYWU1In19fQ=="
-    color: "&{#FFC000}"
+    color: "&{#833C0B}"
     description:
-      - "&7可以&b放置&7脚手架"
+      - "&c仅当处于洞穴生物群系*时可触发"
+      - "&7黑暗环境耐受时间 &a+5秒"
+      - "&7始终获得&b抗性提升I"
     type: PASSIVE
-  护林员:
+  黑暗适应:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjU2ZWM2NzI5NjlhZmU1N2Y2YTRlYjM1ZDg3MTQ1MGMzZTcxOWFiMjA1MGE5YTQwZDMzNjEyY2FkNTc2N2UifX19"
-    color: "&{#FFC000}"
+    color: "&{#833C0B}"
+    description:
+      - "&7黑暗环境耐受时间 &a+10秒"
+      - "&7受到黑暗环境的伤害 &a-1点 (0.5♥)"
+    type: PASSIVE
+  地质学:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjU2MDc2MzI4N2E3Zjk4NzE1MmMxYTM3NDA4Y2JmMzRlYmNlMDg0YzM3MTM2NmFmMmE3M2Y3ZjY5Mzc3ZDk3OSJ9fX0="
+    color: "&{#833C0B}"
     cooldown: 60
     description:
-      - "&7使指针处半径为 &a5格 &7的球形区域内所有火&b熄灭"
+      - "&7立即获知距自己&b最近&7的以下任意一种&b矿石&7的坐标："
+      - "&7金矿石、钻石矿石、绿宝石矿石、远古残骸"
     type: ACTIVE
-  抽丝剥茧:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjU2MDc2MzI4N2E3Zjk4NzE1MmMxYTM3NDA4Y2JmMzRlYmNlMDg0YzM3MTM2NmFmMmE3M2Y3ZjY5Mzc3ZDk3OSJ9fX0="
-    color: "&{#FFC000}"
-    description:
-      - "&c仅当位于下界时触发"
-      - "&7破坏菌柄时有 &a33% &7概率额外掉落 &a1个 &7相应菌柄"
-    type: PASSIVE

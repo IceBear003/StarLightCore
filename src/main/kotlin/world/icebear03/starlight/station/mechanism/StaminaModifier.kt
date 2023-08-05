@@ -4,6 +4,7 @@ import org.bukkit.Location
 import org.bukkit.entity.Player
 import org.bukkit.event.entity.FoodLevelChangeEvent
 import org.bukkit.event.player.PlayerTeleportEvent
+import org.bukkit.potion.PotionEffectType
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
@@ -82,7 +83,7 @@ object StaminaModifier {
         val player = event.entity as Player
         val new = event.foodLevel
         val old = player.foodLevel
-        if (new > old) {
+        if (new > old && !player.hasPotionEffect(PotionEffectType.SATURATION)) {
             player.addStamina((new - old) * 3.0)
         }
     }

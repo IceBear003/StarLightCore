@@ -1,0 +1,80 @@
+skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODk0MjgyN2Q0MzRmYWE4MWU4NGZkMDY4ODJmOWExNTUzY2I3YzIwYTExM2Q1NzM0ZjM3ZWY0ODBlMGMyYTU5YSJ9fX0="
+color: "&{#F4B183}"
+description:
+  - "&7打造趁手器具，接续不熄匠魂"
+  - " "
+  - "&7分支基础效果："
+  - "&7使用&b斧、镐、锹&7可以造成&b全额伤害"
+  - "&7可以&b使用&7锻造台对&b工具*&7进行操作"
+  - "&7可以&b使用&7砂轮对&b工具*&7进行修复"
+  - "&7可以&b使用&7铁砧对&b工具*&7进行修复和重命名"
+  - "&7可以&b合成&7钻石工具、指南针、钟表、望远镜、剪刀、栓绳"
+  - " "
+  - "&7带*部分的详细解释请参见&b服务器Wiki"
+skills:
+  镀层工艺:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGVkNjc5OTE0OTc4OGI5ZTkwMTY4MTFkM2EzZDBlZDFmNTUyNTMwZDY3Zjk4Njk0NTAzMmQ2ZTQzOWZhODk5ZCJ9fX0="
+    color: "&{#F4B183}"
+    type: PASSIVE
+    description:
+      1:
+        - "&7使用锻造台时，有 &a10% &7概率&b不消耗&7下界合金锭"
+      2:
+        - "&7使用锻造台时，有 &a15% &7概率&b不消耗&7下界合金锭"
+      3:
+        - "&7使用锻造台时，有 &a20% &7概率&b不消耗&7下界合金锭"
+  熟能生巧:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzg2YjgwMjZhNjU5NmQ5MjJiM2I5ZTI0NWM2YjNmYWYzMTdhY2Q0ZjNjOTU3YTU4ZmE4NTNhZjY2MzJhOWViMiJ9fX0="
+    color: "&{#F4B183}"
+    type: ACTIVE
+    cooldown: 240
+    description:
+      1:
+        - "&7下次使用铁砧时，所需的经验等级 &a-4级"
+      2:
+        - "&7下次使用铁砧时，所需的经验等级 &a-6级"
+      3:
+        - "&7下次使用铁砧时，所需的经验等级 &a-8级"
+  关键结构加固:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzUzYzg5YTJhZGM0ZWU1YmExZjA1ZTVkNjRlOWI0YmI2YjMyMzJjNzIwMjhlMGNiZTM1ZTFiNzNkMGM1N2RjMSJ9fX0="
+    color: "&{#F4B183}"
+    type: ACTIVE
+    cooldown: 900
+    description:
+      1:
+        - "&7下次合成任意&b钻石工具&7时"
+        - "&7为其赋予&b耐久I&7魔咒"
+      2:
+        - "&7下次合成任意&b钻石工具&7时"
+        - "&7有 &a75% &7概率为其赋予&b耐久I&7魔咒"
+        - "&7有 &a25% &7概率为其赋予&b耐久II&7魔咒"
+      3:
+        - "&7下次合成任意&b钻石工具&7时"
+        - "&7有 &a55% &7概率为其赋予&b耐久I&7魔咒"
+        - "&7有 &a40% &7概率为其赋予&b耐久II&7魔咒"
+        - "&7有 &a5% &7概率为其赋予&b耐久III&7魔咒"
+  #继续添加
+eurekas:
+  古骸之触:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjhiMjc2NGExMTRiODg3NDk1NzdjMDEyZTE3YjcxYzliZmQ1OGIxZTlhMTgzYTdiMWFjYzY2MWIyNDAxYWU1In19fQ=="
+    color: "&{#F4B183}"
+    description:
+      - "&7使用锻造台时，有 &a20% &7概率使经验等级 &a+1级"
+    type: PASSIVE
+  应急工具箱:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjU2ZWM2NzI5NjlhZmU1N2Y2YTRlYjM1ZDg3MTQ1MGMzZTcxOWFiMjA1MGE5YTQwZDMzNjEyY2FkNTc2N2UifX19"
+    color: "&{#F4B183}"
+    cooldown: 600
+    description:
+      - "&7在指针处生成一个箱子"
+      - "&7其中装有一整套的&b铁工具&7和 &a1个 &b铁桶"
+      - "&c需消耗 &a1经验等级"
+    type: ACTIVE
+  匠人精神:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjU2MDc2MzI4N2E3Zjk4NzE1MmMxYTM3NDA4Y2JmMzRlYmNlMDg0YzM3MTM2NmFmMmE3M2Y3ZjY5Mzc3ZDk3OSJ9fX0="
+    color: "&{#F4B183}"
+    description:
+      - "&c仅当自身拥有&b【工人】&c职业下的另一个&e分支&c时可触发"
+      - "&c立即触发且仅触发一次："
+      - "&7获得 &a3 &7技能点"
+    type: PASSIVE

@@ -119,9 +119,10 @@ object Fisherman {
                     dropped.pickupDelay = 0
                     dropped.velocity = direction
                 }
-                event.expToDrop = floor(1 + 6 * Math.random()).roundToInt()
+                var exp = floor(1 + 6 * Math.random()).roundToInt()
                 if (player.meetRequirement("授人以渔"))
-                    event.expToDrop += 6
+                    exp += 6
+                player.giveExp(exp)
             }
         }
 
