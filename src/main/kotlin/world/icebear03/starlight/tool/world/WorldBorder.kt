@@ -3,6 +3,7 @@ package world.icebear03.starlight.tool.world
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.World
+import org.bukkit.entity.Player
 import org.bukkit.event.player.PlayerJoinEvent
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
@@ -48,9 +49,16 @@ object WorldBorder {
         }
     }
 
-    fun randomLocation(world: World): Location {
-        val max = world.worldBorder.size * 0.2
-        val block = world.getHighestBlockAt((max * Math.random()).roundToInt(), (max * Math.random()).roundToInt())
-        return block.location
+    fun randomLocation(world: World, player: Player): Location {
+        val others = world.players.filter { it.uniqueId != player.uniqueId }
+        return if (others.isNotEmpty()) {
+            val other = others.random()
+            val loc = other.location.add(500 + 500 * Math.random(), 0.0, 500 + 500 * Math.random())
+            world.getHighestBlockAt(loc).location
+        } else {
+            val max = world.worldBorder.size * 0.2
+            val block = world.getHighestBlockAt((max * Math.random()).roundToInt(), (max * Math.random()).roundToInt())
+            block.location
+        }
     }
 }

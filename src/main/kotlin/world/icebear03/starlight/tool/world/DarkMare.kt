@@ -27,15 +27,15 @@ object DarkMare {
                 if (block.lightLevel == 0.toByte()) {
                     val current = timeInDark.getOrDefault(player.uniqueId, 0.0) + 0.25
                     timeInDark[player.uniqueId] = current
-                    if (current >= 5) {
-                        player.realDamage(0.75)
+                    if (current >= 7.5) {
+                        player.realDamage(0.5)
                         player.title("§7黑暗", "§7受到未知袭击...", 0, 10, 0)
                         player.actionBar("§7请尽一切可能离开黑暗")
                         return@forEach
                     }
                     if (current >= 2.5) {
                         player.title("§7黑暗", "§7恐惧正在袭来...", 0, 10, 0)
-                        player.actionBar("§7请尽快离开黑暗")
+                        player.actionBar("§7请尽快离开黑暗，否则将会持续受到攻击")
                     }
                 } else {
                     timeInDark.remove(player.uniqueId)

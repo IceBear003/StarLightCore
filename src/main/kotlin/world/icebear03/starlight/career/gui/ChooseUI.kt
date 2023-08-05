@@ -139,7 +139,15 @@ object ChooseUI {
                 career.addClass(name)
                 choicesMap.remove(player.uniqueId)
                 player.sendMessage("§a生涯系统 §7>> 你选择了职业 ${display(name)}")
-                player.sendMessage("§a生涯系统 §7>> 加上随机抽取的两个，你现在拥有一下职业:")
+
+                val quitStamp = player["quit_stamp", PersistentDataType.LONG] ?: System.currentTimeMillis()
+                val offlinePeriod = System.currentTimeMillis() - quitStamp
+
+                if ((!player.hasPlayedBefore()) || offlinePeriod >= 30 * 86400 * 1000L) {
+                    career.addPoint(3)
+                    player.sendMessage("§a生涯系统 §7>> 由于您是新玩家(or回归玩家)，因此额外获得了§a3技能点")
+                }
+                player.sendMessage("§a生涯系统 §7>> 加上随机抽取的两个，你现在拥有以下职业:")
                 career.classes.keys.forEach {
                     player.sendMessage("               §7|—— ${it.display()}")
                 }

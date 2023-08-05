@@ -45,7 +45,7 @@ data class Career(
         )
     }
 
-    fun remake(): Career {
+    fun remake(isPunished: Boolean = false): Career {
         classes.clear()
         branches.clear()
         spells.clear()
@@ -56,12 +56,15 @@ data class Career(
         resonantType = Resonate.ResonateType.FRIENDLY
 
         val talentA = ClassLoader.classes.values.random()
-        var talentB = talentA
-        while (talentA == talentB) {
-            talentB = ClassLoader.classes.values.random()
-        }
         classes[talentA] = mutableListOf()
-        classes[talentB] = mutableListOf()
+        
+        if (!isPunished) {
+            var talentB = talentA
+            while (talentA == talentB) {
+                talentB = ClassLoader.classes.values.random()
+            }
+            classes[talentB] = mutableListOf()
+        }
 
         return this
     }

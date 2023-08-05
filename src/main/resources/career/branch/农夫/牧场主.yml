@@ -77,5 +77,5 @@ eurekas:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTFmNGEwNGI1ZTYxOGU2ODg4NTY1OTA5NjJjYzZjZmY2MDQwMGQ1YjNiN2JmN2M5OWIzNzMwZDdkOGFkNzJlYSJ9fX0="
     color: "&{#92D050}"
     description:
-      - "&7使用刷怪蛋时随机获得 &a50~200点 &7经验"
+      - "&7破坏刷怪笼时获得若干个对应的刷怪蛋"
     type: PASSIVE

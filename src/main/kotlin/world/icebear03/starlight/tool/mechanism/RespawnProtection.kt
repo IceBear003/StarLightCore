@@ -81,7 +81,7 @@ object RespawnProtection {
         if (respawnType == RespawnType.DEATH)
             player.sendMessage("               §7|—— 跑向死亡箱时获得§b速度§7效果")
 
-        val randomLoc = WorldBorder.randomLocation(world)
+        val randomLoc = WorldBorder.randomLocation(world, player)
         if (respawnType != RespawnType.FIRST_JOIN)
             event!!.respawnLocation = randomLoc.clone().add(0.0, 3.0, 0.0)
 

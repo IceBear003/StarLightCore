@@ -2,8 +2,8 @@ package world.icebear03.starlight.career.spell.entry.farmer
 
 import org.bukkit.Material
 import org.bukkit.event.block.BlockBreakEvent
+import org.bukkit.event.block.BlockFertilizeEvent
 import org.bukkit.event.player.PlayerItemBreakEvent
-import org.bukkit.event.player.PlayerItemConsumeEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.potion.PotionEffectType
 import taboolib.common.platform.event.EventPriority
@@ -46,7 +46,6 @@ object Botanist {
 
     fun initialize() {
         addLimit(HandlerType.PLACE, "植物学家" to 0, *saplings.toTypedArray())
-        addLimit(HandlerType.USE, "植物学家" to 0, Material.BONE_MEAL)
         addLimit(HandlerType.USE, "植物学家" to 0, Material.COMPOSTER)
 
         crops.keys.toList().addHighListener(HandlerType.BREAK) { _, player, type ->
@@ -81,6 +80,22 @@ object Botanist {
         }
     }
 
+    @SubscribeEvent(priority = EventPriority.NORMAL, ignoreCancelled = true)
+    fun fertilize(event: BlockFertilizeEvent) {
+        val player = event.player ?: return
+        if (!player.meetRequirement("植物学家", 0)) {
+            event.isCancelled = true
+            player.sendMessage("§a生涯系统 §7>> 无法使用骨粉，需要解锁 ${display("植物学家")}")
+        }
+        if (player.isDischarging("科学施肥")) {
+            val level = player.spellLevel("科学施肥")
+            if (Math.random() <= 0.1 * level) {
+                player.sendMessage("§a生涯系统 §7>> §a技能 ${display("科学施肥")} §7使得本次施肥时不消耗骨粉")
+                player.giveItem(ItemStack(Material.BONE_MEAL))
+            }
+        }
+    }
+
     @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun breakItem(event: PlayerItemBreakEvent) {
         val type = event.brokenItem.type
@@ -88,20 +103,6 @@ object Botanist {
         if (type == Material.NETHERITE_HOE && player.meetRequirement("终极奉献")) {
             player.giveItem(ItemStack(type))
             player.sendMessage("§a生涯系统 §7>> §d顿悟 ${display("终极奉献")} §7使得您获得了一把全新的下界合金锄")
-        }
-    }
-
-    @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
-    fun fertilize(event: PlayerItemConsumeEvent) {
-        val type = event.item.type
-        val player = event.player
-        player.sendMessage("awa")
-        if (type == Material.BONE_MEAL && player.isDischarging("科学施肥")) {
-            val level = player.spellLevel("科学施肥")
-            if (Math.random() <= 0.1 * level) {
-                player.sendMessage("§a生涯系统 §7>> §a技能 ${display("科学施肥")} §7使得本次施肥时不消耗骨粉")
-                player.giveItem(ItemStack(type))
-            }
         }
     }
 }
