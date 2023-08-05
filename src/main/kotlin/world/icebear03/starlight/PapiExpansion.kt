@@ -4,13 +4,13 @@ import org.bukkit.entity.Player
 import org.bukkit.persistence.PersistentDataType
 import taboolib.common5.format
 import taboolib.platform.compat.PlaceholderExpansion
-import taboolib.platform.compat.replacePlaceholder
 import world.icebear03.starlight.career.core.Resonate
 import world.icebear03.starlight.career.display
 import world.icebear03.starlight.career.getSpell
 import world.icebear03.starlight.station.mechanism.StaminaModifier
 import world.icebear03.starlight.station.mechanism.StationMechanism
 import world.icebear03.starlight.station.station
+import world.icebear03.starlight.tag.PlayerTag
 import world.icebear03.starlight.tool.mechanism.AFK
 import world.icebear03.starlight.tool.mechanism.NearestPlayer
 import world.icebear03.starlight.utils.*
@@ -78,7 +78,7 @@ object PapiExpansion : PlaceholderExpansion {
             return "&e${pair.first} &7> &a+${pair.second.format(1)}/秒"
         }
         return when (args) {
-            "tag" -> "%deluxetags_tag%".replacePlaceholder(player).ifEmpty { "&6跋涉者" }
+            "tag" -> PlayerTag.currentTag(player)?.display() ?: "&6跋涉者"
             "career_points" -> career.points.toString()
             "career_resonate" -> career.resonantBranch?.display() ?: "&7无"
             "career_resonate_tag" -> career.resonantBranch?.display() ?: "&e玩家"

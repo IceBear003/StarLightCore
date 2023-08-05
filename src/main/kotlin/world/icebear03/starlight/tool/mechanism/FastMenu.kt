@@ -15,7 +15,7 @@ object FastMenu {
             val isOp = player.isOp
             player.isOp = true
             try {
-                player.performCommand("bs 主菜单")
+                player.performCommand("sl")
             } catch (ignored: Exception) {
             } finally {
                 player.isOp = isOp

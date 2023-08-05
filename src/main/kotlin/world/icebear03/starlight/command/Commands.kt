@@ -14,7 +14,13 @@ object Commands {
     @CommandBody
     val main = mainCommand {
         execute<Player> { sender, _, _ ->
-            sender.performCommand("bs 主菜单")
+            val isOp = sender.isOp
+            try {
+                sender.isOp = true
+                sender.performCommand("bs 主菜单")
+            } finally {
+                sender.isOp = isOp
+            }
         }
     }
 
@@ -61,4 +67,7 @@ object Commands {
 
     @CommandBody
     val recipe = commandRecipe
+
+    @CommandBody
+    val tag = commandTag
 }

@@ -7,6 +7,7 @@ import taboolib.expansion.setupPlayerDatabase
 import taboolib.platform.util.onlinePlayers
 import world.icebear03.starlight.career.CareerManager
 import world.icebear03.starlight.station.StationManager
+import world.icebear03.starlight.tag.TagLibrary
 import world.icebear03.starlight.tool.ToolManager
 import world.icebear03.starlight.tool.info.BossBarCompass
 import world.icebear03.starlight.utils.CooldownFreezer
@@ -26,6 +27,7 @@ object StarLightCore : Plugin() {
         StationManager.initialize()
         ToolManager.initialize()
         CooldownFreezer.initialize()
+        TagLibrary.initialize()
         info("Successfully Running StarLightCore!")
     }
 

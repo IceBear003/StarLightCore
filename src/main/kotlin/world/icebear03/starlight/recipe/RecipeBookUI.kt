@@ -181,7 +181,7 @@ object RecipeBookUI {
     @MenuComponent
     private val back = MenuFunctionBuilder {
         onClick { (_, _, event, _) ->
-            event.clicker.performCommand("bs 主菜单")
+            event.clicker.performCommand("sl")
         }
     }
 
