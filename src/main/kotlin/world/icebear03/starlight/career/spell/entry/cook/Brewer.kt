@@ -32,12 +32,32 @@ object Brewer {
             } else true to null
         }
 
-        listOf(Material.HOPPER, Material.DISPENSER, Material.DROPPER).addLowestListener(HandlerType.PLACE) { event, player, _ ->
+        listOf(
+            Material.HOPPER,
+            Material.DISPENSER,
+            Material.DROPPER
+        ).addLowestListener(HandlerType.PLACE) { event, player, _ ->
             val placeEvent = event as BlockPlaceEvent
             if (player.meetRequirement("药剂师", 0))
                 return@addLowestListener true to null
             if (placeEvent.block.location.hasBlockAside(Material.BREWING_STAND, 6))
-                return@addLowestListener false to "你不能在酿造台边放置这个方块，需要解锁 §e职业分支 ${display("药剂师")}"
+                return@addLowestListener false to "你不能在酿造台边放置物品传输方块，需要解锁 §e职业分支 ${display("药剂师")}"
+            return@addLowestListener true to null
+        }
+
+        Material.BREWING_STAND.addLowestListener(HandlerType.PLACE) { event, player, _ ->
+            val placeEvent = event as BlockPlaceEvent
+            if (player.meetRequirement("药剂师", 0))
+                return@addLowestListener true to null
+            if (placeEvent.block.location.hasBlockAside(
+                    listOf(
+                        Material.HOPPER,
+                        Material.DISPENSER,
+                        Material.DROPPER
+                    ), 2
+                )
+            )
+                return@addLowestListener false to "你不能在物品传输方块边放置酿造台，需要解锁 §e职业分支 ${display("药剂师")}"
             return@addLowestListener true to null
         }
 

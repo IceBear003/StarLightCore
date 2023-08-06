@@ -1,4 +1,4 @@
-title: "称号仓库"
+title: "我的称号"
 #W-按照品质筛选菜单
 #X-按照对象筛选
 #Y-按照附魔定位/类型筛选
@@ -31,7 +31,7 @@ template:
       - ==: Head
         texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzk3OGYzNWM2Mzg2MGQ2OTRmZWU0YWIzYzM2OTRmZGU0MDQ2Yzk2NmU0YzFiZjA2NjVmODg3NDhmOWY4MDI1In19fQ=="
       - ==: Functional
-        keyword: Tag$back
+        keyword: MyTag$back
 
   'P':
     material: PLAYER_HEAD
@@ -56,11 +56,11 @@ template:
     name: "&b"
     feature:
       - ==: Functional
-        keyword: Tag$current
+        keyword: MyTag$current
 
   'T':
     material: PLAYER_HEAD
     name: "&b"
     feature:
       - ==: Functional
-        keyword: Tag$tag
+        keyword: MyTag$tag

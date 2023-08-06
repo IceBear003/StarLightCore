@@ -10,22 +10,24 @@ import taboolib.platform.util.modifyMeta
 import world.icebear03.starlight.utils.set
 
 data class Tag(
-    val name: String,
-    val color: String,
+    val id: String,
+    val display: String,
     val description: List<String>,
-    val skull: String
+    val skull: String,
+    val owner: String? = null,
+    val activity: String? = null
 ) {
-    fun display(): String {
-        return color.colored() + name
-    }
-
     fun icon(): ItemStack {
         val item = ItemStack(Material.PLAYER_HEAD)
         item.textured(skull)
         return item.modifyMeta<ItemMeta> {
-            this["tag", PersistentDataType.STRING] = name
-            setDisplayName(display())
-            lore = description.map { "§8| §7$it" }
+            this["tag", PersistentDataType.STRING] = id
+            setDisplayName(display.colored())
+            lore = description.map { "§8| §7$it" } +
+                    (if (owner != null) listOf("§7", "§8| §7专属: §e$owner")
+                    else listOf()) +
+                    (if (activity != null) listOf("§7", "§8| §7活动: §b$activity")
+                    else listOf())
         }
     }
 }

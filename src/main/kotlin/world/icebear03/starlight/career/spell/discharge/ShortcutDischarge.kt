@@ -9,16 +9,18 @@ import org.bukkit.event.player.PlayerSwapHandItemsEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.PlayerInventory
 import org.bukkit.inventory.meta.ItemMeta
+import org.bukkit.persistence.PersistentDataType
 import org.serverct.parrot.parrotx.function.textured
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
-import taboolib.platform.util.hasName
 import taboolib.platform.util.isMainhand
 import taboolib.platform.util.isRightClick
 import taboolib.platform.util.modifyMeta
 import world.icebear03.starlight.career
 import world.icebear03.starlight.career.gui.CareerUI
 import world.icebear03.starlight.recipe.shapelessRecipe
+import world.icebear03.starlight.utils.get
+import world.icebear03.starlight.utils.set
 
 object ShortcutDischarge {
 
@@ -32,7 +34,12 @@ object ShortcutDischarge {
                 "§8| §7注意: 蹲下时§c不触发§7此判定",
                 "§8| §7拿在手上右击也可以打开职业菜单"
             )
+            this["custom_item", PersistentDataType.STRING] = "career_signal"
         }
+
+    fun ItemStack.isSignal(): Boolean {
+        return this.itemMeta?.get("custom_item", PersistentDataType.STRING) == "career_signal"
+    }
 
     fun initialize() {
         shapelessRecipe(
@@ -50,13 +57,11 @@ object ShortcutDischarge {
             return
         val inv: PlayerInventory = player.inventory
         val item = inv.itemInOffHand
-        if (item.hasName()) {
-            if (item.itemMeta!!.displayName == "§b职业信物") {
-                event.isCancelled = true
-                val slot = inv.heldItemSlot + 1
-                val msg = triggerShortcut(player, slot) ?: return
-                player.sendMessage("§a生涯系统 §7>> $msg")
-            }
+        if (item.isSignal()) {
+            event.isCancelled = true
+            val slot = inv.heldItemSlot + 1
+            val msg = triggerShortcut(player, slot) ?: return
+            player.sendMessage("§a生涯系统 §7>> $msg")
         }
     }
 
@@ -64,11 +69,9 @@ object ShortcutDischarge {
     fun click(event: PlayerInteractEvent) {
         val item = event.item ?: return
 
-        if (event.isRightClick()) {
-            if (item.hasName() && event.isMainhand()) {
-                if (item.itemMeta!!.displayName == "§b职业信物") {
-                    CareerUI.open(event.player, null)
-                }
+        if (event.isRightClick() && event.isMainhand()) {
+            if (item.isSignal()) {
+                CareerUI.open(event.player, null)
             }
         }
     }
@@ -77,10 +80,8 @@ object ShortcutDischarge {
     fun click(event: PlayerInteractEntityEvent) {
         val player = event.player
         val item = player.inventory.itemInMainHand
-        if (item.hasName() && event.isMainhand()) {
-            if (item.itemMeta!!.displayName == "§b职业信物") {
-                CareerUI.open(event.player, null)
-            }
+        if (item.isSignal() && event.isMainhand()) {
+            CareerUI.open(event.player, null)
         }
     }
 

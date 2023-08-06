@@ -5,14 +5,14 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import taboolib.common.platform.command.subCommand
 import taboolib.platform.util.onlinePlayers
+import world.icebear03.starlight.tag.AllTagUI
 import world.icebear03.starlight.tag.PlayerTag
 import world.icebear03.starlight.tag.TagLibrary
-import world.icebear03.starlight.tag.TagUI
 
 
 val commandTag = subCommand {
     execute<Player> { sender, _, _ ->
-        TagUI.open(sender)
+        AllTagUI.open(sender)
     }
     dynamic("cmd") {
         suggestionUncheck<Player> { _, _ -> listOf("add", "set", "remove", "reload") }

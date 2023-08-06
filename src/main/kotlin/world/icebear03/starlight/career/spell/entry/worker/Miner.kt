@@ -78,7 +78,7 @@ object Miner {
         )
         ores.addLowestListener(HandlerType.DROP_IF_BREAK) { _, player, _ ->
             if (!player.meetRequirement("矿工", 0) && Math.random() <= 0.5) {
-                false to "§a生涯系统 §7>> 挖掘矿物无掉落，解锁 ${display("伐木工")} §7可以提高成功率"
+                false to "挖掘矿物无掉落，解锁 ${display("矿工")} §7可以提高成功率"
             } else true to null
         }
 

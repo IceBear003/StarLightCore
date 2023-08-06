@@ -1,11 +1,6 @@
 package world.icebear03.starlight.tag
 
-import org.bukkit.Material
 import org.bukkit.entity.Player
-import org.bukkit.inventory.ItemStack
-import org.bukkit.inventory.meta.ItemMeta
-import org.bukkit.persistence.PersistentDataType
-import org.serverct.parrot.parrotx.function.textured
 import org.serverct.parrot.parrotx.mechanism.Reloadable
 import org.serverct.parrot.parrotx.ui.MenuComponent
 import org.serverct.parrot.parrotx.ui.config.MenuConfiguration
@@ -15,13 +10,11 @@ import taboolib.module.configuration.Config
 import taboolib.module.configuration.Configuration
 import taboolib.module.ui.openMenu
 import taboolib.module.ui.type.Linked
-import taboolib.platform.util.modifyMeta
-import world.icebear03.starlight.utils.get
 
-@MenuComponent("Tag")
-object TagUI {
+@MenuComponent("AllTag")
+object AllTagUI {
 
-    @Config("tag/tag.yml")
+    @Config("tag/all_tag.yml")
     private lateinit var source: Configuration
     private lateinit var config: MenuConfiguration
 
@@ -31,34 +24,37 @@ object TagUI {
         config = MenuConfiguration(source)
     }
 
-    fun open(player: Player) {
+    fun open(player: Player, filter: String? = null) {
         if (!::config.isInitialized) {
             config = MenuConfiguration(source)
         }
         player.openMenu<Linked<Tag>>(config.title().colored()) {
             val (shape, templates) = config
             rows(shape.rows)
-            val slots = shape["Tag\$tag"].toList()
+            val slots = shape["AllTag\$tag"].toList()
             slots(slots)
-            elements { PlayerTag.tagList(player) }
+            elements {
+                when (filter) {
+                    "private" -> TagLibrary.tags.values.filter { it.owner != null }
+                    "activity" -> TagLibrary.tags.values.filter { it.activity != null }
+                    "special" -> TagLibrary.tags.values.filter { it.owner == null && it.activity == null }
+                    else -> TagLibrary.tags.values.toList()
+                }
+            }
 
             onBuild { _, inventory ->
-                shape.all("Tag\$tag", "Tag\$current", "Previous", "Next") { slot, index, item, _ ->
+                shape.all("AllTag\$tag", "Previous", "Next") { slot, index, item, _ ->
                     inventory.setItem(slot, item(slot, index))
                 }
             }
 
-            val template = templates.require("Tag\$tag")
+            val template = templates.require("AllTag\$tag")
             onGenerate { _, element, index, slot ->
                 template(slot, index, element)
             }
 
             onClick { event, element ->
                 template.handle(event, element)
-            }
-
-            shape["Tag\$current"].forEach { slot ->
-                set(slot, templates("Tag\$current", slot, 0, false, "Fallback", player))
             }
 
             shape["Previous"].first().let { slot ->
@@ -83,28 +79,37 @@ object TagUI {
     }
 
     @MenuComponent
-    private val current = MenuFunctionBuilder {
-        onBuild { (_, _, _, _, _, args) ->
-            val player = args[0] as Player
-            val tag = PlayerTag.currentTag(player) ?: run {
-                return@onBuild ItemStack(Material.PLAYER_HEAD)
-                    .textured("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODRkNWE3MDcwYjFlMjEyMDc3ZjdiNzdiY2RlMWFlMTkxN2VmNTYxYmNjMWFkMzgyMjk2ZGU0M2E2YjJkYjZhMiJ9fX0=")
-                    .modifyMeta<ItemMeta> {
-                        setDisplayName("§7称号未选择")
-                    }
-            }
-            val item = tag.icon()
-
-            item.modifyMeta<ItemMeta> {
-                setDisplayName("§7当前称号 $displayName")
-                lore!! += "§7"
-                lore!! += "§8| §7点击卸下当前称号"
-            }
-        }
+    private val mine = MenuFunctionBuilder {
         onClick { (_, _, event, _) ->
-            val player = event.clicker
-            PlayerTag.clearTag(player)
-            open(player)
+            MyTagUI.open(event.clicker)
+        }
+    }
+
+    @MenuComponent
+    private val all = MenuFunctionBuilder {
+        onClick { (_, _, event, _) ->
+            open(event.clicker)
+        }
+    }
+
+    @MenuComponent
+    private val activity = MenuFunctionBuilder {
+        onClick { (_, _, event, _) ->
+            open(event.clicker, "activity")
+        }
+    }
+
+    @MenuComponent
+    private val private = MenuFunctionBuilder {
+        onClick { (_, _, event, _) ->
+            open(event.clicker, "private")
+        }
+    }
+
+    @MenuComponent
+    private val special = MenuFunctionBuilder {
+        onClick { (_, _, event, _) ->
+            open(event.clicker, "special")
         }
     }
 
@@ -112,20 +117,7 @@ object TagUI {
     private val tag = MenuFunctionBuilder {
         onBuild { (_, _, _, _, _, args) ->
             val tag = args[0] as Tag
-            tag.icon().modifyMeta<ItemMeta> {
-                lore!! += "§7"
-                lore!! += "§8| §7点击装备当前称号"
-            }
-        }
-        onClick { (_, _, event, _) ->
-            val player = event.clicker
-            val item = event.currentItem ?: return@onClick
-            val meta = item.itemMeta ?: return@onClick
-            val tag = meta["tag", PersistentDataType.STRING] ?: return@onClick
-
-            player.sendMessage("§b繁星工坊 §7>> 称号更改成功")
-            PlayerTag.setTag(player, tag)
-            open(player)
+            tag.icon()
         }
     }
 

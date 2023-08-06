@@ -4,15 +4,21 @@ import org.bukkit.Material
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
+import org.bukkit.persistence.PersistentDataType
 import org.serverct.parrot.parrotx.function.textured
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
-import taboolib.platform.util.*
+import taboolib.platform.util.giveItem
+import taboolib.platform.util.isMainhand
+import taboolib.platform.util.isRightClick
+import taboolib.platform.util.modifyMeta
 import world.icebear03.starlight.career
 import world.icebear03.starlight.career.*
 import world.icebear03.starlight.career.spell.handler.internal.HandlerType
+import world.icebear03.starlight.utils.get
 import world.icebear03.starlight.utils.hasBlockAside
 import world.icebear03.starlight.utils.isDischarging
+import world.icebear03.starlight.utils.set
 import java.util.*
 
 object Teacher {
@@ -27,6 +33,7 @@ object Teacher {
                 "§8| §7右击消耗可获得§a1技能点",
                 "§8| §7注意: 选择教师分支的玩家§c无法使用"
             )
+            this["custom_item", PersistentDataType.STRING] = "career_skill_book"
         }
 
     fun initialize() {
@@ -67,18 +74,16 @@ object Teacher {
             return
         val player = event.player
         val item = event.item!!
-        if (item.hasName()) {
-            if (item.itemMeta!!.displayName == "§b技能之书") {
-                if (player.meetRequirement("教师", 0)) {
-                    player.sendMessage("§a生涯系统 §7>> 教师不能使用技能之书")
-                    return
-                }
-                if (item.amount > 1) {
-                    item.amount -= 1
-                } else player.inventory.setItemInMainHand(null)
-                player.career().addPoint(1)
-                player.sendMessage("§a生涯系统 §7>> 从技能之书中获得了§a1技能点")
+        if (item.itemMeta?.get("custom_item", PersistentDataType.STRING) == "career_skill_book") {
+            if (player.meetRequirement("教师", 0)) {
+                player.sendMessage("§a生涯系统 §7>> 教师不能使用技能之书")
+                return
             }
+            if (item.amount > 1) {
+                item.amount -= 1
+            } else player.inventory.setItemInMainHand(null)
+            player.career().addPoint(1)
+            player.sendMessage("§a生涯系统 §7>> 从技能之书中获得了§a1技能点")
         }
         if (item.type == Material.BOOK && event.hasBlock() && player.isSneaking && player.meetRequirement("教师", 0)) {
             val block = event.clickedBlock!!

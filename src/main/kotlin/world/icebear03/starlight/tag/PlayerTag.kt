@@ -8,14 +8,14 @@ import world.icebear03.starlight.utils.set
 
 object PlayerTag {
 
-    fun addTag(player: Player, name: String) {
+    fun addTag(player: Player, id: String) {
         val string = player["tags", PersistentDataType.STRING] ?: ""
-        player["tags", PersistentDataType.STRING] = "$string$name,"
+        player["tags", PersistentDataType.STRING] = "$string$id,"
     }
 
-    fun removeTag(player: Player, name: String) {
+    fun removeTag(player: Player, id: String) {
         val string = player["tags", PersistentDataType.STRING] ?: ""
-        player["tags", PersistentDataType.STRING] = string.replace("$name,", "")
+        player["tags", PersistentDataType.STRING] = string.replace("$id,", "")
     }
 
     fun clearTag(player: Player) {
@@ -27,8 +27,8 @@ object PlayerTag {
         return string.split(",").filter { it.isNotBlank() }.map { TagLibrary.getTag(it)!! }
     }
 
-    fun setTag(player: Player, name: String) {
-        player["current_tag", PersistentDataType.STRING] = name
+    fun setTag(player: Player, id: String) {
+        player["current_tag", PersistentDataType.STRING] = id
     }
 
     fun currentTag(player: Player): Tag? {

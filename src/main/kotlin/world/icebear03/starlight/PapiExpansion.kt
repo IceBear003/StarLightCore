@@ -3,6 +3,7 @@ package world.icebear03.starlight
 import org.bukkit.entity.Player
 import org.bukkit.persistence.PersistentDataType
 import taboolib.common5.format
+import taboolib.module.chat.colored
 import taboolib.platform.compat.PlaceholderExpansion
 import world.icebear03.starlight.career.core.Resonate
 import world.icebear03.starlight.career.display
@@ -78,7 +79,7 @@ object PapiExpansion : PlaceholderExpansion {
             return "&e${pair.first} &7> &a+${pair.second.format(1)}/秒"
         }
         return when (args) {
-            "tag" -> PlayerTag.currentTag(player)?.display() ?: "&6跋涉者"
+            "tag" -> PlayerTag.currentTag(player)?.display?.colored() ?: "&6跋涉者"
             "career_points" -> career.points.toString()
             "career_resonate" -> career.resonantBranch?.display() ?: "&7无"
             "career_resonate_tag" -> career.resonantBranch?.display() ?: "&e玩家"

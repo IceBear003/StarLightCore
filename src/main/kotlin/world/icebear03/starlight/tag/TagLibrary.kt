@@ -15,14 +15,15 @@ object TagLibrary {
         directory.listFiles()?.let {
             it.forEach { file ->
                 val config = Configuration.loadFromFile(file)
-                val name = config.getString("name")!!
+                val id = config.getString("id")!!
                 val tag = Tag(
-                    name,
-                    config.getString("color")!!,
+                    id,
+                    config.getString("display")!!,
                     config.getStringList("description"),
-                    config.getString("skull")!!
+                    config.getString("skull")!!,
+                    config.getString("owner")
                 )
-                tags[name] = tag
+                tags[id] = tag
             }
         }
     }
@@ -32,7 +33,7 @@ object TagLibrary {
         initialize()
     }
 
-    fun getTag(name: String): Tag? {
-        return tags[name]
+    fun getTag(id: String): Tag? {
+        return tags[id]
     }
 }

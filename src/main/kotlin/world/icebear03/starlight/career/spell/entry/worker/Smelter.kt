@@ -33,8 +33,26 @@ object Smelter {
             val placeEvent = event as BlockPlaceEvent
             if (player.meetRequirement("烧炼师", 0))
                 return@addLowestListener true to null
-            if (placeEvent.block.location.hasBlockAside(Material.BLAST_FURNACE, 6))
-                return@addLowestListener false to "你不能在酿造台边放置这个方块，需要解锁 §e职业分支 ${display("烧炼师")}"
+            if (placeEvent.block.location.hasBlockAside(
+                    listOf(Material.FURNACE, Material.BLAST_FURNACE), 6
+                )
+            )
+                return@addLowestListener false to "你不能在炉边放置物品传输方块，需要解锁 §e职业分支 ${display("烧炼师")}"
+            return@addLowestListener true to null
+        }
+        listOf(Material.FURNACE, Material.BLAST_FURNACE).addLowestListener(HandlerType.PLACE) { event, player, _ ->
+            val placeEvent = event as BlockPlaceEvent
+            if (player.meetRequirement("烧炼师", 0))
+                return@addLowestListener true to null
+            if (placeEvent.block.location.hasBlockAside(
+                    listOf(
+                        Material.HOPPER,
+                        Material.DISPENSER,
+                        Material.DROPPER
+                    ), 2
+                )
+            )
+                return@addLowestListener false to "你不能在物品传输方块边放置这个炉子，需要解锁 §e职业分支 ${display("烧炼师")}"
             return@addLowestListener true to null
         }
 

@@ -1,0 +1,117 @@
+title: "我的称号"
+#W-按照品质筛选菜单
+#X-按照对象筛选
+#Y-按照附魔定位/类型筛选
+#Z-输入字符串搜索
+shape:
+  - 'FHFIFJFKF'
+  - 'TTTTTTTTT'
+  - 'TTTTTTTTT'
+  - 'TTTTTTTTT'
+  - 'FFFPMNFFF'
+  - 'FFFBFCFFF'
+
+template:
+  'F':
+    material: BLACK_STAINED_GLASS_PANE
+    name: "&7"
+
+  'C':
+    material: PLAYER_HEAD
+    name: "&c关闭"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjc1NDgzNjJhMjRjMGZhODQ1M2U0ZDkzZTY4YzU5NjlkZGJkZTU3YmY2NjY2YzAzMTljMWVkMWU4NGQ4OTA2NSJ9fX0="
+      - ==: Close
+
+  'B':
+    material: PLAYER_HEAD
+    name: "&b回到主菜单"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzk3OGYzNWM2Mzg2MGQ2OTRmZWU0YWIzYzM2OTRmZGU0MDQ2Yzk2NmU0YzFiZjA2NjVmODg3NDhmOWY4MDI1In19fQ=="
+      - ==: Functional
+        keyword: AllTag$back
+
+  'P':
+    material: PLAYER_HEAD
+    name: "&e上一页"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjllYTFkODYyNDdmNGFmMzUxZWQxODY2YmNhNmEzMDQwYTA2YzY4MTc3Yzc4ZTQyMzE2YTEwOThlNjBmYjdkMyJ9fX0="
+      - ==: Functional
+        keyword: Previous
+
+  'N':
+    material: PLAYER_HEAD
+    name: "&e下一页"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODI3MWE0NzEwNDQ5NWUzNTdjM2U4ZTgwZjUxMWE5ZjEwMmIwNzAwY2E5Yjg4ZTg4Yjc5NWQzM2ZmMjAxMDVlYiJ9fX0="
+      - ==: Functional
+        keyword: Next
+
+  'H':
+    material: PLAYER_HEAD
+    name: "&b所有称号"
+    lore:
+      - "&8| &7显示服务器所有称号"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmFkOGEzYTNiMzZhZGQ1ZDk1NDFhOGVjOTcwOTk2ZmJkY2RlYTk0MTRjZDc1NGM1MGU0OGU1ZDM0ZjFiZjYwYSJ9fX0="
+      - ==: Functional
+        keyword: AllTag$all
+
+  'I':
+    material: PLAYER_HEAD
+    name: "&b活动称号"
+    lore:
+      - "&8| &7显示往期活动称号"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTc4OWIzZTI4NjhkNzE2YTkyMWRlYzU5MzJkNTMwYTg5MmY2MDAyMzVmMTg3NzY2YmMwMmQxNDVlZDE2ODY1YiJ9fX0="
+      - ==: Functional
+        keyword: AllTag$activity
+
+  'J':
+    material: PLAYER_HEAD
+    name: "&b专属称号"
+    lore:
+      - "&8| &7显示专属于个人的称号"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTZiY2RkMGJlMTNjYjc2NjM2Mzk0NjZmMGE5NTc5NmIxMTk4OGE3NWVkMWVlNzIzOTZkYjcwMWM0MjEyZTRlMiJ9fX0="
+      - ==: Functional
+        keyword: AllTag$private
+
+  'K':
+    material: PLAYER_HEAD
+    name: "&b特殊称号"
+    lore:
+      - "&8| &7显示与服务器彩蛋、里程碑相关的称号"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWI4NWUyOWYyOWVjOWE5MGU0ODJlYTViODM5MWJjYjQ1NjBiYmFlMGRjZDE1ZDdjZTFkODYwMTZiNDM1NmU5OCJ9fX0="
+      - ==: Functional
+        keyword: AllTag$special
+
+  'M':
+    material: PLAYER_HEAD
+    name: "&b我的称号"
+    lore:
+      - "&8| &7选择属于自己的称号"
+      - "&8| &7如何获得称号？"
+      - "    &7|—— 积极参加服务器活动"
+      - "    &7|—— 找出各种漏洞"
+    feature:
+      - ==: Head
+        texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzA4OWM5NmEwZTQwN2Y3MDE2OWZmYmM2M2Q4ZTQ4YTU2NmM1NTIxMWE5ODE4OWUzMzYwY2MyYWI4Y2I3MmY4ZSJ9fX0="
+      - ==: Functional
+        keyword: AllTag$mine
+
+  'T':
+    material: PLAYER_HEAD
+    name: "&b"
+    feature:
+      - ==: Functional
+        keyword: AllTag$tag

@@ -60,6 +60,9 @@ object Commands {
     @CommandBody(permissionDefault = PermissionDefault.TRUE)
     val recipe = commandRecipe
 
+    @CommandBody(permissionDefault = PermissionDefault.TRUE)
+    val color = commandColor
+
     @CommandBody(permission = "starlight.op")
     val tag = commandTag
 }
