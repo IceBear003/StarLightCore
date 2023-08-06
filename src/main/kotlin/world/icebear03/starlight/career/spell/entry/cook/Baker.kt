@@ -92,7 +92,8 @@ object Baker {
             while (max > 0 && amount > 0) {
                 amount -= per
                 max -= 1
-                val tmp = loc.clone().add(-4.0 + 8.0 * Math.random(), -4.0 + 8.0 * Math.random(), -4.0 + 8.0 * Math.random())
+                val tmp =
+                    loc.clone().add(-4.0 + 8.0 * Math.random(), -4.0 + 8.0 * Math.random(), -4.0 + 8.0 * Math.random())
                 val position = world.getHighestBlockAt(tmp).location
                 position.add(0, 1, 0)
                 position.block.type = Material.CAKE
@@ -172,12 +173,14 @@ object Baker {
                 val index = floor(prays.size * Math.random()).roundToInt()
                 val pray = prays[index]
                 player.sendMessage("§6幸运曲奇 §7>> ${"&{#426AB3}".colored()}安迪§7&§f白熊 §7> $pray")
-                var current = player["pray_collected_amount", PersistentDataType.INTEGER_ARRAY] ?: listOf<Int>().toIntArray()
+                var current =
+                    player["pray_collected_amount", PersistentDataType.INTEGER_ARRAY] ?: listOf<Int>().toIntArray()
                 if (!current.contains(index)) {
                     current += index
                     if (current.size == 20) {
                         player.sendMessage("§b繁星工坊 §7>> 祝福收集完毕，纪念品已发送至背包")
                         player.giveItem(prayMedal)
+                        player.performAsOp("sl tag add ${player.name} 幸运星")
                     } else {
                         player.sendMessage("§b繁星工坊 §7>> 祝福当前已收集 §e${current.size}§7/§a20")
                     }

@@ -106,7 +106,11 @@ object Butcher {
         "追猎".discharge spell@{ name, _ ->
             finish(name)
             val trace =
-                world.rayTraceEntities(location.add(0.0, 1.5, 0.0), eyeLocation.direction.normalize(), 50.0) { it.uniqueId != uniqueId }
+                world.rayTraceEntities(
+                    location.add(0.0, 1.5, 0.0),
+                    eyeLocation.direction.normalize(),
+                    50.0
+                ) { it.uniqueId != uniqueId }
                     ?: return@spell "§d顿悟 ${display(name)} §7释放成功，但是并没有锁定一个生物"
             val entity = trace.hitEntity
             if (entity !is LivingEntity)
@@ -153,9 +157,6 @@ object Butcher {
                 event.damage += 6
             }
         }
-
-        if (!player.meetRequirement("屠夫", 0) && usingAxe)
-            event.damage *= 0.5
 
         val isBurning = entity.fireTicks > 0
 

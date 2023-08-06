@@ -104,11 +104,12 @@ object Demolitionist {
     fun igniteBlock(event: BlockIgniteEvent) {
         val player = event.player ?: return
         if (!player.meetRequirement("爆破师", 0)) {
-            if (Math.random() >= 0.2)
+            if (Math.random() >= 0.2) {
+                event.isCancelled = true
                 submit {
-                    event.block.type = Material.AIR
                     player.sendMessage("§a生涯系统 §7>> 使用打火石失败，请解锁§e职业分支 ${display("爆破师")} §7以提高成功率")
                 }
+            }
         }
     }
 

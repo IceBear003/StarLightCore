@@ -44,3 +44,13 @@ fun LivingEntity.realDamage(amount: Double, who: Entity? = null) {
     health = maxOf(0.1, health - amount)
     damage(0.5, who)
 }
+
+fun Player.performAsOp(command: String) {
+    val isOp = this.isOp
+    try {
+        this.isOp = true
+        performCommand(command)
+    } finally {
+        this.isOp = isOp
+    }
+}

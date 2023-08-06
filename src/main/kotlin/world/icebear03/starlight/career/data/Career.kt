@@ -57,7 +57,7 @@ data class Career(
 
         val talentA = ClassLoader.classes.values.random()
         classes[talentA] = mutableListOf()
-        
+
         if (!isPunished) {
             var talentB = talentA
             while (talentA == talentB) {
@@ -175,7 +175,7 @@ data class Career(
         return upgradeSpell(getSpell(name))
     }
 
-    val specialEurekas = listOf("主世界的建造者", "以厨为师", "鞠躬尽瘁", "生态考察")
+    val specialEurekas = listOf("主世界的建造者", "以厨为师", "鞠躬尽瘁", "生态考察", "匠人精神")
 
     fun upgradeSpell(spell: Spell?): Pair<Boolean, String> {
         spell ?: return false to "§a技能§7/§d顿悟§7不存在"

@@ -7,6 +7,7 @@ import org.bukkit.persistence.PersistentDataType
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import world.icebear03.starlight.utils.get
+import world.icebear03.starlight.utils.performAsOp
 import world.icebear03.starlight.utils.set
 
 object ScoreboardSwitcher {
@@ -14,7 +15,7 @@ object ScoreboardSwitcher {
     val key = NamespacedKey.minecraft("scoreboard_switcher")
 
     fun switch(player: Player, scoreboard: String) {
-        player.performCommand("asb switch $scoreboard")
+        player.performAsOp("asb switch $scoreboard")
         player["scoreboard_switcher", PersistentDataType.STRING] = scoreboard
     }
 
@@ -22,7 +23,7 @@ object ScoreboardSwitcher {
     fun join(event: PlayerJoinEvent) {
         val player = event.player
         player["scoreboard_switcher", PersistentDataType.STRING]?.let {
-            player.performCommand("asb switch $it")
+            player.performAsOp("asb switch $it")
         }
     }
 }

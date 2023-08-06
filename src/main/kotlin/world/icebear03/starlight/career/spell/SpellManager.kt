@@ -16,6 +16,9 @@ import world.icebear03.starlight.career.spell.entry.farmer.Rancher
 import world.icebear03.starlight.career.spell.entry.scholar.Enchanter
 import world.icebear03.starlight.career.spell.entry.scholar.RedstoneEngineer
 import world.icebear03.starlight.career.spell.entry.scholar.Teacher
+import world.icebear03.starlight.career.spell.entry.worker.Lumberjack
+import world.icebear03.starlight.career.spell.entry.worker.Miner
+import world.icebear03.starlight.career.spell.entry.worker.Smelter
 
 object SpellManager {
 
@@ -40,5 +43,9 @@ object SpellManager {
         Fisherman.initialize()
         Botanist.initialize()
         Rancher.initialize()
+
+        Lumberjack.initialize()
+        Miner.initialize()
+        Smelter.initialize()
     }
 }

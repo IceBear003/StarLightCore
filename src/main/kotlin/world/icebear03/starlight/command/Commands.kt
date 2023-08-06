@@ -1,38 +1,30 @@
 package world.icebear03.starlight.command
 
 import org.bukkit.entity.Player
-import taboolib.common.platform.command.CommandBody
-import taboolib.common.platform.command.CommandHeader
-import taboolib.common.platform.command.mainCommand
-import taboolib.common.platform.command.subCommand
+import taboolib.common.platform.command.*
 import taboolib.expansion.createHelper
 import world.icebear03.starlight.command.sub.*
+import world.icebear03.starlight.utils.performAsOp
 
-@CommandHeader(name = "starlightcore", aliases = ["sl", "slc", "cd"])
+@CommandHeader(name = "starlightcore", aliases = ["sl", "slc", "cd"], permissionDefault = PermissionDefault.TRUE)
 object Commands {
 
-    @CommandBody
+    @CommandBody(permissionDefault = PermissionDefault.TRUE)
     val main = mainCommand {
         execute<Player> { sender, _, _ ->
-            val isOp = sender.isOp
-            try {
-                sender.isOp = true
-                sender.performCommand("bs 主菜单")
-            } finally {
-                sender.isOp = isOp
-            }
+            sender.performAsOp("bs 主菜单")
         }
     }
 
-    @CommandBody
+    @CommandBody(permissionDefault = PermissionDefault.TRUE)
     val help = subCommand {
         createHelper(checkPermissions = true)
     }
 
-    @CommandBody
+    @CommandBody(permissionDefault = PermissionDefault.TRUE)
     val career = commandCareer
 
-    @CommandBody
+    @CommandBody(permissionDefault = PermissionDefault.TRUE)
     val point = commandPoint
 
     @CommandBody(permission = "starlight.op")
@@ -59,15 +51,15 @@ object Commands {
     @CommandBody(permission = "starlight.op")
     val qte = commandQTE
 
-    @CommandBody
+    @CommandBody(permissionDefault = PermissionDefault.TRUE)
     val escape = commandEscape
 
-    @CommandBody
+    @CommandBody(permissionDefault = PermissionDefault.TRUE)
     val scoreboard = commandScoreboard
 
-    @CommandBody
+    @CommandBody(permissionDefault = PermissionDefault.TRUE)
     val recipe = commandRecipe
 
-    @CommandBody
+    @CommandBody(permission = "starlight.op")
     val tag = commandTag
 }
