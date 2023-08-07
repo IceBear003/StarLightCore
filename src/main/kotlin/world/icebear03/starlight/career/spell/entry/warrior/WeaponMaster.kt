@@ -43,7 +43,7 @@ object WeaponMaster {
         addLimit(
             HandlerType.CRAFT,
             "武器专家" to 0,
-            *(diamondItems + Material.SHIELD + Material.TURTLE_HELMET).toTypedArray()
+            *(diamondItems + Material.TURTLE_HELMET).toTypedArray()
         )
     }
 
