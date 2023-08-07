@@ -3,6 +3,7 @@ package world.icebear03.starlight.career.spell.entry.farmer
 import org.bukkit.Material
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockFertilizeEvent
+import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.player.PlayerItemBreakEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.potion.PotionEffectType
@@ -13,6 +14,7 @@ import taboolib.platform.util.giveItem
 import world.icebear03.starlight.career.*
 import world.icebear03.starlight.career.spell.handler.internal.HandlerType
 import world.icebear03.starlight.utils.effect
+import world.icebear03.starlight.utils.hasBlockAside
 import world.icebear03.starlight.utils.isDischarging
 import world.icebear03.starlight.utils.takeItem
 
@@ -47,6 +49,35 @@ object Botanist {
     fun initialize() {
         addLimit(HandlerType.PLACE, "植物学家" to 0, *saplings.toTypedArray())
         addLimit(HandlerType.USE, "植物学家" to 0, Material.COMPOSTER)
+
+        listOf(
+            Material.HOPPER,
+            Material.DISPENSER,
+            Material.DROPPER
+        ).addLowestListener(HandlerType.PLACE) { event, player, _ ->
+            val placeEvent = event as BlockPlaceEvent
+            if (player.meetRequirement("植物学家", 0))
+                return@addLowestListener true to null
+            if (placeEvent.block.location.hasBlockAside(Material.COMPOSTER, 6))
+                return@addLowestListener false to "你不能在堆肥桶边放置物品传输方块，需要解锁 §e职业分支 ${display("植物学家")}"
+            return@addLowestListener true to null
+        }
+
+        Material.COMPOSTER.addLowestListener(HandlerType.PLACE) { event, player, _ ->
+            val placeEvent = event as BlockPlaceEvent
+            if (player.meetRequirement("植物学家", 0))
+                return@addLowestListener true to null
+            if (placeEvent.block.location.hasBlockAside(
+                    listOf(
+                        Material.HOPPER,
+                        Material.DISPENSER,
+                        Material.DROPPER
+                    ), 2
+                )
+            )
+                return@addLowestListener false to "你不能在物品传输方块边放置堆肥桶，需要解锁 §e职业分支 ${display("植物学家")}"
+            return@addLowestListener true to null
+        }
 
         crops.keys.toList().addHighListener(HandlerType.BREAK) { _, player, type ->
             val level = player.spellLevel("合理密植")

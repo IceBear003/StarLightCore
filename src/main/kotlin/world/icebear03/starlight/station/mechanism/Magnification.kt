@@ -5,6 +5,8 @@ import org.bukkit.World.Environment.*
 import org.bukkit.entity.Boat
 import org.bukkit.entity.Minecart
 import org.bukkit.entity.Player
+import world.icebear03.starlight.career.meetRequirement
+import world.icebear03.starlight.career.spellLevel
 import world.icebear03.starlight.station.station
 import world.icebear03.starlight.tool.mechanism.RespawnProtection
 
@@ -59,6 +61,16 @@ object Magnification {
                 result *= 0.25
             }
         }
+
+        result *= if (player.meetRequirement("山海一过")) 0.3
+        else when (player.spellLevel("原野跋涉")) {
+            0 -> 0.75
+            1 -> 0.7
+            2 -> 0.6
+            3 -> 0.5
+            else -> 1.0
+        }
+
 
         return result
     }

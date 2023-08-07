@@ -17,6 +17,7 @@ import taboolib.common.platform.function.submit
 import taboolib.platform.util.isMainhand
 import taboolib.platform.util.isRightClickBlock
 import taboolib.platform.util.onlinePlayers
+import world.icebear03.starlight.stamina
 import world.icebear03.starlight.station.addStamina
 import world.icebear03.starlight.station.core.StationLoader
 import world.icebear03.starlight.utils.*
@@ -56,7 +57,12 @@ object StationMechanism {
                         add *= 2
                     if (!Bukkit.getOfflinePlayer(station.ownerId).isOnline)
                         add /= 2
-                    
+
+                    add *= if (station.mag != 1.3) station.mag
+                    else if (player.stamina().stamina <= 1000) 1.4
+                    else 1.3
+
+
                     player.addStamina(add)
                     haloMap[player.uniqueId]!![ownerName] = add
                 }

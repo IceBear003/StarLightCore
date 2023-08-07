@@ -16,10 +16,10 @@ import world.icebear03.starlight.career.spell.entry.farmer.Rancher
 import world.icebear03.starlight.career.spell.entry.scholar.Enchanter
 import world.icebear03.starlight.career.spell.entry.scholar.RedstoneEngineer
 import world.icebear03.starlight.career.spell.entry.scholar.Teacher
+import world.icebear03.starlight.career.spell.entry.warrior.Explorer
 import world.icebear03.starlight.career.spell.entry.worker.Lumberjack
 import world.icebear03.starlight.career.spell.entry.worker.Miner
 import world.icebear03.starlight.career.spell.entry.worker.Smelter
-import world.icebear03.starlight.career.spell.entry.worker.ToolMaker
 
 object SpellManager {
 
@@ -48,6 +48,7 @@ object SpellManager {
         Lumberjack.initialize()
         Miner.initialize()
         Smelter.initialize()
-        ToolMaker.initialize()
+
+        Explorer.initialize()
     }
 }

@@ -21,7 +21,8 @@ object TagLibrary {
                     config.getString("display")!!,
                     config.getStringList("description"),
                     config.getString("skull")!!,
-                    config.getString("owner")
+                    config.getString("owner"),
+                    config.getString("activity")
                 )
                 tags[id] = tag
             }

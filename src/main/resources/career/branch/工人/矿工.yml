@@ -1,4 +1,4 @@
-skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODk0MjgyN2Q0MzRmYWE4MWU4NGZkMDY4ODJmOWExNTUzY2I3YzIwYTExM2Q1NzM0ZjM3ZWY0ODBlMGMyYTU5YSJ9fX0="
+skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmU1Zjc4ZGRhZDVkNWVkZGUzYjNiZDg1YjIwYzgxMDVmZDkxMzIzNTU0OTFiM2Y0YzI2ZjRjMWE2MGQ5ZDMwOCJ9fX0="
 color: "&{#833C0B}"
 description:
   - "&7开凿深层矿道，发掘瑰丽矿石"
@@ -13,7 +13,7 @@ description:
   - "&7带*部分的详细解释请参见&b服务器Wiki"
 skills:
   奋力挖掘:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGVkNjc5OTE0OTc4OGI5ZTkwMTY4MTFkM2EzZDBlZDFmNTUyNTMwZDY3Zjk4Njk0NTAzMmQ2ZTQzOWZhODk5ZCJ9fX0="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzZhODdiYTc1M2FhN2JiMTc0M2M5OGY2NzBjNzMzZjU0OWIzOTY3OTAzOTRlNTYwYTFkMTAwY2YxNmY3NzYyZiJ9fX0="
     color: "&{#833C0B}"
     type: PASSIVE
     description:
@@ -24,19 +24,19 @@ skills:
       3:
         - "&7破坏自然石方块*时获得&b急迫IV"
   强力运镐:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzg2YjgwMjZhNjU5NmQ5MjJiM2I5ZTI0NWM2YjNmYWYzMTdhY2Q0ZjNjOTU3YTU4ZmE4NTNhZjY2MzJhOWViMiJ9fX0="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjZlYTIxMzU4Mzg0NjE1MzQzNzJmMmRhNmM4NjJkMjFjZDVmM2QyYzcxMTlmMmJiNjc0YmJkNDI3OTEifX19"
     color: "&{#833C0B}"
     type: ACTIVE
     cooldown: 12-2*level
     description:
       1:
-        - "&7下次使用镐破坏自然石方块*时&b不消耗耐久"
+        - "&7下次使用镐时&b不消耗耐久"
       2:
-        - "&7下次使用镐破坏自然石方块*时&b不消耗耐久"
+        - "&7下次使用镐时&b不消耗耐久"
       3:
-        - "&7下次使用镐破坏自然石方块*时&b不消耗耐久"
+        - "&7下次使用镐时&b不消耗耐久"
   不灭矿灯:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzUzYzg5YTJhZGM0ZWU1YmExZjA1ZTVkNjRlOWI0YmI2YjMyMzJjNzIwMjhlMGNiZTM1ZTFiNzNkMGM1N2RjMSJ9fX0="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWFhZjFkNWY0MDMzZTAyNzEwNzljYjlhNGY3ZWVmMDgzZDE5NTc1MmI5YjdkOGI5MmMzZDMxNzhkYjNiMDZjOCJ9fX0="
     color: "&{#833C0B}"
     type: ACTIVE
     cooldown: 600
@@ -54,7 +54,7 @@ skills:
   #继续添加
 eurekas:
   自然矿洞勘探:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjhiMjc2NGExMTRiODg3NDk1NzdjMDEyZTE3YjcxYzliZmQ1OGIxZTlhMTgzYTdiMWFjYzY2MWIyNDAxYWU1In19fQ=="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWNjYzRhMzJkNDVkNzRlOGIxNGVmMWZmZDU1Y2Q1ZjM4MWEwNmQ0OTk5MDgxZDUyZWFlYTEyZTEzMjkzZTIwOSJ9fX0="
     color: "&{#833C0B}"
     description:
       - "&c仅当处于洞穴生物群系*时可触发"
@@ -62,17 +62,18 @@ eurekas:
       - "&7始终获得&b抗性提升I"
     type: PASSIVE
   黑暗适应:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjU2ZWM2NzI5NjlhZmU1N2Y2YTRlYjM1ZDg3MTQ1MGMzZTcxOWFiMjA1MGE5YTQwZDMzNjEyY2FkNTc2N2UifX19"
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWY1NjZkMTkyZDc1MWRmMmE1ZGY3MTI4YmZlOTFkNmFhMDQ4Y2ViMmY0N2Y3NzQ4NTY3NjMzMzM5ZTQ2ZTE1OSJ9fX0="
     color: "&{#833C0B}"
     description:
       - "&7黑暗环境耐受时间 &a+10秒"
       - "&7受到黑暗环境的伤害 &a-1点 (0.5♥)"
     type: PASSIVE
   地质学:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjU2MDc2MzI4N2E3Zjk4NzE1MmMxYTM3NDA4Y2JmMzRlYmNlMDg0YzM3MTM2NmFmMmE3M2Y3ZjY5Mzc3ZDk3OSJ9fX0="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTI4OWQ1YjE3ODYyNmVhMjNkMGIwYzNkMmRmNWMwODVlODM3NTA1NmJmNjg1YjVlZDViYjQ3N2ZlODQ3MmQ5NCJ9fX0="
     color: "&{#833C0B}"
     cooldown: 60
     description:
-      - "&7立即获知距自己&b最近&7的以下任意一种&b矿石&7的坐标："
+      - "&7立即获知 &a8格 &7内距自己&b最近&7的"
+      - "&7以下任意一种&b矿石&7的坐标："
       - "&7金矿石、钻石矿石、绿宝石矿石、远古残骸"
     type: ACTIVE

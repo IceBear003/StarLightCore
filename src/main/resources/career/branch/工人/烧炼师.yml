@@ -1,4 +1,4 @@
-skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODk0MjgyN2Q0MzRmYWE4MWU4NGZkMDY4ODJmOWExNTUzY2I3YzIwYTExM2Q1NzM0ZjM3ZWY0ODBlMGMyYTU5YSJ9fX0="
+skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODI1MGIyZmNmZTYwMjhhMmQ0ZTViZDdiZThmOTI3MmEzMzk1ZDA2NGFmYTcxNWM4N2M0ZmY4Y2M2NDMxOWFhIn19fQ=="
 color: "&{#C55A11}"
 description:
   - "&7点燃炽热火炉，成就百炼之钢"
@@ -13,7 +13,7 @@ description:
   - "&7带*部分的详细解释请参见&b服务器Wiki"
 skills:
   熔炉改良:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGVkNjc5OTE0OTc4OGI5ZTkwMTY4MTFkM2EzZDBlZDFmNTUyNTMwZDY3Zjk4Njk0NTAzMmQ2ZTQzOWZhODk5ZCJ9fX0="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2M3MGE5OWIzY2UxMGExZDg2ZDQ4YWU1NTQ5ZTcwZWYyNWRmYWQzZDkwMTVkNjY1YTJkZjM2NjI2YmZhNTQ3ZiJ9fX0="
     color: "&{#C55A11}"
     type: PASSIVE
     description:
@@ -27,7 +27,7 @@ skills:
         - "&7从熔炉或高炉中取出烧炼完成的物品时"
         - "&7每个物品都有 &a20% &7概率增加 &a1个 &b额外产物"
   熔金模具:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzg2YjgwMjZhNjU5NmQ5MjJiM2I5ZTI0NWM2YjNmYWYzMTdhY2Q0ZjNjOTU3YTU4ZmE4NTNhZjY2MzJhOWViMiJ9fX0="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWVmNWFjZjEzNGZhOTUyZjEzZmRmMGIzODk5MDYwY2MxOGViYzBhOTcxMzQ3ZTQ1YTMxZWNmOTVhNGIwYjMxYyJ9fX0="
     color: "&{#C55A11}"
     type: ACTIVE
     cooldown: 90
@@ -42,7 +42,7 @@ skills:
         - "&7下次从高炉中取出烧炼完成的物品时"
         - "&7每个物品提供 &a4点 &b额外经验"
   燃料管道:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzUzYzg5YTJhZGM0ZWU1YmExZjA1ZTVkNjRlOWI0YmI2YjMyMzJjNzIwMjhlMGNiZTM1ZTFiNzNkMGM1N2RjMSJ9fX0="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzFhNTJiMmM4MDg2OTVkODY0OWQyMzM2ZDRmNDYwM2E1ZTY4MjkxODQ4Y2Y0ODg1ZmY1ZTk3MTU1Nzg4N2Y5MiJ9fX0="
     color: "&{#C55A11}"
     type: ACTIVE
     cooldown: 480
@@ -57,20 +57,20 @@ skills:
   #继续添加
 eurekas:
   煤液化:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjhiMjc2NGExMTRiODg3NDk1NzdjMDEyZTE3YjcxYzliZmQ1OGIxZTlhMTgzYTdiMWFjYzY2MWIyNDAxYWU1In19fQ=="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmRhN2RmMGM2NzYxNjMwNWNlZTI5ZTRlYTJlMzQwNjE1NDYzNjY5NWVmZWY5ZmY3MzVlZmQwMDc0YjAwMjg0YSJ9fX0="
     color: "&{#C55A11}"
     description:
       - "&7解锁&b岩浆桶&7的合成表*"
     type: PASSIVE
   回炉重铸:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjU2ZWM2NzI5NjlhZmU1N2Y2YTRlYjM1ZDg3MTQ1MGMzZTcxOWFiMjA1MGE5YTQwZDMzNjEyY2FkNTc2N2UifX19"
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTRmZjFmODMzNzMxZGZkMzA0MWYyM2U4ZmUyYTkwZGE2YzExMmJmYWVkN2E2YzVkMmNlODA2ZGY2NDFmNDM0YiJ9fX0="
     color: "&{#C55A11}"
     description:
       - "&7在高炉中熔炼获得&b铁粒&7或&b金粒&7时"
       - "&b额外获得 &a1个 &b铁锭&7或&b金锭"
     type: PASSIVE
-  制锭机床:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjU2MDc2MzI4N2E3Zjk4NzE1MmMxYTM3NDA4Y2JmMzRlYmNlMDg0YzM3MTM2NmFmMmE3M2Y3ZjY5Mzc3ZDk3OSJ9fX0="
+  地质学:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYWQ3OGI1MzZlZWQzM2EwZjk1N2EwNDJjYWUwYzliMWRhN2YzYjBhNjUxZjhlMzFhYmM0ODkwZWJmY2U3MGM4OSJ9fX0="
     color: "&{#C55A11}"
     description:
       - "&7解锁&b下界合金锭&7的合成表*"

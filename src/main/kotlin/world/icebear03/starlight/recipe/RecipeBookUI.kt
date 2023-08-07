@@ -168,7 +168,7 @@ object RecipeBookUI {
                 if (recipe is ShapedRecipe) {
                     val string = recipe.shape.joinToString("")
                     repeat(9) repeat@{ i ->
-                        val ingredient = recipe.ingredientMap[string[i]]!!
+                        val ingredient = recipe.ingredientMap[string[i]] ?: return@repeat
                         if (player.takeItem(1) { it.isSimilar(ingredient) }) {
                             inv.setItem(i + 1, ingredient)
                         }

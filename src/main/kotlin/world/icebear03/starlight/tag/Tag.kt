@@ -4,10 +4,10 @@ import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataType
-import org.serverct.parrot.parrotx.function.textured
 import taboolib.module.chat.colored
 import taboolib.platform.util.modifyMeta
 import world.icebear03.starlight.utils.set
+import world.icebear03.starlight.utils.skull
 
 data class Tag(
     val id: String,
@@ -19,7 +19,7 @@ data class Tag(
 ) {
     fun icon(): ItemStack {
         val item = ItemStack(Material.PLAYER_HEAD)
-        item.textured(skull)
+        item.skull(skull)
         return item.modifyMeta<ItemMeta> {
             this["tag", PersistentDataType.STRING] = id
             setDisplayName(display.colored())

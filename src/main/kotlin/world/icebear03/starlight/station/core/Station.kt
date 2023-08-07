@@ -10,6 +10,9 @@ import org.bukkit.inventory.meta.ItemMeta
 import org.bukkit.persistence.PersistentDataType
 import taboolib.platform.util.giveItem
 import taboolib.platform.util.modifyMeta
+import world.icebear03.starlight.career.display
+import world.icebear03.starlight.career.meetRequirement
+import world.icebear03.starlight.career.spellLevel
 import world.icebear03.starlight.utils.*
 import java.util.*
 
@@ -19,6 +22,8 @@ data class Station(
     var location: Location?,
     var stamp: Long
 ) {
+
+    var mag = 1.0
 
     fun cooldown(): Int {
         return when (level) {
@@ -114,6 +119,9 @@ data class Station(
         if (player.world.getHighestBlockYAt(loc) > loc.y && player.world.environment == World.Environment.NORMAL) {
             return false to "驻扎篝火必须放置于地表"
         }
+        if (player.meetRequirement("山海一过")) {
+            return false to "§d顿悟 ${display("山海一过")} §7使得你无法放置驻扎篝火"
+        }
         val replace = checkStamp()
         return if (replace.first) {
 
@@ -123,6 +131,15 @@ data class Station(
             val pdc = block.loadPdc()
             pdc["station_owner_id"] = ownerId.toString()
             block.savePdc(pdc)
+
+            val level = player.spellLevel("前进营地")
+            if (level > 0) {
+                when (level) {
+                    1 -> mag = 1.1
+                    2 -> mag = 1.2
+                    3 -> mag = 1.3
+                }
+            }
 
             true to "放置驻扎篝火，开始生效..."
         } else {
