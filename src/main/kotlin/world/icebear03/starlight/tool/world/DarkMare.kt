@@ -8,6 +8,8 @@ import taboolib.platform.util.actionBar
 import taboolib.platform.util.onlinePlayers
 import taboolib.platform.util.title
 import world.icebear03.starlight.career.meetRequirement
+import world.icebear03.starlight.career.spellLevel
+import world.icebear03.starlight.utils.isDischarging
 import world.icebear03.starlight.utils.realDamage
 import java.util.*
 
@@ -33,6 +35,9 @@ object DarkMare {
                 if (player.meetRequirement("黑暗适应")) {
                     extraTime += 10
                     lessDamage = 0.25
+                }
+                if (player.isDischarging("奇兵突袭")) {
+                    extraTime += 5 * player.spellLevel("奇兵突袭")
                 }
 
                 val block = player.eyeLocation.block

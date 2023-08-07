@@ -1,4 +1,4 @@
-skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODk0MjgyN2Q0MzRmYWE4MWU4NGZkMDY4ODJmOWExNTUzY2I3YzIwYTExM2Q1NzM0ZjM3ZWY0ODBlMGMyYTU5YSJ9fX0="
+skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGFhNmMyZDFiZDgwZmRkNmE2MzJjYzdjYWZkMjVmMDllZjIwM2VlYzJhNjkzYjdjYmEwM2QxNzZiMmNjMDcxYiJ9fX0="
 color: "&{#FF5050}"
 description:
   - "&7探索未知领域，拓展文明边界"
@@ -12,7 +12,7 @@ description:
   - "&7带*部分的详细解释请参见&b服务器Wiki"
 skills:
   原野跋涉:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGVkNjc5OTE0OTc4OGI5ZTkwMTY4MTFkM2EzZDBlZDFmNTUyNTMwZDY3Zjk4Njk0NTAzMmQ2ZTQzOWZhODk5ZCJ9fX0="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGZhYmZmMzg4MWM1ODRjN2JkMDI4ZDM4ZGFlYzBmZTU0MDQ5NDEyNTU5MzA0NDY1MzNhY2JkMDA0ZjY0MWZhZiJ9fX0="
     color: "&{#FF5050}"
     type: PASSIVE
     description:
@@ -23,7 +23,7 @@ skills:
       3:
         - "&7体力损耗速率 &a-50%"
   探索者的行囊:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzg2YjgwMjZhNjU5NmQ5MjJiM2I5ZTI0NWM2YjNmYWYzMTdhY2Q0ZjNjOTU3YTU4ZmE4NTNhZjY2MzJhOWViMiJ9fX0="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmRmY2VlODMwNmUwNDM0YTc0NzcxMGUyYmRjMjU1OGM1YTIyMmU5YjY5MzQ3NzkwOWYxMGQ2Y2MyMjBmNjc2NCJ9fX0="
     color: "&{#FF5050}"
     type: ACTIVE
     cooldown: 240
@@ -50,37 +50,35 @@ skills:
         - "&c当生命值与饥饿值均为满时触发"
         - "&7获得 &a75秒 &b迅捷III"
   前进营地:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzUzYzg5YTJhZGM0ZWU1YmExZjA1ZTVkNjRlOWI0YmI2YjMyMzJjNzIwMjhlMGNiZTM1ZTFiNzNkMGM1N2RjMSJ9fX0="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmQ5NTk2NWQ3OWRkZjYxM2Y1OTRmZDIwZDUxZTc2NWMwOWEyYTVmZjhkMGUwOWNmZjE5YThlYTQzMDIzNThhZCJ9fX0="
     color: "&{#FF5050}"
-    type: ACTIVE
-    cooldown: 3600
+    type: PASSIVE
     description:
       1:
-        - "&7下次放置的&b驻扎信标&7恢复光环 &a+10%"
+        - "&7放置的&b驻扎信标&7恢复光环 &a+10%"
       2:
-        - "&7下次放置的&b驻扎信标&7恢复光环 &a+20%"
+        - "&7放置的&b驻扎信标&7恢复光环 &a+20%"
       3:
-        - "&7下次放置的&b驻扎信标&7恢复光环 &a+30%"
-        - "&7且对体力不足 &a1000点 &7的玩家额外 &a+20%"
+        - "&7放置的&b驻扎信标&7恢复光环 &a+30%"
+        - "&7且对体力不足 &a1000点 &7的玩家额外 &a+10%"
   #继续添加
 eurekas:
   山海一过:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjhiMjc2NGExMTRiODg3NDk1NzdjMDEyZTE3YjcxYzliZmQ1OGIxZTlhMTgzYTdiMWFjYzY2MWIyNDAxYWU1In19fQ=="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjA4NDhkZDhjMTNiY2UxMzU4YzgxMGE4NzRhZTNhYzJjZThhYTYyMzg5Mzc1NTg4NGM3MjVjYjk5Yzg2In19fQ=="
     color: "&{#FF5050}"
     description:
       - "&7体力损耗速率 &a-70%"
       - "&c但不再能放置&b驻扎信标"
     type: PASSIVE
   奔赴新边疆:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjU2ZWM2NzI5NjlhZmU1N2Y2YTRlYjM1ZDg3MTQ1MGMzZTcxOWFiMjA1MGE5YTQwZDMzNjEyY2FkNTc2N2UifX19"
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTFjMGU2OWYyY2RiNTQyNmFhZWQ3MTFjZTAzZWE2ZDcwOWM5MmU5YmViODRhZDFkMjJiNTg0YzQ2MWQ1MzM1ZCJ9fX0="
     color: "&{#FF5050}"
     description:
       - "&7始终获得&b迅捷II&7效果"
     type: PASSIVE
   旷野互助:
-    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjU2MDc2MzI4N2E3Zjk4NzE1MmMxYTM3NDA4Y2JmMzRlYmNlMDg0YzM3MTM2NmFmMmE3M2Y3ZjY5Mzc3ZDk3OSJ9fX0="
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZmFkODUxY2MxMzRkZTQ2OWI4NGM5Zjc4ZGRjMWNkMmUyOTU4M2RkZGJlNzIyYmQ2ZTAzYzM0MzUzNjAzMDdhNyJ9fX0="
     color: "&{#FF5050}"
     description:
-      - "&7向其他玩家射出的&b治疗之箭&7和&b再生之箭&7伤害固定为 &a1点 (0.5♥)"
-      - "&7且使目标立即恢复 &a6点 (3♥) &7生命值"
+      - "&7若位于平原生物群系，为 &a6格 内生物提供&d再生II"
     type: PASSIVE

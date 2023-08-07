@@ -54,7 +54,11 @@ object Enchanter {
 
         "禁术褫夺".discharge { name, _ ->
             val trace =
-                world.rayTraceEntities(location.add(0.0, 1.5, 0.0), eyeLocation.direction.normalize(), 6.0) { it.uniqueId != uniqueId }
+                world.rayTraceEntities(
+                    location.add(0.0, 1.5, 0.0),
+                    eyeLocation.direction.normalize(),
+                    6.0
+                ) { it.uniqueId != uniqueId }
             val entity = trace?.hitEntity
             if (entity !is Player)
                 return@discharge "§d顿悟 ${display(name)} §7释放成功，但是没有选中一个玩家"
@@ -124,9 +128,9 @@ object Enchanter {
 
         val enchants = second.getEnchants()
         if (enchants.isNotEmpty()) {
-            if (!player.meetRequirement("附魔师", 0)) {
+            if (!player.meetRequirement("附魔师", 0) && !player.meetRequirement("武器专家", 0)) {
                 event.result = null
-                player.sendMessage("§a生涯系统 §7>> 需要 ${display("附魔师")} §7才能在铁砧中合并附魔物品")
+                player.sendMessage("§a生涯系统 §7>> 需要 ${display("附魔师")}§7或${display("武器专家")} §7才能在铁砧中合并附魔物品")
             }
         }
     }
@@ -174,9 +178,23 @@ object Enchanter {
                             damage = maxOf(0, (damage + 0.2 * durability).roundToInt())
                         }
                     }
-                    player.sendMessage("§a生涯系统 §7>> §a技能 ${display("魔力虹吸", spellLevel)} §7使得本次卸魔获得额外经验和耐久")
+                    player.sendMessage(
+                        "§a生涯系统 §7>> §a技能 ${
+                            display(
+                                "魔力虹吸",
+                                spellLevel
+                            )
+                        } §7使得本次卸魔获得额外经验和耐久"
+                    )
                 } else {
-                    player.sendMessage("§a生涯系统 §7>> §a技能 ${display("魔力虹吸", spellLevel)} §7使得本次卸魔获得额外经验")
+                    player.sendMessage(
+                        "§a生涯系统 §7>> §a技能 ${
+                            display(
+                                "魔力虹吸",
+                                spellLevel
+                            )
+                        } §7使得本次卸魔获得额外经验"
+                    )
                 }
                 player.finish("魔力虹吸")
             }

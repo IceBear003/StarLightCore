@@ -1,6 +1,7 @@
 package world.icebear03.starlight.career.spell.entry.warrior
 
 import org.bukkit.Material
+import org.bukkit.entity.LivingEntity
 import org.bukkit.inventory.ItemStack
 import org.bukkit.potion.PotionEffectType
 import taboolib.common.platform.function.submit
@@ -18,6 +19,12 @@ object Explorer {
         submit(period = 20L) {
             onlinePlayers.filter { it.meetRequirement("探险家", 0) }.forEach { player ->
                 player.effect(PotionEffectType.SPEED, 2, if (player.meetRequirement("奔赴新边疆")) 2 else 1)
+
+                if (player.meetRequirement("旷野互助")) {
+                    player.getNearbyEntities(6.0, 6.0, 6.0).filterIsInstance<LivingEntity>().forEach {
+                        it.effect(PotionEffectType.REGENERATION, 2, 2)
+                    }
+                }
             }
         }
 

@@ -1,0 +1,87 @@
+skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTVlODYyMzFmNmU2OTBiZWFlOThhMDg3M2FjY2NkYzYwN2FjZDIyYzk2Y2Y0N2NiMzY3NDkyNzBkMWY0YmVlOSJ9fX0="
+color: "&{#FF3300}"
+description:
+  - "&7使得百般兵器，身法进退自如"
+  - " "
+  - "&7分支基础效果："
+  - "&7使用&b任意武器*&7均可以造成&b全额伤害"
+  - "&7使用&b三叉戟&7时造成伤害 &a+2点 (1♥)"
+  - "&7使用&b弩&7时有 &a25% &7概率&b不消耗&7箭"
+  - "&c! &7对光灵箭、药箭、烟花火箭&c不生效"
+  - "&7可以&b合成&7钻石武器*、钻石防具*"
+  - "&7可以&b使用&7锻造台对&b武器、防具&7进行&b锻造"
+  - "&7可以&b使用&7砂轮对&b武器、防具&7进行&b祛魔、修复"
+  - "&7可以&b使用&7铁砧对&b武器、防具&7进行&b附魔、修复、重命名"
+  - " "
+  - "&7带*部分的详细解释请参见&b服务器Wiki"
+skills:
+  以锋为御:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGQxNzRmNTliY2FhNjE0OWFlNWVjNGY0MTQxYzRlNTczZTkzYTQzMjdjMjY0Mjc5YmUzZTg3ZWE3NTIxZjQ2NCJ9fX0="
+    color: "&{#FF3300}"
+    type: PASSIVE
+    description:
+      1:
+        - "主手持剑时受到的伤害降低8%"
+      2:
+        - "主手持剑时受到的伤害降低16%"
+      3:
+        - "主手持剑时受到的伤害降低25%"
+  信号弹:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODVjMTBhNDY4NjNkNmZkYmY1MTA5NTBiNGMyNDZhMDliNmNlZGFhNDc1YWU5ZGY2MzEwNWE0NzIxN2JhNTA1NiJ9fX0="
+    color: "&{#FF3300}"
+    type: ACTIVE
+    cooldown: 20
+    description:
+      1:
+        - "&7下次射出光灵箭击中目标时&b不消耗&7光灵箭"
+        - "&7使该目标发光时长 &a+5秒&7（共&a15秒&7）"
+      2:
+        - "&7下次射出光灵箭击中目标时&b不消耗&7光灵箭"
+        - "&7使该目标发光时长 &a+10秒&7（共&a20秒&7）"
+      3:
+        - "&7下次射出光灵箭击中目标时&b不消耗&7光灵箭"
+        - "&7使该目标发光时长 &a+15秒&7（共&a25秒&7）"
+  奇兵突袭:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzQ2NWMxMjE5NThjMDUyMmUzZGNjYjNkMTRkNjg2MTJkNjMxN2NkMzgwYjBlNjQ2YjYxYjc0MjBiOTA0YWYwMiJ9fX0="
+    color: "&{#FF3300}"
+    type: ACTIVE
+    cooldown: 360
+    duration: 15+15*level
+    description:
+      1:
+        - "&7期间获得&b隐身&7、&b夜视&7、&b力量II"
+        - "&7黑暗环境耐受时间 &a+5s"
+        - "&c造成 &a1次 &c伤害后此技能立即结束"
+      2:
+        - "&7期间获得&b隐身&7、&b夜视&7、&b力量III"
+        - "&7黑暗环境耐受时间 &a+10s"
+        - "&c造成 &a1次 &c伤害后此技能立即结束"
+      3:
+        - "&7期间获得&b隐身&7、&b夜视&7、&b力量IV"
+        - "&7黑暗环境耐受时间 &a+15s"
+        - "&c造成 &a1次 &c伤害后此技能立即结束"
+  #继续添加
+eurekas:
+  涌潮长戟:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzJkZTFjZWU5NGFjNDY2MDJiNWM5MzIwNzY4MTk0MTQzYzY3Y2JiZGFhNWFhMDJhZjM0OGFiOGRiODMwM2I2OSJ9fX0="
+    color: "&{#FF3300}"
+    description:
+      - "&7使用&b三叉戟&7近战攻击时，每次攻击为自身恢复生命值 &a2点 (1♥)"
+      - "&7使用&b三叉戟&7远程攻击时，每次攻击赋予对方 &a10秒 &b挖掘疲劳II"
+    type: PASSIVE
+  穿甲箭头:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZTAwZjVkZDRjY2ZlNGU0NTA1Mjc0NjA5MDZlOWU5ZWE1MTRmMzc4ZTRhMTM3MWUzODFiNjc0MWRlZTllYzUwMyJ9fX0="
+    color: "&{#FF3300}"
+    description:
+      - "&7使用&b弩&7射出的箭 &a+1点 (0.5♥) &7真实伤害"
+      - "&b弩&7每拥有 &a1级 &b穿透&7魔咒，则此真实伤害 &a+1点 (0.5♥)"
+      - "&c对光灵箭、药箭、烟花火箭不生效"
+    type: PASSIVE
+  特训通知:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTdlZDY2ZjVhNzAyMDlkODIxMTY3ZDE1NmZkYmMwY2EzYmYxMWFkNTRlZDVkODZlNzVjMjY1ZjdlNTAyOWVjMSJ9fX0="
+    color: "&{#FF3300}"
+    description:
+      - "&c仅当自身拥有&b【战士】&c职业下的另一个&e分支&c时可触发"
+      - "&c立即触发且仅触发一次："
+      - "&7获得 &a3 &7技能点"
+    type: PASSIVE
