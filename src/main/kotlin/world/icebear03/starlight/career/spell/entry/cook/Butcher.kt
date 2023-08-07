@@ -151,7 +151,7 @@ object Butcher {
         }
         val usingAxe = player.inventory.itemInMainHand.type.toString().contains("_AXE")
         if (player.meetRequirement("血腥屠宰者") && usingAxe) {
-            event.damage = event.damage * 1.25
+            event.damage *= 1.25
             val equip = entity.equipment ?: return
             if (equip.armorContents.isEmpty()) {
                 event.damage += 6

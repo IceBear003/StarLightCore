@@ -27,10 +27,10 @@ data class Station(
 
     fun cooldown(): Int {
         return when (level) {
-            1 -> 3600
-            2 -> 7200
-            3 -> 14400
-            else -> 14400
+            1 -> 1800
+            2 -> 3600
+            3 -> 7200
+            else -> 7200
         }
     }
 

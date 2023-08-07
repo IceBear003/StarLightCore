@@ -79,6 +79,11 @@ object StationMechanism {
                     }
                 }
                 val block = stationLoc.block
+                val map = block.loadPdc()
+                if (!map.containsKey("station_owner_id")) {
+                    map["station_owner_id"] = station.ownerId.toString()
+                    block.savePdc(map)
+                }
                 if (block.type != Material.SOUL_CAMPFIRE) {
                     block.type = Material.SOUL_CAMPFIRE
                 }

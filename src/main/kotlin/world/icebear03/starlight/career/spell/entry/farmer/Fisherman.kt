@@ -128,6 +128,7 @@ object Fisherman {
 
         val hooked = event.caught ?: return
         if (hooked !is Item) return
+        if (event.state != PlayerFishEvent.State.CAUGHT_FISH) return
         event.isCancelled = true
 
         val caught = hooked.itemStack
@@ -184,7 +185,7 @@ object Fisherman {
 
                     QTEProvider.QTEResult.UNABLE -> {
                         qteing.remove(uuid)
-                        null
+                        return@sendQTE
                     }
                 }
             )

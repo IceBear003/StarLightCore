@@ -9,6 +9,7 @@ import taboolib.platform.util.onlinePlayers
 import taboolib.platform.util.title
 import world.icebear03.starlight.career.meetRequirement
 import world.icebear03.starlight.career.spellLevel
+import world.icebear03.starlight.tool.mechanism.RespawnProtection
 import world.icebear03.starlight.utils.isDischarging
 import world.icebear03.starlight.utils.realDamage
 import java.util.*
@@ -25,6 +26,10 @@ object DarkMare {
                 if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION))
                     return@forEach
                 if (player.world.environment == World.Environment.THE_END)
+                    return@forEach
+                if (player.isDead)
+                    return@forEach
+                if (RespawnProtection.isInProtection(player, 10))
                     return@forEach
 
                 var extraTime = 0
