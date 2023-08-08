@@ -17,6 +17,7 @@ import world.icebear03.starlight.career.spell.entry.scholar.Enchanter
 import world.icebear03.starlight.career.spell.entry.scholar.RedstoneEngineer
 import world.icebear03.starlight.career.spell.entry.scholar.Teacher
 import world.icebear03.starlight.career.spell.entry.warrior.Explorer
+import world.icebear03.starlight.career.spell.entry.warrior.Soldier
 import world.icebear03.starlight.career.spell.entry.warrior.WeaponMaster
 import world.icebear03.starlight.career.spell.entry.worker.Lumberjack
 import world.icebear03.starlight.career.spell.entry.worker.Miner
@@ -52,5 +53,6 @@ object SpellManager {
 
         Explorer.initialize()
         WeaponMaster.initialize()
+        Soldier.initialize()
     }
 }

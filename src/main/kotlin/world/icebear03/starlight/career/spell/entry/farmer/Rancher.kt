@@ -97,7 +97,7 @@ object Rancher {
         if (!player.meetRequirement("牧场主", 0)) {
             event.isCancelled = true
             player.sendMessage("§a生涯系统 §7>> 无法剪羊毛，需要解锁 ${display("牧场主")}")
-        } else player.giveExp(2)
+        } else player.giveExp(1)
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
@@ -128,7 +128,7 @@ object Rancher {
                 if (!player.meetRequirement("牧场主", 0)) {
                     event.isCancelled = true
                     player.sendMessage("§a生涯系统 §7>> 无法挤奶，需要解锁 ${display("牧场主")}")
-                } else player.giveExp(2)
+                } else player.giveExp(1)
             }
         }
 
@@ -136,7 +136,7 @@ object Rancher {
             if (!player.meetRequirement("牧场主", 0)) {
                 event.isCancelled = true
                 player.sendMessage("§a生涯系统 §7>> 无法喂养/繁殖，需要解锁 ${display("牧场主")}")
-            } else player.giveExp(4)
+            } else player.giveExp(1)
 
             val level = player.spellLevel("动物育种")
             val rate = if (level == 3) 0.02 else 0.005 * level
@@ -162,6 +162,6 @@ object Rancher {
         if (!player.meetRequirement("牧场主", 0)) {
             event.isCancelled = true
             player.sendMessage("§a生涯系统 §7>> 无法染色动物，需要解锁 ${display("牧场主")}")
-        } else player.giveExp(4)
+        } else player.giveExp(1)
     }
 }

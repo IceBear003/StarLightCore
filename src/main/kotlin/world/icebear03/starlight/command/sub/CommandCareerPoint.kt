@@ -1,6 +1,5 @@
 package world.icebear03.starlight.command.sub
 
-import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import taboolib.common.platform.command.subCommand
@@ -18,11 +17,10 @@ val commandCareerPoint = subCommand {
             }
             dynamic("player") {
                 suggestionUncheck<Player> { _, _ -> onlinePlayers.map { it.name } }
-
                 execute<CommandSender> { sender, ctx, _ ->
                     sender.sendMessage(
                         handleCareerPointCommand(
-                            Bukkit.getPlayer(ctx["player"]),
+                            onlinePlayers.find { it.name == ctx["player"] },
                             ctx["mode"],
                             ctx["amount"].toInt()
                         )

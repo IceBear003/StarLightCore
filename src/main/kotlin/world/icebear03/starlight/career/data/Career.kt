@@ -51,7 +51,7 @@ data class Career(
         spells.clear()
         shortCuts.clear()
         autoDischarges.clear()
-        points = 0
+        points /= 3
         resonantBranch = null
         resonantType = Resonate.ResonateType.FRIENDLY
 

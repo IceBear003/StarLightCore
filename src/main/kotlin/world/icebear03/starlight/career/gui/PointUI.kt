@@ -215,7 +215,8 @@ object PointUI {
             val point = reward.second
 
             val current = player["daily_time", PersistentDataType.INTEGER]!!
-            val received = player["daily_rewards_received", PersistentDataType.INTEGER_ARRAY] ?: listOf<Int>().toIntArray()
+            val received =
+                player["daily_rewards_received", PersistentDataType.INTEGER_ARRAY] ?: listOf<Int>().toIntArray()
             val state = if (current >= need) {
                 if (received.contains(index)) {
                     icon.type = Material.GREEN_STAINED_GLASS_PANE
@@ -254,7 +255,8 @@ object PointUI {
 
             if (item.type == Material.YELLOW_STAINED_GLASS_PANE) {
                 player.career().addPoint(point)
-                var received = player["daily_rewards_received", PersistentDataType.INTEGER_ARRAY] ?: listOf<Int>().toIntArray()
+                var received =
+                    player["daily_rewards_received", PersistentDataType.INTEGER_ARRAY] ?: listOf<Int>().toIntArray()
                 received += index
                 player["daily_rewards_received", PersistentDataType.INTEGER_ARRAY] = received
                 player.sendMessage("§a生涯系统 §7>> 成功领取了§a${point}技能点")
@@ -273,8 +275,13 @@ object PointUI {
             val point = reward.second
 
             val current = player["career_time", PersistentDataType.INTEGER]!!
-            val received = player["career_rewards_received", PersistentDataType.INTEGER_ARRAY] ?: listOf<Int>().toIntArray()
-            val state = if (current >= need) {
+            val received =
+                player["career_rewards_received", PersistentDataType.INTEGER_ARRAY] ?: listOf<Int>().toIntArray()
+            var extra = false
+            if (index == 3 && player.career().hasBranch("教师")) {
+                extra = true
+            }
+            val state = (if (current >= need) {
                 if (received.contains(index)) {
                     icon.type = Material.GREEN_STAINED_GLASS_PANE
                     "&a已领取"
@@ -286,12 +293,13 @@ object PointUI {
             } else {
                 icon.type = Material.RED_STAINED_GLASS_PANE
                 "&c不可领取"
-            }
+            }) + if (extra) " &7(${display("教师")}&7额外&a+1&7)" else ""
 
 
             icon.modifyMeta<ItemMeta> {
                 addItemFlags(ItemFlag.HIDE_ENCHANTS)
                 this["index", PersistentDataType.INTEGER] = index
+                this["extra", PersistentDataType.BOOLEAN] = extra
             }
 
             icon.variables {
@@ -306,13 +314,15 @@ object PointUI {
         onClick { (_, _, event, _) ->
             val item = event.currentItem ?: return@onClick
             val index = item.itemMeta?.get("index", PersistentDataType.INTEGER) ?: return@onClick
+            val extra = item.itemMeta?.get("extra", PersistentDataType.BOOLEAN) ?: return@onClick
             val player = event.clicker
             val reward = careerRewards[index]
-            val point = reward.second
+            val point = reward.second + (if (extra) 1 else 0)
 
             if (item.type == Material.YELLOW_STAINED_GLASS_PANE) {
                 player.career().addPoint(point)
-                var received = player["career_rewards_received", PersistentDataType.INTEGER_ARRAY] ?: listOf<Int>().toIntArray()
+                var received =
+                    player["career_rewards_received", PersistentDataType.INTEGER_ARRAY] ?: listOf<Int>().toIntArray()
                 received += index
                 player["career_rewards_received", PersistentDataType.INTEGER_ARRAY] = received
                 player.sendMessage("§a生涯系统 §7>> 成功领取了§a${point}技能点")

@@ -65,4 +65,7 @@ object Commands {
 
     @CommandBody(permission = "starlight.op")
     val tag = commandTag
+
+    @CommandBody(permission = "starlight.op")
+    val rewardLocation = commandRewardLocation
 }

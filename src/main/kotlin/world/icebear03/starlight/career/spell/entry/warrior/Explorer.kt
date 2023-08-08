@@ -7,6 +7,7 @@ import org.bukkit.potion.PotionEffectType
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.giveItem
 import taboolib.platform.util.onlinePlayers
+import world.icebear03.starlight.career
 import world.icebear03.starlight.career.discharge
 import world.icebear03.starlight.career.display
 import world.icebear03.starlight.career.finish
@@ -17,7 +18,7 @@ object Explorer {
 
     fun initialize() {
         submit(period = 20L) {
-            onlinePlayers.filter { it.meetRequirement("探险家", 0) }.forEach { player ->
+            onlinePlayers.filter { it.career().hasBranch("探险家") }.forEach { player ->
                 player.effect(PotionEffectType.SPEED, 2, if (player.meetRequirement("奔赴新边疆")) 2 else 1)
 
                 if (player.meetRequirement("旷野互助")) {

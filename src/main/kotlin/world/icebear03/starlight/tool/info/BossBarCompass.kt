@@ -14,6 +14,7 @@ import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.onlinePlayers
+import world.icebear03.starlight.command.sub.rewardLocation
 import world.icebear03.starlight.stamina
 import world.icebear03.starlight.station.mechanism.NearestStation
 import world.icebear03.starlight.station.station
@@ -29,8 +30,19 @@ object BossBarCompass {
     fun initialize() {
         clearBars()
         submit(period = 1L) {
-            onlinePlayers.forEach {
-                updateCompass(it)
+            onlinePlayers.forEach { player ->
+                updateCompass(player)
+                if (!player.isOp)
+                    rewardLocation?.let { loc ->
+                        if (loc.world?.name != player.world.name) return@let
+                        val distance = loc.distance(player.location)
+                        if (distance <= 10) {
+                            rewardLocation = null
+                            onlinePlayers.forEach {
+                                it.sendMessage("§b繁星工坊 §7>> §e${player.name} §7找到了随机生成的奖励箱！")
+                            }
+                        }
+                    }
             }
         }
     }
@@ -50,7 +62,13 @@ object BossBarCompass {
 
     fun updateCompass(player: Player) {
         val barKey = NamespacedKey.minecraft("compass_bar_${player.name.lowercase()}")
-        val bar = barMap[player.uniqueId] ?: Bukkit.createBossBar(barKey, "", BarColor.BLUE, BarStyle.SOLID, BarFlag.CREATE_FOG)
+        val bar = barMap[player.uniqueId] ?: Bukkit.createBossBar(
+            barKey,
+            "",
+            BarColor.BLUE,
+            BarStyle.SOLID,
+            BarFlag.CREATE_FOG
+        )
         bar.removeFlag(BarFlag.CREATE_FOG)
 
         val percent = player.stamina().stamina / 1800.0
@@ -98,6 +116,7 @@ object BossBarCompass {
             stationLoc ?: return@nearest -3600.0
             getVectorYaw(loc, stationLoc)
         } ?: -3600.0
+        val rewardYaw = rewardLocation?.let { getVectorYaw(loc, it) } ?: -3600.0
 
         var tot = 0
         while (tot++ in 0..dValue) {
@@ -109,7 +128,8 @@ object BossBarCompass {
                 deathYaw to "☠",
                 nearestYaw to "☺",
                 stationYaw to "⧈",
-                nearestStationYaw to "▣"
+                nearestStationYaw to "▣",
+                rewardYaw to "⊙"
             )
             if (symbol.isNotBlank()) {
                 val index = minOf(size - 1, (size.toDouble() * tot / dValue).roundToInt())
@@ -131,6 +151,7 @@ object BossBarCompass {
                 '☺' -> result += "§e☺"
                 '▣' -> result += "§6▣"
                 '⧈' -> result += "§6⧈"
+                '⊙' -> result += "§c§l⊙"
             }
         }
 

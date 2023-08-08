@@ -8,12 +8,16 @@ import org.bukkit.entity.Player
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.player.PlayerFishEvent
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.meta.PotionMeta
+import org.bukkit.potion.PotionData
 import org.bukkit.potion.PotionEffectType
+import org.bukkit.potion.PotionType
 import org.bukkit.util.Vector
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.attacker
+import taboolib.platform.util.modifyMeta
 import taboolib.platform.util.onlinePlayers
 import world.icebear03.starlight.career.*
 import world.icebear03.starlight.career.spell.entry.farmer.Fisherman.CaughtRarity.*
@@ -113,6 +117,13 @@ object Fisherman {
                         player.sendMessage("§a生涯系统 §7>> §a技能 ${display("收获涛声")} §7使得本次钓上额外多§a${amount}条§7鱼")
                     }
                 }
+
+                if (item.type == Material.POTION) {
+                    item.modifyMeta<PotionMeta> {
+                        this.basePotionData = PotionData(PotionType.WATER)
+                    }
+                }
+
                 val dropped = world.dropItem(loc, item)
                 val direction = player.eyeLocation.subtract(loc).toVector().normalize()
                 submit {

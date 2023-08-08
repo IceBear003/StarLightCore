@@ -53,7 +53,7 @@ object DeathChest {
             minecart["death_chest_stamp", PersistentDataType.LONG] = System.currentTimeMillis()
             minecart["death_chest_owner", PersistentDataType.STRING] = player.name
             minecart["death_chest_level", PersistentDataType.INTEGER] = getTotalExp(player.level)
-            minecart["death_chest_point", PersistentDataType.INTEGER] = ceil(point * 0.25).roundToInt()
+            minecart["death_chest_point", PersistentDataType.INTEGER] = ceil(point * 0.333).roundToInt()
             minecart.isInvulnerable = true
             minecart.setGravity(false)
         }

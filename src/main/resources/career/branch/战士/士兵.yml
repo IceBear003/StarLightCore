@@ -1,0 +1,87 @@
+skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWZhMDQ5ZWEzNTQ4ZGVhMmM0NTc2YzEyMTg4ZGRmY2FlM2VmOGY5YjNiOGIwNzhmMGE0ODUxMjAyMTE2OGM5ZCJ9fX0="
+color: "&{#A50021}"
+description:
+  - "&7进攻侵掠如火，防御不动如山"
+  - " "
+  - "&7分支基础效果："
+  - "&7使用&b剑、斧、弓&7可以造成&b全额伤害"
+  - "&7穿着全套盔甲时受到的伤害 &a-2点 (1♥)"
+  - "&7对&b玩家&7的伤害 &a+10%"
+  - "&7生命值低于 &a10点 (5♥) &7时获得&b抗性提升I&7效果"
+  - " "
+  - "&7带*部分的详细解释请参见&b服务器Wiki"
+skills:
+  军事训练:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNDZmNGZhMTI4MTE4MGU5NWQ1Y2M4NjY0ZjA1MmZiODRiZGVjMTNlZDNmY2Y4OGUyZjMxOWM4NTE2N2U5ZDBmZCJ9fX0="
+    color: "&{#A50021}"
+    type: PASSIVE
+    description:
+      1:
+        - "&7对&b玩家&7的伤害 &a+20%"
+      2:
+        - "&7对&b玩家&7的伤害 &a+30%"
+      3:
+        - "&7对&b玩家&7的伤害 &a+40%"
+  掩体机动:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODVkYTA0ODdiMjczMmY0NDk4MTkwYjI3ZTFjMzQyYjZlZDk3ZGVmNjQwYWE2YzdlYTU2OGQyNGI3ZjdmNmNiOSJ9fX0="
+    color: "&{#A50021}"
+    type: ACTIVE
+    cooldown: 30
+    description:
+      1:
+        - "&7获得 &a10秒 &7的&b抗性提升I&7效果"
+        - "&7若生命值不高于 &a20点 (10♥) "
+        - "&7则变为 &a10秒 &b抗性提升II&7效果"
+      2:
+        - "&7获得 &a12秒 &7的&b抗性提升I&7效果"
+        - "&7若生命值不高于 &a20点 (10♥) "
+        - "&7则变为 &a12秒 &b抗性提升III&7效果"
+      3:
+        - "&7获得 &a15秒 &7的&b抗性提升II&7效果"
+        - "&7若生命值不高于 &a20点 (10♥) "
+        - "&7则变为 &a15秒 &b抗性提升III&7效果"
+  决战冲锋:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmFmZTNhM2UyYTQxZjI1YzFmN2U3ZDk5NmUwYWExYjdkY2Y0YjNlMjRkYzg1ZmU3MzE3YjJhMWYwYWUxM2EwZSJ9fX0="
+    color: "&{#A50021}"
+    type: ACTIVE
+    cooldown: 600
+    duration: 45+level*15
+    description:
+      1:
+        - "&7获得 &a5秒 &b速度III"
+        - "&7期间使用&b剑、斧、弓&7造成的伤害 &a+30%"
+        - "&b弓&7对盾牌的沉默时长 &a+50%"
+      2:
+        - "&7获得 &a5秒 &b速度III"
+        - "&7期间使用&b剑、斧、弓&7造成的伤害 &a+40%"
+        - "&b弓&7对盾牌的沉默时长 &a+75%"
+      3:
+        - "&7获得 &a5秒 &b速度IV"
+        - "&7期间使用&b剑、斧、弓&7造成的伤害 &a+50%"
+        - "&b弓&7对盾牌的沉默时长 &a+100%"
+  #继续添加
+eurekas:
+  游击战:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTA3NTAxN2IyNDg3NTk3ZDRlMDA4OTQ2ZjE3ZmNkNGNiOTEyMGQyNmFhYTY2OTA0ZjVjN2Y0ZjM5NjE4ZTI2NCJ9fX0="
+    color: "&{#A50021}"
+    description:
+      - "&7受到来自玩家的伤害后&b立即清除&7自身的&b发光&7效果"
+      - "&7并获得 &a3秒 &b速度II"
+    type: PASSIVE
+  无畏突刺:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmE1MzYxYjUyZGFmNGYxYzVjNTQ4MGEzOWZhYWExMDg5NzU5NWZhNTc2M2Y3NTdiZGRhMzk1NjU4OGZlYzY3OCJ9fX0="
+    color: "&{#A50021}"
+    cooldown: 60
+    duration: 60
+    description:
+      - "&7期间手持&b剑&7或&b斧&7进行攻击后"
+      - "&7立即向前&b位移&7一段距离"
+    type: ACTIVE
+  集群突击:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTBkMzNiMGQzMWJkNzkzZDUwN2FiNmZhMWM5M2UwYTU3MzdmYjg1NDdmYTEwZWM5M2JmOTgyZjAyYjQ0OGFjOSJ9fX0="
+    color: "&{#A50021}"
+    description:
+      - "&7周围 &a4格 &7内每有 &a1个 &7以&b【士兵】&7作为共鸣&e分支&7的非敌对玩家"
+      - "&7则自己对&b玩家&7造成的伤害 &a+1点 (0.5♥)"
+      - "&7受到来自&b玩家&7的伤害 &a-1点 (0.5♥)"
+    type: PASSIVE

@@ -11,6 +11,7 @@ import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
 import taboolib.platform.util.attacker
 import taboolib.platform.util.giveItem
+import world.icebear03.starlight.career
 import world.icebear03.starlight.career.display
 import world.icebear03.starlight.career.finish
 import world.icebear03.starlight.career.meetRequirement
@@ -55,6 +56,25 @@ object WeaponDamage {
             }
             event.damage *= mag
         }
+
+        if (player.meetRequirement("士兵", 0)) {
+            val count = player.inventory.armorContents.count { it.type != Material.AIR }
+            if (count >= 4) {
+                event.damage -= 2.0
+            }
+        }
+
+        if (player.meetRequirement("游击战")) {
+            player.removePotionEffect(PotionEffectType.GLOWING)
+            player.effect(PotionEffectType.SPEED, 3, 2)
+        }
+
+        if (player.meetRequirement("集群突击")) {
+            val count = player.getNearbyEntities(4.0, 4.0, 4.0).filterIsInstance<Player>().count {
+                it.career().resonantBranch?.name == "士兵"
+            }
+            event.damage -= count
+        }
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -84,19 +104,22 @@ object WeaponDamage {
                 !player.meetRequirement("伐木工", 0) &&
                 !player.meetRequirement("工具制造商", 0) &&
                 !player.meetRequirement("探险家", 0) &&
-                !player.meetRequirement("武器专家", 0)
+                !player.meetRequirement("武器专家", 0) &&
+                !player.meetRequirement("士兵", 0)
             )
                 event.damage *= 0.5
 
         if (usingSword)
             if (!player.meetRequirement("探险家", 0) &&
-                !player.meetRequirement("武器专家", 0)
+                !player.meetRequirement("武器专家", 0) &&
+                !player.meetRequirement("士兵", 0)
             )
                 event.damage *= 0.5
 
         if (usingBow)
             if (!player.meetRequirement("探险家", 0) &&
-                !player.meetRequirement("武器专家", 0)
+                !player.meetRequirement("武器专家", 0) &&
+                !player.meetRequirement("士兵", 0)
             )
                 event.damage *= 0.5
 
@@ -155,6 +178,21 @@ object WeaponDamage {
                     damaged.effect(PotionEffectType.GLOWING, duration, 1)
                 }
             }
+        }
+
+        val level = player.spellLevel("军事训练")
+        if (level >= 0 && damaged is Player)
+            event.damage *= 1.0 + 0.1 * level
+
+        if (player.isDischarging("决战冲锋")) {
+            event.damage *= 1.2 + 0.1 * player.spellLevel("决战冲锋")
+        }
+
+        if (player.meetRequirement("集群突击")) {
+            val count = player.getNearbyEntities(4.0, 4.0, 4.0).filterIsInstance<Player>().count {
+                it.career().resonantBranch?.name == "士兵"
+            }
+            event.damage += count
         }
     }
 }

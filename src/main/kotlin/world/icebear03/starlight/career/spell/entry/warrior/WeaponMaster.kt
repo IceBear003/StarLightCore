@@ -9,7 +9,6 @@ import org.bukkit.inventory.ItemStack
 import org.bukkit.potion.PotionEffectType
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
-import taboolib.module.nms.getName
 import taboolib.platform.util.giveItem
 import world.icebear03.starlight.career.*
 import world.icebear03.starlight.career.spell.handler.internal.HandlerType
@@ -84,21 +83,19 @@ object WeaponMaster {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     fun combine(event: PrepareAnvilEvent) {
         val inv = event.inventory
-        val first = inv.getItem(0) ?: return
-        val second = inv.getItem(0) ?: return
+        val second = inv.getItem(1)
 
         val player = event.viewers[0] as Player
 
         val enchants = second.getEnchants()
-        if (enchants.isEmpty()) {
+        if (enchants.isEmpty() && second != null) {
             if (!player.meetRequirement("武器专家", 0)) {
                 event.result = null
                 player.sendMessage("§a生涯系统 §7>> 需要 ${display("武器专家")} §7才能在铁砧中修复物品")
             }
         }
 
-        val name = inv.renameText ?: return
-        if (name != first.getName()) {
+        if (second == null) {
             if (!player.meetRequirement("武器专家", 0)) {
                 event.result = null
                 player.sendMessage("§a生涯系统 §7>> 需要 ${display("武器专家")} §7才能在铁砧中重命名物品")
