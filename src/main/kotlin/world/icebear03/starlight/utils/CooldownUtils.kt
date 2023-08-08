@@ -20,6 +20,10 @@ fun Player.addCooldownStamp(key: String) {
     cooldownStamps.getOrPut(this.uniqueId) { mutableMapOf() }[key] = System.currentTimeMillis()
 }
 
+fun Player.removeCooldownStamp(key: String) {
+    cooldownStamps.getOrPut(this.uniqueId) { mutableMapOf() }.remove(key)
+}
+
 fun Player.clearCooldownStamp() {
     cooldownStamps.remove(this.uniqueId)
 }

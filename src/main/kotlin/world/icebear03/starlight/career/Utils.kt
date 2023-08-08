@@ -123,3 +123,7 @@ fun List<Material>.addHighListener(
 fun Player.finish(name: String) {
     DischargeHandler.finish(this, name)
 }
+
+fun Player.fail(name: String) {
+    DischargeHandler.fail(this, name)
+}

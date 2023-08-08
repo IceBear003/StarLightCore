@@ -68,7 +68,12 @@ object QTEProvider {
             fun finish(result: QTEResult? = null) {
                 result?.let {
                     function.invoke(player, result)
-                    player.sendActionBar(resultFormat.replace("{result}", if (it == QTEResult.ACCEPTED) "§a✔" else "§c✘").colored())
+                    player.sendActionBar(
+                        resultFormat.replace(
+                            "{result}",
+                            if (it == QTEResult.ACCEPTED) "§a✔" else "§c✘"
+                        ).colored()
+                    )
                 } ?: function.invoke(player, QTEResult.UNABLE)
                 shiftMap.remove(uuid)
                 //延迟，让玩家看到效果
@@ -141,7 +146,9 @@ object QTEProvider {
                     else if (it in intervalStart..intervalStart + interval) SymbolType.INTERVAL.colored[chance - 1]
                     else SymbolType.WAITING.colored[chance - 1]
                 }
-                player.sendActionBar(qteFormat.replace("{bar}", bar).replace("{chance}", (type.time - failTime).toString()).colored())
+                player.sendActionBar(
+                    qteFormat.replace("{bar}", bar).replace("{chance}", (type.time - failTime).toString()).colored()
+                )
             }
         }
     }
@@ -155,6 +162,7 @@ object QTEProvider {
         val player = event.player
         if (!player.isSneaking && isQTEing(player)) {
             shiftMap[player.uniqueId] = true
+            event.isCancelled = true
         }
     }
 

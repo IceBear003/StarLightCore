@@ -20,24 +20,25 @@ object Magnification {
         if (isTeleport) {
             result = 0.5
         } else {
-            if (player.isSneaking)
-                result = 0.15
-            if (player.isRiptiding) {
-                result = 0.75
-            }
-            if (player.isSprinting)
-                result = 1.0
-            if (player.isSwimming) {
-                result = 1.0
-            }
-            if (player.isGliding)
-                result = 2.0
             if (player.isInsideVehicle) {
                 val vehicle = player.vehicle
                 if (vehicle is Boat)
                     result = 0.75
                 if (vehicle is Minecart)
                     result = 0.5
+                if (result == -1.0)
+                    result = 0.45
+            } else {
+                if (player.isSneaking)
+                    result = 0.15
+                if (player.isRiptiding)
+                    result = 0.75
+                if (player.isSprinting)
+                    result = 1.0
+                if (player.isSwimming)
+                    result = 1.0
+                if (player.isGliding)
+                    result = 2.0
             }
             if (result == -1.0) {
                 result = 0.35
@@ -70,7 +71,6 @@ object Magnification {
             3 -> 0.5
             else -> 1.0
         }
-
 
         return result
     }

@@ -9,6 +9,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.player.PlayerFishEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.inventory.meta.PotionMeta
+import org.bukkit.persistence.PersistentDataType
 import org.bukkit.potion.PotionData
 import org.bukkit.potion.PotionEffectType
 import org.bukkit.potion.PotionType
@@ -23,7 +24,10 @@ import world.icebear03.starlight.career.*
 import world.icebear03.starlight.career.spell.entry.farmer.Fisherman.CaughtRarity.*
 import world.icebear03.starlight.tool.mechanism.QTEProvider
 import world.icebear03.starlight.utils.effect
+import world.icebear03.starlight.utils.get
 import world.icebear03.starlight.utils.isDischarging
+import world.icebear03.starlight.utils.set
+import java.time.ZonedDateTime
 import java.util.*
 import kotlin.math.floor
 import kotlin.math.roundToInt
@@ -96,13 +100,29 @@ object Fisherman {
         val hook = event.hook
         val world = hook.world
         val loc = hook.location
+        val chunk = hook.location.chunk
+
+        val today = ZonedDateTime.now().dayOfMonth
+        val date = chunk["fish_date", PersistentDataType.INTEGER] ?: run {
+            chunk["fish_date", PersistentDataType.INTEGER] = today
+            -1
+        }
+        if (date != today) {
+            chunk["fish_amount", PersistentDataType.INTEGER] = 0
+            chunk["fish_date", PersistentDataType.INTEGER] = today
+        }
+        val dailyAmount = chunk["fish_amount", PersistentDataType.INTEGER] ?: 0
 
         if (qteing.containsKey(uuid)) {
-            val item = qteing[uuid]
+            val item = if (dailyAmount < 12) qteing[uuid] else ItemStack(TRASH.types.random())
             if (item == null) {
                 event.isCancelled = true
                 return
             } else {
+                if (dailyAmount >= 11)
+                    player.sendMessage("§b繁星工坊 §7>> 这个区块的鱼钓光啦，明天再来吧？")
+                chunk["fish_amount", PersistentDataType.INTEGER] = dailyAmount + 1
+
                 qteing.remove(uuid)
                 hook.remove()
                 if (player.isDischarging("收获涛声")) {
@@ -133,7 +153,6 @@ object Fisherman {
                 var exp = floor(1 + 6 * Math.random()).roundToInt()
                 if (player.meetRequirement("授人以渔"))
                     exp += 6
-                player.giveExp(exp)
             }
         }
 

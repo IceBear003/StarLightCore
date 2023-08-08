@@ -93,8 +93,10 @@ object Enchanter {
         "咒术工程".discharge { name, _ ->
             finish(name)
             val item = inventory.itemInMainHand
-            if (item.enchantments.isEmpty())
+            if (item.enchantments.isEmpty()) {
+                fail(name)
                 return@discharge "§a技能 ${display(name)} §7释放失败，因为手持物品没有附魔"
+            }
             val enchants = item.enchantments.toMutableMap()
             val toMaxLevel = mutableListOf<Enchantment>()
             val toExtraLevel = mutableListOf<Enchantment>()
@@ -115,6 +117,7 @@ object Enchanter {
                 item.addUnsafeEnchantment(enchant, enchants[enchant]!! + 1)
                 return@discharge "§a技能 ${display(name)} §7释放成功，附魔 §e${enchant.getI18nName()} §7等级突破最大级，消耗了§a1技能点"
             }
+            fail(name)
             "§a技能 ${display(name)} §7释放失败，因为手持物品附魔不可再升级，或是技能点不足以突破最大级"
         }
     }

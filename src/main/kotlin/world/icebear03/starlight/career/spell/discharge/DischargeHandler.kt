@@ -78,4 +78,9 @@ object DischargeHandler {
         val msg = finishMap[name]?.invoke(player, name, level) ?: return
         player.sendMessage("§a生涯系统 §7>> $msg")
     }
+
+    fun fail(player: Player, name: String) {
+        player.removeDischargeStamp(name)
+        player.removeCooldownStamp(name)
+    }
 }

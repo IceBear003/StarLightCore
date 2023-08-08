@@ -104,6 +104,7 @@ object RedstoneEngineer {
                 }
                 "§d顿悟 ${display(name)} §7释放成功，破坏了周围§a${locations.size}个§7红石机械"
             } else {
+                fail(name)
                 "§d顿悟 ${display(name)} §7释放失败，因为没有足够的红石粉"
             }
         }
@@ -113,7 +114,10 @@ object RedstoneEngineer {
             val item = inventory.itemInMainHand
             if (item.type == Material.LIGHTNING_ROD) {
                 val trace = rayTraceBlocks(50.0, FluidCollisionMode.NEVER)
-                val block = trace?.hitBlock ?: return@discharge "${display(name)} §7释放失败，因为没有指向§a50格§7内的地方"
+                val block = trace?.hitBlock ?: run {
+                    fail(name)
+                    return@discharge "${display(name)} §7释放失败，因为没有指向§a50格§7内的地方"
+                }
                 if (item.amount == 1) inventory.setItemInMainHand(ItemStack(Material.AIR))
                 else item.amount -= 1
                 var rate = 0.1
@@ -127,6 +131,7 @@ object RedstoneEngineer {
                 } else
                     "§d顿悟 ${display(name)} §7释放失败，貌似这次没有引发雷电"
             } else {
+                fail(name)
                 "§d顿悟 ${display(name)} §7释放失败，因为手里没有避雷针"
             }
         }

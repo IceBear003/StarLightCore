@@ -55,6 +55,7 @@ object Teacher {
                 giveExp(20)
                 "§d顿悟 ${display(name)} §7释放成功，获得§a20点§7经验"
             } else {
+                fail(name)
                 "§d顿悟 ${display(name)} §7释放失败，因为周围没有讲台"
             }
         }

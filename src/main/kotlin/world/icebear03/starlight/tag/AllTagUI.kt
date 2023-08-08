@@ -38,7 +38,7 @@ object AllTagUI {
                     "private" -> TagLibrary.tags.values.filter { it.owner != null }
                     "activity" -> TagLibrary.tags.values.filter { it.activity != null }
                     "special" -> TagLibrary.tags.values.filter { it.owner == null && it.activity == null }
-                    else -> TagLibrary.tags.values.toList()
+                    else -> TagLibrary.tags.values.filter { it.owner == null }
                 }
             }
 

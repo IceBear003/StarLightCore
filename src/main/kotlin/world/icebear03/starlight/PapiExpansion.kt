@@ -12,6 +12,7 @@ import world.icebear03.starlight.station.mechanism.StaminaModifier
 import world.icebear03.starlight.station.mechanism.StationMechanism
 import world.icebear03.starlight.station.station
 import world.icebear03.starlight.tag.PlayerTag
+import world.icebear03.starlight.tool.info.CareerChart
 import world.icebear03.starlight.tool.mechanism.AFK
 import world.icebear03.starlight.tool.mechanism.NearestPlayer
 import world.icebear03.starlight.utils.*
@@ -44,7 +45,7 @@ object PapiExpansion : PlaceholderExpansion {
             }
 
             val state = if (player.isDischarging(name)) {
-                val stamp = dischargeStamp[player.uniqueId]!![name]!!
+                val stamp = dischargeStamp[player.uniqueId]!![name] ?: return ""
                 val period = (System.currentTimeMillis() - stamp) / 1000.0
                 if (duration != -1) {
                     "&e✷ &7(&b${(duration - period).format(1)}秒&7)"
@@ -59,6 +60,14 @@ object PapiExpansion : PlaceholderExpansion {
             }
 
             return "$int &7- ${display(name)} &7> $state"
+        }
+
+
+        if (args.startsWith("career_chart_")) {
+            val int = args.replace("career_chart_", "").toInt() - 1
+            val pair = CareerChart.rank(int)
+            val color = CareerChart.rankColor(int + 1)
+            return "&a${pair.second} ${color.colored()}${pair.first}"
         }
 
         if (args.startsWith("career_resonating_")) {
@@ -104,6 +113,7 @@ object PapiExpansion : PlaceholderExpansion {
 
             "daily_online_time" -> player["daily_time", PersistentDataType.INTEGER]?.secToFormattedTime() ?: "0秒"
             "is_afking" -> if (!AFK.isAFKing(player)) "&a在线" else "&e挂机中"
+            "name_color" -> CareerChart.rankColor(CareerChart.chart.indexOfFirst { it.first == player.uniqueId } + 1)
 
             else -> args
         }

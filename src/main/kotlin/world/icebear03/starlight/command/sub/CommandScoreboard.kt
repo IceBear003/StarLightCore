@@ -7,7 +7,7 @@ import world.icebear03.starlight.tool.info.ScoreboardSwitcher
 
 val commandScoreboard = subCommand {
     dynamic("scoreboard") {
-        suggestionUncheck<Player> { _, _ -> listOf("default", "shortcut", "station", "nothing", "resonate") }
+        suggestionUncheck<Player> { _, _ -> listOf("default", "shortcut", "station", "nothing", "resonate", "chart") }
         execute<Player> { sender, ctx, _ ->
             ScoreboardSwitcher.switch(sender, ctx["scoreboard"])
         }
