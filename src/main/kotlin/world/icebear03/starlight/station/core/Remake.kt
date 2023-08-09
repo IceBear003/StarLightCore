@@ -7,7 +7,7 @@ import world.icebear03.starlight.station.setStamina
 import world.icebear03.starlight.station.station
 
 fun Player.remakeStamina() {
-    setStamina(1800.0)
+    setStamina(2000.0)
     station().deleteFromWorld()
     station().level = 1
     station().stamp = System.currentTimeMillis() - 100000000

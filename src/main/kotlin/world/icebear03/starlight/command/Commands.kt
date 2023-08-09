@@ -68,4 +68,7 @@ object Commands {
 
     @CommandBody(permission = "starlight.op")
     val rewardLocation = commandRewardLocation
+
+    @CommandBody(permission = "starlight.fix")
+    val fix = commandFix
 }

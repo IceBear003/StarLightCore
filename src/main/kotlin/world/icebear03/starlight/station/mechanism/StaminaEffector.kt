@@ -13,7 +13,7 @@ object StaminaEffector {
     @SubscribeEvent
     fun jump(event: PlayerJumpEvent) {
         val player = event.player
-        if (player.stamina().stamina !in 1600.0..1800.0)
+        if (player.stamina().stamina !in 1750.0..2000.0)
             return
         if (!player.isSprinting)
             return

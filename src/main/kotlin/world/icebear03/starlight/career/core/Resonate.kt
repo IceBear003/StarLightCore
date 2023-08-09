@@ -3,6 +3,7 @@ package world.icebear03.starlight.career.core
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
 import taboolib.common.platform.function.submit
+import taboolib.module.chat.colored
 import taboolib.platform.util.onlinePlayers
 import world.icebear03.starlight.career
 import world.icebear03.starlight.career.core.branch.Branch
@@ -12,6 +13,7 @@ import world.icebear03.starlight.career.getBranch
 import world.icebear03.starlight.career.getSpell
 import world.icebear03.starlight.career.meetRequirement
 import world.icebear03.starlight.career.spell.entry.scholar.Teacher
+import world.icebear03.starlight.tag.PlayerTag
 import java.util.*
 
 object Resonate {
@@ -25,6 +27,12 @@ object Resonate {
                 val result = searchResonate(it)
                 resonateSpellMap[it.uniqueId] = result.first
                 resonateBranchMap[it.uniqueId] = result.second
+
+                if (result.second.size >= 3) {
+                    if (!PlayerTag.addTag(it, "余音绕梁")) {
+                        it.sendMessage("§b繁星工坊 §7>> 这么多人的共鸣，结合起来也是一番华美的乐章呢……(获得称号${"&{#ae7cff}余音绕梁".colored()}§7)")
+                    }
+                }
             }
         }
     }

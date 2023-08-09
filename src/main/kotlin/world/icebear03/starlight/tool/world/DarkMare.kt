@@ -31,6 +31,9 @@ object DarkMare {
                     return@forEach
                 if (RespawnProtection.isInProtection(player, 10))
                     return@forEach
+                if (player.meetRequirement("暗夜行者"))
+                    if (player.world.time in 12500..23000)
+                        return@forEach
 
                 var extraTime = 0
                 var lessDamage = 0.0

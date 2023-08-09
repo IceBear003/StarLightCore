@@ -1,0 +1,82 @@
+skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOWZhZjUxMjU4ZjE0NTUwMTUxNzE1NzM4ODkzZjc0YWRmNWUwMTY5Zjk4OTBmZDY2N2NkMzg0MTM2NTFjOTdhNCJ9fX0="
+color: "&{#C00000}"
+description:
+  - "&7剿除魑魅魍魉，守望黑夜微光"
+  - " "
+  - "&7分支基础效果："
+  - "&7使用&b剑、斧、弓&7可以造成&b全额伤害"
+  - "&7对&b怪物*&7的伤害 &a+30%"
+  - "&7生命值低于 &a10点 (5♥) &7时获得&b力量I&7效果"
+  - " "
+  - "&7带*部分的详细解释请参见&b服务器Wiki"
+skills:
+  除魅使命:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTVkMTQ2MmQ0NDc4MDU4YjZhMDFiNTI5NjExODUyYzZhMjE4NzAzOGFhMDY0NTY2NzI2ZDViNzI1ODMwNDdkNyJ9fX0="
+    color: "&{#C00000}"
+    type: PASSIVE
+    description:
+      1:
+        - "&7对&b怪物*&7的伤害 &a+40%"
+      2:
+        - "&7对&b怪物*&7的伤害 &a+50%"
+      3:
+        - "&7对&b怪物*&7的伤害 &a+60%"
+  浴血强攻:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTNhMzk2MGM4Nzk0NzQwMTdjMGNhM2M4MGY2ZWU3M2NmODg2ZTAwZTg5YzkwMmEzZWU4OTNkZDI4NDk1MzVjMCJ9fX0="
+    color: "&{#C00000}"
+    type: ACTIVE
+    cooldown: 30
+    description:
+      1:
+        - "&7获得 &a10秒 &7的&b力量I&7效果"
+        - "&7若生命值不高于 &a20点 (10♥) "
+        - "&7则变为 &a10秒 &b力量II&7效果"
+      2:
+        - "&7获得 &a12秒 &7的&b力量I&7效果"
+        - "&7若生命值不高于 &a20点 (10♥) "
+        - "&7则变为 &a12秒 &b力量III&7效果"
+      3:
+        - "&7获得 &a15秒 &7的&b力量II&7效果"
+        - "&7若生命值不高于 &a20点 (10♥) "
+        - "&7则变为 &a15秒 &b力量III&7效果"
+  我即梦魇:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmVhMTZiZjU4ZGE0MTBhZjI4NDMyNTExYTA5ZjRlODlhMzJhZmE2NDdlZjgwMDNhMWYxZWQxN2ViZGJlYzRlZCJ9fX0="
+    color: "&{#C00000}"
+    type: ACTIVE
+    cooldown: 600
+    duration: 45+level*15
+    description:
+      1:
+        - "&7使周围 &a16格 &7内所有&b怪物&7获得 &a30秒 &7的&b发光&7和&b缓慢I"
+        - "&7对&b怪物&7造成的伤害额外 &a+20%"
+      2:
+        - "&7使周围 &a24格 &7内所有&b怪物&7获得 &a40秒 &7的&b发光&7和&b缓慢I"
+        - "&7对&b怪物&7造成的伤害额外 &a+30%"
+      3:
+        - "&7使周围 &a32格 &7内所有&b怪物&7获得 &a50秒 &7的&b发光&7和&b缓慢I"
+        - "&7对&b怪物&7造成的伤害额外 &a+40%"
+  #继续添加
+eurekas:
+  斩首:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWRjZjJjMTk4ZjYxZGY1YTZkMGJhOTdkYmY5MGMzMzc5OTU0MDVjMTczOTZjMDE2Yzg1ZjZmM2ZlYTUyYzkwNiJ9fX0="
+    color: "&{#C00000}"
+    description:
+      - "&7杀死以下怪物时有一定几率&b掉落&7其头颅："
+      - "&b凋零骷髅、末影龙 &7- &a5%"
+      - "&b骷髅、僵尸、苦力怕 &7- &a2%"
+      - "&b猪灵 &7- &a1%"
+    type: PASSIVE
+  暗夜行者:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOGQ0NDc1NmUwYjRlY2U4ZDc0NjI5NmEzZDVlMjk3ZTE0MTVmNGJhMTc2NDdmZmUyMjgzODUzODNkMTYxYTkifX19"
+    color: "&{#C00000}"
+    description:
+      - "&7在夜晚时&b不再受黑暗环境影响"
+      - "&c但在白天时生命上限 &a-12点 (6♥)"
+    type: PASSIVE
+  圣洁泉源:
+    skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTdjNjZmNWE0YjQwODAwNWIzMzZkYTY2NzZlOGY2YTJhNjdlZWEzMTVmYjdlOTEzNjBhY2MwNDc4MDJmYTMyMCJ9fX0="
+    color: "&{#C00000}"
+    cooldown: 60
+    description:
+      - "&b清除&7周围 &a4格 &7内所有玩家的负面效果*"
+    type: ACTIVE

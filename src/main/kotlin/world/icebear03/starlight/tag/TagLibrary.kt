@@ -27,6 +27,8 @@ object TagLibrary {
                 tags[id] = tag
             }
         }
+
+        SpecialTagGiver.initialize()
     }
 
     fun reloadAllTags() {

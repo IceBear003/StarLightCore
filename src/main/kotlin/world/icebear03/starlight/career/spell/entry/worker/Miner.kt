@@ -4,9 +4,10 @@ import org.bukkit.Bukkit
 import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.block.data.type.Light
+import org.bukkit.entity.ArmorStand
 import org.bukkit.entity.EntityType
-import org.bukkit.entity.Shulker
 import org.bukkit.event.player.PlayerItemDamageEvent
+import org.bukkit.inventory.ItemStack
 import org.bukkit.potion.PotionEffectType
 import org.bukkit.scoreboard.Team
 import taboolib.common.platform.event.SubscribeEvent
@@ -17,6 +18,7 @@ import world.icebear03.starlight.career.spell.handler.internal.HandlerType
 import world.icebear03.starlight.utils.effect
 import world.icebear03.starlight.utils.getBlockAside
 import world.icebear03.starlight.utils.isDischarging
+import world.icebear03.starlight.utils.skull
 import java.util.*
 
 
@@ -64,8 +66,17 @@ object Miner {
         Material.DEEPSLATE_GOLD_ORE to ChatColor.YELLOW,
         Material.ANCIENT_DEBRIS to ChatColor.DARK_GRAY
     )
+    val skulls = mutableMapOf(
+        Material.DIAMOND_ORE to "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMWYxNzhhM2U3MDU4YTEzYWFjNTBkMTkyOWE1NGQ0ODRkYmRmZmMwMzg1MzI0YzE5YjE4ZGZlMzQ0MWI0Yzc5ZSJ9fX0=",
+        Material.DEEPSLATE_DIAMOND_ORE to "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMWYxNzhhM2U3MDU4YTEzYWFjNTBkMTkyOWE1NGQ0ODRkYmRmZmMwMzg1MzI0YzE5YjE4ZGZlMzQ0MWI0Yzc5ZSJ9fX0=",
+        Material.EMERALD_ORE to "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU1ZGJjNDllODE4OGRhMWI5MzYwNzJkNDViYzdjMTNiNDJhMGE0YzA2MjRiMjEwNThhYTNmNTI4Mzk1NWI4ZSJ9fX0=",
+        Material.DEEPSLATE_EMERALD_ORE to "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU1ZGJjNDllODE4OGRhMWI5MzYwNzJkNDViYzdjMTNiNDJhMGE0YzA2MjRiMjEwNThhYTNmNTI4Mzk1NWI4ZSJ9fX0=",
+        Material.GOLD_ORE to "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTEyZjI1NWRlOTU5OGQ1ZDJmOGViZmNmYzBlMTgzNTdhMzI4MWM1Y2JlMGEwMjZkYTMxZmE2YzRmMTQzN2M1In19fQ==",
+        Material.DEEPSLATE_GOLD_ORE to "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTEyZjI1NWRlOTU5OGQ1ZDJmOGViZmNmYzBlMTgzNTdhMzI4MWM1Y2JlMGEwMjZkYTMxZmE2YzRmMTQzN2M1In19fQ==",
+        Material.ANCIENT_DEBRIS to "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjMyMGNlMzJmYWEyN2Q1MDQzNmQ1NWZkODg0ZDJlN2VmYjEwODcwZmY2MTllM2I1Y2M4MjczNjYyNzk3YzgyZCJ9fX0="
+    )
 
-    val shulkers = mutableListOf<UUID>()
+    val armorStands = mutableListOf<UUID>()
     val coloredTeams = mutableMapOf<ChatColor, Team>()
 
     fun initialize() {
@@ -158,17 +169,23 @@ object Miner {
                 val loc = block.location
                 val type = block.type
                 val color = colors[type]!!
-                val shulker = block.world.spawnEntity(loc, EntityType.SHULKER) as Shulker
+                val armorStand = block.world.spawnEntity(loc.add(0.5, -1.0, 0.5), EntityType.ARMOR_STAND) as ArmorStand
 
-                shulker.isInvulnerable = true
-                shulker.isSilent = true
-                shulker.setAI(false)
-                shulker.setGravity(false)
-                shulker.isGlowing = true
-                shulker.isInvisible = true
-                shulker.effect(PotionEffectType.INVISIBILITY, 30, 1)
-                shulkers += shulker.uniqueId
-                coloredTeams[color]!!.addEntry(shulker.uniqueId.toString())
+                val equipment = armorStand.equipment
+
+                equipment?.helmet = ItemStack(Material.PLAYER_HEAD).skull(skulls[type]!!)
+                armorStand.setBasePlate(false)
+                armorStand.setArms(false)
+                armorStand.isCollidable = false
+                armorStand.isMarker = true
+                armorStand.isInvulnerable = true
+                armorStand.isInvisible = true
+                armorStand.isGlowing = true
+                armorStand.setAI(false)
+                armorStand.setGravity(false)
+
+                armorStands += armorStand.uniqueId
+                coloredTeams[color]!!.addEntry(armorStand.uniqueId.toString())
 
                 "§d顿悟 ${display(name)} §7释放成功，最近的高价值矿物已高亮"
             } else {
@@ -184,10 +201,10 @@ object Miner {
                     player.effect(PotionEffectType.DAMAGE_RESISTANCE, 2, 1)
                 }
             }
-            shulkers.forEach { uid ->
-                val shulker = Bukkit.getEntity(uid) ?: return@forEach
-                if (shulker.ticksLived >= 600)
-                    shulker.remove()
+            armorStands.forEach { uid ->
+                val armorStand = Bukkit.getEntity(uid) ?: return@forEach
+                if (armorStand.ticksLived >= 600)
+                    armorStand.remove()
             }
         }
 

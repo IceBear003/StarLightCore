@@ -5,9 +5,9 @@ import taboolib.module.chat.colored
 import kotlin.math.max
 import kotlin.math.min
 
-data class Stamina(var stamina: Double = 1800.0) {
+data class Stamina(var stamina: Double = 2000.0) {
     fun addStamina(amount: Double) {
-        stamina = min(stamina + amount, 1800.0)
+        stamina = min(stamina + amount, 2000.0)
     }
 
     fun takeStamina(amount: Double) {
@@ -15,13 +15,13 @@ data class Stamina(var stamina: Double = 1800.0) {
     }
 
     fun set(amount: Double) {
-        stamina = max(min(amount, 1800.0), 0.0)
+        stamina = max(min(amount, 2000.0), 0.0)
     }
 
     fun display(): String {
-        if (stamina in 1600.0..1800.0)
+        if (stamina in 1750.0..2000.0)
             return "&{#18fe00}".colored() + stamina.format(1)
-        if (stamina in 1000.0..1600.0)
+        if (stamina in 1000.0..1750.0)
             return "&{#a3fe00}".colored() + stamina.format(1)
         if (stamina in 750.0..1000.0)
             return "&{#eafe00}".colored() + stamina.format(1)

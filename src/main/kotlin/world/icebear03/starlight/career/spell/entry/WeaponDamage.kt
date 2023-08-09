@@ -58,7 +58,7 @@ object WeaponDamage {
         }
 
         if (player.meetRequirement("士兵", 0)) {
-            val count = player.inventory.armorContents.count { it.type != Material.AIR }
+            val count = player.inventory.armorContents.count { it?.type != Material.AIR }
             if (count >= 4) {
                 event.damage -= 2.0
             }
@@ -105,21 +105,24 @@ object WeaponDamage {
                 !player.meetRequirement("工具制造商", 0) &&
                 !player.meetRequirement("探险家", 0) &&
                 !player.meetRequirement("武器专家", 0) &&
-                !player.meetRequirement("士兵", 0)
+                !player.meetRequirement("士兵", 0) &&
+                !player.meetRequirement("怪物猎人", 0)
             )
                 event.damage *= 0.5
 
         if (usingSword)
             if (!player.meetRequirement("探险家", 0) &&
                 !player.meetRequirement("武器专家", 0) &&
-                !player.meetRequirement("士兵", 0)
+                !player.meetRequirement("士兵", 0) &&
+                !player.meetRequirement("怪物猎人", 0)
             )
                 event.damage *= 0.5
 
         if (usingBow)
             if (!player.meetRequirement("探险家", 0) &&
                 !player.meetRequirement("武器专家", 0) &&
-                !player.meetRequirement("士兵", 0)
+                !player.meetRequirement("士兵", 0) &&
+                !player.meetRequirement("怪物猎人", 0)
             )
                 event.damage *= 0.5
 
@@ -180,7 +183,7 @@ object WeaponDamage {
             }
         }
 
-        val level = player.spellLevel("军事训练")
+        var level = player.spellLevel("军事训练")
         if (level >= 0 && damaged is Player)
             event.damage *= 1.0 + 0.1 * level
 
@@ -193,6 +196,15 @@ object WeaponDamage {
                 it.career().resonantBranch?.name == "士兵"
             }
             event.damage += minOf(3.0, count * 0.75)
+        }
+
+        level = player.spellLevel("除魅使命")
+        if (level >= 0 && damaged is Monster) {
+            var rate = 0.2 + 0.1 * level
+            if (player.isDischarging("我即梦魇")) {
+                rate += 0.1 + 0.1 * player.spellLevel("我即梦魇")
+            }
+            event.damage *= 1.0 + rate
         }
     }
 }

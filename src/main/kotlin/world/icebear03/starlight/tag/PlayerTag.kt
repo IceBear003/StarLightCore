@@ -10,9 +10,13 @@ import world.icebear03.starlight.utils.set
 
 object PlayerTag {
 
-    fun addTag(player: Player, id: String) {
+    //是否已经有了
+    fun addTag(player: Player, id: String): Boolean {
         val string = player["tags", PersistentDataType.STRING] ?: ""
-        player["tags", PersistentDataType.STRING] = "$string$id,"
+        return if (!string.contains(id)) {
+            player["tags", PersistentDataType.STRING] = "$string$id,"
+            false
+        } else true
     }
 
     fun removeTag(player: Player, id: String) {

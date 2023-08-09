@@ -33,6 +33,7 @@ taboolib {
     classifier = null
     version = "6.0.11-31"
 
+    options("keep-kotlin-module")
     relocate("org.serverct.parrot.parrotx", "world.icebear03.starlight.taboolib.parrotx")
 }
 

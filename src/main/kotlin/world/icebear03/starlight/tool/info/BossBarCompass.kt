@@ -13,11 +13,13 @@ import org.bukkit.event.player.PlayerQuitEvent
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
+import taboolib.module.chat.colored
 import taboolib.platform.util.onlinePlayers
 import world.icebear03.starlight.command.sub.rewardLocation
 import world.icebear03.starlight.stamina
 import world.icebear03.starlight.station.mechanism.NearestStation
 import world.icebear03.starlight.station.station
+import world.icebear03.starlight.tag.PlayerTag
 import world.icebear03.starlight.tool.mechanism.NearestPlayer
 import java.util.*
 import kotlin.math.abs
@@ -38,6 +40,9 @@ object BossBarCompass {
                         val distance = loc.distance(player.location)
                         if (distance <= 10) {
                             rewardLocation = null
+                            if (!PlayerTag.addTag(player, "寻宝侦探")) {
+                                player.sendMessage("§b繁星工坊 §7>> 终于赶到了罗盘上的标记地点……(获得称号${"&{#8bffbd}寻宝侦探".colored()}§7)")
+                            }
                             onlinePlayers.forEach {
                                 it.sendMessage("§b繁星工坊 §7>> §e${player.name} §7找到了随机生成的奖励箱！")
                             }
@@ -71,7 +76,7 @@ object BossBarCompass {
         )
         bar.removeFlag(BarFlag.CREATE_FOG)
 
-        val percent = player.stamina().stamina / 1800.0
+        val percent = player.stamina().stamina / 2000.0
         bar.progress = percent
         if (percent in 0.0..0.28)
             bar.color = BarColor.RED

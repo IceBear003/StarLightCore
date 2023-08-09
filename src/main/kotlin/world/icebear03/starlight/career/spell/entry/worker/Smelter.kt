@@ -80,7 +80,7 @@ object Smelter {
 
         shapedRecipe(
             NamespacedKey.minecraft("career_netherite_ingot"),
-            ItemStack(Material.NETHERITE_INGOT),
+            ItemStack(Material.NETHERITE_BLOCK),
             listOf("aba", "cbc", "ddd"),
             'a' to Material.IRON_BLOCK,
             'b' to Material.GOLD_BLOCK,

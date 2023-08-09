@@ -39,7 +39,7 @@ object StarLightCore : Plugin() {
             it.sendMessage("§b繁星工坊 §7>> 服务器正在重载...")
             it.kickPlayer("服务器重启")
         }
-        Miner.shulkers.forEach { uid ->
+        Miner.armorStands.forEach { uid ->
             Bukkit.getEntity(uid)?.remove()
         }
     }

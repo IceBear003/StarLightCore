@@ -29,7 +29,7 @@ object AFK {
                     QTEProvider.sendQTE(
                         player,
                         QTEProvider.QTEDifficulty.HARD,
-                        QTEProvider.QTEType.THREE_TIMES,
+                        QTEProvider.QTEType.ONE_TIME,
                         {
                             checking -= player.uniqueId
                             if (it != QTEProvider.QTEResult.ACCEPTED) {

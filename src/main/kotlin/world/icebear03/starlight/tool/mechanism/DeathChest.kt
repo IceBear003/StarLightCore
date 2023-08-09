@@ -11,7 +11,9 @@ import org.bukkit.persistence.PersistentDataType
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
+import taboolib.module.chat.colored
 import world.icebear03.starlight.career
+import world.icebear03.starlight.tag.PlayerTag
 import world.icebear03.starlight.utils.get
 import world.icebear03.starlight.utils.has
 import world.icebear03.starlight.utils.set
@@ -109,6 +111,10 @@ object DeathChest {
         }
 
         opening += player.uniqueId
+
+        if (!PlayerTag.addTag(player, "上一世代")) {
+            player.sendMessage("§b繁星工坊 §7>> 它们是什么时候留下来的？(获得称号${"&{#b29c6e}上一世代".colored()}§7)")
+        }
 
         val exp = maxOf(0, minecart["death_chest_level", PersistentDataType.INTEGER]!!)
         minecart["death_chest_level", PersistentDataType.INTEGER] = 0

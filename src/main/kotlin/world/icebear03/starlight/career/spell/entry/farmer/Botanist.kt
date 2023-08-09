@@ -1,6 +1,7 @@
 package world.icebear03.starlight.career.spell.entry.farmer
 
 import org.bukkit.Material
+import org.bukkit.block.data.Ageable
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockFertilizeEvent
 import org.bukkit.event.block.BlockPlaceEvent
@@ -79,9 +80,13 @@ object Botanist {
             return@addLowestListener true to null
         }
 
-        crops.keys.toList().addHighListener(HandlerType.BREAK) { _, player, type ->
+        crops.keys.toList().addHighListener(HandlerType.BREAK) { event, player, type ->
             val level = player.spellLevel("合理密植")
             val rate = 0.1 + 0.05 * level
+            val block = (event as BlockBreakEvent).block
+            val ageable = block.blockData as Ageable
+            if (ageable.age != ageable.maximumAge)
+                return@addHighListener null
             if (level >= 0 && Math.random() <= rate) {
                 player.giveItem(ItemStack(crops[type]!!))
                 "§a技能 ${display("合理密植")} §7使得本次收割时获得额外作物"

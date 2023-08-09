@@ -23,6 +23,7 @@ import world.icebear03.starlight.career
 import world.icebear03.starlight.career.core.branch.Branch
 import world.icebear03.starlight.career.core.spell.Spell
 import world.icebear03.starlight.career.getBranch
+import world.icebear03.starlight.tag.PlayerTag
 import world.icebear03.starlight.utils.YamlUpdater
 import world.icebear03.starlight.utils.get
 import world.icebear03.starlight.utils.set
@@ -164,7 +165,8 @@ object BranchUI {
             val spell = args[1] as Spell
             val career = player.career()
 
-            val state = if (!career.hasBranch(spell.branch)) "&c未解锁分支" else "&a已解锁 &e${career.getSpellLevel(spell)}级"
+            val state =
+                if (!career.hasBranch(spell.branch)) "&c未解锁分支" else "&a已解锁 &e${career.getSpellLevel(spell)}级"
 
             icon.modifyMeta<ItemMeta> {
                 this["mark", PersistentDataType.STRING] = spell.name
@@ -329,7 +331,10 @@ object BranchUI {
             if (career.getSpellLevel(name) == 1) {
                 BindUI.open(player, name)
             } else {
-                player.sendMessage("§a生涯系统 §7>> " + career.upgradeSpell(name).second)
+                val result = career.upgradeSpell(name)
+                if (result.first && !PlayerTag.addTag(player, "灵光一现"))
+                    player.sendMessage("§a生涯系统 §7>> 你脑中闪过一道光——这便是顿悟了(获得称号${"&{#fffc67}灵光一现".colored()}§7)")
+                player.sendMessage("§a生涯系统 §7>> " + result.second)
                 open(player, args[0].toString())
             }
         }
