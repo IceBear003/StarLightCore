@@ -46,7 +46,9 @@ object Baker {
 
         food.addHighListener(HandlerType.CRAFT) { _, player, type ->
             if (player.meetRequirement("预热烤箱", 3) && Math.random() <= 0.1) {
-                player.giveItem(ItemStack(type))
+                if (player.meetRequirement("幸运曲奇") && type == Material.COOKIE) {
+                    player.giveItem(fortuneCookie.clone())
+                } else player.giveItem(ItemStack(type))
                 "合成烘培/汤煲食品时额外获得了产物"
             } else null
         }
@@ -109,14 +111,16 @@ object Baker {
             val craftEvent = event as CraftItemEvent
             val item = craftEvent.currentItem!!
             if (player.meetRequirement("幸运曲奇")) {
-                craftEvent.currentItem = item.modifyMeta<ItemMeta> {
-                    setDisplayName("&{#ffd965}幸运曲奇".colored())
-                    lore = listOf("§8| ${"&{#426AB3}".colored()}安迪§7和§f白熊§7钦点的曲奇", "§8| §7吃下去有奇效")
-                    this["fortune_cookie", PersistentDataType.INTEGER] = 0
-                }
+                craftEvent.currentItem = fortuneCookie.clone()
             }
             null
         }
+    }
+
+    val fortuneCookie = ItemStack(Material.COOKIE).modifyMeta<ItemMeta> {
+        setDisplayName("&{#ffd965}幸运曲奇".colored())
+        lore = listOf("§8| ${"&{#426AB3}".colored()}安迪§7和§f白熊§7钦点的曲奇", "§8| §7吃下去有奇效")
+        this["fortune_cookie", PersistentDataType.INTEGER] = 0
     }
 
     val prays = listOf(

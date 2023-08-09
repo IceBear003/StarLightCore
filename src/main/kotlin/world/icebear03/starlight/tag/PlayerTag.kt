@@ -1,7 +1,9 @@
 package world.icebear03.starlight.tag
 
 import org.bukkit.entity.Player
+import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.persistence.PersistentDataType
+import taboolib.common.platform.event.SubscribeEvent
 import world.icebear03.starlight.utils.get
 import world.icebear03.starlight.utils.remove
 import world.icebear03.starlight.utils.set
@@ -33,5 +35,13 @@ object PlayerTag {
 
     fun currentTag(player: Player): Tag? {
         return TagLibrary.getTag(player["current_tag", PersistentDataType.STRING] ?: "")
+    }
+
+    @SubscribeEvent
+    fun join(event: PlayerJoinEvent) {
+        val player = event.player
+        if (tagList(player).find { it.id == "跋涉者" } == null) {
+            addTag(player, "跋涉者")
+        }
     }
 }

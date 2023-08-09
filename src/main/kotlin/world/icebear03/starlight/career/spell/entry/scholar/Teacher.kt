@@ -40,6 +40,7 @@ object Teacher {
         val tmp = listOf(Material.BOOKSHELF, Material.LECTERN)
         addLimit(HandlerType.PLACE, "教师" to 0, *tmp.toTypedArray())
         addLimit(HandlerType.CRAFT, "教师" to 0, *tmp.toTypedArray())
+        addLimit(HandlerType.DROP_IF_BREAK, "教师" to 0, Material.LECTERN)
 
         "学术沙龙".discharge { name, level ->
             saloning[uniqueId] = 4 + 3 * level

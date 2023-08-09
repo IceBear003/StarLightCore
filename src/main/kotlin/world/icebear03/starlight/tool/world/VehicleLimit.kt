@@ -5,7 +5,7 @@ import org.bukkit.event.vehicle.VehicleEnterEvent
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 
-object MinecartLimit {
+object VehicleLimit {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     fun getOn(event: VehicleEnterEvent) {

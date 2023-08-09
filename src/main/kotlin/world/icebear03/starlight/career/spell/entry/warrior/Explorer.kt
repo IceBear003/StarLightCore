@@ -39,7 +39,7 @@ object Explorer {
                 }
             )
             val heal = 4 + 4 * level
-            if (health == maxHealth && foodLevel >= 20)
+            if (health >= maxHealth - 1.0 && foodLevel >= 19)
                 effect(PotionEffectType.SPEED, 75, if (level >= 3) 3 else 2)
             if (health != maxHealth)
                 health = minOf(health + heal, maxHealth)

@@ -45,7 +45,7 @@ object PointUI {
 
     val otherWays = listOf(
         "钓鱼" to (listOf(
-            "0.025%/次",
+            "0.05%/次",
             "",
             "${display("农夫")} &7×2.0"
         ) to "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmRlOTE2MmY2MzBlZWMzZWMyZDVjMWE2OWY5YTc5YzFhNTExYjI3YTM2ZWZhOTg2NmMyYzBiOGFiNmJhZmExMyJ9fX0="),

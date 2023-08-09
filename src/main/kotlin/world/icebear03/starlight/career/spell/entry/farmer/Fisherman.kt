@@ -2,9 +2,7 @@ package world.icebear03.starlight.career.spell.entry.farmer
 
 import org.bukkit.Material
 import org.bukkit.Particle
-import org.bukkit.entity.Guardian
-import org.bukkit.entity.Item
-import org.bukkit.entity.Player
+import org.bukkit.entity.*
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.player.PlayerFishEvent
 import org.bukkit.inventory.ItemStack
@@ -146,13 +144,20 @@ object Fisherman {
 
                 val dropped = world.dropItem(loc, item)
                 val direction = player.eyeLocation.subtract(loc).toVector().normalize()
-                submit {
-                    dropped.pickupDelay = 0
-                    dropped.velocity = direction
-                }
+
                 var exp = floor(1 + 6 * Math.random()).roundToInt()
                 if (player.meetRequirement("授人以渔"))
                     exp += 6
+                if (CaughtRarity.getRarity(item) == TRASH)
+                    exp /= 2
+                val orb = player.world.spawnEntity(player.location, EntityType.EXPERIENCE_ORB) as ExperienceOrb
+
+
+                submit {
+                    dropped.pickupDelay = 0
+                    dropped.velocity = direction
+                    orb.experience = maxOf(1, exp)
+                }
             }
         }
 

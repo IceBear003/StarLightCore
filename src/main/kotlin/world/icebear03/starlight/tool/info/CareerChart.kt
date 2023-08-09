@@ -27,11 +27,11 @@ object CareerChart {
         }
 
         submit(period = 20L) {
-            val online = onlinePlayers.map { it.uniqueId to (it["career_time", PersistentDataType.INTEGER] ?: 0) }
-            val sorted =
-                (chart.filter {
-                    it.first?.let { !Bukkit.getOfflinePlayer(it).isOnline } ?: true
-                } + online).sortedBy { 1e9 - it.second }
+            val online = onlinePlayers.filter { !it.isOp }
+                .map { it.uniqueId to (it["career_time", PersistentDataType.INTEGER] ?: 0) }
+            val sorted = (chart.filter {
+                it.first?.let { !Bukkit.getOfflinePlayer(it).isOnline } ?: true
+            } + online).sortedBy { 1e9 - it.second }
 
             chart = sorted.subList(0, 10)
 

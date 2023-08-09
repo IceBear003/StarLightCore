@@ -100,7 +100,8 @@ object Miner {
             var loc = location
             submit(period = 5L) {
                 if (!isDischarging(name)) {
-                    loc.block.type = Material.AIR
+                    if (loc.block.type == Material.LIGHT)
+                        loc.block.type = Material.AIR
                     cancel()
                     return@submit
                 }
@@ -111,7 +112,8 @@ object Miner {
                     return@submit
 
                 if (newBlock.type == Material.AIR) {
-                    oldBlock.type = Material.AIR
+                    if (oldBlock.type == Material.LIGHT)
+                        oldBlock.type = Material.AIR
                     loc = newLoc
                     newBlock.type = Material.LIGHT
                     val light = newBlock.blockData as Light

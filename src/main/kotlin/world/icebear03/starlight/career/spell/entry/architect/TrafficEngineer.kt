@@ -130,15 +130,19 @@ object TrafficEngineer {
         if (entity !is Player)
             return
 
-        if (!entity.meetRequirement("交通工程师", 0))
+        try {
+            if (!entity.meetRequirement("交通工程师", 0))
+                return
+        } catch (unload: Exception) {
             return
+        }
 
         val vehicle = event.vehicle
 
         if (vehicle is Boat)
-            vehicle.maxSpeed = vehicle.maxSpeed * 1.2
+            vehicle.maxSpeed *= 1.2
         if (vehicle is Minecart)
-            vehicle.maxSpeed = vehicle.maxSpeed * 1.2
+            vehicle.maxSpeed *= 1.2
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
