@@ -217,6 +217,7 @@ object RecipeBookUI {
         return when (type) {
             Material.NETHERITE_BLOCK -> "下界合金块"
             Material.NETHERITE_INGOT -> "下界合金锭"
+            Material.COPPER_INGOT -> "铜锭"
             Material.CRYING_OBSIDIAN -> "哭泣的黑曜石"
             else -> getI18nName()
         }

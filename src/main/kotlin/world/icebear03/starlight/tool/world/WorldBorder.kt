@@ -57,7 +57,11 @@ object WorldBorder {
             world.getHighestBlockAt(loc).location
         } else {
             val max = world.worldBorder.size * 0.2
-            val block = world.getHighestBlockAt((max * Math.random()).roundToInt(), (max * Math.random()).roundToInt())
+            val section = listOf(-1 to 1, 1 to 1, -1 to -1, 1 to -1).random()
+            val block = world.getHighestBlockAt(
+                (max * section.first * Math.random()).roundToInt(),
+                (max * section.second * Math.random()).roundToInt()
+            )
             block.location
         }
     }

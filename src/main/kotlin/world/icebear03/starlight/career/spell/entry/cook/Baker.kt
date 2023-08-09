@@ -176,7 +176,7 @@ object Baker {
                     player.giveItem(ItemStack(Material.DIAMOND))
                 val index = floor(prays.size * Math.random()).roundToInt()
                 val pray = prays[index]
-                player.sendMessage("§6幸运曲奇 §7>> ${"&{#426AB3}".colored()}安迪§7&§f白熊 §7> $pray")
+                player.sendMessage("§6幸运曲奇 §7>> $pray")
                 var current =
                     player["pray_collected_amount", PersistentDataType.INTEGER_ARRAY] ?: listOf<Int>().toIntArray()
                 if (!current.contains(index)) {

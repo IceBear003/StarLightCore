@@ -26,5 +26,6 @@ object ToolManager {
         CareerOnline.initialize()
         DeathPunishment.initialize()
         CareerChart.initialize()
+        BorderWarning.initialize()
     }
 }

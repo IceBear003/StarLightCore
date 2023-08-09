@@ -98,26 +98,35 @@ object Miner {
         "不灭矿灯".discharge { name, level ->
             val intensity = 6 + level * 3
             var loc = location
+            var lastType = loc.block.type
             submit(period = 5L) {
+                val oldBlock = loc.block
+                val newLoc = location
+                val newBlock = newLoc.block
+
                 if (!isDischarging(name)) {
-                    if (loc.block.type == Material.LIGHT)
-                        loc.block.type = Material.AIR
+                    if (oldBlock.type == Material.LIGHT)
+                        oldBlock.type = lastType
                     cancel()
                     return@submit
                 }
-                val newLoc = location
-                val oldBlock = loc.block
-                val newBlock = newLoc.block
+
                 if (oldBlock.location == newBlock.location)
                     return@submit
 
-                if (newBlock.type == Material.AIR) {
+                val isWaterLogged = newBlock.type == Material.WATER
+
+                if (newBlock.type == Material.AIR || isWaterLogged) {
                     if (oldBlock.type == Material.LIGHT)
-                        oldBlock.type = Material.AIR
+                        oldBlock.type = lastType
                     loc = newLoc
+                    lastType = newBlock.type
                     newBlock.type = Material.LIGHT
+
                     val light = newBlock.blockData as Light
                     light.level = intensity
+                    light.isWaterlogged = isWaterLogged
+                    newBlock.blockData = light
                 }
             }
             "§a技能 ${display(name)} §7释放成功，一段时间内将会自带光源"

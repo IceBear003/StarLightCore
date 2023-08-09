@@ -1,6 +1,7 @@
 package world.icebear03.starlight.tool.mechanism
 
 import org.bukkit.Bukkit
+import org.bukkit.GameMode
 import taboolib.common.platform.function.submit
 import java.util.*
 import kotlin.math.roundToInt
@@ -18,6 +19,8 @@ object NearestPlayer {
                     var target = "无"
                     world.players.forEach other@{ other ->
                         if (other.uniqueId == player.uniqueId)
+                            return@other
+                        if (other.gameMode != GameMode.SURVIVAL)
                             return@other
                         val otherLoc = other.location
                         val tmp = loc.distance(otherLoc)

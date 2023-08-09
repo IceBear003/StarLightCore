@@ -25,7 +25,7 @@ object DarkMare {
                     return@forEach
                 if (player.hasPotionEffect(PotionEffectType.NIGHT_VISION))
                     return@forEach
-                if (player.world.environment == World.Environment.THE_END)
+                if (player.world.environment != World.Environment.NORMAL)
                     return@forEach
                 if (player.isDead)
                     return@forEach

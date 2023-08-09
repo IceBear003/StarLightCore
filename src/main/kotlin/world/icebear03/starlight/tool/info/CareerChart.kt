@@ -33,7 +33,7 @@ object CareerChart {
                 it.first?.let { !Bukkit.getOfflinePlayer(it).isOnline } ?: true
             } + online).sortedBy { 1e9 - it.second }
 
-            chart = sorted.subList(0, 10)
+            chart = sorted.subList(0, minOf(10, sorted.size))
 
             for (i in 0 until 10) {
                 val pair = chart[i]
@@ -55,7 +55,7 @@ object CareerChart {
 
     fun rankColor(index: Int): String {
         return when (index) {
-            1 -> "&{#a58fff}"
+            1 -> "<g:#6EABFF:#D076FF>"
             2 -> "&{#e18fff}"
             3 -> "&{#ff8fe1}"
             4, 5 -> "&{#ff8f8f}"

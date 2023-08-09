@@ -2,10 +2,12 @@ package world.icebear03.starlight.career.spell.entry.farmer
 
 import org.bukkit.Material
 import org.bukkit.Particle
+import org.bukkit.enchantments.Enchantment
 import org.bukkit.entity.*
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.player.PlayerFishEvent
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.meta.Damageable
 import org.bukkit.inventory.meta.PotionMeta
 import org.bukkit.persistence.PersistentDataType
 import org.bukkit.potion.PotionData
@@ -112,13 +114,15 @@ object Fisherman {
         val dailyAmount = chunk["fish_amount", PersistentDataType.INTEGER] ?: 0
 
         if (qteing.containsKey(uuid)) {
-            val item = if (dailyAmount < 12) qteing[uuid] else ItemStack(TRASH.types.random())
+            var item = qteing[uuid]
             if (item == null) {
                 event.isCancelled = true
                 return
             } else {
-                if (dailyAmount >= 11)
+                if (dailyAmount >= 11) {
                     player.sendMessage("§b繁星工坊 §7>> 这个区块的鱼钓光啦，明天再来吧？")
+                    item = ItemStack(TRASH.types.random())
+                }
                 chunk["fish_amount", PersistentDataType.INTEGER] = dailyAmount + 1
 
                 qteing.remove(uuid)
@@ -165,6 +169,22 @@ object Fisherman {
         if (hooked !is Item) return
         if (event.state != PlayerFishEvent.State.CAUGHT_FISH) return
         event.isCancelled = true
+
+        event.hand?.let { player.inventory.getItem(it) }?.let {
+            it.modifyMeta<Damageable> {
+                val durabilityLevel = getEnchantLevel(Enchantment.DURABILITY)
+                val rate = when (durabilityLevel) {
+                    1 -> 0.85
+                    2 -> 0.7
+                    3 -> 0.55
+                    4 -> 0.4
+                    else -> 1.0
+                }
+                if (Math.random() <= rate)
+                    damage += 1
+            }
+        }
+
 
         val caught = hooked.itemStack
         val rarity = CaughtRarity.getRarity(caught)

@@ -2,7 +2,7 @@ plugins {
     `java-library`
     `maven-publish`
     id("io.izzel.taboolib") version "1.56"
-    id("org.jetbrains.kotlin.jvm") version "1.5.31"
+    id("org.jetbrains.kotlin.jvm") version "1.9.0"
 }
 
 taboolib {
@@ -42,6 +42,7 @@ repositories {
 
 dependencies {
     implementation("com.google.code.gson:gson:2.8.9")
+    implementation(files("/lib/TrChat.jar"))
 
     compileOnly("ink.ptms:nms-all:1.0.0")
     compileOnly("ink.ptms.core:v12001:12001:mapped")

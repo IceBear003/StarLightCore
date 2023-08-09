@@ -73,7 +73,7 @@ object WeaponDamage {
             val count = player.getNearbyEntities(4.0, 4.0, 4.0).filterIsInstance<Player>().count {
                 it.career().resonantBranch?.name == "士兵"
             }
-            event.damage -= count
+            event.damage -= minOf(3.0, count * 0.75)
         }
     }
 
@@ -192,7 +192,7 @@ object WeaponDamage {
             val count = player.getNearbyEntities(4.0, 4.0, 4.0).filterIsInstance<Player>().count {
                 it.career().resonantBranch?.name == "士兵"
             }
-            event.damage += count
+            event.damage += minOf(3.0, count * 0.75)
         }
     }
 }

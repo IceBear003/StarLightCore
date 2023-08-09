@@ -1,5 +1,6 @@
 package world.icebear03.starlight
 
+import me.arasple.mc.trchat.util.color.colorify
 import org.bukkit.entity.Player
 import org.bukkit.persistence.PersistentDataType
 import taboolib.common5.format
@@ -62,12 +63,11 @@ object PapiExpansion : PlaceholderExpansion {
             return "$int &7- ${display(name)} &7> $state"
         }
 
-
         if (args.startsWith("career_chart_")) {
             val int = args.replace("career_chart_", "").toInt() - 1
             val pair = CareerChart.rank(int)
             val color = CareerChart.rankColor(int + 1)
-            return "&a${pair.second} ${color.colored()}${pair.first}"
+            return "&a${pair.second} ${(color + pair.first).colorify()}"
         }
 
         if (args.startsWith("career_resonating_")) {
