@@ -17,6 +17,7 @@ import org.bukkit.inventory.EquipmentSlot
 import org.bukkit.inventory.ItemStack
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
+import taboolib.common.platform.function.submit
 import taboolib.platform.util.countItem
 import taboolib.platform.util.giveItem
 import world.icebear03.starlight.career.*
@@ -133,25 +134,34 @@ object Rancher {
         }
 
         if (animal.isBreedItem(main.type) || animal.isBreedItem(off.type)) {
-            if (!player.meetRequirement("牧场主", 0)) {
-                event.isCancelled = true
-                player.sendMessage("§a生涯系统 §7>> 无法喂养/繁殖，需要解锁 ${display("牧场主")}")
-            } else player.giveExp(1)
+            if (animal.loveModeTicks >= 0)
+                return
 
-            val level = player.spellLevel("动物育种")
-            val rate = if (level == 3) 0.02 else 0.005 * level
-            if (Math.random() <= rate) {
-                val egg = ItemStack(
-                    Material.valueOf(animal.type.toString() + "_SPAWN_EGG")
-                )
-                player.giveItem(egg)
-                player.sendMessage("§a生涯系统 §7>> §a技能 ${display("动物育种")} §7使得本次喂养时获得刷怪蛋")
-            }
+            val mainAmount = main.amount
+            val offAmount = off.amount
+            submit {
+                if (main.amount == mainAmount || off.amount == offAmount) {
+                    if (!player.meetRequirement("牧场主", 0)) {
+                        event.isCancelled = true
+                        player.sendMessage("§a生涯系统 §7>> 无法喂养/繁殖，需要解锁 ${display("牧场主")}")
+                    } else player.giveExp(1)
 
-            if (player.isDischarging("饲料调配") && !animal.isAdult) {
-                player.finish("饲料调配")
-                animal.setAdult()
-                player.sendMessage("§a生涯系统 §7>> §a技能 ${display("动物育种")} §7使得本次喂养时动物立刻长大")
+                    val level = player.spellLevel("动物育种")
+                    val rate = if (level == 3) 0.02 else 0.005 * level
+                    if (Math.random() <= rate) {
+                        val egg = ItemStack(
+                            Material.valueOf(animal.type.toString() + "_SPAWN_EGG")
+                        )
+                        player.giveItem(egg)
+                        player.sendMessage("§a生涯系统 §7>> §a技能 ${display("动物育种")} §7使得本次喂养时获得刷怪蛋")
+                    }
+
+                    if (player.isDischarging("饲料调配") && !animal.isAdult) {
+                        player.finish("饲料调配")
+                        animal.setAdult()
+                        player.sendMessage("§a生涯系统 §7>> §a技能 ${display("动物育种")} §7使得本次喂养时动物立刻长大")
+                    }
+                }
             }
         }
     }

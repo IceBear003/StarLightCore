@@ -17,12 +17,12 @@ object Lumberjack {
 
     val stems = listOf(Material.CRIMSON_STEM, Material.WARPED_STEM)
 
-    val logs = Material.values().filter {
+    val logs = Material.entries.filter {
         val string = it.toString()
-        string.contains("LOG") && !string.contains("STRIPPED")
+        string.contains("_LOG")
     } + stems
 
-    val woodenItems = Material.values().filter {
+    val woodenItems = Material.entries.filter {
         val string = it.toString()
         it.isFuel &&
                 !string.contains("WOOL") &&
@@ -41,7 +41,7 @@ object Lumberjack {
                 it != Material.CHARCOAL
     }
 
-    val woodenBlocks = Material.values().filter {
+    val woodenBlocks = Material.entries.filter {
         var flag = false
         try {
             val withoutWall = Material.valueOf(it.toString().replace("_WALL", ""))

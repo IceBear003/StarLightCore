@@ -36,6 +36,8 @@ object CareerChart {
             chart = sorted.subList(0, minOf(10, sorted.size))
 
             for (i in 0 until 10) {
+                if (i >= chart.size)
+                    break
                 val pair = chart[i]
                 if (pair.first != null) {
                     config["$i.uid"] = pair.first.toString()

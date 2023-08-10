@@ -69,7 +69,7 @@ object PointUI {
             "${display("战士")} &7×2.0"
         ) to "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTBkZmM4YTM1NjNiZjk5NmY1YzFiNzRiMGIwMTViMmNjZWIyZDA0Zjk0YmJjZGFmYjIyOTlkOGE1OTc5ZmFjMSJ9fX0="),
         "放置" to (listOf(
-            "0.002%/次",
+            "0.005%/次",
             "",
             "${display("建筑师")} &7×2.0"
         ) to "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzAxNmRlNjMwYWIyMGFmMjZiZDk1MjdkNjIyNzdiMTU1OGViZGY3MDk1OTdjMDM4ZmJjYTFlYjZhNWMwMWEzZiJ9fX0="),

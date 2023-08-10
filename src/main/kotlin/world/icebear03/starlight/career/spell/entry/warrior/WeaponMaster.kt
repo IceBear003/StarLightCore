@@ -25,6 +25,14 @@ object WeaponMaster {
         Material.DIAMOND_SWORD,
         Material.DIAMOND_AXE
     )
+    val netheriteItems = listOf(
+        Material.NETHERITE_HELMET,
+        Material.NETHERITE_CHESTPLATE,
+        Material.NETHERITE_LEGGINGS,
+        Material.NETHERITE_BOOTS,
+        Material.NETHERITE_SWORD,
+        Material.NETHERITE_AXE
+    )
 
     fun initialize() {
         addLimit(HandlerType.USE, "武器专家" to 0, Material.GRINDSTONE)
@@ -53,6 +61,9 @@ object WeaponMaster {
             return
         val crossbow = event.bow ?: return
         if (crossbow.type != Material.CROSSBOW)
+            return
+
+        if (event.projectile !is Arrow)
             return
 
         if (player.meetRequirement("武器专家", 0)) {

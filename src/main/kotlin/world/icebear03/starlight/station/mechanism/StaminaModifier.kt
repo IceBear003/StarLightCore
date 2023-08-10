@@ -24,7 +24,7 @@ object StaminaModifier {
         submit(period = 20L) {
             onlinePlayers.forEach { player ->
                 if (player.isSleeping)
-                    player.addStamina(0.5)
+                    player.addStamina(1.5)
 
                 val uuid = player.uniqueId
                 magnificationMap[uuid] = Magnification.getMagnification(player)
@@ -44,7 +44,7 @@ object StaminaModifier {
                 val distance = lastLoc.distance(currentLoc)
                 if (distance <= 0.02) {
                     resting += player.uniqueId
-                    player.addStamina(0.2)
+                    player.addStamina(0.5)
                 } else {
                     resting -= player.uniqueId
                     locationMap[uuid] = currentLoc

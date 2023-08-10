@@ -6,7 +6,7 @@ description:
   - "&7分支基础效果："
   - "&7使用&b剑、斧、弓&7可以造成&b全额伤害"
   - "&7对&b巨兽生物*&7造成的伤害 &a+50%"
-  - "&7体力损耗速率 &a-25%"
+  - "&7体力损耗速率 &a-10%"
   - "&7始终获得&b迅捷I&7效果"
   - " "
   - "&7带*部分的详细解释请参见&b服务器Wiki"
@@ -17,11 +17,11 @@ skills:
     type: PASSIVE
     description:
       1:
-        - "&7体力损耗速率 &a-30%"
+        - "&7体力损耗速率 &a-20%"
       2:
-        - "&7体力损耗速率 &a-40%"
+        - "&7体力损耗速率 &a-30%"
       3:
-        - "&7体力损耗速率 &a-50%"
+        - "&7体力损耗速率 &a-40%"
   探索者的行囊:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYmRmY2VlODMwNmUwNDM0YTc0NzcxMGUyYmRjMjU1OGM1YTIyMmU5YjY5MzQ3NzkwOWYxMGQ2Y2MyMjBmNjc2NCJ9fX0="
     color: "&{#FF7C80}"
@@ -67,7 +67,7 @@ eurekas:
     skull: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZjA4NDhkZDhjMTNiY2UxMzU4YzgxMGE4NzRhZTNhYzJjZThhYTYyMzg5Mzc1NTg4NGM3MjVjYjk5Yzg2In19fQ=="
     color: "&{#FF7C80}"
     description:
-      - "&7体力损耗速率 &a-70%"
+      - "&7体力损耗速率 &a-50%"
       - "&c但不再能放置&b驻扎信标"
     type: PASSIVE
   奔赴新边疆:

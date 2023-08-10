@@ -28,7 +28,11 @@ object Chef {
     fun initialize() {
         addLimit(HandlerType.USE, "主厨" to 0, Material.SMOKER)
 
-        listOf(Material.HOPPER, Material.DISPENSER, Material.DROPPER).addLowestListener(HandlerType.PLACE) { event, player, _ ->
+        listOf(
+            Material.HOPPER,
+            Material.DISPENSER,
+            Material.DROPPER
+        ).addLowestListener(HandlerType.PLACE) { event, player, _ ->
             val placeEvent = event as BlockPlaceEvent
             if (player.meetRequirement("主厨", 0))
                 return@addLowestListener true to null
@@ -37,7 +41,13 @@ object Chef {
             return@addLowestListener true to null
         }
 
-        addLimit(HandlerType.CRAFT, "主厨" to 0, Material.GOLDEN_APPLE, Material.GOLDEN_CARROT, Material.GLISTERING_MELON_SLICE)
+        addLimit(
+            HandlerType.CRAFT,
+            "主厨" to 0,
+            Material.GOLDEN_APPLE,
+            Material.GOLDEN_CARROT,
+            Material.GLISTERING_MELON_SLICE
+        )
 
         shapedRecipe(
             NamespacedKey.minecraft("career_enchanted_apple"),
@@ -77,7 +87,7 @@ object Chef {
             "§a技能 ${display(name)} §7使得下一次食用某些镀金食物时触发额外增益"
         }
 
-        Material.values().filter { it.isEdible }.addHighListener(HandlerType.CRAFT) { event, player, type ->
+        Material.entries.filter { it.isEdible }.addHighListener(HandlerType.SINTER) { event, player, type ->
             val level = player.spellLevel("精准火候")
             val rate = level * 0.1
             var amount = 0

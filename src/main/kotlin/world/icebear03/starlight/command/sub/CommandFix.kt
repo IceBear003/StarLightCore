@@ -11,41 +11,15 @@ import world.icebear03.starlight.utils.set
 
 val commandFix = subCommand {
     execute<Player> { sender, _, _ ->
-        Bukkit.getPlayer("Lonewolf_12138")?.let { player ->
+        Bukkit.getPlayer("xiaozhu_zty")?.let { player ->
             val career = player.career()
-            career.branches.clear()
-            career.shortCuts.clear()
-            career.classes.clear()
-            career.points = 0
-            career.autoDischarges.clear()
-            career.resonantBranch = null
-            career.spells.clear()
 
-            career.classes[getClass("学者")!!] = mutableListOf()
-            career.classes[getClass("农夫")!!] = mutableListOf()
-            career.classes[getClass("战士")!!] = mutableListOf()
-
-            career.points = 10 + 3 + 2 + 1 + 5
+            career.classes.remove(getClass("学者")!!)
+            career.classes.remove(getClass("农夫")!!)
+            career.classes[getClass("厨师")!!] = mutableListOf()
+            career.classes[getClass("建筑师")!!] = mutableListOf()
 
             player["career_time", PersistentDataType.INTEGER] = 86400
-        }
-        Bukkit.getPlayer("Tom_12138")?.let { player ->
-            val career = player.career()
-            career.branches.clear()
-            career.shortCuts.clear()
-            career.classes.clear()
-            career.points = 0
-            career.autoDischarges.clear()
-            career.resonantBranch = null
-            career.spells.clear()
-
-            career.classes[getClass("厨师")!!] = mutableListOf()
-            career.classes[getClass("农夫")!!] = mutableListOf()
-            career.classes[getClass("工人")!!] = mutableListOf()
-
-            career.points = 10 + 2 + 2 + 2 + 2
-
-            player["career_time", PersistentDataType.INTEGER] = 43200
         }
     }
 }

@@ -35,7 +35,7 @@ object AllTagUI {
             slots(slots)
             elements {
                 when (filter) {
-                    "private" -> TagLibrary.tags.values.filter { it.owner != null }
+                    "private" -> TagLibrary.tags.values.filter { it.owner != null && it.activity == null }
                     "activity" -> TagLibrary.tags.values.filter { it.activity != null }
                     "special" -> TagLibrary.tags.values.filter { it.owner == null && it.activity == null }
                     else -> TagLibrary.tags.values.filter { it.owner == null }

@@ -282,10 +282,10 @@ data class Career(
         val level = getBranchLevel(branch)
         if (level < 0)
             return false to "该§e职业分支§7未解锁"
-        if (points < level * 2 + 2) {
-            return false to "技能点不足"
+        if (points < level + 1) {
+            return false to "技能点不足，需要§a${level + 1}技能点"
         }
-        takePoint(level * 2 + 2)
+        takePoint(level + 1)
         classes[branch.clazz]!!.remove(branch)
         branches.remove(branch)
         branch.spells.forEach { (_, spell) ->

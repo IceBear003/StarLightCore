@@ -84,6 +84,8 @@ object Botanist {
             val level = player.spellLevel("合理密植")
             val rate = 0.1 + 0.05 * level
             val block = (event as BlockBreakEvent).block
+            if (block !is Ageable)
+                return@addHighListener null
             val ageable = block.blockData as Ageable
             if (ageable.age != ageable.maximumAge)
                 return@addHighListener null

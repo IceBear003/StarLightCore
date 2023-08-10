@@ -71,4 +71,7 @@ object Commands {
 
     @CommandBody(permission = "starlight.fix")
     val fix = commandFix
+
+    @CommandBody(permission = "starlight.exchangeexp")
+    val exchangeexp = commandExchangeExp
 }

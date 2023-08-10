@@ -178,7 +178,7 @@ object Enchanter {
                     val durability = item.type.maxDurability
                     item.modifyMeta<ItemMeta> {
                         if (this is Damageable) {
-                            damage = maxOf(0, (damage + 0.2 * durability).roundToInt())
+                            damage = maxOf(0, (damage - 0.2 * durability).roundToInt())
                         }
                     }
                     player.sendMessage(

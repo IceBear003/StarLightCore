@@ -54,7 +54,7 @@ object StationMechanism {
 
                     var add = halo * minOf(1.0, 1 - horizontalDistance / horizontal + 0.3)
                     if (player.uniqueId == station.ownerId)
-                        add *= 2
+                        add *= 1.5
                     if (!Bukkit.getOfflinePlayer(station.ownerId).isOnline)
                         add /= 2
 
