@@ -16,6 +16,7 @@ import java.util.*
 object CareerChart {
 
     var chart = listOf<Pair<UUID?, Int>>()
+    val ignored = listOf("Tom_12138", "Lonewolf_12138")
 
     fun initialize() {
         releaseResourceFile("tool/chart.yml", false)
@@ -27,7 +28,7 @@ object CareerChart {
         }
 
         submit(period = 20L) {
-            val online = onlinePlayers.filter { !it.isOp }
+            val online = onlinePlayers.filter { !it.isOp && !ignored.contains(it.name) }
                 .map { it.uniqueId to (it["career_time", PersistentDataType.INTEGER] ?: 0) }
             val sorted = (chart.filter {
                 it.first?.let { !Bukkit.getOfflinePlayer(it).isOnline } ?: true

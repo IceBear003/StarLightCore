@@ -20,6 +20,8 @@ object AFK {
                     return@forEach
                 if (isAFKing(player) || checking.contains(player.uniqueId))
                     return@forEach
+                if (player.isSleeping || player.isGliding)
+                    return@forEach
 
                 val ran = if (StaminaModifier.resting.contains(player.uniqueId)) 0.001 else 0.0002
 

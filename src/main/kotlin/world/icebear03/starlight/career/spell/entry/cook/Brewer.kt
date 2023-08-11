@@ -63,11 +63,11 @@ object Brewer {
 
         shapelessRecipe(
             NamespacedKey.minecraft("career_nether_native"),
-            ItemStack(Material.POTION).modifyMeta<PotionMeta> {
+            ItemStack(Material.POTION, 3).modifyMeta<PotionMeta> {
                 basePotionData = PotionData(PotionType.AWKWARD, false, false)
             },
             1 to Material.GLASS_BOTTLE,
-            3 to Material.NETHER_WART
+            2 to Material.NETHER_WART
         ).addSpecialRecipe("下界原住民")
 
         "过量服用".discharge { _, _ ->
@@ -95,7 +95,7 @@ object Brewer {
 
         shapelessRecipe(
             NamespacedKey.minecraft("career_brewer_in_war"),
-            ItemStack(Material.SPLASH_POTION).modifyMeta<PotionMeta> {
+            ItemStack(Material.SPLASH_POTION, 3).modifyMeta<PotionMeta> {
                 basePotionData = PotionData(PotionType.AWKWARD, false, false)
             },
             1 to Material.GLASS_BOTTLE,

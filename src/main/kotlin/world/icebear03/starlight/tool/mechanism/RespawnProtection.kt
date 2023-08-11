@@ -82,8 +82,15 @@ object RespawnProtection {
             player.sendMessage("               §7|—— 跑向死亡箱时获得§b速度§7效果")
 
         val randomLoc =
-            if (respawnType == RespawnType.DEATH && player.world.environment == World.Environment.NORMAL) {
-                val tmp = player.lastDeathLocation!!.clone().add(Math.random() * 1500.0, 0.0, Math.random() * 1500.0)
+            if (respawnType == RespawnType.DEATH &&
+                player.world.environment == World.Environment.NORMAL &&
+                player.lastDeathLocation != null
+            ) {
+                val tmp = player.lastDeathLocation!!.clone()
+                val section = listOf(-1 to 1, 1 to 1, -1 to -1, 1 to -1).random()
+                tmp.add(section.first * Math.random() * 1500.0, 0.0, section.second * Math.random() * 1500.0)
+                tmp.x = minOf(tmp.x, WorldBorder.current / 2)
+                tmp.z = minOf(tmp.z, WorldBorder.current / 2)
                 tmp.world!!.getHighestBlockAt(tmp).location.add(0.0, 2.0, 0.0)
             } else {
                 WorldBorder.randomLocation(world, player)

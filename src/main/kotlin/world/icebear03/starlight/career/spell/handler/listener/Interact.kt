@@ -1,5 +1,6 @@
 package world.icebear03.starlight.career.spell.handler.listener
 
+import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockDamageEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import taboolib.common.platform.event.EventPriority
@@ -52,9 +53,27 @@ object Interact {
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    fun block(event: BlockDamageEvent) {
+    fun damagebBlock(event: BlockDamageEvent) {
         val player = event.player
         val type = event.itemInHand.type
+
+        val useResult = EventHandler.checkLimit(HandlerType.USE, player, type)
+        if (!useResult.first) {
+            event.isCancelled = true
+            event.player.sendMessage("§a生涯系统 §7>> 无法使用此物品挖掘方块，需要解锁以下其中之一: ")
+            useResult.second.forEach {
+                player.sendMessage("               §7|—— $it")
+            }
+            return
+        }
+
+        event.isCancelled = !EventHandler.triggerLowest(event, type, HandlerType.USE, player)
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    fun breakBlock(event: BlockBreakEvent) {
+        val player = event.player
+        val type = player.inventory.itemInMainHand.type
 
         val useResult = EventHandler.checkLimit(HandlerType.USE, player, type)
         if (!useResult.first) {

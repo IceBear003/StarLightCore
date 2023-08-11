@@ -314,10 +314,16 @@ object CareerUI {
             val player = args[0] as Player
             val career = player.career()
 
-            val list = Resonate.resonateSpellMap[player.uniqueId]!!.map { (name, pair) ->
-                name.display() + " " + pair.second.toRoman() + "  &7来自 " + pair.first
+            val list = mutableListOf<String>()
+            Resonate.resonateBranchMap[player.uniqueId]!!.forEach { branch ->
+                list += branch.display() + " §7↓"
+                list += Resonate.resonateSpellMap[player.uniqueId]!!
+                    .filter { (spell, _) -> spell.branch == branch }
+                    .map { (name, pair) ->
+                        "  " + name.display() + " " + pair.second.toRoman() + "  &7来自 " + pair.first
+                    }
             }
-
+            
             val my = career.resonantBranch?.display() ?: "N/A"
 
             icon.variables {

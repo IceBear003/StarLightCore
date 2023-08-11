@@ -80,7 +80,7 @@ object Smelter {
 
         shapedRecipe(
             NamespacedKey.minecraft("career_netherite_ingot"),
-            ItemStack(Material.NETHERITE_BLOCK),
+            ItemStack(Material.NETHERITE_INGOT, 4),
             listOf("aba", "cbc", "ddd"),
             'a' to Material.IRON_BLOCK,
             'b' to Material.GOLD_BLOCK,
@@ -121,6 +121,16 @@ object Smelter {
                 player.sendMessage("§a生涯系统 §7>> 无法使用进阶燃料，需要解锁 ${display("烧炼师")}")
                 event.isCancelled = true
                 return
+            }
+            if (event.action == InventoryAction.HOTBAR_MOVE_AND_READD) {
+                val hotbar = event.hotbarButton
+                player.inventory.getItem(hotbar)?.type?.let {
+                    if (specialFuels.contains(type) && !player.meetRequirement("烧炼师", 0)) {
+                        player.sendMessage("§a生涯系统 §7>> 无法使用进阶燃料，需要解锁 ${display("烧炼师")}")
+                        event.isCancelled = true
+                        return
+                    }
+                }
             }
         }
 

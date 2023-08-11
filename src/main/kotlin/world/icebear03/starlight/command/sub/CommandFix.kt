@@ -6,20 +6,34 @@ import org.bukkit.persistence.PersistentDataType
 import taboolib.common.platform.command.subCommand
 import world.icebear03.starlight.career
 import world.icebear03.starlight.career.getClass
+import world.icebear03.starlight.utils.get
 import world.icebear03.starlight.utils.set
 
 
 val commandFix = subCommand {
-    execute<Player> { sender, _, _ ->
-        Bukkit.getPlayer("xiaozhu_zty")?.let { player ->
-            val career = player.career()
+    dynamic("mode") {
+        suggestionUncheck<Player> { _, _ -> listOf("Sherlock_Holms", "dabaodabao") }
+        execute<Player> { sender, ctx, _ ->
+            when (ctx["mode"]) {
+                "Sherlock_Holms" -> {
+                    Bukkit.getPlayer("Sherlock_Holms")?.let { player ->
+                        player["career_time", PersistentDataType.INTEGER] =
+                            5 * 3600 + (player["career_time", PersistentDataType.INTEGER] ?: 0)
+                    }
+                }
 
-            career.classes.remove(getClass("学者")!!)
-            career.classes.remove(getClass("农夫")!!)
-            career.classes[getClass("厨师")!!] = mutableListOf()
-            career.classes[getClass("建筑师")!!] = mutableListOf()
-
-            player["career_time", PersistentDataType.INTEGER] = 86400
+                "dabaodabao" -> {
+                    Bukkit.getPlayer("dabaodabao")?.let { player ->
+                        val career = player.career()
+                        career.remake(false)
+                        career.points = 4
+                        career.classes.clear()
+                        career.classes[getClass("学者")!!] = mutableListOf()
+                        career.classes[getClass("工人")!!] = mutableListOf()
+                        career.classes[getClass("建筑师")!!] = mutableListOf()
+                    }
+                }
+            }
         }
     }
 }

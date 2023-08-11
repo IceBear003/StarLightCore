@@ -37,7 +37,7 @@ object Teacher {
         }
 
     fun initialize() {
-        val tmp = listOf(Material.BOOKSHELF, Material.LECTERN)
+        val tmp = listOf(Material.BOOKSHELF, Material.CHISELED_BOOKSHELF, Material.LECTERN)
         addLimit(HandlerType.PLACE, "教师" to 0, *tmp.toTypedArray())
         addLimit(HandlerType.CRAFT, "教师" to 0, *tmp.toTypedArray())
         addLimit(HandlerType.DROP_IF_BREAK, "教师" to 0, Material.LECTERN)
@@ -77,6 +77,7 @@ object Teacher {
         val player = event.player
         val item = event.item!!
         if (item.itemMeta?.get("custom_item", PersistentDataType.STRING) == "career_skill_book") {
+            event.isCancelled = true
             if (player.meetRequirement("教师", 0)) {
                 player.sendMessage("§a生涯系统 §7>> 教师不能使用技能之书")
                 return
