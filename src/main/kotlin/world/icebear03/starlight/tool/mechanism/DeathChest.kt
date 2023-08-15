@@ -6,6 +6,7 @@ import org.bukkit.entity.minecart.StorageMinecart
 import org.bukkit.event.entity.PlayerDeathEvent
 import org.bukkit.event.inventory.InventoryCloseEvent
 import org.bukkit.event.inventory.InventoryOpenEvent
+import org.bukkit.event.player.PlayerJoinEvent
 import org.bukkit.inventory.ItemStack
 import org.bukkit.persistence.PersistentDataType
 import taboolib.common.platform.event.EventPriority
@@ -23,7 +24,7 @@ import kotlin.math.roundToInt
 
 object DeathChest {
 
-    @SubscribeEvent(priority = EventPriority.HIGH)
+    @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun death(event: PlayerDeathEvent) {
         val player = event.entity
         val loc = player.location
@@ -74,6 +75,13 @@ object DeathChest {
                 player.inventory.clear()
             }
         }
+    }
+
+    @SubscribeEvent(priority = EventPriority.MONITOR)
+    fun join(event: PlayerJoinEvent) {
+        val player = event.player
+        if (player.isDead)
+            player.spigot().respawn()
     }
 
     val opening = mutableListOf<UUID>()

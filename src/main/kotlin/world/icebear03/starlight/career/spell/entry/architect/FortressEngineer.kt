@@ -26,8 +26,8 @@ object FortressEngineer {
 
     val obsidianWalls = mutableMapOf<UUID, List<Location>>()
 
-    val bricks = Material.values().filter { it.toString().endsWith("_BRICKS") }
-    val walls = Material.values().filter { it.toString().endsWith("_WALL") }
+    val bricks = Material.entries.filter { it.toString().endsWith("_BRICKS") }
+    val walls = Material.entries.filter { it.toString().endsWith("_WALL") } + Material.IRON_BARS
     fun initialize() {
         addLimit(HandlerType.CRAFT, "堡垒工程师" to 0, *walls.toTypedArray())
         addLimit(HandlerType.DROP_IF_BREAK, "堡垒工程师" to 0, *bricks.toTypedArray())

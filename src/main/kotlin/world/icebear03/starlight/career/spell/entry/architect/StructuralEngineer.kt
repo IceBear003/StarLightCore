@@ -57,7 +57,7 @@ object StructuralEngineer {
         addLimit(HandlerType.CRAFT, "结构工程师" to 0, *dyedBlocks.toTypedArray())
         addLimit(HandlerType.DROP_IF_BREAK, "高效回收" to 2, *dyedBlocks.toTypedArray())
         addLimit(HandlerType.CRAFT, "结构工程师" to 0, *glassBlocks.toTypedArray())
-        addLimit(HandlerType.CRAFT, "结构工程师" to 0, *glassBlocks.toTypedArray())
+        addLimit(HandlerType.SINTER, "结构工程师" to 0, *glassBlocks.toTypedArray())
         addLimit(HandlerType.DROP_IF_BREAK, "高效回收" to 3, *glassBlocks.toTypedArray())
         addLimit(
             HandlerType.CRAFT, "结构工程师" to 0, *listOf(

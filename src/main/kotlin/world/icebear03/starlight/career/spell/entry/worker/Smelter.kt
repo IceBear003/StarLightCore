@@ -91,7 +91,7 @@ object Smelter {
 
     val specialFuels = mutableListOf(Material.COAL, Material.COAL_BLOCK, Material.LAVA_BUCKET, Material.BLAZE_ROD)
 
-    @SubscribeEvent(priority = EventPriority.HIGH)
+    @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun sinter(event: InventoryClickEvent) {
         event.clickedInventory ?: return
 

@@ -1,6 +1,7 @@
 package world.icebear03.starlight.tool.mechanism
 
 import org.bukkit.entity.Player
+import org.bukkit.event.player.PlayerSwapHandItemsEvent
 import org.bukkit.event.player.PlayerToggleSneakEvent
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
@@ -15,7 +16,7 @@ import kotlin.math.roundToInt
 object QTEProvider {
 
     val waitingQTEs = mutableMapOf<UUID, MutableList<() -> Unit>>()
-    val shiftMap = mutableMapOf<UUID, Boolean>()
+    val responseMap = mutableMapOf<UUID, Boolean>()
 
     fun sendQTE(
         player: Player,
@@ -23,7 +24,7 @@ object QTEProvider {
         type: QTEType,
         function: Player.(result: QTEResult) -> Unit,
         title: String = "",
-        subtitle: String = "§7请完成下方校准 (在§e合适时机§7下蹲)"
+        subtitle: String = "在读条§e合适时机§b下蹲§7或§b交换副手物品"
     ) {
         //如果正在QTE了，就排队等
         if (isQTEing(player)) {
@@ -35,7 +36,7 @@ object QTEProvider {
         player.sendTitle(title, subtitle)
 
         val uuid = player.uniqueId
-        shiftMap[uuid] = false
+        responseMap[uuid] = false
 
         //格式
         val qteFormat = "&7>&f {bar} &7< (容错&e{chance}次&7)"
@@ -75,7 +76,7 @@ object QTEProvider {
                         ).colored()
                     )
                 } ?: function.invoke(player, QTEResult.UNABLE)
-                shiftMap.remove(uuid)
+                responseMap.remove(uuid)
                 //延迟，让玩家看到效果
                 submit(delay = 20L) {
                     waitingQTEs[player.uniqueId]?.let { qtes ->
@@ -105,13 +106,13 @@ object QTEProvider {
 
             //时间超了，或者玩家放弃了
             tot += difficulty.mag
-            if (tot >= ticks || !shiftMap.containsKey(uuid)) {
+            if (tot >= ticks || !responseMap.containsKey(uuid)) {
                 finish(QTEResult.REJECTED)
                 return@submit
             }
 
             //玩家响应了
-            if (shiftMap[uuid]!!) {
+            if (responseMap[uuid]!!) {
                 val intervalThisTime = when (chance) {
                     1 -> intervalStart
                     2 -> total * 2 - intervalStart - interval
@@ -128,7 +129,7 @@ object QTEProvider {
                         finish(QTEResult.REJECTED)
                         return@submit
                     }
-                    shiftMap[uuid] = false
+                    responseMap[uuid] = false
                 }
             }
 
@@ -154,14 +155,23 @@ object QTEProvider {
     }
 
     fun isQTEing(player: Player): Boolean {
-        return shiftMap.containsKey(player.uniqueId)
+        return responseMap.containsKey(player.uniqueId)
     }
 
     @SubscribeEvent
     fun shift(event: PlayerToggleSneakEvent) {
         val player = event.player
         if (!player.isSneaking && isQTEing(player)) {
-            shiftMap[player.uniqueId] = true
+            responseMap[player.uniqueId] = true
+            event.isCancelled = true
+        }
+    }
+
+    @SubscribeEvent
+    fun swap(event: PlayerSwapHandItemsEvent) {
+        val player = event.player
+        if (isQTEing(player)) {
+            responseMap[player.uniqueId] = true
             event.isCancelled = true
         }
     }

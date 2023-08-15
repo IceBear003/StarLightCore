@@ -4,11 +4,14 @@ import org.bukkit.event.enchantment.EnchantItemEvent
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import world.icebear03.starlight.career
+import world.icebear03.starlight.tool.mechanism.AFK
 
 object Enchant {
     @SubscribeEvent(priority = EventPriority.MONITOR, ignoreCancelled = true)
     fun enchant(event: EnchantItemEvent) {
         val player = event.enchanter
+        if (AFK.isAFKing(player))
+            return
         val career = player.career()
         val rate = if (career.hasClass("学者")) 0.005 else 0.0025
         if (Math.random() <= rate && event.whichButton() >= 1) {

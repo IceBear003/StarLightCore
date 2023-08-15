@@ -1,5 +1,7 @@
 package world.icebear03.starlight.career.spell.entry.scholar
 
+import org.bukkit.Bukkit
+import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.NamespacedKey
 import org.bukkit.enchantments.Enchantment
@@ -47,7 +49,7 @@ object Enchanter {
         ).addSpecialRecipe("青金术师")
 
         "附魔领域展开".discharge { name, _ ->
-            openEnchanting(null, true)
+            openEnchanting(Location(Bukkit.getWorld("world"), -2.5, 63.5, 0.5), true)
             finish(name)
             null
         }
@@ -125,15 +127,34 @@ object Enchanter {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     fun combine(event: PrepareAnvilEvent) {
         val inv = event.inventory
+        val first = inv.getItem(0) ?: return
         val second = inv.getItem(1) ?: return
 
         val player = event.viewers[0] as Player
 
         val enchants = second.getEnchants()
         if (enchants.isNotEmpty()) {
-            if (!player.meetRequirement("附魔师", 0) && !player.meetRequirement("武器专家", 0)) {
-                event.result = null
-                player.sendMessage("§a生涯系统 §7>> 需要 ${display("附魔师")}§7或${display("武器专家")} §7才能在铁砧中合并附魔物品")
+            if (!player.meetRequirement("附魔师", 0)) {
+                val type = first.type
+                val typeString = type.toString()
+                if (typeString.endsWith("_SWORD") ||
+                    typeString.endsWith("_AXE") ||
+                    typeString.endsWith("_HELMET") ||
+                    typeString.endsWith("_CHESTPLATE") ||
+                    typeString.endsWith("_LEGGINGS") ||
+                    typeString.endsWith("_BOOTS") ||
+                    type == Material.BOW ||
+                    type == Material.CROSSBOW ||
+                    type == Material.SHIELD
+                ) {
+                    if (!player.meetRequirement("武器专家", 0)) {
+                        event.result = null
+                        player.sendMessage("§a生涯系统 §7>> 需要 ${display("附魔师")}§7或${display("武器专家")} §7才能在铁砧中合并附魔武器/防具")
+                    }
+                } else {
+                    event.result = null
+                    player.sendMessage("§a生涯系统 §7>> 需要 ${display("附魔师")}§7才能在铁砧中合并附魔工具")
+                }
             }
         }
     }

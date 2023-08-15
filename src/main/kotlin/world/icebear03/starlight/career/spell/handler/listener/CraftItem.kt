@@ -7,6 +7,7 @@ import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import world.icebear03.starlight.career.spell.handler.EventHandler
 import world.icebear03.starlight.career.spell.handler.internal.HandlerType
+import world.icebear03.starlight.utils.isFull
 import world.icebear03.starlight.utils.takeItem
 
 object CraftItem {
@@ -15,6 +16,14 @@ object CraftItem {
         val item = event.currentItem ?: return
         val type = item.type
         val player = event.whoClicked as Player
+
+        if (player.inventory.isFull() &&
+            !event.action.toString().contains("DROP")
+        ) {
+            player.sendMessage("§b繁星工坊 §7>> 背包已满，请保证至少有一个空位")
+            event.isCancelled = true
+            return
+        }
 
         val craftResult = EventHandler.checkLimit(HandlerType.CRAFT, player, type)
         if (!craftResult.first) {
@@ -37,7 +46,7 @@ object CraftItem {
         }
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGH)
+    @SubscribeEvent(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun craftHigh(event: CraftItemEvent) {
         val type = event.currentItem?.type ?: return
         val player = event.whoClicked as Player

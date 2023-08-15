@@ -6,11 +6,14 @@ import org.bukkit.potion.PotionEffectType
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import world.icebear03.starlight.career
+import world.icebear03.starlight.tool.mechanism.AFK
 
 object Eat {
     @SubscribeEvent(priority = EventPriority.MONITOR, ignoreCancelled = true)
     fun eat(event: FoodLevelChangeEvent) {
         val player = event.entity as Player
+        if (AFK.isAFKing(player))
+            return
         val dValue = event.foodLevel - player.foodLevel
         val career = player.career()
         val rate = if (career.hasClass("厨师")) 0.0004 else 0.0002

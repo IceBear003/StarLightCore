@@ -23,7 +23,7 @@ object RedstoneEngineer {
     val machines = listOf(
         Material.DAYLIGHT_DETECTOR,
         Material.OBSERVER,
-        Material.SCULK_SENSOR,
+        Material.CALIBRATED_SCULK_SENSOR,
         Material.TRAPPED_CHEST,
         Material.COMPARATOR,
         Material.REPEATER,

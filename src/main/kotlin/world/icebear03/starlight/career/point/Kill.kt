@@ -6,6 +6,7 @@ import org.bukkit.event.entity.EntityDeathEvent
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import world.icebear03.starlight.career
+import world.icebear03.starlight.tool.mechanism.AFK
 
 object Kill {
     @SubscribeEvent(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -26,6 +27,8 @@ object Kill {
                     return
                 damager
             }
+        if (AFK.isAFKing(player))
+            return
 
         var rate = 0.0
         if (death is Animals)

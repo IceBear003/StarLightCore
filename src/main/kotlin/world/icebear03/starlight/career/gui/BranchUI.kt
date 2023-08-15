@@ -14,7 +14,6 @@ import org.serverct.parrot.parrotx.ui.feature.util.MenuFunctionBuilder
 import taboolib.module.chat.colored
 import taboolib.module.configuration.Config
 import taboolib.module.configuration.Configuration
-import taboolib.module.kether.compileToJexl
 import taboolib.module.ui.openMenu
 import taboolib.module.ui.type.Basic
 import taboolib.platform.util.modifyLore
@@ -24,10 +23,7 @@ import world.icebear03.starlight.career.core.branch.Branch
 import world.icebear03.starlight.career.core.spell.Spell
 import world.icebear03.starlight.career.getBranch
 import world.icebear03.starlight.tag.PlayerTag
-import world.icebear03.starlight.utils.YamlUpdater
-import world.icebear03.starlight.utils.get
-import world.icebear03.starlight.utils.set
-import world.icebear03.starlight.utils.toRoman
+import world.icebear03.starlight.utils.*
 
 @MenuComponent("Branch")
 object BranchUI {
@@ -62,25 +58,15 @@ object BranchUI {
                         slot, templates(
                             key, slot, 0, false, "Fallback",
                             *args.map {
-                                val string = it.toString()
-                                if (string.startsWith("expression="))
-                                    return@map string.replace("expression=", "").replace("tot", "$tot")
-                                        .compileToJexl().eval()
-                                if (string.startsWith("element=")) {
-                                    val index = string.replace("element=", "").replace("tot", "$tot")
-                                        .compileToJexl().eval() as Int
-                                    if (index >= elements.size && elements.isNotEmpty()) {
-                                        return
-                                    }
-                                    return@map elements[index]
+                                val sections = it.toString().split("=")
+                                when (sections[0]) {
+                                    "expression" -> sections[1].calcToInt("tot" to "$tot")
+                                    "element" ->
+                                        if (sections.size > 1) elements.getOrNull(sections[1].calcToInt("tot" to "$tot"))
+                                        else elements.getOrNull(tot)
+
+                                    else -> it
                                 }
-                                if (string == "element") {
-                                    if (tot >= elements.size && elements.isNotEmpty()) {
-                                        return
-                                    }
-                                    return@map elements[tot]
-                                }
-                                return@map it
                             }.toTypedArray()
                         )
                     )
@@ -101,6 +87,12 @@ object BranchUI {
                 }
             }
 
+            //ABC
+            //123
+            //123
+            //123
+
+
             val branch = getBranch(name)!!
 
             setSlots("Branch\$branch", listOf(), player, branch)
@@ -108,7 +100,7 @@ object BranchUI {
 
             branch.spells.filterValues { spell -> !spell.isEureka }.values.sortedBy { it.name }.let {
                 setSlots("Branch\$skill", it, player, "element")
-                setSlots("Branch\$level", it, player, "element=tot-tot/3*3", "expression=tot/3+1")
+                setSlots("Branch\$level", it, player, "element=tot%3", "expression=tot/3+1")
             }
 
             setSlots("Branch\$eureka_guide", listOf(), player, branch)

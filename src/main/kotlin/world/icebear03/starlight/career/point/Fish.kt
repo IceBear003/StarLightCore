@@ -2,10 +2,13 @@ package world.icebear03.starlight.career.point
 
 import org.bukkit.entity.Player
 import world.icebear03.starlight.career
+import world.icebear03.starlight.tool.mechanism.AFK
 
 object Fish {
     fun fish(player: Player) {
         val career = player.career()
+        if (AFK.isAFKing(player))
+            return
         val rate = if (career.hasClass("农夫")) 0.001 else 0.0005
         if (Math.random() <= rate) {
             career.addPoint(1)

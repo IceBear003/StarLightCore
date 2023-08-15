@@ -12,6 +12,8 @@ import org.bukkit.potion.PotionEffectType
 import org.bukkit.scoreboard.Team
 import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
+import taboolib.module.navigation.Fluid
+import taboolib.module.navigation.Fluid.Companion.getFluid
 import taboolib.platform.util.onlinePlayers
 import world.icebear03.starlight.career.*
 import world.icebear03.starlight.career.spell.handler.internal.HandlerType
@@ -125,9 +127,10 @@ object Miner {
                 if (oldBlock.location == newBlock.location)
                     return@submit
 
-                val isWaterLogged = newBlock.type == Material.WATER
+                val canPlace = newBlock.type == Material.WATER
+                val waterLogged = newBlock.getFluid() == Fluid.WATER
 
-                if (newBlock.type == Material.AIR || isWaterLogged) {
+                if (newBlock.type == Material.AIR || canPlace) {
                     if (oldBlock.type == Material.LIGHT)
                         oldBlock.type = lastType
                     loc = newLoc
@@ -136,7 +139,7 @@ object Miner {
 
                     val light = newBlock.blockData as Light
                     light.level = intensity
-                    light.isWaterlogged = isWaterLogged
+                    light.isWaterlogged = waterLogged
                     newBlock.blockData = light
                 }
             }

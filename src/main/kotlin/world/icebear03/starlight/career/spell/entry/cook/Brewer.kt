@@ -24,7 +24,7 @@ import world.icebear03.starlight.utils.isDischarging
 
 object Brewer {
     fun initialize() {
-        addLimit(HandlerType.USE, "药剂师" to 0, Material.BREWING_STAND)
+        addLimit(HandlerType.CRAFT, "药剂师" to 0, Material.BREWING_STAND)
 
         Material.SUSPICIOUS_STEW.addLowestListener(HandlerType.CRAFT) { _, player, _ ->
             if (!player.meetRequirement("药剂师", 0) && Math.random() <= 0.5) {

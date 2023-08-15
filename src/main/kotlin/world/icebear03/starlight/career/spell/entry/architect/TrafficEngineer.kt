@@ -47,6 +47,16 @@ object TrafficEngineer {
 
     fun initialize() {
         addLimit(HandlerType.CRAFT, "交通工程师" to 0, *rails.toTypedArray())
+        addLimit(
+            HandlerType.CRAFT,
+            "交通工程师" to 0,
+            *Material.entries.filter { it.toString().endsWith("_BOAT") }.toTypedArray()
+        )
+        addLimit(
+            HandlerType.CRAFT,
+            "交通工程师" to 0,
+            *Material.entries.filter { it.toString().endsWith("_MINECART") }.toTypedArray()
+        )
         addLimit(HandlerType.PLACE, "交通工程师" to 0, *rails.toTypedArray())
         addLimit(HandlerType.DROP_IF_BREAK, "交通工程师" to 0, *rails.toTypedArray())
         addLimit(HandlerType.CRAFT, "交通工程师" to 0, *minecarts.toTypedArray())

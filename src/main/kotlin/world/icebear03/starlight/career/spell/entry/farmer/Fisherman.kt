@@ -126,7 +126,6 @@ object Fisherman {
                 chunk["fish_amount", PersistentDataType.INTEGER] = dailyAmount + 1
 
                 qteing.remove(uuid)
-                hook.remove()
                 if (player.isDischarging("收获涛声")) {
                     player.finish("收获涛声")
                     val spellLevel = player.spellLevel("收获涛声")
@@ -147,7 +146,9 @@ object Fisherman {
                 }
 
                 val dropped = world.dropItem(loc, item)
-                val direction = player.eyeLocation.subtract(loc).toVector().normalize()
+                if (hook.hookedEntity is Item)
+                    hook.hookedEntity?.remove()
+                hook.hookedEntity = dropped
 
                 var exp = floor(1 + 6 * Math.random()).roundToInt()
                 if (player.meetRequirement("授人以渔"))
@@ -155,13 +156,7 @@ object Fisherman {
                 if (CaughtRarity.getRarity(item) == TRASH)
                     exp /= 2
                 val orb = player.world.spawnEntity(player.location, EntityType.EXPERIENCE_ORB) as ExperienceOrb
-
-
-                submit {
-                    dropped.pickupDelay = 0
-                    dropped.velocity = direction
-                    orb.experience = maxOf(1, exp)
-                }
+                orb.experience = maxOf(1, exp)
             }
         }
 

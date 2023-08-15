@@ -106,6 +106,8 @@ object Demolitionist {
         if (!player.meetRequirement("爆破师", 0)) {
             if (Math.random() >= 0.2) {
                 event.isCancelled = true
+                player.setCooldown(Material.FLINT_AND_STEEL, 5)
+                player.setCooldown(Material.FIRE_CHARGE, 5)
                 submit {
                     player.sendMessage("§a生涯系统 §7>> 使用打火石失败，请解锁§e职业分支 ${display("爆破师")} §7以提高成功率")
                 }
@@ -142,6 +144,9 @@ object Demolitionist {
         if (arrow is TippedArrow)
             return
 
+        if (arrow.isShotFromCrossbow)
+            return
+
         if (shooter.isDischarging("手摇TNT火炮"))
             submit {
                 arrow.location.shootPrimedTNT(arrow.velocity)
@@ -170,12 +175,12 @@ object Demolitionist {
             return
 
         if (entity.meetRequirement("爆破师", 0)) {
-            event.damage = event.damage * 0.8
+            event.damage *= 0.8
         }
 
         if (entity.isDischarging("气浪行者")) {
             val percent = 35 + 15 * entity.spellLevel("气浪行者")
-            event.damage = event.damage * (1 - percent / 100.0)
+            event.damage *= (1 - percent / 100.0)
         }
     }
 }

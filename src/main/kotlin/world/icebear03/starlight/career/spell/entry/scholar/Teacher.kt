@@ -8,6 +8,7 @@ import org.bukkit.persistence.PersistentDataType
 import org.serverct.parrot.parrotx.function.textured
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
+import taboolib.common.platform.function.submit
 import taboolib.platform.util.giveItem
 import taboolib.platform.util.isMainhand
 import taboolib.platform.util.isRightClick
@@ -84,13 +85,21 @@ object Teacher {
             }
             if (item.amount > 1) {
                 item.amount -= 1
-            } else player.inventory.setItemInMainHand(null)
+            } else {
+                submit {
+                    player.inventory.setItemInMainHand(null)
+                }
+            }
             player.career().addPoint(1)
             player.sendMessage("§a生涯系统 §7>> 从技能之书中获得了§a1技能点")
         }
+        val career = player.career()
         if (item.type == Material.BOOK && event.hasBlock() && player.isSneaking && player.meetRequirement("教师", 0)) {
+            if (!career.spells.any { it.key.isEureka }) {
+                player.sendMessage("§a生涯系统 §7>> 制作技能之书至少需要激活一个顿悟")
+                return
+            }
             val block = event.clickedBlock!!
-            val career = player.career()
             if (block.type == Material.LECTERN) {
                 val levelCost = when (player.spellLevel("教育学", false)) {
                     1 -> 37
@@ -110,7 +119,7 @@ object Teacher {
                     player.sendMessage("§a生涯系统 §7>> 缺少技能点或经验，无法制作技能之书")
                 }
             }
-            if (block.type == Material.BOOKSHELF) {
+            if (block.type == Material.BOOKSHELF || block.type == Material.CHISELED_BOOKSHELF) {
                 val rate = if (player.isDischarging("厚积薄发")) {
                     player.finish("厚积薄发")
                     player.spellLevel("厚积薄发") * 0.1

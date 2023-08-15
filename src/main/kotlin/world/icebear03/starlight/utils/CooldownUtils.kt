@@ -11,6 +11,7 @@ import taboolib.common.platform.event.SubscribeEvent
 import taboolib.common.platform.function.submit
 import taboolib.common5.format
 import taboolib.platform.util.onlinePlayers
+import world.icebear03.starlight.station.addStamina
 import world.icebear03.starlight.tool.mechanism.AFK
 import java.util.*
 
@@ -82,6 +83,8 @@ object CooldownData {
 
         val quitStamp = player["quit_stamp", PersistentDataType.LONG] ?: System.currentTimeMillis()
         val offlinePeriod = System.currentTimeMillis() - quitStamp
+        //懒得在stamina再加了，干脆写在这里了
+        player.addStamina(offlinePeriod / 1000 * 0.25)
         cooldown.toMap().forEach { (name, stamp) ->
             cooldown[name] = stamp + offlinePeriod
         }

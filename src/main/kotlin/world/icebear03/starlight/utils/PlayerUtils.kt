@@ -7,6 +7,7 @@ import org.bukkit.entity.Entity
 import org.bukkit.entity.LivingEntity
 import org.bukkit.entity.Player
 import org.bukkit.inventory.ItemStack
+import org.bukkit.inventory.PlayerInventory
 import org.bukkit.potion.PotionEffectType
 import taboolib.platform.util.countItem
 import taboolib.platform.util.takeItem
@@ -53,4 +54,12 @@ fun Player.performAsOp(command: String) {
     } finally {
         this.isOp = isOp
     }
+}
+
+fun PlayerInventory.isFull(): Boolean {
+    repeat(36) {
+        val type = getItem(it)?.type ?: return false
+        if (type == Material.AIR) return false
+    }
+    return true
 }

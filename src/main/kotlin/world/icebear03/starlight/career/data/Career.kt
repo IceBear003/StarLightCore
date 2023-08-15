@@ -194,14 +194,21 @@ data class Career(
             if (branchLevel == 10)
                 return false to "该§e职业分支§7已激活§d顿悟"
 
+            if (specialEurekas.contains(spell.name)) {
+                if (!hasOtherBranchesInClass(branch)) {
+                    return false to "请先激活同职业下的其他任一分支"
+                }
+                
+                points += 3
+                branches[branch]!![spell] = 1
+                spells[spell] = 1
+
+                return true to "成功激活§d顿悟§7 ${spell.display()} §7额外获得了 §a3技能点"
+            }
+
             takePoint(1)
             branches[branch]!![spell] = 1
             spells[spell] = 1
-
-            if (specialEurekas.contains(spell.name) && hasOtherBranchesInClass(branch)) {
-                points += 3
-                return true to "成功激活§d顿悟§7 ${spell.display()} §7额外获得了 §a3技能点"
-            }
 
             return true to "成功激活§d顿悟§7 ${spell.display()}"
         }

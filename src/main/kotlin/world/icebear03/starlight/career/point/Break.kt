@@ -6,6 +6,7 @@ import org.bukkit.event.block.BlockBreakEvent
 import taboolib.common.platform.event.EventPriority
 import taboolib.common.platform.event.SubscribeEvent
 import world.icebear03.starlight.career
+import world.icebear03.starlight.tool.mechanism.AFK
 import world.icebear03.starlight.utils.addCooldownStamp
 import world.icebear03.starlight.utils.checkCooldownStamp
 import world.icebear03.starlight.utils.getEnchants
@@ -17,6 +18,8 @@ object Break {
         val type = event.block.type
 
         val player = event.player
+        if (AFK.isAFKing(player))
+            return
         val career = player.career()
 
         if (player.inventory.itemInMainHand.getEnchants().containsKey(Enchantment.SILK_TOUCH))

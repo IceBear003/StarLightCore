@@ -54,8 +54,7 @@ object Lumberjack {
 
     fun initialize() {
         addLimit(HandlerType.USE, "伐木工" to 0, Material.DIAMOND_AXE, Material.NETHERITE_AXE)
-        addLimit(HandlerType.CRAFT, "伐木工" to 0, Material.DIAMOND_AXE, Material.NETHERITE_AXE)
-        addLimit(HandlerType.PLACE, "伐木工" to 0, Material.SCAFFOLDING)
+        addLimit(HandlerType.PLACE, "巨树攀登者" to 1, Material.SCAFFOLDING)
 
         logs.addLowestListener(HandlerType.DROP_IF_BREAK) { _, player, _ ->
             (if (!player.meetRequirement("伐木工", 0) && Math.random() > 0.2) {
